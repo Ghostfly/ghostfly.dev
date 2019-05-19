@@ -1,0 +1,83 @@
+window.polymerSkipLoadingFontRoboto = true;
+
+function dismiss(){
+  const handler = document.querySelector('#handler');
+  handler.parentElement.removeChild(handler);
+}
+
+function reload(){
+  location.reload();
+}
+
+function makeHandler(error = null){
+  const fragment = document.createElement('div');
+  fragment.id = fragment.class = "handler";
+  fragment.innerHTML = `
+  <div class="handler" id="handler">
+    ${error !== null ? `
+      <h4>
+        ${error.continue == true ? `
+          Oops.
+          ` : `
+          Erreur détectée, merci de recharger la page.
+          `}
+      </h4>
+      <p>${error.message}</p>
+      <div class="actions">
+        ${error.continue == true ? `<paper-button class="continue" onclick="dismiss()">Continuer</paper-button>` : ``}
+        ${error.reload == true ? `<paper-button class="reload" onclick="reload()" raised toggles>Recharger</paper-button>` : ``}
+      </div>
+    ` : `
+      <div id="spinner" class="spinner large">
+        <div class="spinner-wrapper">
+          <div class="rotator">
+            <div class="inner-spin"></div>
+            <div class="inner-spin"></div>
+          </div>
+        </div>
+      </div>
+    `}
+  </div>
+  `;
+  return fragment;
+}
+
+if(location.host.indexOf('localhost') === -1){
+  Sentry.init({ dsn: 'https://d30b47bca9684e61863a941f4bdb21a5@sentry.io/1443606' });
+}
+
+(() => {
+  document.addEventListener("DOMContentLoaded", function(event) {
+    if(location.hash.indexOf('redirect') !== -1){
+      const loader = document.querySelector('#handler');
+      if(loader){
+        loader.parentElement.removeChild(loader);
+      }
+    } else {
+      document.body.appendChild(makeHandler());
+    }
+  });
+
+  window.addEventListener('error', (event) => {
+    if(event.error && event.error.elara === true){ 
+      console.warn('Elara error ::', event.error);
+      event.preventDefault();
+      event.stopPropagation();
+      return; 
+    }
+    document.body.appendChild(makeHandler(event.error));
+  });
+
+  return customElements.whenDefined('iron-image').then(() => {
+      const loader = document.querySelector('#handler');
+      if(!loader) return;
+      window.requestAnimationFrame(() => {
+        const spinner = document.querySelector('#spinner');
+        if(spinner){
+          spinner.parentElement.removeChild(spinner);
+        }
+        loader.classList.add('hidden');
+        loader.parentElement.removeChild(loader);
+      });
+  });
+})();

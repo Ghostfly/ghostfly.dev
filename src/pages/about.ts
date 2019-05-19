@@ -26,8 +26,11 @@ class About extends LitElement implements Elara.Page {
             h2::first-letter { font-size: 1.2em }
             .cv { color: var(--elara-secondary); cursor: pointer; }
             .about { margin-bottom: 2em }
-            .prev, .next { cursor: pointer; font-weight: bold; }
+            .prev, .next { cursor: pointer; font-weight: bold; transition: color .3s;}
             .next { float: right }
+            .prev:hover, .next:hover {
+                color: var(--elara-primary);
+            }
         </style>
         <div class="about">
             <h1>${this.head.title}</h1>

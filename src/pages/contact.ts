@@ -79,7 +79,8 @@ class Contact extends LitElement implements Elara.Page {
         .instagram svg { fill: #333 }
         .medium svg { fill: #3CB371 }
 
-        .prev { cursor: pointer; font-weight: bold; }
+        .prev { cursor: pointer; font-weight: bold; transition: color .3s; }
+        .prev:hover { color: var(--elara-primary); }
 
         form paper-button[disabled] {
             opacity: .7;

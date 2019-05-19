@@ -105,6 +105,11 @@ class GithubWork extends LitElement implements Elara.Element {
             margin: 2vh 0px;
             transform: scale(1);
             font-family: var(--elara-font-display);
+            transition: transform, border .3s;
+        }
+
+        .github-card:hover {
+            border: 1px solid rgb(0, 0, 0, 0.3);
         }
 
         .title {
@@ -145,6 +150,11 @@ class GithubWork extends LitElement implements Elara.Element {
         .next {
             cursor: pointer;
             font-weight: bold;
+            transition: color .3s;
+        }
+
+        .next:hover {
+            color: var(--elara-primary);
         }
         </style>
         <paper-spinner></paper-spinner>

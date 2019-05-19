@@ -1,8 +1,7 @@
 import { LitElement, html, property } from 'lit-element';
 import Elara from './core/elara';
 
-import './pages';
-import './atoms/divider';
+import './pages/index';
 import './atoms/not-found';
 
 // lazy import for polymer components

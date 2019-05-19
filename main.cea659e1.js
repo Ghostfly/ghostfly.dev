@@ -827,7 +827,7 @@ var St="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prot
                 <div class="about">
                     <span>Nice, France</span>
                     <br />
-                    <span>Focusing</span>
+                    <span>Focusing 🎯</span>
                 </div>
             </div>
         </div>
@@ -1024,4 +1024,4 @@ found at http://polymer.github.io/PATENTS.txt
 			<ui-profile></ui-profile>
 			<div id="content" class="content"></div>
 		`}get content(){return this.shadowRoot.querySelector("#content")}}ie.is="elara-app",oe([Pt({reflect:!0,type:String})],ie.prototype,"route",void 0),customElements.define(ie.is,ie)}]);
-//# sourceMappingURL=main.174f9e22.js.map
+//# sourceMappingURL=main.cea659e1.js.map

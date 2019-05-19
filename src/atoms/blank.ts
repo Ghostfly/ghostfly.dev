@@ -1,7 +1,7 @@
-import { html, TemplateResult } from "lit-html";
-import { LitElement } from "lit-element";
+import { html, TemplateResult } from 'lit-html';
+import { LitElement } from 'lit-element';
 
-import Elara from "../elara";
+import Elara from '../core/elara';
 
 class Blank extends LitElement implements Elara.Element {
     public static readonly is: string = 'ui-blank';

@@ -1,2 +1,2 @@
 import './pages/login';
-import './pages/index';
+import './pages/home';

@@ -31,7 +31,7 @@
         --elara-complementary: #007C91;
         --elara-font-primary: 'Hind', sans-serif;
         --elara-font-secondary: 'Lora', sans-serif; 
-        --elara-font-display: "Playfair Display", serif;
+        --elara-font-display: 'Questrial', serif;
         --paper-font-common-base: {
             font-family: var(--elara-font-primary);
         };
@@ -46,7 +46,7 @@
       body {
         margin: 0;
         padding: 0;
-        background-color: white;
+        background-color: var(--elara-lightgray);
         font-family: var(--elara-font-primary);
         font-size: 16px;
       }
@@ -224,13 +224,12 @@
     }
 
     @font-face {
-      font-family: 'Playfair Display';
-      font-style: normal;
+      font-family: 'Questrial';
       font-display: fallback;
+      font-style: normal;
       font-weight: 400;
-      src: local('Playfair Display Regular'), local('PlayfairDisplay-Regular'),
-          url('/assets/fonts/playfair-display.woff2') format('woff2'),
-          url('/assets/fonts/playfair-display.woff') format('woff');
+      src: local('Questrial'), local('Questrial-Regular'), url('/assets/fonts/questrial.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
     }
   </style>
 </html>

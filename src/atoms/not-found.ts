@@ -1,9 +1,9 @@
 import { html, TemplateResult } from 'lit-html';
 import { LitElement, property } from 'lit-element';
 
-import Elara from '../elara';
+import Elara from '../core/elara';
 
-import '../atoms/tree';
+import './tree';
 
 class NotFound extends LitElement implements Elara.Element {
     public static readonly is: string = 'ui-not-found';

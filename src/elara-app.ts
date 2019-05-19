@@ -1,11 +1,9 @@
 import { LitElement, html, property } from 'lit-element';
-import { styles } from './elara-app-styles';
-import Elara from './components/elara';
+import Elara from './core/elara';
 
 import './pages';
-
-// Parts
-import './components/parts';
+import './atoms/divider';
+import './atoms/not-found';
 
 // lazy import for polymer components
 import('./polymer');
@@ -57,7 +55,7 @@ class ElaraApp extends LitElement implements Elara.Element {
 		const newURL = split[0];
 
 		let route = null;
-		const defaultRoute = 'index';
+		const defaultRoute = 'home';
 
 		if(!newURL){
 			route = defaultRoute;
@@ -120,14 +118,42 @@ class ElaraApp extends LitElement implements Elara.Element {
 	
 	public render() {
 		return html`
-			${styles}
-			<div class="app">
-				<ui-header .route=${this.route}></ui-header>
-				<div id="content" class="content">
+			<style>
+				:host {
+            --background-image: url('https://source.unsplash.com/collection/1727869/1366x768');
+        }
+				
+			  .content {
+					overflow-x: scroll;
+					overflow-y: hidden;
+					transition: opacity .6s;
+					opacity: 1;
+					margin: 0%;
+					background: var(--elara-lightgray);
+					color: var(--elara-darkgray);
+					max-width: 100vw;
+					align-items: center;
+					font-family: var(--elara-font-primary);
+					width: 64vw;
+					padding: 4vh 3vw;
+					height: 92vh;
+					display: inline-block;
+					padding-left: 33vw;
+				}
 
-				</div>
-				<ui-footer .connected=${null} .photoURL=${null ? null : null}></ui-footer>
-			</div>
+				.content.full-width {
+					margin: 0;
+					padding: 0;
+				}
+
+				.content.transiting {
+					opacity: 0;
+				}
+
+				@media (min-width: 1033px){}
+			</style>
+			<ui-profile></ui-profile>
+			<div id="content" class="content"></div>
 		`;
 	}
 

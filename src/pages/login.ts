@@ -9,11 +9,11 @@ import { styles } from './login-styles';
 import { PaperToastElement} from '@polymer/paper-toast/paper-toast';
 import { PaperSpinnerElement} from '@polymer/paper-spinner/paper-spinner';
 
-import '../components/atoms/google-connect';
+import '../atoms/google-connect';
 
-import Elara from '../components/elara';
+import Elara from '../core/elara';
 
-import { GoogleConnect } from '../components/atoms/google-connect';
+import { GoogleConnect } from '../atoms/google-connect';
 
 /**
  * Login view

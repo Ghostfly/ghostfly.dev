@@ -159,27 +159,30 @@ class GithubWork extends LitElement implements Elara.Element {
         </div>
         <div class="pagination">
             ${this.page+1} / ${this.repositories.length}
-            ${this.page < this.repositories.length && this.page !== 0 ? html`
-                <a @click=${() => {
-                    this.page--;
-                    this.currentPage = this.repositories[this.page];
-                }}><paper-icon-button icon="arrow-back"></paper-icon-button></a>
-                ${this.page !== this.repositories.length -1 ? html`
-                <a @click=${() => {
-                    this.page++;
-                    this.currentPage = this.repositories[this.page];
-                }}><paper-icon-button icon="arrow-forward"></paper-icon-button></a>
-                ` : html``}
-                ` : html`
-                <a @click=${() => {
-                    this.page++;
-                    this.currentPage = this.repositories[this.page];
-                }}><paper-icon-button icon="arrow-forward"></paper-icon-button></a>
-            `}
+            ${this.page < this.repositories.length && this.page !== 0 ? html`${this._back} 
+            ${this.page !== this.repositories.length -1 ? html`${this._next}` : html``}` : html`${this._next}`}
             <a class="next" @click=${() => {
                 location.hash = '#!about';
             }}>> About</a>
         </div>
+        `;
+    }
+
+    private get _back(){
+        return html`
+        <a @click=${() => {
+            this.page--;
+            this.currentPage = this.repositories[this.page];
+        }}><paper-icon-button icon="arrow-back"></paper-icon-button></a>
+        `;
+    }
+
+    private get _next(){
+        return html`
+                        <a @click=${() => {
+                    this.page++;
+                    this.currentPage = this.repositories[this.page];
+                }}><paper-icon-button icon="arrow-forward"></paper-icon-button></a>
         `;
     }
 

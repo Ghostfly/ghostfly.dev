@@ -47,25 +47,32 @@ class GithubWork extends LitElement implements Elara.Element {
         request.setRequestHeader('secret', GithubConfig.secret);
         request.send();
 
-        request.onerror = async () => {
+        const onError = () => {
             this._spinner.active = false;
             this.shadowRoot.removeChild(this._spinner);
             this.inError = true;
         };
+
+        request.onerror = onError;
+
         request.onreadystatechange = async () => {
             if (request.readyState == 4 && request.status == 200) {
-                    const repos = JSON.parse(request.responseText);
-                    this.repositories = this._chunk(repos.filter((repo:  GithubRepository) => !repo.fork)
-                                            .sort((a: GithubRepository, b: GithubRepository) => { 
-                                                // @ts-ignore
-                                                return new Date(b.created_at) - new Date(a.created_at);
-                                            })/*.sort((a, b) => b.stargazers_count - a.stargazers_count)*/, this.chunksLength);
+                const repos = JSON.parse(request.responseText);
+                this.repositories = this._chunk(repos.filter((repo:  GithubRepository) => !repo.fork)
+                                        .sort((a: GithubRepository, b: GithubRepository) => { 
+                                            // @ts-ignore
+                                            return new Date(b.created_at) - new Date(a.created_at);
+                                        })/*.sort((a, b) => b.stargazers_count - a.stargazers_count)*/, this.chunksLength);
 
-                    this.currentPage = this.repositories[this.page];
-                    this._spinner.active = false;
-                    this.shadowRoot.removeChild(this._spinner);
-                    await this.updateComplete;
-                    this._pulse();
+                this.currentPage = this.repositories[this.page];
+                this._spinner.active = false;
+                this.shadowRoot.removeChild(this._spinner);
+                await this.updateComplete;
+                this._pulse();
+            }
+
+            if(request.status === 403){
+                onError();
             }
         };
     }

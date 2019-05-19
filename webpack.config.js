@@ -63,6 +63,11 @@ const polyfills = [
     from: resolve(`./src/robots.txt`),
     to: OUTPUT_PATH,
     flatten: true
+  },
+  {
+    from: resolve(`./src/boot.js`),
+    to: OUTPUT_PATH,
+    flatten: true
   }
 ];
 

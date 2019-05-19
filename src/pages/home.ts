@@ -5,8 +5,6 @@ import Elara from '../core/elara';
 import '../atoms/github-work';
 import '../atoms/profile';
 
-import './about';
-
 class Home extends LitElement implements Elara.Page {
     public static readonly is: string = 'ui-home';
 

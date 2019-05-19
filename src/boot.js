@@ -42,10 +42,6 @@ function makeHandler(error = null){
   return fragment;
 }
 
-if(location.host.indexOf('localhost') === -1){
-  Sentry.init({ dsn: 'https://d30b47bca9684e61863a941f4bdb21a5@sentry.io/1443606' });
-}
-
 (() => {
   document.addEventListener("DOMContentLoaded", function(event) {
     if(location.hash.indexOf('redirect') !== -1){

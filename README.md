@@ -1,12 +1,12 @@
-# ElaraFolio
+# Ghostfly.dev
 
-[ElaraFolio](https://github.com/ghostfly/elara-folio)
+[Portfolio](https://github.com/ghostfly/ghostfly.dev)
 
 ## Meta
 
 * **State:** wip
 * **Production:** [https://ghostfly.dev/](https://ghostfly.dev/)
-* **GitHub:** [https://github.com/ghostfly/elara-folio](https://github.com/ghostfly/elara-folio)
+* **GitHub:** [https://github.com/ghostfly/ghostfly.dev](https://github.com/ghostfly/ghostfly.dev)
 * **Point People:** [@ghostfly](https://github.com/ghostfly)
 
 ## Set-Up

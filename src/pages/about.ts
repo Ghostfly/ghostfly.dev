@@ -21,7 +21,7 @@ class About extends LitElement implements Elara.Page {
 	public render(): void | TemplateResult {
         return html`
         <style>
-            h1 { user-select: none; font-family: var(--elara-font-display); }
+            h1, h2 { user-select: none; font-family: var(--elara-font-display); }
             .about { margin-bottom: 2em }
             .prev, .next { cursor: pointer }
             .next { float: right }

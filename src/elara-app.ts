@@ -96,6 +96,7 @@ class ElaraApp extends LitElement implements Elara.Element {
 			if(loaded instanceof NotFound){
 				throw new Elara.Errors.NotFound(route);
 			}
+			document.body.scrollTop = 0;
 		});
 	}
 

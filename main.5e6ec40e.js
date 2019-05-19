@@ -928,7 +928,7 @@ found at http://polymer.github.io/PATENTS.txt
                 <div class="item github" @click=${()=>{window.open("https://github.com/Ghostfly","_blank")}} role="link">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"/><g><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.84 9.49.5.09.68-.22.68-.485 0-.236-.008-.866-.013-1.7-2.782.603-3.37-1.34-3.37-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.07-.607.07-.607 1.004.07 1.532 1.03 1.532 1.03.89 1.53 2.34 1.09 2.91.833.09-.647.348-1.086.634-1.337-2.22-.252-4.555-1.112-4.555-4.944 0-1.09.39-1.984 1.03-2.682-.104-.254-.448-1.27.096-2.646 0 0 .84-.27 2.75 1.025.8-.223 1.654-.333 2.504-.337.85.004 1.705.114 2.504.336 1.91-1.294 2.748-1.025 2.748-1.025.546 1.376.202 2.394.1 2.646.64.7 1.026 1.59 1.026 2.682 0 3.84-2.337 4.687-4.565 4.935.36.307.68.917.68 1.852 0 1.335-.013 2.415-.013 2.74 0 .27.18.58.688.482C19.138 20.16 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></g></svg>
                 </div>
-                <div class="item medium" @click=${()=>{window.open("https://medium.com/@ghostfly1","_blank")}} role="link">>
+                <div class="item medium" @click=${()=>{window.open("https://medium.com/@ghostfly1","_blank")}} role="link">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"/><g><path d="M20.962 7.257l-5.457 8.867-3.923-6.375 3.126-5.08c.112-.183.32-.287.527-.287.05 0 .1.008.15.02.038.01.077.023.113.04l5.43 2.716.006.002.01.008c.027.02.036.057.018.087zM9.86 8.592v5.783l5.14 2.57-5.14-8.353zm5.912 8.74l4.23 2.114c.552.275.998.083.998-.43V8.836l-5.228 8.495zM8.968 7.177l-5.303-2.65c-.096-.05-.187-.072-.27-.072-.232 0-.395.18-.395.482v11.45c0 .306.224.67.498.806l4.67 2.335c.12.06.235.087.338.087.29 0 .494-.225.494-.602V7.23c0-.022-.012-.042-.032-.052z"/></g></svg>
                 </div>
                 <div class="item facebook" @click=${()=>{window.open("https://www.facebook.com/gh0std3v","_blank")}} role="link">
@@ -1028,4 +1028,4 @@ found at http://polymer.github.io/PATENTS.txt
 			<ui-profile></ui-profile>
 			<div id="content" class="content"></div>
 		`}get content(){return this.shadowRoot.querySelector("#content")}}se.is="elara-app",ae([St({reflect:!0,type:String})],se.prototype,"route",void 0),customElements.define(se.is,se)}]);
-//# sourceMappingURL=main.94358baa.js.map
+//# sourceMappingURL=main.5e6ec40e.js.map

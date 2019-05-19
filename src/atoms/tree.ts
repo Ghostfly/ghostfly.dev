@@ -38,7 +38,7 @@ export class Tree extends LitElement {
         ctx.lineTo(endX,endY);
         
         if (depth <= 2) {
-            ctx.strokeStyle = '#7FACD4';
+            ctx.strokeStyle = '#1095a9';
         }
         else {
             ctx.strokeStyle = '#333';

@@ -31,7 +31,7 @@ class NotFound extends LitElement implements Elara.Element {
             }
 
             a {
-                color: var(--elara-link);
+                color: var(--elara-primary);
                 text-decoration: none;
                 cursor: pointer;
             }
@@ -39,6 +39,7 @@ class NotFound extends LitElement implements Elara.Element {
         <div>
             <h1>Page non trouvée</h1>
             <p>Vous aviez demandé à lire : ${this.asked}.</p>
+            <ui-tree></ui-tree>
         </div>
         `;
     }

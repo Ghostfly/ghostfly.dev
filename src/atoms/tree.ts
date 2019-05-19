@@ -1,4 +1,4 @@
-import { LitElement, html, TemplateResult } from 'lit-element';
+import { LitElement, html, TemplateResult, property } from 'lit-element';
 
 /**
  * @class Tree
@@ -6,6 +6,11 @@ import { LitElement, html, TemplateResult } from 'lit-element';
  */
 export class Tree extends LitElement {
     public static readonly is: string = 'ui-tree';
+
+    @property({type: Number, reflect: true})
+    public height: number = 300;
+    @property({type: Number, reflect: true})
+    public width: number = 300;
 
     public firstUpdated(): void {
         const ctx = this._canvas.getContext('2d');
@@ -15,7 +20,7 @@ export class Tree extends LitElement {
     }
     
 	public render(): void | TemplateResult {
-		return html`<canvas id="tree" height="600" width="1400"></canvas>`;
+		return html`<canvas id="tree" style="position: fixed;" height="${this.height}" width="${this.width}"></canvas>`;
     }
     
     private _tree(ctx: CanvasRenderingContext2D, startX: number, startY: number, length: number, angle: number, depth: number, branchWidth: number ): void {

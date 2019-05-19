@@ -133,9 +133,6 @@ class ElaraApp extends LitElement implements Elara.Element {
 				padding-left: 33vw;
 				margin-right: 1em;
 
-				overflow-x: hidden;
-				overflow-y: scroll;
-
 				transition: opacity .6s;
 			}
 

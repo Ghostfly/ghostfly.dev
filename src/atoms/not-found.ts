@@ -24,12 +24,6 @@ class NotFound extends LitElement implements Elara.Element {
                 z-index: 1;
             }
 
-            ui-tree {
-                position: absolute;
-                z-index: 0;
-                bottom: 0;
-            }
-
             a {
                 color: var(--elara-primary);
                 text-decoration: none;
@@ -37,9 +31,10 @@ class NotFound extends LitElement implements Elara.Element {
             }
         </style>
         <div>
-            <h1>Page non trouvée</h1>
-            <p>Vous aviez demandé à lire : ${this.asked}.</p>
-            <ui-tree></ui-tree>
+            <h1>You are lost !</h1>
+            <p>You asked for : ${this.asked}.</p>
+            <a @click=${() => { location.hash ='#!home'}}><iron-icon icon="home"></iron-icon> Homepage</a>
+            <ui-tree .width=${1366} .height=${768}></ui-tree>
         </div>
         `;
     }

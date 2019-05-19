@@ -65,7 +65,7 @@ class Profile extends LitElement implements Elara.Element {
                 <div class="about">
                     <span>Nice, France</span>
                     <br />
-                    <span>Focusing</span>
+                    <span>Focusing 🎯</span>
                 </div>
             </div>
         </div>

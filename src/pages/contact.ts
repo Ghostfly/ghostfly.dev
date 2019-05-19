@@ -185,7 +185,7 @@ class Contact extends LitElement implements Elara.Page {
             };
             xhr.onerror = () => {
                 this.inError = true;
-            }
+            };
 			xhr.send(formData);
 		}
     }

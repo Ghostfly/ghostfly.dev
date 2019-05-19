@@ -12,15 +12,8 @@ class ElaraApp extends LitElement implements Elara.Element {
 
 	private _onHashChangeListener: () => void;
 
-	@property({reflect: false, type: Boolean})
-	public isMobile: boolean;
-
 	@property({reflect: true, type: String})
 	public route: string;
-	@property({reflect: false, type: Boolean})
-	public isAnonymous: boolean;
-	@property({reflect: true, type: Boolean})
-	public connected: boolean;
 
 	/**
 	 * Create the render root

@@ -968,7 +968,7 @@ found at http://polymer.github.io/PATENTS.txt
         </div>
         <a class="prev" @click=${()=>{location.hash="#!home"}}>< Work</a>
         <a class="next" @click=${()=>{location.hash="#!contact"}}>> Contact</a>
-        `}}te.is="ui-about",customElements.define(te.is,te);class ee extends Mt{firstUpdated(){const t=this._canvas.getContext("2d");window.requestAnimationFrame(()=>{this._tree(t,600,600,80,-Math.PI/2,13,13)})}render(){return X`<canvas id="tree" height="600" width="1400"></canvas>`}_tree(t,e,n,r,o,i,a){const s=Math.random;let c,u,l,f;const h=2*Math.PI/4;t.beginPath(),t.moveTo(e,n),l=e+r*Math.cos(o),f=n+r*Math.sin(o),t.lineCap="round",t.lineWidth=a,t.lineTo(l,f),t.strokeStyle=i<=2?"#7FACD4":"#333",t.stroke();const p=i-1;if(!p)return;const d=2*s()+1;a*=.7;for(let e=0;e<d;e++)u=o+s()*h-.5*h,c=r*(.7+.3*s()),this._tree(t,l,f,c,u,p,a)}get _canvas(){return this.shadowRoot.querySelector("#tree")}}ee.is="ui-tree",customElements.define(ee.is,ee);var ne=function(t,e,n,r){var o,i=arguments.length,a=i<3?e:null===r?r=Object.getOwnPropertyDescriptor(e,n):r;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)a=Reflect.decorate(t,e,n,r);else for(var s=t.length-1;s>=0;s--)(o=t[s])&&(a=(i<3?o(a):i>3?o(e,n,a):o(e,n))||a);return i>3&&a&&Object.defineProperty(e,n,a),a};class re extends Mt{constructor(t){super(),this.asked=t}render(){return X`
+        `}}te.is="ui-about",customElements.define(te.is,te);class ee extends Mt{firstUpdated(){const t=this._canvas.getContext("2d");window.requestAnimationFrame(()=>{this._tree(t,600,600,80,-Math.PI/2,13,13)})}render(){return X`<canvas id="tree" height="600" width="1400"></canvas>`}_tree(t,e,n,r,o,i,a){const s=Math.random;let c,u,l,f;const h=2*Math.PI/4;t.beginPath(),t.moveTo(e,n),l=e+r*Math.cos(o),f=n+r*Math.sin(o),t.lineCap="round",t.lineWidth=a,t.lineTo(l,f),t.strokeStyle=i<=2?"#1095a9":"#333",t.stroke();const p=i-1;if(!p)return;const d=2*s()+1;a*=.7;for(let e=0;e<d;e++)u=o+s()*h-.5*h,c=r*(.7+.3*s()),this._tree(t,l,f,c,u,p,a)}get _canvas(){return this.shadowRoot.querySelector("#tree")}}ee.is="ui-tree",customElements.define(ee.is,ee);var ne=function(t,e,n,r){var o,i=arguments.length,a=i<3?e:null===r?r=Object.getOwnPropertyDescriptor(e,n):r;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)a=Reflect.decorate(t,e,n,r);else for(var s=t.length-1;s>=0;s--)(o=t[s])&&(a=(i<3?o(a):i>3?o(e,n,a):o(e,n))||a);return i>3&&a&&Object.defineProperty(e,n,a),a};class re extends Mt{constructor(t){super(),this.asked=t}render(){return X`
 		<style>
             h1, p {
                 user-select: none;
@@ -982,7 +982,7 @@ found at http://polymer.github.io/PATENTS.txt
             }
 
             a {
-                color: var(--elara-link);
+                color: var(--elara-primary);
                 text-decoration: none;
                 cursor: pointer;
             }
@@ -990,6 +990,7 @@ found at http://polymer.github.io/PATENTS.txt
         <div>
             <h1>Page non trouvée</h1>
             <p>Vous aviez demandé à lire : ${this.asked}.</p>
+            <ui-tree></ui-tree>
         </div>
         `}}re.is="ui-not-found",ne([Pt({type:String,reflect:!0})],re.prototype,"asked",void 0),customElements.define(re.is,re);var oe=function(t,e,n,r){var o,i=arguments.length,a=i<3?e:null===r?r=Object.getOwnPropertyDescriptor(e,n):r;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)a=Reflect.decorate(t,e,n,r);else for(var s=t.length-1;s>=0;s--)(o=t[s])&&(a=(i<3?o(a):i>3?o(e,n,a):o(e,n))||a);return i>3&&a&&Object.defineProperty(e,n,a),a};Promise.all([n.e(1),n.e(2)]).then(n.bind(null,72));class ie extends Mt{createRenderRoot(){return this.attachShadow({mode:"open"})}connectedCallback(){super.connectedCallback(),this._onHashChangeListener=this._onHashChange.bind(this),window.addEventListener("hashchange",this._onHashChangeListener,{passive:!0})}disconnectedCallback(){super.disconnectedCallback(),window.removeEventListener("hashchange",this._onHashChangeListener)}_onHashChange(t){const e="%s | Léonard C.",n=t.newURL.replace(location.origin+"/","").split("/");if(-1!==t.newURL.indexOf("admin")&&n[1]&&this.content.innerHTML.length>0)return;this.content.classList.add("transiting");const r=n[0];let o=null;if(r){const t=new URL(location.origin+"/"+r).hash.replace("#!","");o=t||"home"}else o="home";if(this.route===o)return void this.content.classList.remove("transiting");this.content.innerHTML="";const i=customElements.get("ui-"+o);window.requestAnimationFrame(()=>{this.route=o,this.content.classList.remove("full-width");const t=customElements.get("ui-not-found"),n=i?new i:new t(o);if(n.head&&n.head.title?document.title=e.replace("%s",n.head.title):document.title="Léonard C.",!0!==n.isFullWidth||this.content.classList.contains("full-width")?n.isFullWidth||this.content.classList.remove("full-width"):this.content.classList.add("full-width"),this.content.appendChild(n),this.content.classList.remove("transiting"),n instanceof t)throw new zt.Errors.NotFound(o);document.body.scrollTop=0})}firstUpdated(){const t=new HashChangeEvent("hashchange",{newURL:location.hash,oldURL:null});this._onHashChange(t)}render(){return X`
 			<style>
@@ -1028,4 +1029,4 @@ found at http://polymer.github.io/PATENTS.txt
 			<ui-profile></ui-profile>
 			<div id="content" class="content"></div>
 		`}get content(){return this.shadowRoot.querySelector("#content")}}ie.is="elara-app",oe([Pt({reflect:!0,type:String})],ie.prototype,"route",void 0),customElements.define(ie.is,ie)}]);
-//# sourceMappingURL=main.6c257bb1.js.map
+//# sourceMappingURL=main.d64a14dd.js.map

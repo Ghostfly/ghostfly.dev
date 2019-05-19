@@ -19,13 +19,13 @@ function makeHandler(error = null){
         ${error.continue == true ? `
           Oops.
           ` : `
-          Erreur détectée, merci de recharger la page.
+          Error detected, please reload.
           `}
       </h4>
       <p>${error.message}</p>
       <div class="actions">
-        ${error.continue == true ? `<paper-button class="continue" onclick="dismiss()">Continuer</paper-button>` : ``}
-        ${error.reload == true ? `<paper-button class="reload" onclick="reload()" raised toggles>Recharger</paper-button>` : ``}
+        ${error.continue == true ? `<paper-button class="continue" onclick="dismiss()">Dismiss</paper-button>` : ``}
+        <paper-button class="reload" onclick="reload()" raised toggles>Reload</paper-button>
       </div>
     ` : `
       <div id="spinner" class="spinner large">

@@ -20,6 +20,7 @@ class Contact extends LitElement implements Elara.Page {
         return html`
         <style>
         h1 { user-select: none; font-family: var(--elara-font-display); }
+        h1::first-letter { font-size: 1.3em; }
 
         .contact { height: 100%; }
 
@@ -63,7 +64,7 @@ class Contact extends LitElement implements Elara.Page {
         .twitter svg { fill: #1da1f2 }
         .youtube svg { fill: #ff0000 }
 
-        .prev { cursor: pointer; }
+        .prev { cursor: pointer; font-weight: bold; }
         </style>
         <div class="contact">
             <h1>${this.head.title}</h1>

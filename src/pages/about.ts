@@ -22,8 +22,10 @@ class About extends LitElement implements Elara.Page {
         return html`
         <style>
             h1, h2 { user-select: none; font-family: var(--elara-font-display); }
+            h1::first-letter { font-size: 1.3em; }
+            h2::first-letter { font-size: 1.2em }
             .about { margin-bottom: 2em }
-            .prev, .next { cursor: pointer }
+            .prev, .next { cursor: pointer; font-weight: bold; }
             .next { float: right }
         </style>
         <div class="about">

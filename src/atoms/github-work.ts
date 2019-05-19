@@ -39,7 +39,7 @@ class GithubWork extends LitElement implements Elara.Element {
         this._spinner.active = true;
 
         const request = new XMLHttpRequest();
-        
+
         request.open('GET', 'https://cors-anywhere.herokuapp.com/https://api.github.com/users/ghostfly/repos', true);
 
         request.setRequestHeader('type', GithubConfig.type);
@@ -122,8 +122,10 @@ class GithubWork extends LitElement implements Elara.Element {
             font-weight: bold;
         }
 
-        .two-cols {
-            columns: 2;
+        @media (min-width: 500px){
+            .two-cols {
+                columns: 2;
+            }
         }
 
         .pagination {

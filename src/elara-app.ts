@@ -125,7 +125,7 @@ class ElaraApp extends LitElement implements Elara.Element {
 				margin: 0;
 
 				height: 92vh;
-				width: 64vw;
+				width: 62vw;
 				max-width: 100vw;
 
 				padding: 4vh 3vw;

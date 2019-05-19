@@ -12,7 +12,7 @@ class Home extends LitElement implements Elara.Page {
 
     public get head(){
         return {
-            title: 'Home',
+            title: 'Work',
             description: '',
             type: 'page',
             image: '',
@@ -25,6 +25,7 @@ class Home extends LitElement implements Elara.Page {
         <style>
         h1 {
             font-family: var(--elara-font-display);
+            user-select: none;
         }
         </style>
         <div class="work-blog-about">

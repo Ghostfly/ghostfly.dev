@@ -19,10 +19,10 @@ class Contact extends LitElement implements Elara.Page {
 	public render(): void | TemplateResult {
         return html`
         <style>
-        h1 {
-            user-select: none;
-        }
-        
+        h1 { user-select: none; font-family: var(--elara-font-display); }
+
+        .contact { height: 100%; }
+
         paper-input, paper-textarea {
             --paper-input-container-focus-color: var(--elara-primary);
         }
@@ -50,9 +50,9 @@ class Contact extends LitElement implements Elara.Page {
             justify-content: center;
         }
         
-        .clearfix {
-            clear: both;
-        }
+        .clearfix { clear: both }
+
+        .networks { height: 50%; }
 
         .networks svg {
             cursor: pointer;
@@ -62,6 +62,8 @@ class Contact extends LitElement implements Elara.Page {
         .github svg { fill: #24292e }
         .twitter svg { fill: #1da1f2 }
         .youtube svg { fill: #ff0000 }
+
+        .prev { cursor: pointer; }
         </style>
         <div class="contact">
             <h1>${this.head.title}</h1>
@@ -74,6 +76,9 @@ class Contact extends LitElement implements Elara.Page {
                 }}>Send</paper-button>
             </form>
             <div class="clearfix"></div>
+            <a class="prev" @click=${() => {
+                location.hash = '#!about';
+            }}>< About</a>
             <div class="grid networks">
                 <div class="item github" @click=${() => {
                     window.open('https://github.com/Ghostfly', '_blank');

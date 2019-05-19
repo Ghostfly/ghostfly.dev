@@ -119,38 +119,37 @@ class ElaraApp extends LitElement implements Elara.Element {
 	public render() {
 		return html`
 			<style>
-				:host {
-            --background-image: url('https://source.unsplash.com/collection/1727869/1366x768');
-        }
+			:host {
+            	--background-image: url('https://source.unsplash.com/collection/1727869/1366x768');
+        	}
 				
-			  .content {
-					overflow-x: scroll;
-					overflow-y: hidden;
-					transition: opacity .6s;
-					opacity: 1;
-					margin: 0%;
-					background: var(--elara-lightgray);
-					color: var(--elara-darkgray);
-					max-width: 100vw;
-					align-items: center;
-					font-family: var(--elara-font-primary);
-					width: 64vw;
-					padding: 4vh 3vw;
-					height: 92vh;
-					display: inline-block;
-					padding-left: 33vw;
-				}
+			.content {
+				background: var(--elara-lightgray);
+				color: var(--elara-darkgray);
+				display: inline-block;
 
-				.content.full-width {
-					margin: 0;
-					padding: 0;
-				}
+				font-family: var(--elara-font-primary);
+				opacity: 1;
+				margin: 0;
 
-				.content.transiting {
-					opacity: 0;
-				}
+				height: 92vh;
+				width: 64vw;
+				max-width: 100vw;
 
-				@media (min-width: 1033px){}
+				padding: 4vh 3vw;
+				padding-left: 33vw;
+				margin-right: 1em;
+
+				overflow-x: hidden;
+				overflow-y: scroll;
+
+				transition: opacity .6s;
+			}
+
+			.content.full-width { margin: 0; padding: 0 }
+			.content.transiting { opacity: 0 }
+
+			@media (min-width: 1033px){}
 			</style>
 			<ui-profile></ui-profile>
 			<div id="content" class="content"></div>

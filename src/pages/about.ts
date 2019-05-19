@@ -1,5 +1,3 @@
-/*
-*/
 import { html, TemplateResult } from 'lit-html';
 import { LitElement } from 'lit-element';
 
@@ -23,18 +21,10 @@ class About extends LitElement implements Elara.Page {
 	public render(): void | TemplateResult {
         return html`
         <style>
-            h1 {
-                user-select: none;
-            }
-
-            .about {
-                margin-bottom: 2em;
-            }
-
-            .next {
-                float: right;
-                cursor: pointer;
-            }
+            h1 { user-select: none; font-family: var(--elara-font-display); }
+            .about { margin-bottom: 2em }
+            .prev, .next { cursor: pointer }
+            .next { float: right }
         </style>
         <div class="about">
             <h1>${this.head.title}</h1>
@@ -52,6 +42,9 @@ class About extends LitElement implements Elara.Page {
                     <p>After a rather unusual path, I ended up in a post baccalauréat IT diploma called BTS SIO, successfully validated. Bringing me to Miage, combining my computer aspirations, and my attraction for entrepreneurship. I've always dreamed of building my own business, in Nice, Holland.. Giving me the opportunity to create my own job and keep my creativity as sharp as possible. Just stayin' motivated.</p><p>Besides if you want to read it, here is my current <a href="/static/media/resume.240b6f64.pdf">CV</a>.</p>
                 </div>
             </div>
+            <a class="prev" @click=${() => {
+                location.hash = '#!home';
+            }}>< Work</a>
             <a class="next" @click=${() => {
                 location.hash = '#!contact';
             }}>> Contact</a>

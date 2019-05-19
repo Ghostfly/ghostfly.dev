@@ -173,16 +173,20 @@ class GithubWork extends LitElement implements Elara.Element {
         <a @click=${() => {
             this.page--;
             this.currentPage = this.repositories[this.page];
-        }}><paper-icon-button icon="arrow-back"></paper-icon-button></a>
+        }}>
+            <paper-icon-button icon="arrow-back"></paper-icon-button>
+        </a>
         `;
     }
 
     private get _next(){
         return html`
-                        <a @click=${() => {
-                    this.page++;
-                    this.currentPage = this.repositories[this.page];
-                }}><paper-icon-button icon="arrow-forward"></paper-icon-button></a>
+        <a @click=${() => {
+            this.page++;
+            this.currentPage = this.repositories[this.page];
+        }}>
+            <paper-icon-button icon="arrow-forward"></paper-icon-button>
+        </a>
         `;
     }
 

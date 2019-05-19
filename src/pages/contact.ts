@@ -1,12 +1,21 @@
 import { html, TemplateResult } from 'lit-html';
-import { LitElement } from 'lit-element';
+import { LitElement, property } from 'lit-element';
 
 import Elara from '../core/elara';
 
 import '@polymer/iron-icons/communication-icons';
+import { PaperButtonElement } from '@polymer/paper-button';
+import { PaperInputElement } from '@polymer/paper-input/paper-input';
+import { PaperTextareaElement } from '@polymer/paper-input/paper-textarea';
 
 class Contact extends LitElement implements Elara.Page {
     public static readonly is: string = 'ui-contact';
+
+    @property({type: Boolean, reflect: true})
+    public inError: boolean = false;
+
+    @property({type: Boolean, reflect: true})
+    public isSuccess: boolean = false;
 
     public get head(){
         return {
@@ -71,17 +80,21 @@ class Contact extends LitElement implements Elara.Page {
         .medium svg { fill: #3CB371 }
 
         .prev { cursor: pointer; font-weight: bold; }
+
+        form paper-button[disabled] {
+            opacity: .7;
+        }
         </style>
         <div class="contact">
             <h1>${this.head.title}</h1>
-            <form>
-                <paper-input label="Full name"></paper-input>
-                <paper-input label="Email"></paper-input>
-                <paper-textarea char-counter label="Message"></paper-textarea>
-                <paper-button class="send" @click=${() => {
-                    throw new Elara.Errors.Prototype('Not implemented.');
-                }}>Send</paper-button>
+            <form id="form">
+                <paper-input id="name" label="Full name" min-length="4" required></paper-input>
+                <paper-input id="email" label="Email" min-length="4" required></paper-input>
+                <paper-textarea id="message" char-counter label="Message" min-length="4" required></paper-textarea>
+                <paper-button class="send" @click=${this._doSend}>Send</paper-button>
             </form>
+            ${this.isSuccess ? html`Thanks for your message ! I will try to reply as soon as possible 😀 ` : html``}
+            ${this.inError ? html`An error occured, please retry later. 😔` : html``}
             <div class="clearfix"></div>
             <a class="prev" @click=${() => {
                 location.hash = '#!about';
@@ -125,6 +138,56 @@ class Contact extends LitElement implements Elara.Page {
             </div>
         </div>
         `;
+    }
+
+    private _doSend(event: Event){
+		const form = this.shadowRoot.querySelector('#form') as HTMLDivElement;
+		const button = event.target as PaperButtonElement;
+		const name = this.shadowRoot.querySelector('#name') as PaperInputElement;
+		const email = this.shadowRoot.querySelector('#email') as PaperInputElement;
+		const message = this.shadowRoot.querySelector('#message') as PaperTextareaElement;
+		
+		let isValid = true;
+
+		const check = (input: PaperInputElement) => {
+			return input.validate();
+		};
+		// Check each
+		const inputs = [name, email, message];
+		inputs.forEach((input: PaperInputElement) => check(input) ? input.invalid = false : input.invalid = true);
+		inputs.forEach((input) => {
+			if(input.invalid && isValid){
+				isValid = false;
+			}
+		});
+		
+		if(isValid){
+			// disable everyone
+			button.disabled = true;
+			inputs.forEach((input) => input.disabled = true);
+
+			const formData = new FormData();
+			formData.append('name', name.value);
+			formData.append('email', email.value);
+			formData.append('message', message.value);
+
+			// @tool: uncomment to disable mail sending
+			// if(location.hostname.indexOf('localhost') !== -1) { form.classList.add('sended'); return; }
+
+			// Send through Gmail
+			const xhr = new XMLHttpRequest();
+			xhr.open('POST', 'https://script.google.com/macros/s/AKfycbzdhNONz-1pGAlOktko4o5riYGErccxRfk8LsqTxq0ws31wKZ0/exec');
+			xhr.onreadystatechange = () => {
+				if (xhr.status === 200) {
+                    this.isSuccess = true;
+					form.classList.add('sended');
+				}
+            };
+            xhr.onerror = () => {
+                this.inError = true;
+            }
+			xhr.send(formData);
+		}
     }
 }
 customElements.define(Contact.is, Contact);

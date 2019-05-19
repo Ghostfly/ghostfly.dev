@@ -24,6 +24,7 @@ class About extends LitElement implements Elara.Page {
             h1, h2 { user-select: none; font-family: var(--elara-font-display); }
             h1::first-letter { font-size: 1.3em; }
             h2::first-letter { font-size: 1.2em }
+            .cv { color: var(--elara-secondary); cursor: pointer; }
             .about { margin-bottom: 2em }
             .prev, .next { cursor: pointer; font-weight: bold; }
             .next { float: right }
@@ -41,7 +42,10 @@ class About extends LitElement implements Elara.Page {
             <div class="row">
                 <h2>Towards studies</h2>
                 <div>
-                    <p>After a rather unusual path, I ended up in a post baccalauréat IT diploma called BTS SIO, successfully validated. Bringing me to Miage, combining my computer aspirations, and my attraction for entrepreneurship. I've always dreamed of building my own business, in Nice, Holland.. Giving me the opportunity to create my own job and keep my creativity as sharp as possible. Just stayin' motivated.</p><p>Besides if you want to read it, here is my current <a href="/static/media/resume.240b6f64.pdf">CV</a>.</p>
+                    <p>After a rather unusual path, I ended up in a post baccalauréat IT diploma called BTS SIO, successfully validated. Bringing me to Miage, combining my computer aspirations, and my attraction for entrepreneurship. I've always dreamed of building my own business, in Nice, Holland.. Giving me the opportunity to create my own job and keep my creativity as sharp as possible. Just stayin' motivated.</p><p>Besides if you want to read it, here is my current 
+                    <a class="cv" @click=${() => {
+                        window.open('/assets/resume.pdf');
+                    }}>CV</a>.</p>
                 </div>
             </div>
         </div>

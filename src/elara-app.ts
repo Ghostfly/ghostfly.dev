@@ -40,7 +40,6 @@ class ElaraApp extends LitElement implements Elara.Element {
 	private _onHashChange(event: HashChangeEvent){
 		const split = event.newURL.replace(location.origin + '/', '').split('/');
 
-		this.content.classList.add('transiting');
 		const newURL = split[0];
 
 		let route = null;
@@ -54,7 +53,6 @@ class ElaraApp extends LitElement implements Elara.Element {
 		}
 		
 		if(this.route === route){
-			this.content.classList.remove('transiting');
 			return;
 		}
 

@@ -252,8 +252,10 @@ var Pe="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prot
             font-weight: bold;
         }
 
-        .two-cols {
-            columns: 2;
+        @media (min-width: 500px){
+            .two-cols {
+                columns: 2;
+            }
         }
 
         .pagination {
@@ -465,9 +467,9 @@ var Pe="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prot
                     <p>After a rather unusual path, I ended up in a post baccalauréat IT diploma called BTS SIO, successfully validated. Bringing me to Miage, combining my computer aspirations, and my attraction for entrepreneurship. I've always dreamed of building my own business, in Nice, Holland.. Giving me the opportunity to create my own job and keep my creativity as sharp as possible. Just stayin' motivated.</p><p>Besides if you want to read it, here is my current <a href="/static/media/resume.240b6f64.pdf">CV</a>.</p>
                 </div>
             </div>
-            <a class="prev" @click=${()=>{location.hash="#!home"}}>< Work</a>
-            <a class="next" @click=${()=>{location.hash="#!contact"}}>> Contact</a>
         </div>
+        <a class="prev" @click=${()=>{location.hash="#!home"}}>< Work</a>
+        <a class="next" @click=${()=>{location.hash="#!contact"}}>> Contact</a>
         `}}Ke.is="ui-about",customElements.define(Ke.is,Ke);class Qe extends Le{firstUpdated(){const e=this._canvas.getContext("2d");window.requestAnimationFrame(()=>{this._tree(e,600,600,80,-Math.PI/2,13,13)})}render(){return Y`<canvas id="tree" height="600" width="1400"></canvas>`}_tree(e,t,n,r,i,o,a){const s=Math.random;let c,u,l,h;const p=2*Math.PI/4;e.beginPath(),e.moveTo(t,n),l=t+r*Math.cos(i),h=n+r*Math.sin(i),e.lineCap="round",e.lineWidth=a,e.lineTo(l,h),e.strokeStyle=o<=2?"#7FACD4":"#333",e.stroke();const f=o-1;if(!f)return;const d=2*s()+1;a*=.7;for(let t=0;t<d;t++)u=i+s()*p-.5*p,c=r*(.7+.3*s()),this._tree(e,l,h,c,u,f,a)}get _canvas(){return this.shadowRoot.querySelector("#tree")}}Qe.is="ui-tree",customElements.define(Qe.is,Qe);var Ze=function(e,t,n,r){var i,o=arguments.length,a=o<3?t:null===r?r=Object.getOwnPropertyDescriptor(t,n):r;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)a=Reflect.decorate(e,t,n,r);else for(var s=e.length-1;s>=0;s--)(i=e[s])&&(a=(o<3?i(a):o>3?i(t,n,a):i(t,n))||a);return o>3&&a&&Object.defineProperty(t,n,a),a};class et extends Le{constructor(e){super(),this.asked=e}render(){return Y`
 		<style>
             h1, p {
@@ -528,4 +530,4 @@ var Pe="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prot
 			<ui-profile></ui-profile>
 			<div id="content" class="content"></div>
 		`}get content(){return this.shadowRoot.querySelector("#content")}}nt.is="elara-app",tt([ke({reflect:!0,type:String})],nt.prototype,"route",void 0),customElements.define(nt.is,nt)}]);
-//# sourceMappingURL=main.e332c8f6.js.map
+//# sourceMappingURL=main.5183fc76.js.map

@@ -700,6 +700,11 @@ var Pt="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prot
             margin: 2vh 0px;
             transform: scale(1);
             font-family: var(--elara-font-display);
+            transition: transform, border .3s;
+        }
+
+        .github-card:hover {
+            border: 1px solid rgb(0, 0, 0, 0.3);
         }
 
         .title {
@@ -740,6 +745,11 @@ var Pt="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prot
         .next {
             cursor: pointer;
             font-weight: bold;
+            transition: color .3s;
+        }
+
+        .next:hover {
+            color: var(--elara-primary);
         }
         </style>
         <paper-spinner></paper-spinner>
@@ -906,7 +916,8 @@ found at http://polymer.github.io/PATENTS.txt
         .instagram svg { fill: #333 }
         .medium svg { fill: #3CB371 }
 
-        .prev { cursor: pointer; font-weight: bold; }
+        .prev { cursor: pointer; font-weight: bold; transition: color .3s; }
+        .prev:hover { color: var(--elara-primary); }
 
         form paper-button[disabled] {
             opacity: .7;
@@ -955,8 +966,11 @@ found at http://polymer.github.io/PATENTS.txt
             h2::first-letter { font-size: 1.2em }
             .cv { color: var(--elara-secondary); cursor: pointer; }
             .about { margin-bottom: 2em }
-            .prev, .next { cursor: pointer; font-weight: bold; }
+            .prev, .next { cursor: pointer; font-weight: bold; transition: color .3s;}
             .next { float: right }
+            .prev:hover, .next:hover {
+                color: var(--elara-primary);
+            }
         </style>
         <div class="about">
             <h1>${this.head.title}</h1>
@@ -1028,4 +1042,4 @@ found at http://polymer.github.io/PATENTS.txt
 			<ui-profile></ui-profile>
 			<div id="content" class="content"></div>
 		`}get content(){return this.shadowRoot.querySelector("#content")}}se.is="elara-app",ae([St({reflect:!0,type:String})],se.prototype,"route",void 0),customElements.define(se.is,se)}]);
-//# sourceMappingURL=main.fa224151.js.map
+//# sourceMappingURL=main.ed5ce5e7.js.map

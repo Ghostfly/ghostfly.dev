@@ -62,10 +62,10 @@ class GithubWork extends LitElement implements Elara.Element {
                                             })/*.sort((a, b) => b.stargazers_count - a.stargazers_count)*/, this.chunksLength);
 
                     this.currentPage = this.repositories[this.page];
-                    await this.requestUpdate();
-
                     this._spinner.active = false;
                     this.shadowRoot.removeChild(this._spinner);
+                    await this.updateComplete;
+                    this._pulse();
             }
         };
     }
@@ -168,11 +168,28 @@ class GithubWork extends LitElement implements Elara.Element {
         `;
     }
 
+    private _pulse(){
+        const sections = this.shadowRoot.querySelectorAll('.two-cols section');
+        sections.forEach((section) => {
+            section.animate(
+                {
+                    opacity: [.5, 1],
+                    transform: ['scale(.95)', 'scale(1)'],
+                }, 
+                { 
+                    duration: 600 
+                }
+            );
+        });
+    }
+
     private get _back(){
         return html`
-        <a @click=${() => {
+        <a @click=${async () => {
             this.page--;
             this.currentPage = this.repositories[this.page];
+            await this.updateComplete;
+            this._pulse();
         }}>
             <paper-icon-button icon="arrow-back"></paper-icon-button>
         </a>
@@ -181,9 +198,11 @@ class GithubWork extends LitElement implements Elara.Element {
 
     private get _next(){
         return html`
-        <a @click=${() => {
+        <a @click=${async () => {
             this.page++;
             this.currentPage = this.repositories[this.page];
+            await this.updateComplete;
+            this._pulse();
         }}>
             <paper-icon-button icon="arrow-forward"></paper-icon-button>
         </a>

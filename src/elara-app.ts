@@ -38,10 +38,7 @@ class ElaraApp extends LitElement implements Elara.Element {
 	}
 
 	private _onHashChange(event: HashChangeEvent){
-		const defaultTitle = 'Léonard C.';
-		const titleTemplate = '%s | ' + defaultTitle;
 		const split = event.newURL.replace(location.origin + '/', '').split('/');
-		if(event.newURL.indexOf('admin') !== -1 && split[1] && this.content.innerHTML.length > 0){ return; }
 
 		this.content.classList.add('transiting');
 		const newURL = split[0];
@@ -62,41 +59,66 @@ class ElaraApp extends LitElement implements Elara.Element {
 		}
 
 		this.content.innerHTML = '';
+		this.load(route);
+	}
+
+	public load(route: string){
+		const defaultTitle = 'Léonard C.';
+		const titleTemplate = '%s | ' + defaultTitle;
 
 		const Component = customElements.get('ui-' + route);
 
-		window.requestAnimationFrame(() => {
-			this.route = route;
+		this.route = route;
+		this.content.classList.remove('full-width');
+
+		const NotFound = customElements.get('ui-not-found');
+
+		// @tool : disable shadow-root on pages
+		/* Component.prototype.createRenderRoot = function() {
+			return this;
+		};*/
+
+		const loaded = Component ? new Component() : new NotFound(route);
+
+		if(loaded.head && loaded.head.title){
+			document.title = titleTemplate.replace('%s', loaded.head.title);
+		} else {
+			document.title = defaultTitle;
+		}
+
+		if(loaded.isFullWidth === true && !this.content.classList.contains('full-width')){
+			this.content.classList.add('full-width');
+		} else if(!loaded.isFullWidth) {
 			this.content.classList.remove('full-width');
-
-			const NotFound = customElements.get('ui-not-found');
-
-			// @tool : disable shadow-root on pages
-			/* Component.prototype.createRenderRoot = function() {
-				return this;
-			};*/
-
-			const loaded = Component ? new Component() : new NotFound(route);
-
-			if(loaded.head && loaded.head.title){
-				document.title = titleTemplate.replace('%s', loaded.head.title);
-			} else {
-				document.title = defaultTitle;
+		}
+		this.content.appendChild(loaded);
+		
+		if(loaded instanceof NotFound){
+			throw new Elara.Errors.NotFound(route);
+		}
+		document.body.scrollTop = 0;
+				
+		const handle = window.requestAnimationFrame(() => {
+			if(!loaded.shadowRoot){
+				cancelAnimationFrame(handle);
+				return;
 			}
 
-			if(loaded.isFullWidth === true && !this.content.classList.contains('full-width')){
-				this.content.classList.add('full-width');
-			} else if(!loaded.isFullWidth) {
-				this.content.classList.remove('full-width');
+			const pageContent = loaded.shadowRoot.querySelector('div');
+			if(!pageContent){
+				cancelAnimationFrame(handle);
+				return;
 			}
-			this.content.appendChild(loaded);
 
-			this.content.classList.remove('transiting');
-			
-			if(loaded instanceof NotFound){
-				throw new Elara.Errors.NotFound(route);
-			}
-			document.body.scrollTop = 0;
+			pageContent.animate(
+				{
+					opacity: [.5, 1],
+					transform: ['scale(.95)', 'scale(1)'],
+				}, 
+				{ 
+					duration: 600 
+				}
+			);
 		});
 	}
 
@@ -132,12 +154,9 @@ class ElaraApp extends LitElement implements Elara.Element {
 				padding: 4vh 3vw;
 				padding-left: 33vw;
 				margin-right: 1em;
-
-				transition: opacity .6s;
 			}
 
 			.content.full-width { margin: 0; padding: 0 }
-			.content.transiting { opacity: 0 }
 
 			@media (min-width: 1033px){}
 			</style>

@@ -685,7 +685,7 @@ var Pt="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prot
  * Code distributed by Google as part of the polymer project is also
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
- */var $t={type:"oauth",key:"437be1c1aa051344aa05",secret:"b8e34932aba7ce334d4c3cd9d1f1f406d64756cb"},Ut=function(t,e,n,r){var o,i=arguments.length,a=i<3?e:null===r?r=Object.getOwnPropertyDescriptor(e,n):r;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)a=Reflect.decorate(t,e,n,r);else for(var s=t.length-1;s>=0;s--)(o=t[s])&&(a=(i<3?o(a):i>3?o(e,n,a):o(e,n))||a);return i>3&&a&&Object.defineProperty(e,n,a),a},Yt=function(t,e,n,r){return new(n||(n=Promise))(function(o,i){function a(t){try{c(r.next(t))}catch(t){i(t)}}function s(t){try{c(r.throw(t))}catch(t){i(t)}}function c(t){t.done?o(t.value):new n(function(e){e(t.value)}).then(a,s)}c((r=r.apply(t,e||[])).next())})};class Jt extends Mt{constructor(){super(...arguments),this.repositories=[],this.currentPage=[],this.page=0,this.inError=!1,this.chunksLength=6}firstUpdated(){return Yt(this,void 0,void 0,function*(){this._spinner.active=!0;const t=new XMLHttpRequest;t.open("GET","https://cors-anywhere.herokuapp.com/https://api.github.com/users/ghostfly/repos",!0),t.setRequestHeader("type",$t.type),t.setRequestHeader("key",$t.key),t.setRequestHeader("secret",$t.secret),t.send(),t.onerror=(()=>Yt(this,void 0,void 0,function*(){this._spinner.active=!1,this.shadowRoot.removeChild(this._spinner),this.inError=!0})),t.onreadystatechange=(()=>Yt(this,void 0,void 0,function*(){if(4==t.readyState&&200==t.status){const e=JSON.parse(t.responseText);this.repositories=this._chunk(e.filter(t=>!t.fork).sort((t,e)=>new Date(e.created_at)-new Date(t.created_at)),this.chunksLength),this.currentPage=this.repositories[this.page],yield this.requestUpdate(),this._spinner.active=!1,this.shadowRoot.removeChild(this._spinner)}}))})}_chunk(t,e){const n=[],r=t.length;let o=0;for(;o<r;)n.push(t.slice(o,o+=e));return n}render(){return G`
+ */var $t={type:"oauth",key:"437be1c1aa051344aa05",secret:"b8e34932aba7ce334d4c3cd9d1f1f406d64756cb"},Ut=function(t,e,n,r){var o,i=arguments.length,a=i<3?e:null===r?r=Object.getOwnPropertyDescriptor(e,n):r;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)a=Reflect.decorate(t,e,n,r);else for(var s=t.length-1;s>=0;s--)(o=t[s])&&(a=(i<3?o(a):i>3?o(e,n,a):o(e,n))||a);return i>3&&a&&Object.defineProperty(e,n,a),a},Yt=function(t,e,n,r){return new(n||(n=Promise))(function(o,i){function a(t){try{c(r.next(t))}catch(t){i(t)}}function s(t){try{c(r.throw(t))}catch(t){i(t)}}function c(t){t.done?o(t.value):new n(function(e){e(t.value)}).then(a,s)}c((r=r.apply(t,e||[])).next())})};class Jt extends Mt{constructor(){super(...arguments),this.repositories=[],this.currentPage=[],this.page=0,this.inError=!1,this.chunksLength=6}firstUpdated(){return Yt(this,void 0,void 0,function*(){this._spinner.active=!0;const t=new XMLHttpRequest;t.open("GET","https://cors-anywhere.herokuapp.com/https://api.github.com/users/ghostfly/repos",!0),t.setRequestHeader("type",$t.type),t.setRequestHeader("key",$t.key),t.setRequestHeader("secret",$t.secret),t.send(),t.onerror=(()=>Yt(this,void 0,void 0,function*(){this._spinner.active=!1,this.shadowRoot.removeChild(this._spinner),this.inError=!0})),t.onreadystatechange=(()=>Yt(this,void 0,void 0,function*(){if(4==t.readyState&&200==t.status){const e=JSON.parse(t.responseText);this.repositories=this._chunk(e.filter(t=>!t.fork).sort((t,e)=>new Date(e.created_at)-new Date(t.created_at)),this.chunksLength),this.currentPage=this.repositories[this.page],this._spinner.active=!1,this.shadowRoot.removeChild(this._spinner),yield this.updateComplete,this._pulse()}}))})}_chunk(t,e){const n=[],r=t.length;let o=0;for(;o<r;)n.push(t.slice(o,o+=e));return n}render(){return G`
         <style>
         .github-card {
             cursor: pointer;
@@ -759,16 +759,18 @@ var Pt="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prot
         </div>
         <div class="pagination">
             ${this.page+1} / ${this.repositories.length}
-            ${this.page<this.repositories.length&&0!==this.page?G`
-                <a @click=${()=>{this.page--,this.currentPage=this.repositories[this.page]}}><paper-icon-button icon="arrow-back"></paper-icon-button></a>
-                ${this.page!==this.repositories.length-1?G`
-                <a @click=${()=>{this.page++,this.currentPage=this.repositories[this.page]}}><paper-icon-button icon="arrow-forward"></paper-icon-button></a>
-                `:G``}
-                `:G`
-                <a @click=${()=>{this.page++,this.currentPage=this.repositories[this.page]}}><paper-icon-button icon="arrow-forward"></paper-icon-button></a>
-            `}
+            ${this.page<this.repositories.length&&0!==this.page?G`${this._back} 
+            ${this.page!==this.repositories.length-1?G`${this._next}`:G``}`:G`${this._next}`}
             <a class="next" @click=${()=>{location.hash="#!about"}}>> About</a>
         </div>
+        `}_pulse(){this.shadowRoot.querySelectorAll(".two-cols section").forEach(t=>{t.animate({opacity:[.5,1],transform:["scale(.95)","scale(1)"]},{duration:600})})}get _back(){return G`
+        <a @click=${()=>Yt(this,void 0,void 0,function*(){this.page--,this.currentPage=this.repositories[this.page],yield this.updateComplete,this._pulse()})}>
+            <paper-icon-button icon="arrow-back"></paper-icon-button>
+        </a>
+        `}get _next(){return G`
+        <a @click=${()=>Yt(this,void 0,void 0,function*(){this.page++,this.currentPage=this.repositories[this.page],yield this.updateComplete,this._pulse()})}>
+            <paper-icon-button icon="arrow-forward"></paper-icon-button>
+        </a>
         `}get _spinner(){return this.shadowRoot.querySelector("paper-spinner")}}Jt.is="ui-github-work",Ut([St({type:Array})],Jt.prototype,"repositories",void 0),Ut([St({type:Array})],Jt.prototype,"currentPage",void 0),Ut([St({type:Number,reflect:!0})],Jt.prototype,"page",void 0),Ut([St({type:Boolean,reflect:!0})],Jt.prototype,"inError",void 0),customElements.define(Jt.is,Jt);class Wt extends Mt{render(){return G`
         <style>
         :host {
@@ -995,7 +997,7 @@ found at http://polymer.github.io/PATENTS.txt
             <a @click=${()=>{location.hash="#!home"}}><iron-icon icon="home"></iron-icon> Homepage</a>
             <ui-tree .width=${1366} .height=${768}></ui-tree>
         </div>
-        `}}ie.is="ui-not-found",oe([St({type:String,reflect:!0})],ie.prototype,"asked",void 0),customElements.define(ie.is,ie);var ae=function(t,e,n,r){var o,i=arguments.length,a=i<3?e:null===r?r=Object.getOwnPropertyDescriptor(e,n):r;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)a=Reflect.decorate(t,e,n,r);else for(var s=t.length-1;s>=0;s--)(o=t[s])&&(a=(i<3?o(a):i>3?o(e,n,a):o(e,n))||a);return i>3&&a&&Object.defineProperty(e,n,a),a};Promise.all([n.e(1),n.e(2)]).then(n.bind(null,72));class se extends Mt{createRenderRoot(){return this.attachShadow({mode:"open"})}connectedCallback(){super.connectedCallback(),this._onHashChangeListener=this._onHashChange.bind(this),window.addEventListener("hashchange",this._onHashChangeListener,{passive:!0})}disconnectedCallback(){super.disconnectedCallback(),window.removeEventListener("hashchange",this._onHashChangeListener)}_onHashChange(t){const e="%s | Léonard C.",n=t.newURL.replace(location.origin+"/","").split("/");if(-1!==t.newURL.indexOf("admin")&&n[1]&&this.content.innerHTML.length>0)return;this.content.classList.add("transiting");const r=n[0];let o=null;if(r){const t=new URL(location.origin+"/"+r).hash.replace("#!","");o=t||"home"}else o="home";if(this.route===o)return void this.content.classList.remove("transiting");this.content.innerHTML="";const i=customElements.get("ui-"+o);window.requestAnimationFrame(()=>{this.route=o,this.content.classList.remove("full-width");const t=customElements.get("ui-not-found"),n=i?new i:new t(o);if(n.head&&n.head.title?document.title=e.replace("%s",n.head.title):document.title="Léonard C.",!0!==n.isFullWidth||this.content.classList.contains("full-width")?n.isFullWidth||this.content.classList.remove("full-width"):this.content.classList.add("full-width"),this.content.appendChild(n),this.content.classList.remove("transiting"),n instanceof t)throw new zt.Errors.NotFound(o);document.body.scrollTop=0})}firstUpdated(){const t=new HashChangeEvent("hashchange",{newURL:location.hash,oldURL:null});this._onHashChange(t)}render(){return G`
+        `}}ie.is="ui-not-found",oe([St({type:String,reflect:!0})],ie.prototype,"asked",void 0),customElements.define(ie.is,ie);var ae=function(t,e,n,r){var o,i=arguments.length,a=i<3?e:null===r?r=Object.getOwnPropertyDescriptor(e,n):r;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)a=Reflect.decorate(t,e,n,r);else for(var s=t.length-1;s>=0;s--)(o=t[s])&&(a=(i<3?o(a):i>3?o(e,n,a):o(e,n))||a);return i>3&&a&&Object.defineProperty(e,n,a),a};Promise.all([n.e(1),n.e(2)]).then(n.bind(null,72));class se extends Mt{createRenderRoot(){return this.attachShadow({mode:"open"})}connectedCallback(){super.connectedCallback(),this._onHashChangeListener=this._onHashChange.bind(this),window.addEventListener("hashchange",this._onHashChangeListener,{passive:!0})}disconnectedCallback(){super.disconnectedCallback(),window.removeEventListener("hashchange",this._onHashChangeListener)}_onHashChange(t){const e=t.newURL.replace(location.origin+"/","").split("/");this.content.classList.add("transiting");const n=e[0];let r=null;if(n){const t=new URL(location.origin+"/"+n).hash.replace("#!","");r=t||"home"}else r="home";this.route!==r?(this.content.innerHTML="",this.load(r)):this.content.classList.remove("transiting")}load(t){const e="%s | Léonard C.",n=customElements.get("ui-"+t);this.route=t,this.content.classList.remove("full-width");const r=customElements.get("ui-not-found"),o=n?new n:new r(t);if(o.head&&o.head.title?document.title=e.replace("%s",o.head.title):document.title="Léonard C.",!0!==o.isFullWidth||this.content.classList.contains("full-width")?o.isFullWidth||this.content.classList.remove("full-width"):this.content.classList.add("full-width"),this.content.appendChild(o),o instanceof r)throw new zt.Errors.NotFound(t);document.body.scrollTop=0;const i=window.requestAnimationFrame(()=>{if(!o.shadowRoot)return void cancelAnimationFrame(i);const t=o.shadowRoot.querySelector("div");t?t.animate({opacity:[.5,1],transform:["scale(.95)","scale(1)"]},{duration:600}):cancelAnimationFrame(i)})}firstUpdated(){const t=new HashChangeEvent("hashchange",{newURL:location.hash,oldURL:null});this._onHashChange(t)}render(){return G`
 			<style>
 			:host {
             	--background-image: url('https://source.unsplash.com/collection/1727869/1366x768');
@@ -1017,16 +1019,13 @@ found at http://polymer.github.io/PATENTS.txt
 				padding: 4vh 3vw;
 				padding-left: 33vw;
 				margin-right: 1em;
-
-				transition: opacity .6s;
 			}
 
 			.content.full-width { margin: 0; padding: 0 }
-			.content.transiting { opacity: 0 }
 
 			@media (min-width: 1033px){}
 			</style>
 			<ui-profile></ui-profile>
 			<div id="content" class="content"></div>
 		`}get content(){return this.shadowRoot.querySelector("#content")}}se.is="elara-app",ae([St({reflect:!0,type:String})],se.prototype,"route",void 0),customElements.define(se.is,se)}]);
-//# sourceMappingURL=main.1432eda6.js.map
+//# sourceMappingURL=main.94358baa.js.map

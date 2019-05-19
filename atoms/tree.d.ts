@@ -5,6 +5,8 @@ import { LitElement, TemplateResult } from 'lit-element';
  */
 export declare class Tree extends LitElement {
     static readonly is: string;
+    height: number;
+    width: number;
     firstUpdated(): void;
     render(): void | TemplateResult;
     private _tree;

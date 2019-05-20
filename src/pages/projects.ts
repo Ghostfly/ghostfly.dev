@@ -25,6 +25,7 @@ class Projects extends LitElement implements Elara.Page {
                 image: '/assets/projects/dandy.svg',
                 repository: null,
                 status: 'Work in progress',
+                url: null,
                 tags: ['E-Commerce', 'Elara', 'Custom menswear', 'ThreeJS']
             },
             {
@@ -33,6 +34,7 @@ class Projects extends LitElement implements Elara.Page {
                 image: 'https://avatars0.githubusercontent.com/u/5880133?s=400&u=050272e628f9c73881592ef1107b8935f5ec4467&v=4',
                 repository: 'https://github.com/Ghostfly/ghostfly.dev/tree/master',
                 status: 'Work in progress',
+                url: null,
                 tags: ['Elara', 'LitElement', 'Github Pages']
             },
             {
@@ -41,6 +43,7 @@ class Projects extends LitElement implements Elara.Page {
                 image: '/assets/projects/persin.jpg',
                 status: 'published',
                 repository: 'https://github.com/Ghostfly/persin-conseil',
+                url: 'https://www.persin.fr',
                 tags: ['Lit-Element', 'Elara', 'Workbox']
             },
             {
@@ -49,6 +52,7 @@ class Projects extends LitElement implements Elara.Page {
                 image: '/assets/projects/dobrunia.png',
                 status: 'published',
                 repository: null,
+                url: 'https://www.dobruniadesign.com',
                 tags: ['React', 'HapiJS', 'Material-UI']
             },
             {
@@ -57,6 +61,7 @@ class Projects extends LitElement implements Elara.Page {
                 image: '/assets/projects/cheno.svg',
                 status: 'published',
                 repository: null,
+                url: 'https://www.cheno.fr',
                 tags: ['Slim Framework', 'HTML5', 'CSS3']
             },
             {
@@ -65,6 +70,7 @@ class Projects extends LitElement implements Elara.Page {
                 image: '/assets/projects/rs.png',
                 status: 'published',
                 repository: null,
+                url: 'https://www.renouveausocietal.fr',
                 tags: ['WordPress', 'Handmade template']
             },
             {
@@ -73,6 +79,7 @@ class Projects extends LitElement implements Elara.Page {
                 image: '/assets/projects/g-addiction.png',
                 status: 'published',
                 repository: null,
+                url: 'https://www.g-addiction.com',
                 tags: ['WordPress', 'chosen template']
             },
             {
@@ -111,9 +118,13 @@ class Projects extends LitElement implements Elara.Page {
                 min-height: 50px;
                 margin: 1em;
                 padding: .5em;
-                cursor: normal;
+                cursor: default;
                 user-select: none;
                 border-bottom: 1px solid var(--elara-darkgray)
+            }
+
+            .project.with-link {
+                cursor: pointer;
             }
 
             .project .hidden-content {
@@ -170,7 +181,11 @@ class Projects extends LitElement implements Elara.Page {
             <h1>${this.head.title}</h1>
 
             ${repeat(this.projects, (project) => html`
-                <section class="project ${project.slug}">
+                <section class="project ${project.slug} ${project.url ? 'with-link' : 'normal'}" role="${project.url ? 'link' : 'row'}" @click=${() => {
+                    if(project.url){
+                        window.open(project.url);
+                    }
+                }}>
                     <div class="hidden-content grid">
                         <div class="left">
                             <h3>${project.name}</h3>

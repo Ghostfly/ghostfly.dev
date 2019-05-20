@@ -171,13 +171,22 @@ class GithubWork extends LitElement implements Elara.Element {
             align-items: center;
             min-height: 50vh;
         }
+
+        .link {
+            color: var(--elara-secondary);
+            text-decoration: none;
+            transition: color .3s;
+        }
+        .link:hover {
+            color: var(--elara-primary);
+        }
         </style>
         <div class="loader">
             <paper-spinner></paper-spinner>
         </div>
+        ${this.inError ? html`<p>Can't load GitHub repositories.. 😢 <br />You can check on <a class="link" href="https://github.com/ghostfly/">GitHub</a> directly !</p>` : html``}
         ${this.currentPage ? html`
         <div class="two-cols">
-            ${this.inError ? html`Can't load GitHub repositories.. 😢` : html``}
             ${repeat(this.currentPage, (repository: GithubRepository) => {
                 return html`
                 <section class="github-card" @click=${() => { window.open(repository.html_url);}}>
@@ -194,6 +203,9 @@ class GithubWork extends LitElement implements Elara.Element {
         </div>
         ${this._pagination}
         ` : html``}
+        <a class="next" @click=${() => {
+            location.hash = '#!about';
+        }}>> About</a>
         `;
     }
 
@@ -218,9 +230,6 @@ class GithubWork extends LitElement implements Elara.Element {
             ${this.page+1} / ${this.repositories.length}
             ${this.page < this.repositories.length && this.page !== 0 ? html`${this._back} 
             ${this.page !== this.repositories.length -1 ? html`${this._next}` : html``}` : html`${this._next}`}
-            <a class="next" @click=${() => {
-                location.hash = '#!about';
-            }}>> About</a>
         </div>`;
     }
 

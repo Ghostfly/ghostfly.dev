@@ -25,7 +25,7 @@ class GithubWork extends LitElement implements Elara.Element {
     public repositories: GithubRepository[][] = [];
 
     @property({type: Array})
-    public currentPage: GithubRepository[] = [];
+    public currentPage: GithubRepository[] = null;
 
     @property({type: Number, reflect: true})
     public page: number = 0;
@@ -47,9 +47,17 @@ class GithubWork extends LitElement implements Elara.Element {
         request.setRequestHeader('secret', GithubConfig.secret);
         request.send();
 
-        const onError = () => {
+        const hideSpinner = () => {
+            if(!this._spinner) return;
+
             this._spinner.active = false;
-            this.shadowRoot.removeChild(this._spinner);
+            const container = this._spinner.parentElement;
+            container.removeChild(this._spinner);
+            this.shadowRoot.removeChild(container);
+        };
+
+        const onError = () => {
+            hideSpinner();
             this.inError = true;
         };
 
@@ -65,8 +73,8 @@ class GithubWork extends LitElement implements Elara.Element {
                                         })/*.sort((a, b) => b.stargazers_count - a.stargazers_count)*/, this.chunksLength);
 
                 this.currentPage = this.repositories[this.page];
-                this._spinner.active = false;
-                this.shadowRoot.removeChild(this._spinner);
+
+                hideSpinner();
                 await this.updateComplete;
                 this._pulse();
             }
@@ -156,8 +164,18 @@ class GithubWork extends LitElement implements Elara.Element {
         .next:hover {
             color: var(--elara-primary);
         }
+
+        .loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 50vh;
+        }
         </style>
-        <paper-spinner></paper-spinner>
+        <div class="loader">
+            <paper-spinner></paper-spinner>
+        </div>
+        ${this.currentPage ? html`
         <div class="two-cols">
             ${this.inError ? html`Can't load GitHub repositories.. 😢` : html``}
             ${repeat(this.currentPage, (repository: GithubRepository) => {
@@ -174,14 +192,8 @@ class GithubWork extends LitElement implements Elara.Element {
                 `;
             })}
         </div>
-        <div class="pagination">
-            ${this.page+1} / ${this.repositories.length}
-            ${this.page < this.repositories.length && this.page !== 0 ? html`${this._back} 
-            ${this.page !== this.repositories.length -1 ? html`${this._next}` : html``}` : html`${this._next}`}
-            <a class="next" @click=${() => {
-                location.hash = '#!about';
-            }}>> About</a>
-        </div>
+        ${this._pagination}
+        ` : html``}
         `;
     }
 
@@ -198,6 +210,18 @@ class GithubWork extends LitElement implements Elara.Element {
                 }
             );
         });
+    }
+
+    private get _pagination(){
+        return html`
+        <div class="pagination">
+            ${this.page+1} / ${this.repositories.length}
+            ${this.page < this.repositories.length && this.page !== 0 ? html`${this._back} 
+            ${this.page !== this.repositories.length -1 ? html`${this._next}` : html``}` : html`${this._next}`}
+            <a class="next" @click=${() => {
+                location.hash = '#!about';
+            }}>> About</a>
+        </div>`;
     }
 
     private get _back(){

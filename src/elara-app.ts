@@ -7,6 +7,13 @@ import './atoms/not-found';
 // lazy import for polymer components
 import('./polymer');
 
+const DARK = '(prefers-color-scheme: dark)';
+const LIGHT = '(prefers-color-scheme: light)';
+
+
+require('matchmedia-polyfill');
+require('matchmedia-polyfill/matchMedia.addListener');
+
 class ElaraApp extends LitElement implements Elara.Element {
 	public static readonly is: string = 'elara-app';
 
@@ -27,6 +34,12 @@ class ElaraApp extends LitElement implements Elara.Element {
 
 	public connectedCallback(){
 		super.connectedCallback();
+
+		const darkMediaQuery = matchMedia(DARK);
+		darkMediaQuery.addListener(this._queryListener);
+
+		const lightMediaQuery = matchMedia(LIGHT);
+		lightMediaQuery.addListener(this._queryListener);
 		  
 		this._onHashChangeListener = this._onHashChange.bind(this);
 		window.addEventListener('hashchange', this._onHashChangeListener, { passive: true });
@@ -120,6 +133,20 @@ class ElaraApp extends LitElement implements Elara.Element {
 		});
 	}
 
+	private _queryListener({matches, media}){
+		console.warn(media, matches);
+
+		if(!matches) {
+			return;
+		}
+
+		if(media === DARK) {
+			console.warn('is dark');
+		} else if (media === LIGHT) {
+			console.warn('is light');
+		}
+	}
+
 	public firstUpdated(){		
 		const hashEvent = new HashChangeEvent('hashchange', {
 			newURL: location.hash,
@@ -137,7 +164,7 @@ class ElaraApp extends LitElement implements Elara.Element {
         	}
 				
 			.content {
-				background: var(--elara-lightgray);
+				background-color: var(--elara-background);
 				color: var(--elara-darkgray);
 				display: inline-block;
 

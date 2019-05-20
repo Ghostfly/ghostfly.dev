@@ -19,6 +19,7 @@
     "@webcomponents/webcomponentsjs": "^2.2.10",
     "lit-element": "^2.1.0",
     "lit-html": "^1.0.0",
+    "matchmedia-polyfill": "^0.3.2",
     "web-animations-js": "^2.3.1"
   },
   "devDependencies": {

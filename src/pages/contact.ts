@@ -3,7 +3,6 @@ import { LitElement, property } from 'lit-element';
 
 import Elara from '../core/elara';
 
-import '@polymer/iron-icons/communication-icons';
 import { PaperButtonElement } from '@polymer/paper-button';
 import { PaperInputElement } from '@polymer/paper-input/paper-input';
 import { PaperTextareaElement } from '@polymer/paper-input/paper-textarea';

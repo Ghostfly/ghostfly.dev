@@ -55,7 +55,7 @@ class Profile extends LitElement implements Elara.Element {
             border-radius: 3px;
         }
         </style>
-        <div class="profile" @click=${() => { location.hash = '#!home'; }}>
+        <div role="link" class="profile" @click=${() => { location.hash = '#!home'; }}>
             <iron-image class="pic" sizing="cover" fade src="https://avatars0.githubusercontent.com/u/5880133?s=400&u=050272e628f9c73881592ef1107b8935f5ec4467&v=4"></iron-image>
             <div class="bio">
                 <div class="username">

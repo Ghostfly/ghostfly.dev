@@ -46,7 +46,7 @@ class About extends LitElement implements Elara.Page {
                 <h2>Towards studies</h2>
                 <div>
                     <p>After a rather unusual path, I ended up in a post baccalauréat IT diploma called BTS SIO, successfully validated. Bringing me to Miage, combining my computer aspirations, and my attraction for entrepreneurship. I've always dreamed of building my own business, in Nice, Holland.. Giving me the opportunity to create my own job and keep my creativity as sharp as possible. Just stayin' motivated.</p><p>Besides if you want to read it, here is my current 
-                    <a class="cv" @click=${() => {
+                    <a role="link" class="cv" @click=${() => {
                         window.open('/assets/resume.pdf');
                     }}>CV</a>.</p>
                 </div>

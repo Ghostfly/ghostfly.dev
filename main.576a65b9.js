@@ -377,13 +377,13 @@ var Pe="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prot
         }
         
         .profile > .pic {
-            width: 13vw;
-            height: 13vw;
+            width: 20vw;
+            height: 20vw;
             border-radius: 3px;
         }
         </style>
         <div role="link" class="profile" @click=${()=>{location.hash="#!home"}}>
-            <iron-image class="pic" sizing="cover" fade src="https://avatars0.githubusercontent.com/u/5880133?s=400&u=050272e628f9c73881592ef1107b8935f5ec4467&v=4"></iron-image>
+            <iron-image class="pic" sizing="contain" fade src="/assets/me.svg"></iron-image>
             <div class="bio">
                 <div class="username">
                     <span>Léonard C. > @ghostfly</span>
@@ -519,7 +519,7 @@ var Pe="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prot
         </div>
         <a class="prev" @click=${()=>{location.hash="#!home"}}>< Work</a>
         <a class="next" @click=${()=>{location.hash="#!projects"}}>> Projects</a>
-        `}}Ze.is="ui-about",customElements.define(Ze.is,Ze);class Qe extends Re{get head(){return{title:"Projects",description:"",type:"page",image:"",slug:"#!projects"}}get projects(){return[{name:"Dandy Costard",slug:"dandy",image:"/assets/projects/dandy.svg",repository:null,status:"Work in progress",url:null,tags:["E-Commerce","Elara","Custom menswear","ThreeJS"]},{name:"Ghostfly.dev",slug:"ghostfly",image:"https://avatars0.githubusercontent.com/u/5880133?s=400&u=050272e628f9c73881592ef1107b8935f5ec4467&v=4",repository:"https://github.com/Ghostfly/ghostfly.dev/tree/master",status:"Work in progress",url:null,tags:["Elara","LitElement","Github Pages"]},{name:"Persin Conseil",slug:"persin",image:"/assets/projects/persin.jpg",status:"published",repository:"https://github.com/Ghostfly/persin-conseil",url:"https://www.persin.fr",tags:["Lit-Element","Elara","Workbox"]},{name:"Dobrunia Design",slug:"react",image:"/assets/projects/dobrunia.png",status:"published",repository:null,url:"https://www.dobruniadesign.com",tags:["React","HapiJS","Material-UI"]},{name:"Cheno",slug:"cheno",image:"/assets/projects/cheno.svg",status:"published",repository:null,url:"https://www.cheno.fr",tags:["Slim Framework","HTML5","CSS3"]},{name:"Renouveau Sociétal",slug:"rs",image:"/assets/projects/rs.png",status:"published",repository:null,url:"https://www.renouveausocietal.fr",tags:["WordPress","Handmade template"]},{name:"G-Addiction",slug:"g-addiction",image:"/assets/projects/g-addiction.png",status:"published",repository:null,url:"https://www.g-addiction.com",tags:["WordPress","chosen template"]},{name:"Who?",slug:"who",status:"...",repository:null,image:"/assets/projects/who.svg",tags:["?"]}]}render(){return Y`
+        `}}Ze.is="ui-about",customElements.define(Ze.is,Ze);class Qe extends Re{get head(){return{title:"Projects",description:"",type:"page",image:"",slug:"#!projects"}}get projects(){return[{name:"Dandy Costard",slug:"dandy",image:"/assets/projects/dandy.svg",repository:null,status:"Work in progress",url:null,tags:["E-Commerce","Elara","Custom menswear","ThreeJS"]},{name:"Ghostfly.dev",slug:"ghostfly",image:"/assets/me.svg",repository:"https://github.com/Ghostfly/ghostfly.dev/tree/master",status:"Work in progress",url:null,tags:["Elara","LitElement","Github Pages"]},{name:"Persin Conseil",slug:"persin",image:"/assets/projects/persin.jpg",status:"published",repository:"https://github.com/Ghostfly/persin-conseil",url:"https://www.persin.fr",tags:["Lit-Element","Elara","Workbox"]},{name:"Dobrunia Design",slug:"react",image:"/assets/projects/dobrunia.png",status:"published",repository:null,url:"https://www.dobruniadesign.com",tags:["React","HapiJS","Material-UI"]},{name:"Cheno",slug:"cheno",image:"/assets/projects/cheno.svg",status:"published",repository:null,url:"https://www.cheno.fr",tags:["Slim Framework","HTML5","CSS3"]},{name:"Renouveau Sociétal",slug:"rs",image:"/assets/projects/rs.png",status:"published",repository:null,url:"https://www.renouveausocietal.fr",tags:["WordPress","Handmade template"]},{name:"G-Addiction",slug:"g-addiction",image:"/assets/projects/g-addiction.png",status:"published",repository:null,url:"https://www.g-addiction.com",tags:["WordPress","chosen template"]},{name:"Who?",slug:"who",status:"...",repository:null,image:"/assets/projects/who.svg",tags:["?"]}]}render(){return Y`
         <style>
             h1, h2 { user-select: none; font-family: var(--elara-font-display); }
             h1::first-letter { font-size: 1.3em; }
@@ -677,4 +677,4 @@ var Pe="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prot
 			<ui-profile></ui-profile>
 			<div id="content" class="content"></div>
 		`}get content(){return this.shadowRoot.querySelector("#content")}}ot.is="elara-app",it([Se({reflect:!0,type:String})],ot.prototype,"route",void 0),customElements.define(ot.is,ot)}]);
-//# sourceMappingURL=main.2f4250b7.js.map
+//# sourceMappingURL=main.576a65b9.js.map

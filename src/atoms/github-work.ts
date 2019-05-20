@@ -66,14 +66,15 @@ class GithubWork extends LitElement implements Elara.Element {
         request.onreadystatechange = async () => {
             if (request.readyState == 4 && request.status == 200) {
                 const repos = JSON.parse(request.responseText);
-                this.repositories = this._chunk(repos.filter((repo:  GithubRepository) => !repo.fork)
-                                        .sort((a: GithubRepository, b: GithubRepository) => { 
-                                            // @ts-ignore
-                                            return new Date(b.created_at) - new Date(a.created_at);
-                                        })/*.sort((a, b) => b.stargazers_count - a.stargazers_count)*/, this.chunksLength);
+                const filtered = repos.filter((repo:  GithubRepository) => !repo.fork)
+                .sort((a: GithubRepository, b: GithubRepository) => { 
+                    // @ts-ignore
+                    return new Date(b.created_at) - new Date(a.created_at);
+                })/*.sort((a, b) => b.stargazers_count - a.stargazers_count)*/
+
+                this.repositories = this._chunk(filtered, this.chunksLength);
 
                 this.currentPage = this.repositories[this.page];
-
                 hideSpinner();
                 await this.updateComplete;
                 this._pulse();
@@ -180,6 +181,10 @@ class GithubWork extends LitElement implements Elara.Element {
         .link:hover {
             color: var(--elara-primary);
         }
+        a[disabled='true'] {
+            pointer-events: none;
+            opacity: .7;
+        }
         </style>
         <div class="loader">
             <paper-spinner></paper-spinner>
@@ -228,14 +233,14 @@ class GithubWork extends LitElement implements Elara.Element {
         return html`
         <div class="pagination">
             ${this.page+1} / ${this.repositories.length}
-            ${this.page < this.repositories.length && this.page !== 0 ? html`${this._back} 
-            ${this.page !== this.repositories.length -1 ? html`${this._next}` : html``}` : html`${this._next}`}
+            ${this._back} 
+            ${this._next}
         </div>`;
     }
 
     private get _back(){
         return html`
-        <a role="button" @click=${async () => {
+        <a role="button" disabled=${this.page === 0} @click=${async () => {
             this.page--;
             this.currentPage = this.repositories[this.page];
             await this.updateComplete;
@@ -248,7 +253,7 @@ class GithubWork extends LitElement implements Elara.Element {
 
     private get _next(){
         return html`
-        <a role="button" @click=${async () => {
+        <a role="button" disabled=${this.page+1 === this.repositories.length} @click=${async () => {
             this.page++;
             this.currentPage = this.repositories[this.page];
             await this.updateComplete;

@@ -56,8 +56,8 @@ class About extends LitElement implements Elara.Page {
             location.hash = '#!home';
         }}>< Work</a>
         <a class="next" @click=${() => {
-            location.hash = '#!contact';
-        }}>> Contact</a>
+            location.hash = '#!projects';
+        }}>> Projects</a>
         `;
     }
 }

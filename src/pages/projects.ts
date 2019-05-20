@@ -31,7 +31,7 @@ class Projects extends LitElement implements Elara.Page {
             {
                 name: 'Ghostfly.dev',
                 slug: 'ghostfly',
-                image: 'https://avatars0.githubusercontent.com/u/5880133?s=400&u=050272e628f9c73881592ef1107b8935f5ec4467&v=4',
+                image: '/assets/me.svg',
                 repository: 'https://github.com/Ghostfly/ghostfly.dev/tree/master',
                 status: 'Work in progress',
                 url: null,

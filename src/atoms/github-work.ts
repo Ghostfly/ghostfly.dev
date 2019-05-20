@@ -31,7 +31,7 @@ class GithubWork extends LitElement implements Elara.Element {
     public page: number = 0;
 
     @property({type: Boolean, reflect: true})
-    public inError: boolean = false
+    public inError: boolean = false;
 
     public chunksLength = 6;
 
@@ -70,7 +70,7 @@ class GithubWork extends LitElement implements Elara.Element {
                 .sort((a: GithubRepository, b: GithubRepository) => { 
                     // @ts-ignore
                     return new Date(b.created_at) - new Date(a.created_at);
-                })/*.sort((a, b) => b.stargazers_count - a.stargazers_count)*/
+                });
 
                 this.repositories = this._chunk(filtered, this.chunksLength);
 

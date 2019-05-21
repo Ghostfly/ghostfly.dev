@@ -157,7 +157,9 @@ class GithubWork extends LitElement implements Elara.Element {
         }
 
         .next {
+            display: flex;
             cursor: pointer;
+            justify-content: flex-end;
             font-weight: bold;
             transition: color .3s;
         }

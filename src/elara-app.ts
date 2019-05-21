@@ -136,7 +136,7 @@ class ElaraApp extends LitElement implements Elara.Element {
             	--background-image: url('https://source.unsplash.com/collection/1727869/1366x768');
         	}
 				
-			.content {
+			.content, .menu-content {
 				background: var(--elara-lightgray);
 				color: var(--elara-darkgray);
 				display: inline-block;
@@ -152,6 +152,85 @@ class ElaraApp extends LitElement implements Elara.Element {
 				padding: 4vh 3vw;
 				padding-left: 33vw;
 				margin-right: 1em;
+				transition: opacity .4s;
+			}
+
+			.menu {
+				position: absolute;
+				top: 0;
+				right: 0;
+				height: 45px;
+				width: 45px;
+				counter-reset: menuitem;
+			}
+
+			.menu-content {
+				background-color: #000;
+				padding-left: 35vw;
+				color: var(--elara-lightgray);
+				display: none;
+			}
+
+			.menu-content .item {
+				cursor: pointer;
+				position: relative;
+				font-size: 5vw;
+				color: var(--elara-lightgray);
+				text-transform: lowercase;
+				margin: 0.5rem 0;
+				padding: 0 0.5rem;
+				transition: color 0.3s;
+				text-decoration: none;
+			}
+
+			@media (max-width: 600px){
+				.menu-content .item {
+					font-size: 10vw;
+				}
+			}
+
+			.menu-content .item::before {
+				counter-increment: menuitem;
+				content: counters(menuitem, "");
+				position: absolute;
+				font-size: 0.85rem;
+				top: 25%;
+				left: -1.25rem;
+				color: var(--elara-darkgray);
+			}
+
+			.menu-content .item::after {
+				content: '';
+				width: 100%;
+				top: 50%;
+				height: 6px;
+				background: #f20c40;
+				position: absolute;
+				left: 0;
+				opacity: 0;
+				transform: scale3d(0,1,1);
+				transition: transform 0.3s, opacity 0.3s;
+				transform-origin: 100% 50%;
+			}
+
+			.menu-content .item:hover, .menu-content .item.active {
+				color: #5a5a5a;
+			}
+
+			.menu-content .item:hover::after, .menu-content .item.active::after {
+				opacity: 1;
+    			transform: scale3d(1,1,1);
+			}
+
+			.menu-content.shown {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.content.hidden {
+				display: none;
 			}
 
 			.content.full-width { margin: 0; padding: 0 }
@@ -159,12 +238,52 @@ class ElaraApp extends LitElement implements Elara.Element {
 			@media (min-width: 1033px){}
 			</style>
 			<ui-profile></ui-profile>
+			<paper-icon-button class="menu" icon="menu" @click=${this._showMenu}></paper-icon-button>
 			<div id="content" class="content"></div>
+			<div id="menu" class="menu-content">
+				<paper-icon-button class="menu" icon="close" @click=${this._hideMenu}></paper-icon-button>
+				<a class="item ${this.route === 'home' ? 'active' : ''}" @click=${() => this._showLink('home')}>Work</a>
+				<a class="item ${this.route === 'about' ? 'active' : ''}" @click=${() => this._showLink('about')}>About</a>
+				<a class="item ${this.route === 'projects' ? 'active' : ''}" @click=${() => this._showLink('projects')}>Projects</a>
+				<a class="item ${this.route === 'contact' ? 'active' : ''}" @click=${() => this._showLink('contact')}>Contact</a>
+			</div>
 		`;
+	}
+
+	private _showLink(route: string): void {
+		this._hideMenu();
+		location.hash = '#!'+route;
+	}
+
+	private _showMenu(): void {
+		if(!this.content.classList.contains('hidden')){
+			this.content.classList.add('hidden');
+		}
+		if(!this.menu.classList.contains('hidden')){
+			this.menu.classList.add('shown');
+		}
+	}
+
+	private async _hideMenu(): Promise<void> {
+		const animation = this.menu.animate({
+			opacity: [1, 0]
+		}, 
+		{ 
+			duration: 200
+		});
+
+		await animation.finished;
+
+		this.content.classList.remove('hidden');
+		this.menu.classList.remove('shown');
 	}
 
 	private get content(){
 		return this.shadowRoot.querySelector('#content');
+	}
+
+	private get menu(){
+		return this.shadowRoot.querySelector('#menu');
 	}
 }
 

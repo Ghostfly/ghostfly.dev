@@ -51,6 +51,7 @@ class Profile extends LitElement implements Elara.Element {
             background-repeat: no-repeat;
             position: fixed;
             color: #fff;
+            user-select: none;
         }
 
         .profile.is-link {

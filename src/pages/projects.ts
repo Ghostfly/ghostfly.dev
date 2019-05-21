@@ -200,7 +200,7 @@ class Projects extends LitElement implements Elara.Page {
                 </section>
             `)}
             <a class="prev" @click=${() => {
-                location.hash = '#!home';
+                location.hash = '#!about';
             }}>< About</a>
             <a class="next" @click=${() => {
                 location.hash = '#!contact';

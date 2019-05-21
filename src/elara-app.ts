@@ -239,10 +239,10 @@ class ElaraApp extends LitElement implements Elara.Element {
 			@media (min-width: 1033px){}
 			</style>
 			<ui-profile></ui-profile>
-			<paper-icon-button class="menu" icon="menu" @click=${this._showMenu}></paper-icon-button>
+			<paper-icon-button class="menu" icon="menu" aria-label="Menu" @click=${this._showMenu}></paper-icon-button>
 			<div id="content" class="content"></div>
 			<div id="menu" class="menu-content">
-				<paper-icon-button class="menu" icon="close" @click=${this._hideMenu}></paper-icon-button>
+				<paper-icon-button class="menu" icon="close" aria-label="Close menu" @click=${this._hideMenu}></paper-icon-button>
 				<a class="item ${this.route === 'home' ? 'active' : ''}" @click=${() => this._showLink('home')}>Work</a>
 				<a class="item ${this.route === 'about' ? 'active' : ''}" @click=${() => this._showLink('about')}>About</a>
 				<a class="item ${this.route === 'projects' ? 'active' : ''}" @click=${() => this._showLink('projects')}>Projects</a>

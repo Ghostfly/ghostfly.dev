@@ -1,18 +1,42 @@
 import { html, TemplateResult } from 'lit-html';
-import { LitElement } from 'lit-element';
+import { LitElement, property } from 'lit-element';
 
 import Elara from '../core/elara';
 
 class Profile extends LitElement implements Elara.Element {
     public static readonly is: string = 'ui-profile';
 
+    @property({type: String, reflect: true})
+    public route: string;
+
+    private _hashChangeListener: () => void;
+
+    public connectedCallback(): void {
+        super.connectedCallback();
+        this.route = location.hash;
+
+        this._hashChangeListener = this._onHashChange.bind(this);
+        window.addEventListener('hashchange', this._hashChangeListener);
+    }
+
+    public disconnectedCallback(): void {
+        super.disconnectedCallback();
+
+        window.removeEventListener('hashchange', this._hashChangeListener);
+    }
+
+    private _onHashChange(event: HashChangeEvent): void {
+        if(!event.newURL){
+            this.route = null;
+            return;
+        }
+
+        this.route = new URL(event.newURL).hash;
+    }
+
     public render(): void | TemplateResult {
         return html`
         <style>
-        :host {
-            cursor: pointer;
-        }
-
         .profile {
             width: 24vw;
             padding: 4vh 3vw;
@@ -27,6 +51,10 @@ class Profile extends LitElement implements Elara.Element {
             background-repeat: no-repeat;
             position: fixed;
             color: #fff;
+        }
+
+        .profile.is-link {
+            cursor: pointer;
         }
 
         .profile .bio > div {
@@ -55,7 +83,7 @@ class Profile extends LitElement implements Elara.Element {
             border-radius: 3px;
         }
         </style>
-        <div role="link" class="profile" @click=${() => { location.hash = '#!home'; }}>
+        <div role="link" class="profile ${this.route === '#!home' || !this.route ? '' : 'is-link'}" @click=${() => { location.hash = '#!home'; }}>
             <iron-image class="pic" sizing="contain" fade src="/assets/me.svg"></iron-image>
             <div class="bio">
                 <div class="username">

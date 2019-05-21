@@ -181,6 +181,7 @@ class ElaraApp extends LitElement implements Elara.Element {
 				padding: 0 0.5rem;
 				transition: color 0.3s;
 				text-decoration: none;
+				user-select: none;
 			}
 
 			@media (max-width: 600px){

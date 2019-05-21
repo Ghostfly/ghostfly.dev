@@ -123,8 +123,14 @@ class Projects extends LitElement implements Elara.Page {
                 border-bottom: 1px solid var(--elara-darkgray)
             }
 
-            .project.with-link {
+            .with-link {
+                color: var(--elara-link);
                 cursor: pointer;
+                transition: color .3s;
+            }
+
+            .with-link:hover {
+                color: var(--elara-primary);
             }
 
             .project .hidden-content {
@@ -176,14 +182,14 @@ class Projects extends LitElement implements Elara.Page {
             <h1>${this.head.title}</h1>
 
             ${repeat(this.projects, (project) => html`
-                <section class="project ${project.slug} ${project.url ? 'with-link' : 'normal'}" role="${project.url ? 'link' : 'row'}" @click=${() => {
-                    if(project.url){
-                        window.open(project.url);
-                    }
-                }}>
+                <section class="project">
                     <div class="hidden-content grid">
                         <div class="left">
-                            <h3>${project.name}</h3>
+                            <h3 class="${project.slug} ${project.url ? 'with-link' : 'normal'}" role="${project.url ? 'link' : 'title'}"  @click=${() => {
+                                if(project.url){
+                                    window.open(project.url);
+                                }
+                            }}>${project.name}</h3>
                             <div class="tags">
                                 ${project.tags.join(', ')}
                             </div>

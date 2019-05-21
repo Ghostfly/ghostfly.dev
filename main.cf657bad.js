@@ -755,14 +755,14 @@ var Pe="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prot
 			@media (min-width: 1033px){}
 			</style>
 			<ui-profile></ui-profile>
-			<paper-icon-button class="menu" icon="menu" @click=${this._showMenu}></paper-icon-button>
+			<paper-icon-button class="menu" icon="menu" aria-label="Menu" @click=${this._showMenu}></paper-icon-button>
 			<div id="content" class="content"></div>
 			<div id="menu" class="menu-content">
-				<paper-icon-button class="menu" icon="close" @click=${this._hideMenu}></paper-icon-button>
+				<paper-icon-button class="menu" icon="close" aria-label="Close menu" @click=${this._hideMenu}></paper-icon-button>
 				<a class="item ${"home"===this.route?"active":""}" @click=${()=>this._showLink("home")}>Work</a>
 				<a class="item ${"about"===this.route?"active":""}" @click=${()=>this._showLink("about")}>About</a>
 				<a class="item ${"projects"===this.route?"active":""}" @click=${()=>this._showLink("projects")}>Projects</a>
 				<a class="item ${"contact"===this.route?"active":""}" @click=${()=>this._showLink("contact")}>Contact</a>
 			</div>
 		`}_showLink(e){this._hideMenu(),location.hash="#!"+e}_showMenu(){this.content.classList.contains("hidden")||this.content.classList.add("hidden"),this.menu.classList.contains("hidden")||this.menu.classList.add("shown")}_hideMenu(){return at(this,void 0,void 0,function*(){const e=this.menu.animate({opacity:[1,0]},{duration:200});yield e.finished,this.content.classList.remove("hidden"),this.menu.classList.remove("shown")})}get content(){return this.shadowRoot.querySelector("#content")}get menu(){return this.shadowRoot.querySelector("#menu")}}st.is="elara-app",ot([Se({reflect:!0,type:String})],st.prototype,"route",void 0),customElements.define(st.is,st)}]);
-//# sourceMappingURL=main.31298799.js.map
+//# sourceMappingURL=main.cf657bad.js.map

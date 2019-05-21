@@ -520,9 +520,9 @@ var Pe="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prot
                     <a role="link" class="cv" @click=${()=>{window.open("/assets/resume.pdf")}}>CV</a>.</p>
                 </div>
             </div>
+            <a class="prev" @click=${()=>{location.hash="#!home"}}>< Work</a>
+            <a class="next" @click=${()=>{location.hash="#!projects"}}>> Projects</a>
         </div>
-        <a class="prev" @click=${()=>{location.hash="#!home"}}>< Work</a>
-        <a class="next" @click=${()=>{location.hash="#!projects"}}>> Projects</a>
         `}}Qe.is="ui-about",customElements.define(Qe.is,Qe);class et extends Re{get head(){return{title:"Projects",description:"",type:"page",image:"",slug:"#!projects"}}get projects(){return[{name:"Dandy Costard",slug:"dandy",image:"/assets/projects/dandy.svg",repository:null,status:"Work in progress",url:null,tags:["E-Commerce","Elara","Custom menswear","ThreeJS"]},{name:"Ghostfly.dev",slug:"ghostfly",image:"/assets/me.svg",repository:"https://github.com/Ghostfly/ghostfly.dev/tree/master",status:"Work in progress",url:null,tags:["Elara","LitElement","Github Pages"]},{name:"Persin Conseil",slug:"persin",image:"/assets/projects/persin.jpg",status:"published",repository:"https://github.com/Ghostfly/persin-conseil",url:"https://www.persin.fr",tags:["Lit-Element","Elara","Workbox"]},{name:"Dobrunia Design",slug:"react",image:"/assets/projects/dobrunia.png",status:"published",repository:null,url:"https://www.dobruniadesign.com",tags:["React","HapiJS","Material-UI"]},{name:"Cheno",slug:"cheno",image:"/assets/projects/cheno.svg",status:"published",repository:null,url:"https://www.cheno.fr",tags:["Slim Framework","HTML5","CSS3"]},{name:"Renouveau Sociétal",slug:"rs",image:"/assets/projects/rs.png",status:"published",repository:null,url:"https://www.renouveausocietal.fr",tags:["WordPress","Handmade template"]},{name:"G-Addiction",slug:"g-addiction",image:"/assets/projects/g-addiction.png",status:"published",repository:null,url:"https://www.g-addiction.com",tags:["WordPress","chosen template"]},{name:"Who?",slug:"who",status:"...",repository:null,image:"/assets/projects/who.svg",tags:["?"]}]}render(){return Y`
         <style>
             h1, h2 { user-select: none; font-family: var(--elara-font-display); }
@@ -552,8 +552,14 @@ var Pe="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prot
                 border-bottom: 1px solid var(--elara-darkgray)
             }
 
-            .project.with-link {
+            .with-link {
+                color: var(--elara-link);
                 cursor: pointer;
+                transition: color .3s;
+            }
+
+            .with-link:hover {
+                color: var(--elara-primary);
             }
 
             .project .hidden-content {
@@ -605,10 +611,10 @@ var Pe="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prot
             <h1>${this.head.title}</h1>
 
             ${Ue(this.projects,e=>Y`
-                <section class="project ${e.slug} ${e.url?"with-link":"normal"}" role="${e.url?"link":"row"}" @click=${()=>{e.url&&window.open(e.url)}}>
+                <section class="project">
                     <div class="hidden-content grid">
                         <div class="left">
-                            <h3>${e.name}</h3>
+                            <h3 class="${e.slug} ${e.url?"with-link":"normal"}" role="${e.url?"link":"title"}"  @click=${()=>{e.url&&window.open(e.url)}}>${e.name}</h3>
                             <div class="tags">
                                 ${e.tags.join(", ")}
                             </div>
@@ -764,4 +770,4 @@ var Pe="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prot
 				<a class="item ${"contact"===this.route?"active":""}" @click=${()=>this._showLink("contact")}>Contact</a>
 			</div>
 		`}_showLink(e){this._hideMenu(),location.hash="#!"+e}_showMenu(){this.content.classList.contains("hidden")||this.content.classList.add("hidden"),this.menu.classList.contains("hidden")||this.menu.classList.add("shown")}_hideMenu(){return at(this,void 0,void 0,function*(){const e=this.menu.animate({opacity:[1,0]},{duration:200});yield e.finished,this.content.classList.remove("hidden"),this.menu.classList.remove("shown")})}get content(){return this.shadowRoot.querySelector("#content")}get menu(){return this.shadowRoot.querySelector("#menu")}}st.is="elara-app",ot([Se({reflect:!0,type:String})],st.prototype,"route",void 0),customElements.define(st.is,st)}]);
-//# sourceMappingURL=main.a50c4334.js.map
+//# sourceMappingURL=main.86f11eb6.js.map

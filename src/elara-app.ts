@@ -94,7 +94,7 @@ class ElaraApp extends LitElement implements Elara.Element {
 		if(loaded instanceof NotFound){
 			throw new Elara.Errors.NotFound(route);
 		}
-		document.body.scrollTop = 0;
+		window.scrollTo(0,0 );
 				
 		const handle = window.requestAnimationFrame(() => {
 			if(!loaded.shadowRoot){
@@ -151,7 +151,6 @@ class ElaraApp extends LitElement implements Elara.Element {
 
 				padding: 4vh 3vw;
 				padding-left: 33vw;
-				margin-right: 1em;
 				transition: opacity .4s;
 			}
 

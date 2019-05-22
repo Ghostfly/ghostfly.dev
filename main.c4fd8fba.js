@@ -313,7 +313,7 @@ var Pe="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prot
                     <div class="title">${e.node.name}</div>
                     <div class="description">${e.node.description}</div>
                     <div class="bottom">
-                        <span>${e.node.primaryLanguage.name}</span>
+                        <span>${e.node.primaryLanguage?e.node.primaryLanguage.name:""}</span>
                         <span><iron-icon icon="stars"></iron-icon> ${e.node.stargazers.totalCount}</span>
                         <span><iron-icon icon="subdirectory-arrow-right"></iron-icon> ${e.node.forkCount}</span>
                     </div>
@@ -768,4 +768,4 @@ var Pe="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prot
 				<a class="item ${"contact"===this.route?"active":""}" @click=${()=>this._showLink("contact")}>Contact</a>
 			</div>
 		`}_showLink(e){this._hideMenu(),location.hash="#!"+e}_showMenu(){return at(this,void 0,void 0,function*(){this.content.classList.contains("hidden")||this.content.classList.add("hidden"),this.menu.classList.contains("hidden")||this.menu.classList.add("shown"),this.menu.animate({opacity:[0,1]},{duration:500})})}_hideMenu(){return at(this,void 0,void 0,function*(){const e=this.menu.animate({opacity:[1,0]},{duration:300});yield e.finished,this.content.classList.remove("hidden"),this.menu.classList.remove("shown")})}get content(){return this.shadowRoot.querySelector("#content")}get menu(){return this.shadowRoot.querySelector("#menu")}}st.is="elara-app",ot([Se({reflect:!0,type:String})],st.prototype,"route",void 0),customElements.define(st.is,st)}]);
-//# sourceMappingURL=main.ec715e11.js.map
+//# sourceMappingURL=main.c4fd8fba.js.map

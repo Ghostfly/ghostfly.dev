@@ -5,17 +5,20 @@ import Elara from '../core/elara';
 import { repeat } from 'lit-html/directives/repeat';
 import { PaperSpinnerElement } from '@polymer/paper-spinner/paper-spinner';
 
-import GithubConfig from '../core/github';
-
 interface GithubRepository {
-    name: string;
-    description: string;
-    stargazers_count: number;
-    fork: boolean;
-    forks: number;
-    html_url: string;
-    language: string;
-    created_at: string;
+    node: {
+        description: string;
+        forkCount: number;
+        name: string;
+        stargazers: {
+            totalCount: number;
+        };
+        createdAt: string;
+        url: string;
+        primaryLanguage: {
+            name: string;
+        };
+    };
 }
 
 class GithubWork extends LitElement implements Elara.Element {
@@ -40,12 +43,10 @@ class GithubWork extends LitElement implements Elara.Element {
 
         const request = new XMLHttpRequest();
 
-        request.open('GET', 'https://corsunblock.herokuapp.com/https://api.github.com/users/ghostfly/repos', true);
-
-        request.setRequestHeader('type', GithubConfig.type);
-        request.setRequestHeader('key', GithubConfig.key);
-        request.setRequestHeader('secret', GithubConfig.secret);
-        request.send();
+        const queryObj = {query: '{ search(query: "user:ghostfly is:public", type: REPOSITORY, first: 100) { repositoryCount edges { node { ... on Repository { name stargazers { totalCount } description forkCount createdAt url primaryLanguage {name} }}}}}'};
+        request.open('POST', 'https://api.github.com/graphql', true);
+        request.setRequestHeader('Authorization', 'bearer 934bd2e79e66e684a582eda1ac3c07b16cb7967d');
+        request.send(JSON.stringify(queryObj));
 
         const hideSpinner = () => {
             if(!this._spinner) return;
@@ -66,10 +67,9 @@ class GithubWork extends LitElement implements Elara.Element {
         request.onreadystatechange = async () => {
             if (request.readyState == 4 && request.status == 200) {
                 const repos = JSON.parse(request.responseText);
-                const filtered = repos.filter((repo:  GithubRepository) => !repo.fork)
-                .sort((a: GithubRepository, b: GithubRepository) => { 
+                const filtered = repos.data.search.edges.sort((a: GithubRepository, b: GithubRepository) => { 
                     // @ts-ignore
-                    return new Date(b.created_at) - new Date(a.created_at);
+                    return new Date(b.node.createdAt) - new Date(a.node.createdAt);
                 });
 
                 this.repositories = this._chunk(filtered, this.chunksLength);
@@ -196,13 +196,13 @@ class GithubWork extends LitElement implements Elara.Element {
         <div class="two-cols">
             ${repeat(this.currentPage, (repository: GithubRepository) => {
                 return html`
-                <section class="github-card" @click=${() => { window.open(repository.html_url);}}>
-                    <div class="title">${repository.name}</div>
-                    <div class="description">${repository.description}</div>
+                <section class="github-card" @click=${() => { window.open(repository.node.url);}}>
+                    <div class="title">${repository.node.name}</div>
+                    <div class="description">${repository.node.description}</div>
                     <div class="bottom">
-                        <span>${repository.language}</span>
-                        <span><iron-icon icon="stars"></iron-icon> ${repository.stargazers_count}</span>
-                        <span><iron-icon icon="subdirectory-arrow-right"></iron-icon> ${repository.forks}</span>
+                        <span>${repository.node.primaryLanguage.name}</span>
+                        <span><iron-icon icon="stars"></iron-icon> ${repository.node.stargazers.totalCount}</span>
+                        <span><iron-icon icon="subdirectory-arrow-right"></iron-icon> ${repository.node.forkCount}</span>
                     </div>
                 </section>
                 `;

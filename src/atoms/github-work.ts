@@ -40,7 +40,7 @@ class GithubWork extends LitElement implements Elara.Element {
 
         const request = new XMLHttpRequest();
 
-        request.open('GET', 'https://cors-anywhere.herokuapp.com/https://api.github.com/users/ghostfly/repos', true);
+        request.open('GET', 'https://corsunblock.herokuapp.com/https://api.github.com/users/ghostfly/repos', true);
 
         request.setRequestHeader('type', GithubConfig.type);
         request.setRequestHeader('key', GithubConfig.key);

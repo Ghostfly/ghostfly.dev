@@ -19,10 +19,33 @@ class Profile extends LitElement implements Elara.Element {
         window.addEventListener('hashchange', this._hashChangeListener);
     }
 
+    public async firstUpdated(){
+        const backgroundURL = await this._toDataURL('https://source.unsplash.com/collection/1727869/1366x768');
+        this.container.style.backgroundImage =`url('${backgroundURL}')`;
+    }
+
     public disconnectedCallback(): void {
         super.disconnectedCallback();
 
         window.removeEventListener('hashchange', this._hashChangeListener);
+    }
+
+    private _toDataURL(src: string): Promise<string> {
+        return new Promise((resolve) => {
+            const image = new Image();
+            image.crossOrigin = 'Anonymous';
+         
+            image.onload = () => {
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = image.naturalHeight;
+                canvas.width = image.naturalWidth;
+                context.drawImage(image, 0, 0);
+                resolve(canvas.toDataURL('image/jpeg'));
+            };
+        
+            image.src = src;
+        });
     }
 
     private _onHashChange(event: HashChangeEvent): void {
@@ -46,7 +69,7 @@ class Profile extends LitElement implements Elara.Element {
             flex-direction: column;
             justify-content: center;
             text-align: left;
-            background: var(--background-image) center center;
+            background: var(--elara-darkgray) center center;
             background-size: cover;
             background-repeat: no-repeat;
             position: fixed;
@@ -85,7 +108,7 @@ class Profile extends LitElement implements Elara.Element {
             border-radius: 3px;
         }
         </style>
-        <div role="link" class="profile ${this.route === '#!home' || !this.route ? '' : 'is-link'}" @click=${() => { location.hash = '#!home'; }}>
+        <div role="link" id="container" class="profile ${this.route === '#!home' || !this.route ? '' : 'is-link'}" @click=${() => { location.hash = '#!home'; }}>
             <iron-image class="pic" sizing="contain" fade src="/assets/me.svg"></iron-image>
             <div class="bio">
                 <div class="username">
@@ -100,6 +123,10 @@ class Profile extends LitElement implements Elara.Element {
             </div>
         </div>
         `;
+    }
+
+    private get container(): HTMLDivElement {
+        return this.shadowRoot.querySelector('#container');
     }
 }
 customElements.define(Profile.is, Profile);

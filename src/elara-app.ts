@@ -132,11 +132,7 @@ class ElaraApp extends LitElement implements Elara.Element {
 	
 	public render() {
 		return html`
-			<style>
-			:host {
-            	--background-image: url('https://source.unsplash.com/collection/1727869/1366x768');
-        	}
-				
+			<style>				
 			.content, .menu-content {
 				background: var(--elara-lightgray);
 				color: var(--elara-darkgray);

@@ -94,7 +94,8 @@ class ElaraApp extends LitElement implements Elara.Element {
 		if(loaded instanceof NotFound){
 			throw new Elara.Errors.NotFound(route);
 		}
-		window.scrollTo(0,0 );
+		window.scrollTo(0,0);
+		this._hideMenu();
 				
 		const handle = window.requestAnimationFrame(() => {
 			if(!loaded.shadowRoot){
@@ -151,7 +152,6 @@ class ElaraApp extends LitElement implements Elara.Element {
 
 				padding: 4vh 3vw;
 				padding-left: 33vw;
-				transition: opacity .4s;
 			}
 
 			.menu {
@@ -161,6 +161,7 @@ class ElaraApp extends LitElement implements Elara.Element {
 				height: 45px;
 				width: 45px;
 				counter-reset: menuitem;
+				z-index: 1;
 			}
 
 			.menu-content {
@@ -168,6 +169,7 @@ class ElaraApp extends LitElement implements Elara.Element {
 				padding-left: 35vw;
 				color: var(--elara-lightgray);
 				display: none;
+				transition: opacity .4s;
 			}
 
 			.menu-content .item {
@@ -255,24 +257,32 @@ class ElaraApp extends LitElement implements Elara.Element {
 		location.hash = '#!'+route;
 	}
 
-	private _showMenu(): void {
+	private async _showMenu(): Promise<void> {
 		if(!this.content.classList.contains('hidden')){
 			this.content.classList.add('hidden');
 		}
+
 		if(!this.menu.classList.contains('hidden')){
 			this.menu.classList.add('shown');
 		}
+
+		this.menu.animate({
+			opacity: [0, 1],
+		}, 
+		{ 
+			duration: 500
+		});
 	}
 
 	private async _hideMenu(): Promise<void> {
-		const animation = this.menu.animate({
-			opacity: [1, 0]
+		const dismiss = this.menu.animate({
+			opacity: [1, 0],
 		}, 
 		{ 
-			duration: 200
+			duration: 300
 		});
 
-		await animation.finished;
+		await dismiss.finished;
 
 		this.content.classList.remove('hidden');
 		this.menu.classList.remove('shown');

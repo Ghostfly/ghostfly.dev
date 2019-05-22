@@ -45,7 +45,7 @@ class GithubWork extends LitElement implements Elara.Element {
 
         const queryObj = {query: '{ search(query: "user:ghostfly is:public", type: REPOSITORY, first: 100) { repositoryCount edges { node { ... on Repository { name stargazers { totalCount } description forkCount createdAt url primaryLanguage {name} }}}}}'};
         request.open('POST', 'https://api.github.com/graphql', true);
-        request.setRequestHeader('Authorization', 'bearer 934bd2e79e66e684a582eda1ac3c07b16cb7967d');
+        request.setRequestHeader('Authorization', 'bearer ' + atob('ZDQ0Y2JmYjVlOGRiOTRjMjJkNThlYjg4ZjFlNjIyODM4YzQ1N2Q3Mg=='));
         request.send(JSON.stringify(queryObj));
 
         const hideSpinner = () => {
@@ -200,7 +200,7 @@ class GithubWork extends LitElement implements Elara.Element {
                     <div class="title">${repository.node.name}</div>
                     <div class="description">${repository.node.description}</div>
                     <div class="bottom">
-                        <span>${repository.node.primaryLanguage.name}</span>
+                        <span>${repository.node.primaryLanguage ? repository.node.primaryLanguage.name : ''}</span>
                         <span><iron-icon icon="stars"></iron-icon> ${repository.node.stargazers.totalCount}</span>
                         <span><iron-icon icon="subdirectory-arrow-right"></iron-icon> ${repository.node.forkCount}</span>
                     </div>

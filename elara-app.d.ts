@@ -6,11 +6,13 @@ export declare class ElaraApp extends LitElement implements Elara.Element {
     static readonly is: string;
     private _onHashChangeListener;
     route: string;
+    mode: string;
     private _menuFade;
     /**
      * Create the render root
      */
     protected createRenderRoot(): ShadowRoot;
+    private _nightMode;
     connectedCallback(): void;
     disconnectedCallback(): void;
     private _onHashChange;

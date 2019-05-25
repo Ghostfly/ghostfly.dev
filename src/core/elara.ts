@@ -32,7 +32,6 @@ const Elara = {
 namespace Elara {
     // UI modes
     export type Modes = 'day' | 'night';
-    export type Default = 'day';
 
     // Element interfaces
     export interface Element extends LitElement {}

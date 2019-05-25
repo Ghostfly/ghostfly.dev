@@ -88,7 +88,7 @@ export class ElaraApp extends LitElement implements Elara.Root {
 	}
 
 	private async _onHashChange(event: HashChangeEvent){
-		const route = Elara.Routing.hashChange(event);
+		const route = Elara.Routing.hashChange(event, this.route);
 
 		this.content.innerHTML = '';
 		await this.load(route);

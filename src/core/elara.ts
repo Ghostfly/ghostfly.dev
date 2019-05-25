@@ -11,7 +11,7 @@ const Elara = {
         navigate: (route: string) => {
             location.hash = `#!${route}`;
         },
-        hashChange: (event: HashChangeEvent) => {
+        hashChange: (event: HashChangeEvent, currentRoute: string) => {
             const split = event.newURL.replace(location.origin + '/', '').split('/');
 
             const newURL = split[0];
@@ -26,7 +26,7 @@ const Elara = {
                 route = asked ? asked : defaultRoute;
             }
             
-            if(this.route === route){
+            if(currentRoute === route){
                 return null;
             }
 
@@ -37,6 +37,30 @@ const Elara = {
         queries: {
           DARK: '(prefers-color-scheme: dark)',
           LIGHT: '(prefers-color-scheme: light)',
+        },
+        mode: () => {
+            return localStorage.getItem(Elara.UI.modes.localStorageKey);
+        },
+        hasSwitched: () => {
+            return Elara.UI.mode() !== null;
+        },
+        isSunny: () => {
+            return Elara.UI.mode() === 'day';
+        },
+        dayOrNight: (): Elara.Modes => {
+            if(!Elara.UI.hasSwitched()){
+                if(Elara.UI.isDarkOS()){
+                    return 'day';
+                } else {
+                    return 'night';
+                }
+            } else {
+                if(Elara.UI.isSunny()){
+                    return 'day';
+                } else {
+                    return 'night';
+                }
+            }
         },
         isDarkOS(){
             if(!window.matchMedia){

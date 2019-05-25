@@ -168,18 +168,6 @@ class Profile extends LitElement implements Elara.LoadableElement {
         `;
     }
 
-    private get _localKey(){
-        return localStorage.getItem(Elara.UI.modes.localStorageKey);
-    }
-
-    private get _hasSwitched(){
-        return localStorage.getItem(Elara.UI.modes.localStorageKey) !== null;
-    }
-
-    private get _isSunny(){
-        return this._localKey === 'day';
-    }
-
     public render(): void | TemplateResult {
         return html`
         <div role="link" id="container" class="profile ${this.route === '#!home' || !this.route ? '' : 'is-link'}" @click=${() => Elara.Routing.navigate('home')}>
@@ -199,7 +187,7 @@ class Profile extends LitElement implements Elara.LoadableElement {
             <div class="night-switch" @click=${async (click: Event) => {
                 click.preventDefault();
                 click.stopPropagation();
-                const hasNightMode = !this._isSunny;
+                const hasNightMode = !Elara.UI.isSunny();
                 const future = !hasNightMode ? 'night' : 'day';
                 localStorage.setItem(Elara.UI.modes.localStorageKey, future);
                 await this.requestUpdate();
@@ -214,19 +202,7 @@ class Profile extends LitElement implements Elara.LoadableElement {
     }
 
     private _nightToggle(){
-        if(!this._hasSwitched){
-            if(Elara.UI.isDarkOS()){
-                return this._day;
-            } else {
-                return this._night;
-            }
-        } else {
-            if(this._isSunny){
-                return this._night;
-            } else {
-                return this._day;
-            }
-        }
+        return Elara.UI.dayOrNight() === 'day' ? this._day : this._night;
     }
 
     private get _day(){

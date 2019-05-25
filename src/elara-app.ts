@@ -268,12 +268,12 @@ export class ElaraApp extends LitElement implements Elara.Root {
 		`;
 	}
 
-	private get loadableElements(){
+	public get loadables(){
 		return ['ui-profile'];
 	}
 
 	public get bootstrap(){
-		return Elara.Bootstrap.promise(this.loadableElements, this.shadowRoot);
+		return Elara.Bootstrap.promise(this.loadables, this.shadowRoot);
 	}
 
 	private async _showLink(route: string): Promise<void> {

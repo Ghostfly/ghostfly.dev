@@ -156,7 +156,7 @@ class Contact extends LitElement implements Elara.Page {
     private _makeLink(label: string, link: string, svg: TemplateResult){
         return html`
             <div aria-label=${label} class="item ${label.toLowerCase()}" @click=${() => {
-                window.open(link, '_blank');
+                Elara.Routing.redirect(link);
             }} role="link">
                 ${svg}
             </div>

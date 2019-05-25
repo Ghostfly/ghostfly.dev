@@ -192,7 +192,7 @@ class GithubWork extends LitElement implements Elara.Element {
 
     private _card(repository: GithubRepository): TemplateResult {
         return html`
-        <section class="github-card" @click=${() => { window.open(repository.node.url);}}>
+        <section class="github-card" @click=${() => Elara.Routing.redirect(repository.node.url)}}>
             <div class="title">${repository.node.name}</div>
             ${repository.node.description ? html`<div class="description">${repository.node.description}</div>` : html``}
             <div class="bottom">

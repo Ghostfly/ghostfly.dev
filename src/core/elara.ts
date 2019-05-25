@@ -31,6 +31,9 @@ const Elara = {
         }
     },
     Routing: {
+        redirect: (url: string, target: string = '_blank'): boolean => {
+           return !!window.open(url, target);
+        },
         navigate: (route: string): boolean => {
             location.hash = `#!${route}`;
             return true;
@@ -205,6 +208,7 @@ namespace Elara {
     export interface Element extends LitElement {}
     // Elara-app public-api
     export interface Root extends Elara.Element {
+        loadables: ReadonlyArray<string>;
         links: ReadonlyArray<{name: string; route: string}>;
         askModeChange(mode: Elara.Modes): boolean;
     }

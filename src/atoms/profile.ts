@@ -42,7 +42,8 @@ class Profile extends LitElement implements Elara.LoadableElement {
     }
 
     public async firstUpdated(){
-        const backgroundURL = await this._toDataURL('https://source.unsplash.com/collection/1727869/1366x768');
+        const backgroundURL = await Elara.UI.processing.toDataURL('https://source.unsplash.com/collection/1727869/1366x768');
+        this.loaded = true;
         this.container.style.backgroundImage =`url('${backgroundURL}')`;
         if(this.picture.loaded){
             this._onProfilePictureLoaded(
@@ -62,25 +63,6 @@ class Profile extends LitElement implements Elara.LoadableElement {
         super.disconnectedCallback();
 
         window.removeEventListener('hashchange', this._hashChangeListener);
-    }
-
-    private _toDataURL(src: string): Promise<string> {
-        return new Promise((resolve) => {
-            const image = new Image();
-            image.crossOrigin = 'Anonymous';
-         
-            image.onload = () => {
-                const canvas = document.createElement('canvas');
-                const context = canvas.getContext('2d');
-                canvas.height = image.naturalHeight;
-                canvas.width = image.naturalWidth;
-                context.drawImage(image, 0, 0);
-                this.loaded = true;
-                resolve(canvas.toDataURL('image/jpeg'));
-            };
-        
-            image.src = src;
-        });
     }
 
     private _onHashChange(event: HashChangeEvent): void {

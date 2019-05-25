@@ -115,6 +115,30 @@ const Elara = {
         }
     },
     UI: {
+        processing: {
+            /**
+             * Convert a remote url to an image data-url
+             * 
+             * @param src remote url
+             */
+            toDataURL(src: string): Promise<string> {
+                return new Promise((resolve) => {
+                    const image = new Image();
+                    image.crossOrigin = 'Anonymous';
+                    
+                    image.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const context = canvas.getContext('2d');
+                        canvas.height = image.naturalHeight;
+                        canvas.width = image.naturalWidth;
+                        context.drawImage(image, 0, 0);
+                        resolve(canvas.toDataURL('image/jpeg'));
+                    };
+                
+                    image.src = src;
+                });
+            }
+        },
         queries: {
           DARK: '(prefers-color-scheme: dark)',
           LIGHT: '(prefers-color-scheme: light)',

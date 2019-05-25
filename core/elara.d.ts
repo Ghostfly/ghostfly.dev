@@ -1,6 +1,11 @@
 /// <reference types="node" />
 import { LitElement } from 'lit-element';
 declare const Elara: {
+    UI: {
+        mode: {
+            default: Elara.Modes;
+        };
+    };
     Errors: {
         GenericError: {
             new (message?: string): {

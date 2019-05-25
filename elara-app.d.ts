@@ -1,4 +1,4 @@
-import { LitElement } from 'lit-element';
+import { LitElement, CSSResult, TemplateResult } from 'lit-element';
 import Elara from './core/elara';
 import './pages/index';
 import './atoms/not-found';
@@ -15,7 +15,10 @@ export declare class ElaraApp extends LitElement implements Elara.Element {
     private _onHashChange;
     load(route: string): void;
     firstUpdated(): void;
-    render(): import("lit-element").TemplateResult;
+    static readonly styles: CSSResult;
+    private readonly _links;
+    render(): TemplateResult;
+    private _link;
     private readonly loadableElements;
     readonly bootstrap: Promise<any[]>;
     private _showLink;

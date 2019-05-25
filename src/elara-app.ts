@@ -6,6 +6,7 @@ import { fadeWith, pulseWith } from './core/animations';
 import './pages/index';
 import './atoms/not-found';
 import './atoms/menu';
+
 import { MenuElement } from './atoms/menu';
 
 // lazy import for polymer components
@@ -19,15 +20,7 @@ export class ElaraApp extends LitElement implements Elara.Root {
 	@property({reflect: true, type: String})
 	public route: string;
 
-	@property({reflect: true, type: String})
-	public mode: Elara.Modes = Elara.Constants.modes.default;
-
 	private _menuFade: Animation;
-
-	public askModeChange(mode: Elara.Modes): boolean {
-		this._switch(mode);
-		return true;
-	}
 
 	/**
 	 * Create the render root
@@ -39,16 +32,11 @@ export class ElaraApp extends LitElement implements Elara.Root {
 		return this.attachShadow({mode: 'open'});
 	}
 
-	private _switch(mode: Elara.Modes){
-		this.mode = mode;
-		Elara.UI.applyVariablesFor(mode);
-	}
-
 	public connectedCallback(){
 		super.connectedCallback();
 
-		this._switch(Elara.UI.dayOrNight());
-		  
+		Elara.UI.applyVariablesFor(Elara.UI.dayOrNight());
+
 		this._onHashChangeListener = this._onHashChange.bind(this);
 		window.addEventListener('hashchange', this._onHashChangeListener, { passive: true });
 	}
@@ -58,11 +46,30 @@ export class ElaraApp extends LitElement implements Elara.Root {
 		window.removeEventListener('hashchange', this._onHashChangeListener);
 	}
 
-	private async _onHashChange(event: HashChangeEvent){
-		const route = Elara.Routing.hashChange(event, this.route);
+	public askModeChange(mode: Elara.Modes): boolean {
+		Elara.UI.applyVariablesFor(mode);
+		return true;
+	}
 
-		this._content.innerHTML = '';
-		await this.load(route);
+	public get loadables(){
+		return ['ui-profile'];
+	}
+
+	public get bootstrap(){
+		return Elara.Bootstrap.promise(this.loadables, this.shadowRoot);
+	}
+
+	public async show(route: string): Promise<void> {
+		Elara.Routing.navigate(route);
+		await this._hideMenu();
+	}
+
+	public async menu(isHide: boolean): Promise<void> {
+		if(isHide){
+			return this._hideMenu();
+		} else {
+			return this._showMenu();
+		}
 	}
 
 	public async load(route: string){
@@ -190,27 +197,6 @@ export class ElaraApp extends LitElement implements Elara.Root {
 		`;
 	}
 
-	public get loadables(){
-		return ['ui-profile'];
-	}
-
-	public get bootstrap(){
-		return Elara.Bootstrap.promise(this.loadables, this.shadowRoot);
-	}
-
-	public async show(route: string): Promise<void> {
-		Elara.Routing.navigate(route);
-		await this._hideMenu();
-	}
-
-	public async menu(isHide: boolean): Promise<void> {
-		if(isHide){
-			return this._hideMenu();
-		} else {
-			return this._showMenu();
-		}
-	}
-
 	private async _showMenu(): Promise<void> {
 		if(this._menu.classList.contains('shown')){
 			await this._hideMenu();
@@ -248,6 +234,13 @@ export class ElaraApp extends LitElement implements Elara.Root {
 		this._content.classList.remove('hidden');
 		this._menu.shown = false;
 		this._menuFade = null;
+	}
+
+	private async _onHashChange(event: HashChangeEvent){
+		const route = Elara.Routing.hashChange(event, this.route);
+
+		this._content.innerHTML = '';
+		await this.load(route);
 	}
 
 	private get _content(){

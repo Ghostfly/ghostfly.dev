@@ -1,6 +1,4 @@
 /// <reference types="node" />
-import { LitElement } from 'lit-element';
-import { PaperInputElement } from '@polymer/paper-input/paper-input';
 import { MenuElement } from '../atoms/menu';
 declare const Elara: {
     Bootstrap: {
@@ -18,6 +16,14 @@ declare const Elara: {
         hashChange: (event: HashChangeEvent, currentRoute: string) => string;
     };
     UI: {
+        processing: {
+            /**
+             * Convert a remote url to an image data-url
+             *
+             * @param src remote url
+             */
+            toDataURL(src: string): Promise<string>;
+        };
         queries: {
             DARK: string;
             LIGHT: string;
@@ -27,7 +33,7 @@ declare const Elara: {
         };
         elara: () => Elara.Root;
         mode: () => Elara.Modes;
-        nightSwitchClick: (click: Event, host: LitElement) => Promise<boolean>;
+        nightSwitchClick: (click: Event, host: Elara.UpdatableElement) => Promise<boolean>;
         applyVariablesFor: (mode: Elara.Modes) => boolean;
         hasSwitched: () => boolean;
         isSunny: () => boolean;
@@ -35,11 +41,13 @@ declare const Elara: {
         isDarkOS(): boolean;
     };
     Mailing: {
+        error: string;
+        success: string;
         contact: (fields: {
             submit: HTMLButtonElement;
-            name: PaperInputElement;
-            email: PaperInputElement;
-            message: PaperInputElement;
+            name: Elara.InputElement;
+            email: Elara.InputElement;
+            message: Elara.InputElement;
             form: HTMLElement;
         }, url: string) => Promise<boolean>;
     };
@@ -87,10 +95,21 @@ declare const Elara: {
             stackTraceLimit: number;
         };
     };
+    Colors: {
+        social: {
+            github: string;
+            twitter: string;
+            youtube: string;
+            linkedin: string;
+            facebook: string;
+            instagram: string;
+            medium: string;
+        };
+    };
 };
 declare namespace Elara {
     type Modes = 'day' | 'night' | null;
-    interface Element extends LitElement {
+    interface Element extends HTMLElement {
     }
     interface Root extends Elara.Element {
         loadables: ReadonlyArray<string>;
@@ -113,6 +132,13 @@ declare namespace Elara {
             image?: string;
             slug: string;
         };
+    }
+    interface UpdatableElement extends HTMLElement {
+        requestUpdate(name?: PropertyKey, oldValue?: unknown): Promise<unknown>;
+    }
+    interface InputElement extends HTMLInputElement {
+        invalid: boolean;
+        validate(): boolean;
     }
 }
 export default Elara;

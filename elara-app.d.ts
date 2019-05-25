@@ -6,6 +6,7 @@ export declare class ElaraApp extends LitElement implements Elara.Element {
     static readonly is: string;
     private _onHashChangeListener;
     route: string;
+    private _menuFade;
     /**
      * Create the render root
      */
@@ -13,7 +14,7 @@ export declare class ElaraApp extends LitElement implements Elara.Element {
     connectedCallback(): void;
     disconnectedCallback(): void;
     private _onHashChange;
-    load(route: string): void;
+    load(route: string): Promise<void>;
     firstUpdated(): void;
     static readonly styles: CSSResult;
     private readonly _links;

@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit-html';
-import { LitElement, property, css, CSSResult } from 'lit-element';
+import { LitElement, property, css, CSSResult, unsafeCSS } from 'lit-element';
 
 import Elara from '../core/elara';
 import { repeat } from 'lit-html/directives/repeat';
@@ -113,13 +113,13 @@ class Contact extends LitElement implements Elara.Page {
             min-width: 50px;
         }
 
-        .github svg { fill: #24292e }
-        .twitter svg { fill: #1da1f2 }
-        .youtube svg { fill: #ff0000 }
-        .linkedin svg { fill: #0073b0 }
-        .facebook svg { fill: #3b5998 }
-        .instagram svg { fill: #333 }
-        .medium svg { fill: #3CB371 }
+        .github svg { ${unsafeCSS(`fill: ${Elara.Colors.social.github}`)}}
+        .twitter svg { ${unsafeCSS(`fill: ${Elara.Colors.social.twitter}`)}}
+        .youtube svg { ${unsafeCSS(`fill: ${Elara.Colors.social.youtube}`)}}
+        .linkedin svg { ${unsafeCSS(`fill: ${Elara.Colors.social.linkedin}`)}}
+        .facebook svg { ${unsafeCSS(`fill: ${Elara.Colors.social.facebook}`)}}
+        .instagram svg { ${unsafeCSS(`fill: ${Elara.Colors.social.instagram}`)}}
+        .medium svg { ${unsafeCSS(`fill: ${Elara.Colors.social.medium}`)}}
 
         .prev { cursor: pointer; font-weight: bold; transition: color .3s; }
         .prev:hover { color: var(--elara-primary); }

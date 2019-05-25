@@ -273,24 +273,7 @@ export class ElaraApp extends LitElement implements Elara.Root {
 	}
 
 	public get bootstrap(){
-		const loadPromises = [];
-		for(const element of this.loadableElements){
-			const load = new Promise((resolve) => {
-				const elem = this.shadowRoot.querySelector(element) as Elara.LoadableElement;
-				const config = { attributes: true };
-				const observer = new MutationObserver((mutation) => {
-					if(!mutation.length){ return; }
-					if (mutation[0].type == 'attributes' && mutation[0].attributeName === 'loaded') {
-						observer.disconnect();
-						resolve();
-					}
-				});
-				observer.observe(elem, config);
-			});
-			loadPromises.push(load);
-		}
-		
-		return Promise.all(loadPromises);
+		return Elara.Bootstrap.promise(this.loadableElements, this.shadowRoot);
 	}
 
 	private async _showLink(route: string): Promise<void> {

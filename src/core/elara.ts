@@ -2,6 +2,28 @@ import { LitElement } from 'lit-element';
 
 // Elara
 const Elara = {
+    Bootstrap: {
+        promise: (loadables: string[], host: ShadowRoot) => {
+            const loadPromises = [];
+            for(const element of loadables){
+                const load = new Promise((resolve) => {
+                    const elem = host.querySelector(element) as Elara.LoadableElement;
+                    const config = { attributes: true };
+                    const observer = new MutationObserver((mutation) => {
+                        if(!mutation.length){ return; }
+                        if (mutation[0].type == 'attributes' && mutation[0].attributeName === 'loaded') {
+                            observer.disconnect();
+                            resolve();
+                        }
+                    });
+                    observer.observe(elem, config);
+                });
+                loadPromises.push(load);
+            }
+            
+            return Promise.all(loadPromises);
+        }
+    },
     Constants: {
         modes: {
             default: 'day' as Elara.Modes

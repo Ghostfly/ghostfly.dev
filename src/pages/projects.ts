@@ -2,7 +2,10 @@ import { html, TemplateResult } from 'lit-html';
 import { LitElement } from 'lit-element';
 
 import Elara from '../core/elara';
+import Animations from '../core/animations';
+
 import { repeat } from 'lit-html/directives/repeat';
+import { IronImageElement } from '@polymer/iron-image';
 
 class Projects extends LitElement implements Elara.Page {
     public static readonly is: string = 'ui-projects';
@@ -16,6 +19,8 @@ class Projects extends LitElement implements Elara.Page {
             slug: '#!projects'
         };
     }
+
+    private images: NodeListOf<IronImageElement>;
 
     private get projects(){
         return [
@@ -93,6 +98,35 @@ class Projects extends LitElement implements Elara.Page {
         ];
     }
 
+    private async _onIronImageLoaded(event: CustomEvent){
+        if(!event.detail){
+            return;
+        }
+
+        const ironImage = event.target as IronImageElement;
+        const loaded = event.detail.value;
+        if(loaded){
+            const animationConfig = Animations.fadeWith(500, true);
+            ironImage.classList.add('shown');
+            const animation = ironImage.animate(animationConfig.effect, animationConfig.options);
+            await animation.finished;
+            ironImage.removeEventListener('loaded-changed', this._onIronImageLoaded);
+        }
+    }
+
+    public async connectedCallback(): Promise<void> {
+        super.connectedCallback();
+        await this.updateComplete;
+        this.images = this.shadowRoot.querySelectorAll('iron-image');
+        this.images.forEach((image) => {
+            image.addEventListener('loaded-changed', this._onIronImageLoaded);
+        });
+    }
+
+    public disconnectedCallback(){
+        super.disconnectedCallback();
+    }
+
 	public render(): void | TemplateResult {
         return html`
         <style>
@@ -158,6 +192,11 @@ class Projects extends LitElement implements Elara.Page {
             .hidden-content iron-image {
                 height: 150px;
                 width: 150px;
+                visibility: hidden;
+            }
+
+            iron-image.shown {
+                visibility: visible;
             }
 
             .hidden-content svg {
@@ -200,7 +239,7 @@ class Projects extends LitElement implements Elara.Page {
                             </div>
                         </div>
                         <div class="right">
-                            <iron-image sizing="contain" src="${project.image}" fade></iron-image>
+                            <iron-image sizing="contain" src="${project.image}"></iron-image>
                         </div>
                     </div>
                 </section>

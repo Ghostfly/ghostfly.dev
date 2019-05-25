@@ -2,6 +2,9 @@ import { html, TemplateResult } from 'lit-html';
 import { LitElement, property } from 'lit-element';
 
 import Elara from '../core/elara';
+import Animations from '../core/animations';
+
+import { IronImageElement } from '@polymer/iron-image';
 
 class Profile extends LitElement implements Elara.LoadableElement {
     public static readonly is: string = 'ui-profile';
@@ -22,9 +25,36 @@ class Profile extends LitElement implements Elara.LoadableElement {
         window.addEventListener('hashchange', this._hashChangeListener);
     }
 
+    private _onProfilePictureLoaded(event: CustomEvent){
+        if(!event.detail){
+            return;
+        }
+
+        const ironImage = event.target as IronImageElement;
+        const loaded = event.detail.value;
+        if(loaded){
+            const animation = Animations.fadeWith(500, true);
+            ironImage.animate(animation.effect, animation.options);
+            ironImage.classList.add('shown');
+            ironImage.removeEventListener('loaded-changed', this._onProfilePictureLoaded);
+        }
+    }
+
     public async firstUpdated(){
         const backgroundURL = await this._toDataURL('https://source.unsplash.com/collection/1727869/1366x768');
         this.container.style.backgroundImage =`url('${backgroundURL}')`;
+        if(this.picture.loaded){
+            this._onProfilePictureLoaded(
+                {
+                    target: this.picture, 
+                    detail: {
+                        value: true
+                    }
+                } as unknown as CustomEvent
+            );
+            return;
+        }
+        this.picture.addEventListener('loaded-changed', this._onProfilePictureLoaded);
     }
 
     public disconnectedCallback(): void {
@@ -105,6 +135,14 @@ class Profile extends LitElement implements Elara.LoadableElement {
         iron-image, .bio {
             z-index: 1;
         }
+
+        iron-image {
+            visibility: hidden;
+        }
+
+        iron-image.shown {
+            visibility: visible;
+        }
         
         .profile > .pic {
             width: 20vw;
@@ -113,7 +151,7 @@ class Profile extends LitElement implements Elara.LoadableElement {
         }
         </style>
         <div role="link" id="container" class="profile ${this.route === '#!home' || !this.route ? '' : 'is-link'}" @click=${() => { location.hash = '#!home'; }}>
-            <iron-image class="pic" sizing="contain" fade src="/assets/me.svg"></iron-image>
+            <iron-image id="pic" class="pic" sizing="contain" src="/assets/me.svg"></iron-image>
             <div class="bio">
                 <div class="username">
                     <span>Léonard C. > @ghostfly</span>
@@ -127,6 +165,10 @@ class Profile extends LitElement implements Elara.LoadableElement {
             </div>
         </div>
         `;
+    }
+
+    private get picture(): IronImageElement {
+        return this.shadowRoot.querySelector('#pic');
     }
 
     private get container(): HTMLDivElement {

@@ -1,5 +1,6 @@
 import { LitElement, html, property } from 'lit-element';
 import Elara from './core/elara';
+import Animations from './core/animations';
 
 import './pages/index';
 import './atoms/not-found';
@@ -109,15 +110,8 @@ export class ElaraApp extends LitElement implements Elara.Element {
 				return;
 			}
 
-			pageContent.animate(
-				{
-					opacity: [.5, 1],
-					transform: ['scale(.95)', 'scale(1)'],
-				}, 
-				{ 
-					duration: 600 
-				}
-			);
+			const animation = Animations.pulseWith(600);			
+			pageContent.animate(animation.effect, animation.options);
 		});
 	}
 
@@ -287,21 +281,13 @@ export class ElaraApp extends LitElement implements Elara.Element {
 			this.menu.classList.add('shown');
 		}
 
-		this.menu.animate({
-			opacity: [0, 1],
-		}, 
-		{ 
-			duration: 500
-		});
+		const animation = Animations.fadeWith(300, true);
+		this.menu.animate(animation.effect, animation.options);
 	}
 
 	private async _hideMenu(): Promise<void> {
-		const dismiss = this.menu.animate({
-			opacity: [1, 0],
-		}, 
-		{ 
-			duration: 300
-		});
+		const animation = Animations.fadeWith(300, false);
+		const dismiss = this.menu.animate(animation.effect, animation.options);
 
 		await dismiss.finished;
 

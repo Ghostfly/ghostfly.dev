@@ -2,6 +2,7 @@ import { html, TemplateResult } from 'lit-html';
 import { LitElement, property } from 'lit-element';
 
 import Elara from '../core/elara';
+import Animations from '../core/animations';
 import { repeat } from 'lit-html/directives/repeat';
 import { PaperSpinnerElement } from '@polymer/paper-spinner/paper-spinner';
 
@@ -218,16 +219,9 @@ class GithubWork extends LitElement implements Elara.Element {
 
     private _pulse(){
         const sections = this.shadowRoot.querySelectorAll('.two-cols section');
+        const animation = Animations.pulseWith(600);
         sections.forEach((section) => {
-            section.animate(
-                {
-                    opacity: [.5, 1],
-                    transform: ['scale(.95)', 'scale(1)'],
-                }, 
-                { 
-                    duration: 600 
-                }
-            );
+            section.animate(animation.effect, animation.options);
         });
     }
 

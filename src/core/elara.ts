@@ -223,6 +223,8 @@ namespace Elara {
     export interface Root extends Elara.Element {
         loadables: ReadonlyArray<string>;
         links: ReadonlyArray<{name: string; route: string}>;
+        menu(isHide: boolean): Promise<void>;
+        show(route: string): Promise<void>;
         askModeChange(mode: Elara.Modes): boolean;
     }
 

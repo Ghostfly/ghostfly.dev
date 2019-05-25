@@ -14,17 +14,19 @@ export declare class ElaraApp extends LitElement implements Elara.Root {
      */
     protected createRenderRoot(): ShadowRoot;
     private _switch;
-    private _nightMode;
     connectedCallback(): void;
     disconnectedCallback(): void;
     private _onHashChange;
     load(route: string): Promise<void>;
     firstUpdated(): void;
     static readonly styles: CSSResult;
-    private readonly _links;
+    readonly links: {
+        route: string;
+        name: string;
+    }[];
     render(): TemplateResult;
     private _link;
-    private readonly loadableElements;
+    readonly loadables: string[];
     readonly bootstrap: Promise<any[]>;
     private _showLink;
     private _showMenu;

@@ -1,11 +1,11 @@
 import { LitElement, html, property, css, CSSResult, TemplateResult } from 'lit-element';
+import { repeat } from 'lit-html/directives/repeat';
 
 import Elara from './core/elara';
-import { pulseWith, fadeWith } from './core/animations';
+import { fadeWith, pulseWith } from './core/animations';
 
 import './pages/index';
 import './atoms/not-found';
-import { repeat } from 'lit-html/directives/repeat';
 
 // lazy import for polymer components
 import('./polymer');
@@ -17,6 +17,7 @@ export class ElaraApp extends LitElement implements Elara.Element {
 
 	@property({reflect: true, type: String})
 	public route: string;
+	private _menuFade: Animation;
 
 	/**
 	 * Create the render root
@@ -40,7 +41,7 @@ export class ElaraApp extends LitElement implements Elara.Element {
 		window.removeEventListener('hashchange', this._onHashChangeListener);
 	}
 
-	private _onHashChange(event: HashChangeEvent){
+	private async _onHashChange(event: HashChangeEvent){
 		const split = event.newURL.replace(location.origin + '/', '').split('/');
 
 		const newURL = split[0];
@@ -60,10 +61,10 @@ export class ElaraApp extends LitElement implements Elara.Element {
 		}
 
 		this.content.innerHTML = '';
-		this.load(route);
+		await this.load(route);
 	}
 
-	public load(route: string){
+	public async load(route: string){
 		const defaultTitle = 'Léonard C.';
 		const titleTemplate = '%s | ' + defaultTitle;
 
@@ -98,8 +99,7 @@ export class ElaraApp extends LitElement implements Elara.Element {
 			throw new Elara.Errors.NotFound(route);
 		}
 		window.scrollTo(0,0);
-		this._hideMenu();
-				
+
 		const handle = window.requestAnimationFrame(() => {
 			if(!loaded.shadowRoot){
 				cancelAnimationFrame(handle);
@@ -112,7 +112,7 @@ export class ElaraApp extends LitElement implements Elara.Element {
 				return;
 			}
 
-			const animation = pulseWith(600);			
+			const animation = pulseWith(300);			
 			pageContent.animate(animation.effect, animation.options);
 		});
 	}
@@ -156,6 +156,8 @@ export class ElaraApp extends LitElement implements Elara.Element {
 		}
 
 		.menu-content {
+			position: fixed;
+			top: 0;
 			background-color: #000;
 			padding-left: 35vw;
 			color: var(--elara-lightgray);
@@ -223,7 +225,9 @@ export class ElaraApp extends LitElement implements Elara.Element {
 		}
 
 		.content.hidden {
-			display: none;
+			opacity: 0;
+			z-index: 0;
+			visibility: hidden;
 		}
 
 		.content.full-width { margin: 0; padding: 0 }
@@ -244,7 +248,7 @@ export class ElaraApp extends LitElement implements Elara.Element {
 	public render() {
 		return html`
 			<ui-profile></ui-profile>
-			<paper-icon-button class="menu" icon="menu" aria-label="Menu" @click=${this._showMenu}></paper-icon-button>
+			<paper-icon-button id="handle" class="menu" icon="menu" aria-label="Menu" @click=${this._showMenu}></paper-icon-button>
 			<div id="content" class="content"></div>
 			<div id="menu" class="menu-content">
 				<paper-icon-button class="menu" icon="close" aria-label="Close menu" @click=${this._hideMenu}></paper-icon-button>
@@ -255,7 +259,7 @@ export class ElaraApp extends LitElement implements Elara.Element {
 
 	private _link({route, name}): TemplateResult {
 		return html`
-		<a class="item ${this.route === route ? 'active' : ''}" @click=${({target}) => this._showLink(target, route)}>${name}</a>
+		<a class="item ${this.route === route ? 'active' : ''}" @click=${() => this._showLink(route)}>${name}</a>
 		`;
 	}
 
@@ -284,15 +288,21 @@ export class ElaraApp extends LitElement implements Elara.Element {
 		return Promise.all(loadPromises);
 	}
 
-	private _showLink(target: HTMLLinkElement, route: string): void {
-		target.disabled = true;
+	private async _showLink(route: string): Promise<void> {
 		location.hash = '#!'+route;
-		window.requestAnimationFrame(() => {
-			target.disabled = false;
-		});
+		await this._hideMenu();
 	}
 
 	private async _showMenu(): Promise<void> {
+		if(this.menu.classList.contains('shown')){
+			await this._hideMenu();
+			return;
+		}
+
+		if(this._menuFade){
+			return;
+		}
+
 		if(!this.content.classList.contains('hidden')){
 			this.content.classList.add('hidden');
 		}
@@ -302,17 +312,24 @@ export class ElaraApp extends LitElement implements Elara.Element {
 		}
 
 		const animation = fadeWith(300, true);
-		this.menu.animate(animation.effect, animation.options);
+		this._menuFade = this.menu.animate(animation.effect, animation.options);
+		await this._menuFade.finished;
+		this._menuFade = null;
 	}
 
 	private async _hideMenu(): Promise<void> {
-		const animation = fadeWith(300, false);
-		const dismiss = this.menu.animate(animation.effect, animation.options);
+		if(this._menuFade){
+			return;
+		}
 
-		await dismiss.finished;
+		const animation = fadeWith(300, false);
+		this._menuFade = this.menu.animate(animation.effect, animation.options);
+
+		await this._menuFade.finished;
 
 		this.content.classList.remove('hidden');
 		this.menu.classList.remove('shown');
+		this._menuFade = null;
 	}
 
 	private get content(){

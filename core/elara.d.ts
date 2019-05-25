@@ -1,9 +1,11 @@
 /// <reference types="node" />
 import { LitElement } from 'lit-element';
 import { PaperInputElement } from '@polymer/paper-input/paper-input';
+import { MenuElement } from '../atoms/menu';
 declare const Elara: {
     Bootstrap: {
         promise: (loadables: string[], host: ShadowRoot) => Promise<any[]>;
+        load: (route: string, content: HTMLElement, menu: MenuElement, menuFade: Animation) => Promise<void>;
     };
     Constants: {
         modes: {

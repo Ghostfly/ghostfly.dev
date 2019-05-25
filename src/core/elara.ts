@@ -1,5 +1,4 @@
 import { LitElement } from 'lit-element';
-import { PaperInputElement } from '@polymer/paper-input/paper-input';
 import { pulseWith } from './animations';
 import { MenuElement } from '../atoms/menu';
 
@@ -193,20 +192,20 @@ const Elara = {
     Mailing: {
         contact: async (fields: {
                 submit: HTMLButtonElement;
-                name: PaperInputElement;
-                email: PaperInputElement;
-                message: PaperInputElement;
+                name: Elara.InputElement;
+                email: Elara.InputElement;
+                message: Elara.InputElement;
                 form: HTMLElement;
             }, url: string): Promise<boolean> => {
             let isValid = true;
 
-            const check = (input: PaperInputElement) => {
+            const check = (input: Elara.InputElement) => {
                 return input.validate();
             };
 
             // Check each
             const inputs = [fields.name, fields.email, fields.message];
-            inputs.forEach((input: PaperInputElement) => check(input) ? input.invalid = false : input.invalid = true);
+            inputs.forEach((input: Elara.InputElement) => check(input) ? input.invalid = false : input.invalid = true);
             inputs.forEach((input) => {
                 if(input.invalid && isValid){
                     isValid = false;
@@ -274,7 +273,7 @@ namespace Elara {
     export type Modes = 'day' | 'night' | null;
 
     // Element interfaces
-    export interface Element extends LitElement {}
+    export interface Element extends HTMLElement {}
     // Elara-app public-api
     export interface Root extends Elara.Element {
         loadables: ReadonlyArray<string>;
@@ -298,6 +297,11 @@ namespace Elara {
             image?: string;
             slug: string;
         };
+    }
+
+    export interface InputElement extends HTMLInputElement {
+        invalid: boolean;
+        validate(): boolean;
     }
 }
 

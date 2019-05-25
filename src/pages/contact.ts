@@ -2,8 +2,6 @@ import { html, TemplateResult } from 'lit-html';
 import { LitElement, property, css, CSSResult } from 'lit-element';
 
 import Elara from '../core/elara';
-
-import { PaperInputElement } from '@polymer/paper-input/paper-input';
 import { repeat } from 'lit-html/directives/repeat';
 
 class Contact extends LitElement implements Elara.Page {
@@ -167,9 +165,9 @@ class Contact extends LitElement implements Elara.Page {
         const fields = {
             form: this.shadowRoot.querySelector('#form') as HTMLElement,
             submit: event.target as HTMLButtonElement,
-            name: this.shadowRoot.querySelector('#name') as PaperInputElement,
-            email: this.shadowRoot.querySelector('#email') as PaperInputElement,
-            message: this.shadowRoot.querySelector('#message') as PaperInputElement,
+            name: this.shadowRoot.querySelector('#name') as Elara.InputElement,
+            email: this.shadowRoot.querySelector('#email') as Elara.InputElement,
+            message: this.shadowRoot.querySelector('#message') as Elara.InputElement,
         };
 
         try {

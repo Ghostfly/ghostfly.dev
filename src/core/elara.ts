@@ -1,4 +1,3 @@
-import { LitElement } from 'lit-element';
 import { pulseWith } from './animations';
 import { MenuElement } from '../atoms/menu';
 
@@ -132,7 +131,7 @@ const Elara = {
         mode: (): Elara.Modes => {
             return localStorage.getItem(Elara.UI.modes.localStorageKey) as Elara.Modes;
         },
-        nightSwitchClick: async (click: Event, host: LitElement): Promise<boolean> => {
+        nightSwitchClick: async (click: Event, host: Elara.UpdatableElement): Promise<boolean> => {
             click.preventDefault();
             click.stopPropagation();
             const hasNightMode = !Elara.UI.isSunny();
@@ -297,6 +296,10 @@ namespace Elara {
             image?: string;
             slug: string;
         };
+    }
+
+    export interface UpdatableElement extends HTMLElement {
+        requestUpdate(name?: PropertyKey, oldValue?: unknown): Promise<unknown>;
     }
 
     export interface InputElement extends HTMLInputElement {

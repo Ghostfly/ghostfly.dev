@@ -23,7 +23,9 @@ declare const Elara: {
         modes: {
             localStorageKey: string;
         };
+        elara: () => Elara.Root;
         mode: () => Elara.Modes;
+        nightSwitchClick: (click: Event, host: LitElement) => Promise<boolean>;
         applyVariablesFor: (mode: Elara.Modes) => boolean;
         hasSwitched: () => boolean;
         isSunny: () => boolean;

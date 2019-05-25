@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit-html';
-import { LitElement } from 'lit-element';
+import { LitElement, css, CSSResult } from 'lit-element';
 import Elara from '../core/elara';
 
 import '../atoms/github-work';
@@ -18,15 +18,18 @@ class Home extends LitElement implements Elara.Page {
         };
     }
 
-    public render(): void | TemplateResult {
-        return html`
-        <style>
+    public static get styles(): CSSResult {
+        return css`
         h1 {
             font-family: var(--elara-font-display);
             user-select: none;
         }
         h1::first-letter { font-size: 1.3em; }
-        </style>
+        `;
+    }
+
+    public render(): void | TemplateResult {
+        return html`
         <div class="home">
             <h1>Work</h1>
             <ui-github-work></ui-github-work>

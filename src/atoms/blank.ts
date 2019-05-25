@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit-html';
-import { LitElement } from 'lit-element';
+import { LitElement, css, CSSResult } from 'lit-element';
 
 import Elara from '../core/elara';
 
@@ -14,9 +14,12 @@ class Blank extends LitElement implements Elara.Element {
         super.disconnectedCallback();
     }
 
+    public static get styles(): CSSResult {
+        return css``;
+    }
+
 	public render(): void | TemplateResult {
         return html`
-        <style></style>
         <div></div>
         `;
     }

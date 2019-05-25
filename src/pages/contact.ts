@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit-html';
-import { LitElement, property } from 'lit-element';
+import { LitElement, property, css, CSSResult } from 'lit-element';
 
 import Elara from '../core/elara';
 
@@ -72,9 +72,8 @@ class Contact extends LitElement implements Elara.Page {
         ];
     }
 
-	public render(): void | TemplateResult {
-        return html`
-        <style>
+    public static get styles(): CSSResult {
+        return css`
         h1 { user-select: none; font-family: var(--elara-font-display); }
         h1::first-letter { font-size: 1.3em; }
 
@@ -131,7 +130,11 @@ class Contact extends LitElement implements Elara.Page {
         form paper-button[disabled] {
             opacity: .7;
         }
-        </style>
+        `;
+    }
+
+	public render(): void | TemplateResult {
+        return html`
         <div class="contact">
             <h1>${this.head.title}</h1>
             <form id="form">

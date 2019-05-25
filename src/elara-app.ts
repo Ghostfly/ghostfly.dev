@@ -1,7 +1,8 @@
-import { LitElement, html, property } from 'lit-element';
+import { LitElement, html, property, css, CSSResult, TemplateResult } from 'lit-element';
+import { repeat } from 'lit-html/directives/repeat';
 
 import Elara from './core/elara';
-import { pulseWith, fadeWith } from './core/animations';
+import { fadeWith, pulseWith } from './core/animations';
 
 import './pages/index';
 import './atoms/not-found';
@@ -23,6 +24,7 @@ export class ElaraApp extends LitElement implements Elara.Element {
 
 	@property({reflect: true, type: String})
 	public route: string;
+	private _menuFade: Animation;
 
 	/**
 	 * Create the render root
@@ -52,7 +54,7 @@ export class ElaraApp extends LitElement implements Elara.Element {
 		window.removeEventListener('hashchange', this._onHashChangeListener);
 	}
 
-	private _onHashChange(event: HashChangeEvent){
+	private async _onHashChange(event: HashChangeEvent){
 		const split = event.newURL.replace(location.origin + '/', '').split('/');
 
 		const newURL = split[0];
@@ -72,10 +74,10 @@ export class ElaraApp extends LitElement implements Elara.Element {
 		}
 
 		this.content.innerHTML = '';
-		this.load(route);
+		await this.load(route);
 	}
 
-	public load(route: string){
+	public async load(route: string){
 		const defaultTitle = 'Léonard C.';
 		const titleTemplate = '%s | ' + defaultTitle;
 
@@ -110,8 +112,11 @@ export class ElaraApp extends LitElement implements Elara.Element {
 			throw new Elara.Errors.NotFound(route);
 		}
 		window.scrollTo(0,0);
-		this._hideMenu();
-				
+
+		if(this.menu.classList.contains('shown') && this._menuFade === null){
+			await this._hideMenu();
+		}
+
 		const handle = window.requestAnimationFrame(() => {
 			if(!loaded.shadowRoot){
 				cancelAnimationFrame(handle);
@@ -124,7 +129,7 @@ export class ElaraApp extends LitElement implements Elara.Element {
 				return;
 			}
 
-			const animation = pulseWith(600);			
+			const animation = pulseWith(300);			
 			pageContent.animate(animation.effect, animation.options);
 		});
 	}
@@ -151,122 +156,141 @@ export class ElaraApp extends LitElement implements Elara.Element {
 
 		this._onHashChange(hashEvent);
 	}
+
+	public static get styles(): CSSResult {
+		return css`
+		.content, .menu-content {
+			background: var(--elara-lightgray);
+			color: var(--elara-darkgray);
+			display: inline-block;
+
+			font-family: var(--elara-font-primary);
+			opacity: 1;
+			margin: 0;
+
+			height: 92vh;
+			width: 62vw;
+			max-width: 100vw;
+
+			padding: 4vh 3vw;
+			padding-left: 33vw;
+		}
+
+		.menu {
+			position: absolute;
+			top: 0;
+			right: 0;
+			height: 45px;
+			width: 45px;
+			counter-reset: menuitem;
+			z-index: 0;
+		}
+
+		.menu-content {
+			position: fixed;
+			top: 0;
+			background-color: #000;
+			padding-left: 35vw;
+			color: var(--elara-lightgray);
+			display: none;
+			transition: opacity .4s;
+		}
+
+		.menu-content .item {
+			cursor: pointer;
+			position: relative;
+			font-size: 5vw;
+			color: var(--elara-lightgray);
+			text-transform: lowercase;
+			margin: 0.5rem 0;
+			padding: 0 0.5rem;
+			transition: color 0.3s;
+			text-decoration: none;
+			user-select: none;
+		}
+
+		@media (max-width: 600px){
+			.menu-content .item {
+				font-size: 10vw;
+			}
+		}
+
+		.menu-content .item::before {
+			counter-increment: menuitem;
+			content: counters(menuitem, "");
+			position: absolute;
+			font-size: 0.85rem;
+			top: 25%;
+			left: -1.25rem;
+			color: var(--elara-darkgray);
+		}
+
+		.menu-content .item::after {
+			content: '';
+			width: 100%;
+			top: 50%;
+			height: 6px;
+			background: #f20c40;
+			position: absolute;
+			left: 0;
+			opacity: 0;
+			transform: scale3d(0,1,1);
+			transition: transform 0.3s, opacity 0.3s;
+			transform-origin: 100% 50%;
+		}
+
+		.menu-content .item:hover, .menu-content .item.active {
+			color: #5a5a5a;
+		}
+
+		.menu-content .item:hover::after, .menu-content .item.active::after {
+			opacity: 1;
+			transform: scale3d(1,1,1);
+		}
+
+		.menu-content.shown {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.content.hidden {
+			opacity: 0;
+			z-index: 0;
+			visibility: hidden;
+		}
+
+		.content.full-width { margin: 0; padding: 0 }
+
+		@media (min-width: 1033px){}
+		`;
+	  } 
+
+	private get _links(){
+		return [
+			{route: 'home', name: 'Work'},
+			{route: 'about', name: 'About'},
+			{route: 'projects', name: 'Projects'},
+			{route: 'contact', name: 'Contact'}
+		];
+	}
 	
 	public render() {
 		return html`
-			<style>				
-			.content, .menu-content {
-				background: var(--elara-lightgray);
-				color: var(--elara-darkgray);
-				display: inline-block;
-
-				font-family: var(--elara-font-primary);
-				opacity: 1;
-				margin: 0;
-
-				height: 92vh;
-				width: 62vw;
-				max-width: 100vw;
-
-				padding: 4vh 3vw;
-				padding-left: 33vw;
-			}
-
-			.menu {
-				position: absolute;
-				top: 0;
-				right: 0;
-				height: 45px;
-				width: 45px;
-				counter-reset: menuitem;
-				z-index: 1;
-			}
-
-			.menu-content {
-				background-color: #000;
-				padding-left: 35vw;
-				color: var(--elara-lightgray);
-				display: none;
-				transition: opacity .4s;
-			}
-
-			.menu-content .item {
-				cursor: pointer;
-				position: relative;
-				font-size: 5vw;
-				color: var(--elara-lightgray);
-				text-transform: lowercase;
-				margin: 0.5rem 0;
-				padding: 0 0.5rem;
-				transition: color 0.3s;
-				text-decoration: none;
-				user-select: none;
-			}
-
-			@media (max-width: 600px){
-				.menu-content .item {
-					font-size: 10vw;
-				}
-			}
-
-			.menu-content .item::before {
-				counter-increment: menuitem;
-				content: counters(menuitem, "");
-				position: absolute;
-				font-size: 0.85rem;
-				top: 25%;
-				left: -1.25rem;
-				color: var(--elara-darkgray);
-			}
-
-			.menu-content .item::after {
-				content: '';
-				width: 100%;
-				top: 50%;
-				height: 6px;
-				background: #f20c40;
-				position: absolute;
-				left: 0;
-				opacity: 0;
-				transform: scale3d(0,1,1);
-				transition: transform 0.3s, opacity 0.3s;
-				transform-origin: 100% 50%;
-			}
-
-			.menu-content .item:hover, .menu-content .item.active {
-				color: #5a5a5a;
-			}
-
-			.menu-content .item:hover::after, .menu-content .item.active::after {
-				opacity: 1;
-    			transform: scale3d(1,1,1);
-			}
-
-			.menu-content.shown {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: center;
-			}
-
-			.content.hidden {
-				display: none;
-			}
-
-			.content.full-width { margin: 0; padding: 0 }
-
-			@media (min-width: 1033px){}
-			</style>
 			<ui-profile></ui-profile>
-			<paper-icon-button class="menu" icon="menu" aria-label="Menu" @click=${this._showMenu}></paper-icon-button>
+			<paper-icon-button id="handle" class="menu" icon="menu" aria-label="Menu" @click=${this._showMenu}></paper-icon-button>
 			<div id="content" class="content"></div>
 			<div id="menu" class="menu-content">
 				<paper-icon-button class="menu" icon="close" aria-label="Close menu" @click=${this._hideMenu}></paper-icon-button>
-				<a class="item ${this.route === 'home' ? 'active' : ''}" @click=${() => this._showLink('home')}>Work</a>
-				<a class="item ${this.route === 'about' ? 'active' : ''}" @click=${() => this._showLink('about')}>About</a>
-				<a class="item ${this.route === 'projects' ? 'active' : ''}" @click=${() => this._showLink('projects')}>Projects</a>
-				<a class="item ${this.route === 'contact' ? 'active' : ''}" @click=${() => this._showLink('contact')}>Contact</a>
+				${repeat(this._links, (link) => this._link(link))}
 			</div>
+		`;
+	}
+
+	private _link({route, name}): TemplateResult {
+		return html`
+		<a class="item ${this.route === route ? 'active' : ''}" @click=${() => this._showLink(route)}>${name}</a>
 		`;
 	}
 
@@ -295,12 +319,21 @@ export class ElaraApp extends LitElement implements Elara.Element {
 		return Promise.all(loadPromises);
 	}
 
-	private _showLink(route: string): void {
-		this._hideMenu();
+	private async _showLink(route: string): Promise<void> {
 		location.hash = '#!'+route;
+		await this._hideMenu();
 	}
 
 	private async _showMenu(): Promise<void> {
+		if(this.menu.classList.contains('shown')){
+			await this._hideMenu();
+			return;
+		}
+
+		if(this._menuFade){
+			return;
+		}
+
 		if(!this.content.classList.contains('hidden')){
 			this.content.classList.add('hidden');
 		}
@@ -310,17 +343,24 @@ export class ElaraApp extends LitElement implements Elara.Element {
 		}
 
 		const animation = fadeWith(300, true);
-		this.menu.animate(animation.effect, animation.options);
+		this._menuFade = this.menu.animate(animation.effect, animation.options);
+		await this._menuFade.finished;
+		this._menuFade = null;
 	}
 
 	private async _hideMenu(): Promise<void> {
-		const animation = fadeWith(300, false);
-		const dismiss = this.menu.animate(animation.effect, animation.options);
+		if(this._menuFade){
+			return;
+		}
 
-		await dismiss.finished;
+		const animation = fadeWith(300, false);
+		this._menuFade = this.menu.animate(animation.effect, animation.options);
+
+		await this._menuFade.finished;
 
 		this.content.classList.remove('hidden');
 		this.menu.classList.remove('shown');
+		this._menuFade = null;
 	}
 
 	private get content(){

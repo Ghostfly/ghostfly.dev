@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit-html';
-import { LitElement } from 'lit-element';
+import { LitElement, css, CSSResult } from 'lit-element';
 
 import Elara from '../core/elara';
 import { fadeWith } from '../core/animations';
@@ -127,96 +127,99 @@ class Projects extends LitElement implements Elara.Page {
         super.disconnectedCallback();
     }
 
+    public static get styles(): CSSResult {
+        return css`
+        h1, h2 { user-select: none; font-family: var(--elara-font-display); }
+        h1::first-letter { font-size: 1.3em; }
+        h2::first-letter { font-size: 1.2em }
+
+        .prev, .next { cursor: pointer; font-weight: bold; transition: color .3s;}
+        .next { float: right }
+        .prev:hover, .next:hover {
+            color: var(--elara-primary);
+        }
+
+        .projects { margin-bottom: 2em; }
+        .project h3 {
+            font-family: var(--elara-font-display); 
+            font-weight: bold;
+        }
+
+        .project {
+            display: flex;
+            flex-direction: column;
+            min-height: 50px;
+            margin: 1em;
+            padding: .5em;
+            cursor: default;
+            user-select: none;
+            border-bottom: 1px solid var(--elara-darkgray)
+        }
+
+        .with-link {
+            color: var(--elara-link);
+            cursor: pointer;
+            transition: color .3s;
+        }
+
+        .with-link:hover {
+            color: var(--elara-primary);
+        }
+
+        .project .hidden-content {
+            position: relative;
+            min-height: 100px;
+        }
+
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            margin: -0.5em;
+        }
+
+        .grid > div {
+            flex: 1 0 5em;
+            margin: 0.5em;
+        }
+
+        .hidden-content .right {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
+
+        .hidden-content iron-image {
+            height: 150px;
+            width: 150px;
+            visibility: hidden;
+        }
+
+        iron-image.shown {
+            visibility: visible;
+        }
+
+        .hidden-content svg {
+            height: 1em;
+            width: 1em;
+        }
+
+        .hidden-content .left > .tags, .hidden-content .left > .status {
+            opacity: 0;
+            transition: opacity .4s;
+        }
+
+        .hidden-content:hover .left > .tags, .hidden-content:hover .left > .status  {
+            opacity: 1;
+        }
+
+        .project.who {
+            border-bottom: none;
+        }
+        `;
+    }
+
 	public render(): void | TemplateResult {
         return html`
-        <style>
-            h1, h2 { user-select: none; font-family: var(--elara-font-display); }
-            h1::first-letter { font-size: 1.3em; }
-            h2::first-letter { font-size: 1.2em }
-
-            .prev, .next { cursor: pointer; font-weight: bold; transition: color .3s;}
-            .next { float: right }
-            .prev:hover, .next:hover {
-                color: var(--elara-primary);
-            }
-
-            .projects { margin-bottom: 2em; }
-            .project h3 {
-                font-family: var(--elara-font-display); 
-                font-weight: bold;
-            }
-
-            .project {
-                display: flex;
-                flex-direction: column;
-                min-height: 50px;
-                margin: 1em;
-                padding: .5em;
-                cursor: default;
-                user-select: none;
-                border-bottom: 1px solid var(--elara-darkgray)
-            }
-
-            .with-link {
-                color: var(--elara-link);
-                cursor: pointer;
-                transition: color .3s;
-            }
-
-            .with-link:hover {
-                color: var(--elara-primary);
-            }
-
-            .project .hidden-content {
-                position: relative;
-                min-height: 100px;
-            }
-
-            .grid {
-                display: flex;
-                flex-wrap: wrap;
-                margin: -0.5em;
-            }
-
-            .grid > div {
-                flex: 1 0 5em;
-                margin: 0.5em;
-            }
-
-            .hidden-content .right {
-                display: flex;
-                justify-content: flex-end;
-                align-items: flex-end;
-            }
-
-            .hidden-content iron-image {
-                height: 150px;
-                width: 150px;
-                visibility: hidden;
-            }
-
-            iron-image.shown {
-                visibility: visible;
-            }
-
-            .hidden-content svg {
-                height: 1em;
-                width: 1em;
-            }
-
-            .hidden-content .left > .tags, .hidden-content .left > .status {
-                opacity: 0;
-                transition: opacity .4s;
-            }
-
-            .hidden-content:hover .left > .tags, .hidden-content:hover .left > .status  {
-                opacity: 1;
-            }
-
-            .project.who {
-                border-bottom: none;
-            }
-        </style>
         <div class="projects">
             <h1>${this.head.title}</h1>
 

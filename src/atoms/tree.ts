@@ -1,4 +1,4 @@
-import { LitElement, html, TemplateResult, property } from 'lit-element';
+import { LitElement, html, TemplateResult, property, css, CSSResult } from 'lit-element';
 
 /**
  * @class Tree
@@ -18,9 +18,17 @@ export class Tree extends LitElement {
             this._tree(ctx, 600, 600, 80, - Math.PI / 2, 13, 13);
         });
     }
+
+    public static get styles(): CSSResult {
+        return css`
+        #tree {
+            position: fixed;
+        }
+        `;
+    }
     
 	public render(): void | TemplateResult {
-		return html`<canvas id="tree" style="position: fixed;" height="${this.height}" width="${this.width}"></canvas>`;
+		return html`<canvas id="tree" height="${this.height}" width="${this.width}"></canvas>`;
     }
     
     private _tree(ctx: CanvasRenderingContext2D, startX: number, startY: number, length: number, angle: number, depth: number, branchWidth: number ): void {

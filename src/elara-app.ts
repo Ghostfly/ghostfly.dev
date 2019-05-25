@@ -46,10 +46,9 @@ export class ElaraApp extends LitElement implements Elara.Element {
 		if(darkMediaQuery){
 			this.mode = 'dark';
 			const root = document.documentElement;
-			root.style.setProperty('--elara-background-color', '#1b1b1b');
+			root.style.setProperty('--elara-background-color', '#373737');
 			root.style.setProperty('--elara-font-color', '#f0f0f0');
 			root.style.setProperty('--elara-font-hover', '#9e9e9e');
-
 		} else { 
 			this.mode = 'light';
 		}

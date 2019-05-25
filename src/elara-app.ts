@@ -100,6 +100,10 @@ export class ElaraApp extends LitElement implements Elara.Element {
 		}
 		window.scrollTo(0,0);
 
+		if(this.menu.classList.contains('shown') && this._menuFade === null){
+			await this._hideMenu();
+		}
+
 		const handle = window.requestAnimationFrame(() => {
 			if(!loaded.shadowRoot){
 				cancelAnimationFrame(handle);
@@ -152,7 +156,7 @@ export class ElaraApp extends LitElement implements Elara.Element {
 			height: 45px;
 			width: 45px;
 			counter-reset: menuitem;
-			z-index: 1;
+			z-index: 0;
 		}
 
 		.menu-content {

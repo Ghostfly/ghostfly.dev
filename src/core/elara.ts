@@ -44,8 +44,22 @@ const Elara = {
         },
 
         // Day-night handling
+        
         mode: (): Elara.Modes => {
             return localStorage.getItem(Elara.UI.modes.localStorageKey) as Elara.Modes;
+        },
+        applyVariablesFor: (mode: Elara.Modes) => {
+            const root = document.documentElement;
+
+            if(mode === 'night'){
+                root.style.setProperty('--elara-background-color', '#373737');
+                root.style.setProperty('--elara-font-color', '#f0f0f0');
+                root.style.setProperty('--elara-font-hover', '#9e9e9e');
+            } else {
+                root.style.removeProperty('--elara-background-color');
+                root.style.removeProperty('--elara-font-color');
+                root.style.removeProperty('--elara-font-hover');
+            }
         },
         hasSwitched: () => {
             return Elara.UI.mode() !== null;

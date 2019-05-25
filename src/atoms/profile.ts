@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit-html';
-import { LitElement, property } from 'lit-element';
+import { LitElement, property, css, CSSResult } from 'lit-element';
 
 import Elara from '../core/elara';
 import { fadeWith } from '../core/animations';
@@ -91,9 +91,8 @@ class Profile extends LitElement implements Elara.LoadableElement {
         this.route = new URL(event.newURL).hash;
     }
 
-    public render(): void | TemplateResult {
-        return html`
-        <style>
+    public static get styles(): CSSResult {
+        return css`
         .profile {
             width: 24vw;
             padding: 4vh 3vw;
@@ -149,7 +148,11 @@ class Profile extends LitElement implements Elara.LoadableElement {
             height: 20vw;
             border-radius: 3px;
         }
-        </style>
+        `;
+    }
+
+    public render(): void | TemplateResult {
+        return html`
         <div role="link" id="container" class="profile ${this.route === '#!home' || !this.route ? '' : 'is-link'}" @click=${() => { location.hash = '#!home'; }}>
             <iron-image id="pic" class="pic" sizing="contain" src="/assets/me.svg"></iron-image>
             <div class="bio">

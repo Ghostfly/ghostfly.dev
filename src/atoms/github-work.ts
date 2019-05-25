@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit-html';
-import { LitElement, property } from 'lit-element';
+import { LitElement, property, css, CSSResult } from 'lit-element';
 
 import Elara from '../core/elara';
 import { pulseWith } from '../core/animations';
@@ -99,9 +99,8 @@ class GithubWork extends LitElement implements Elara.Element {
         return chunks;
     }
 
-	public render(): void | TemplateResult {
-        return html`
-        <style>
+    public static get styles(): CSSResult {
+        return css`
         .github-card {
             cursor: pointer;
             width: 85%;
@@ -188,7 +187,11 @@ class GithubWork extends LitElement implements Elara.Element {
             pointer-events: none;
             opacity: .7;
         }
-        </style>
+        `;
+    }
+
+	public render(): void | TemplateResult {
+        return html`
         <div class="loader">
             <paper-spinner></paper-spinner>
         </div>

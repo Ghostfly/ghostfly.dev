@@ -1,4 +1,6 @@
-import { LitElement, html, property } from 'lit-element';
+import { LitElement, html, property, css, CSSResult } from 'lit-element';
+import {Debouncer} from '@polymer/polymer/lib/utils/debounce';
+import {animationFrame} from '@polymer/polymer/lib/utils/async';
 
 import Elara from './core/elara';
 import { pulseWith, fadeWith } from './core/animations';
@@ -13,6 +15,7 @@ export class ElaraApp extends LitElement implements Elara.Element {
 	public static readonly is: string = 'elara-app';
 
 	private _onHashChangeListener: () => void;
+	private _locationDebouncer: Debouncer;
 
 	@property({reflect: true, type: String})
 	public route: string;
@@ -59,7 +62,9 @@ export class ElaraApp extends LitElement implements Elara.Element {
 		}
 
 		this.content.innerHTML = '';
-		this.load(route);
+		this._locationDebouncer = Debouncer.debounce(this._locationDebouncer, animationFrame, () => {
+			this.load(route);
+		});
 	}
 
 	public load(route: string){
@@ -124,112 +129,115 @@ export class ElaraApp extends LitElement implements Elara.Element {
 
 		this._onHashChange(hashEvent);
 	}
+
+	public static get styles(): CSSResult {
+		return css`
+		.content, .menu-content {
+			background: var(--elara-lightgray);
+			color: var(--elara-darkgray);
+			display: inline-block;
+
+			font-family: var(--elara-font-primary);
+			opacity: 1;
+			margin: 0;
+
+			height: 92vh;
+			width: 62vw;
+			max-width: 100vw;
+
+			padding: 4vh 3vw;
+			padding-left: 33vw;
+		}
+
+		.menu {
+			position: absolute;
+			top: 0;
+			right: 0;
+			height: 45px;
+			width: 45px;
+			counter-reset: menuitem;
+			z-index: 1;
+		}
+
+		.menu-content {
+			background-color: #000;
+			padding-left: 35vw;
+			color: var(--elara-lightgray);
+			display: none;
+			transition: opacity .4s;
+		}
+
+		.menu-content .item {
+			cursor: pointer;
+			position: relative;
+			font-size: 5vw;
+			color: var(--elara-lightgray);
+			text-transform: lowercase;
+			margin: 0.5rem 0;
+			padding: 0 0.5rem;
+			transition: color 0.3s;
+			text-decoration: none;
+			user-select: none;
+		}
+
+		@media (max-width: 600px){
+			.menu-content .item {
+				font-size: 10vw;
+			}
+		}
+
+		.menu-content .item::before {
+			counter-increment: menuitem;
+			content: counters(menuitem, "");
+			position: absolute;
+			font-size: 0.85rem;
+			top: 25%;
+			left: -1.25rem;
+			color: var(--elara-darkgray);
+		}
+
+		.menu-content .item::after {
+			content: '';
+			width: 100%;
+			top: 50%;
+			height: 6px;
+			background: #f20c40;
+			position: absolute;
+			left: 0;
+			opacity: 0;
+			transform: scale3d(0,1,1);
+			transition: transform 0.3s, opacity 0.3s;
+			transform-origin: 100% 50%;
+		}
+
+		.menu-content .item:hover, .menu-content .item.active {
+			color: #5a5a5a;
+		}
+
+		.menu-content .item:hover::after, .menu-content .item.active::after {
+			opacity: 1;
+			transform: scale3d(1,1,1);
+		}
+
+		.menu-content.shown {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.content.hidden {
+			display: none;
+		}
+
+		.content.full-width { margin: 0; padding: 0 }
+
+		@media (min-width: 1033px){}
+		`;
+	  } 
 	
 	public render() {
 		return html`
-			<style>				
-			.content, .menu-content {
-				background: var(--elara-lightgray);
-				color: var(--elara-darkgray);
-				display: inline-block;
-
-				font-family: var(--elara-font-primary);
-				opacity: 1;
-				margin: 0;
-
-				height: 92vh;
-				width: 62vw;
-				max-width: 100vw;
-
-				padding: 4vh 3vw;
-				padding-left: 33vw;
-			}
-
-			.menu {
-				position: absolute;
-				top: 0;
-				right: 0;
-				height: 45px;
-				width: 45px;
-				counter-reset: menuitem;
-				z-index: 1;
-			}
-
-			.menu-content {
-				background-color: #000;
-				padding-left: 35vw;
-				color: var(--elara-lightgray);
-				display: none;
-				transition: opacity .4s;
-			}
-
-			.menu-content .item {
-				cursor: pointer;
-				position: relative;
-				font-size: 5vw;
-				color: var(--elara-lightgray);
-				text-transform: lowercase;
-				margin: 0.5rem 0;
-				padding: 0 0.5rem;
-				transition: color 0.3s;
-				text-decoration: none;
-				user-select: none;
-			}
-
-			@media (max-width: 600px){
-				.menu-content .item {
-					font-size: 10vw;
-				}
-			}
-
-			.menu-content .item::before {
-				counter-increment: menuitem;
-				content: counters(menuitem, "");
-				position: absolute;
-				font-size: 0.85rem;
-				top: 25%;
-				left: -1.25rem;
-				color: var(--elara-darkgray);
-			}
-
-			.menu-content .item::after {
-				content: '';
-				width: 100%;
-				top: 50%;
-				height: 6px;
-				background: #f20c40;
-				position: absolute;
-				left: 0;
-				opacity: 0;
-				transform: scale3d(0,1,1);
-				transition: transform 0.3s, opacity 0.3s;
-				transform-origin: 100% 50%;
-			}
-
-			.menu-content .item:hover, .menu-content .item.active {
-				color: #5a5a5a;
-			}
-
-			.menu-content .item:hover::after, .menu-content .item.active::after {
-				opacity: 1;
-    			transform: scale3d(1,1,1);
-			}
-
-			.menu-content.shown {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: center;
-			}
-
-			.content.hidden {
-				display: none;
-			}
-
-			.content.full-width { margin: 0; padding: 0 }
-
-			@media (min-width: 1033px){}
-			</style>
 			<ui-profile></ui-profile>
 			<paper-icon-button class="menu" icon="menu" aria-label="Menu" @click=${this._showMenu}></paper-icon-button>
 			<div id="content" class="content"></div>
@@ -269,8 +277,10 @@ export class ElaraApp extends LitElement implements Elara.Element {
 	}
 
 	private _showLink(route: string): void {
-		this._hideMenu();
-		location.hash = '#!'+route;
+		this._locationDebouncer = Debouncer.debounce(this._locationDebouncer, animationFrame, () => {
+			this._hideMenu();
+			location.hash = '#!'+route;
+		});
 	}
 
 	private async _showMenu(): Promise<void> {

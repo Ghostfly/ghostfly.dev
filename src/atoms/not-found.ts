@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit-html';
-import { LitElement, property } from 'lit-element';
+import { LitElement, property, css, CSSResult } from 'lit-element';
 
 import Elara from '../core/elara';
 
@@ -16,20 +16,23 @@ class NotFound extends LitElement implements Elara.Element {
         this.asked = asked;
     }
 
+    public static get styles(): CSSResult {
+        return css`
+        h1, p {
+            user-select: none;
+            z-index: 1;
+        }
+
+        a {
+            color: var(--elara-primary);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        `;
+    }
+
 	public render(): void | TemplateResult {
         return html`
-		<style>
-            h1, p {
-                user-select: none;
-                z-index: 1;
-            }
-
-            a {
-                color: var(--elara-primary);
-                text-decoration: none;
-                cursor: pointer;
-            }
-        </style>
         <div>
             <h1>You are lost !</h1>
             <p>You asked for : ${this.asked}.</p>

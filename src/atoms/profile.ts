@@ -202,7 +202,9 @@ class Profile extends LitElement implements Elara.LoadableElement {
                 </div>
             </div>
 
-            <div class="night-switch" @click=${async () => {
+            <div class="night-switch" @click=${async (click: Event) => {
+                click.preventDefault();
+                click.stopPropagation();
                 const hasNightMode = !this._isSunny;
                 const future = !hasNightMode ? 'night' : 'day';
                 localStorage.setItem(nightModeKey, future);

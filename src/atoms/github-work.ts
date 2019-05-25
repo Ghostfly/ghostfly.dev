@@ -216,9 +216,7 @@ class GithubWork extends LitElement implements Elara.Element {
         </div>
         ${this._pagination}
         ` : html``}
-        <a class="next" @click=${() => {
-            location.hash = '#!about';
-        }}>> About</a>
+        <a class="next" @click=${() => Elara.Routing.navigate('about')}>> About</a>
         `;
     }
 

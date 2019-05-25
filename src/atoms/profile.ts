@@ -192,7 +192,7 @@ class Profile extends LitElement implements Elara.LoadableElement {
 
     public render(): void | TemplateResult {
         return html`
-        <div role="link" id="container" class="profile ${this.route === '#!home' || !this.route ? '' : 'is-link'}" @click=${() => { location.hash = '#!home'; }}>
+        <div role="link" id="container" class="profile ${this.route === '#!home' || !this.route ? '' : 'is-link'}" @click=${() => Elara.Routing.navigate('home')}>
             <iron-image id="pic" class="pic" sizing="contain" src="/assets/me.svg"></iron-image>
             <div class="bio">
                 <div class="username">

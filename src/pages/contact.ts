@@ -147,9 +147,7 @@ class Contact extends LitElement implements Elara.Page {
             ${this.isSuccess ? html`Thanks for your message ! I will try to reply as soon as possible 😀 ` : html``}
             ${this.inError ? html`An error occured, please retry later. 😔` : html``}
             <div class="clearfix"></div>
-            <a class="prev" @click=${() => {
-                location.hash = '#!projects';
-            }}>< Projects</a>
+            <a class="prev" @click=${() => Elara.Routing.navigate('projects')}>< Projects</a>
             <div class="grid networks">
                 ${repeat(this._links, (link) => this._makeLink(link.label, link.link, link.svg))}
             </div>

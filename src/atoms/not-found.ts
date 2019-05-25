@@ -36,7 +36,7 @@ class NotFound extends LitElement implements Elara.Element {
         <div>
             <h1>You are lost !</h1>
             <p>You asked for : ${this.asked}.</p>
-            <a @click=${() => { location.hash ='#!home'; }}><iron-icon icon="home"></iron-icon> Homepage</a>
+            <a @click=${() => Elara.Routing.navigate('home')}><iron-icon icon="home"></iron-icon> Homepage</a>
             <ui-tree .width=${1366} .height=${768}></ui-tree>
         </div>
         `;

@@ -2,6 +2,11 @@ import { LitElement } from 'lit-element';
 
 // Elara
 const Elara = {
+    Routing: {
+        navigate: (route: string) => {
+            location.hash = `#!${route}`;
+        }
+    },
     UI: {
         mode: {
             default: 'day' as Elara.Modes

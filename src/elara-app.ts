@@ -341,7 +341,7 @@ export class ElaraApp extends LitElement implements Elara.Root {
 	}
 
 	private async _showLink(route: string): Promise<void> {
-		location.hash = '#!'+route;
+		Elara.Routing.navigate(route);
 		await this._hideMenu();
 	}
 

@@ -54,12 +54,8 @@ class About extends LitElement implements Elara.Page {
                     }}>CV</a>.</p>
                 </div>
             </div>
-            <a class="prev" @click=${() => {
-                location.hash = '#!home';
-            }}>< Work</a>
-            <a class="next" @click=${() => {
-                location.hash = '#!projects';
-            }}>> Projects</a>
+            <a class="prev" @click=${() => Elara.Routing.navigate('home')}>< Work</a>
+            <a class="next" @click=${() => Elara.Routing.navigate('projects')}>> Projects</a>
         </div>
         `;
     }

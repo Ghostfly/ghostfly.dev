@@ -71,9 +71,20 @@ const Elara = {
         },
 
         // Day-night handling
-        
+        elara: (): Elara.Root => {
+            return document.querySelector('elara-app');
+        },
         mode: (): Elara.Modes => {
             return localStorage.getItem(Elara.UI.modes.localStorageKey) as Elara.Modes;
+        },
+        nightSwitchClick: async (click: Event, host: LitElement) => {
+            click.preventDefault();
+            click.stopPropagation();
+            const hasNightMode = !Elara.UI.isSunny();
+            const future = !hasNightMode ? 'night' : 'day';
+            localStorage.setItem(Elara.UI.modes.localStorageKey, future);
+            await host.requestUpdate();
+            Elara.UI.elara().askModeChange(future);
         },
         applyVariablesFor: (mode: Elara.Modes): boolean => {
             const root = document.documentElement;

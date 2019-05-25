@@ -10,6 +10,27 @@ const Elara = {
     Routing: {
         navigate: (route: string) => {
             location.hash = `#!${route}`;
+        },
+        hashChange: (event: HashChangeEvent) => {
+            const split = event.newURL.replace(location.origin + '/', '').split('/');
+
+            const newURL = split[0];
+    
+            let route = null;
+            const defaultRoute = 'home';
+    
+            if(!newURL){
+                route = defaultRoute;
+            } else {
+                const asked = new URL(location.origin+'/'+newURL).hash.replace('#!', '');
+                route = asked ? asked : defaultRoute;
+            }
+            
+            if(this.route === route){
+                return null;
+            }
+
+            return route;
         }
     },
     UI: {

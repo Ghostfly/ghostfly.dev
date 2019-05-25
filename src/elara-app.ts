@@ -88,23 +88,7 @@ export class ElaraApp extends LitElement implements Elara.Root {
 	}
 
 	private async _onHashChange(event: HashChangeEvent){
-		const split = event.newURL.replace(location.origin + '/', '').split('/');
-
-		const newURL = split[0];
-
-		let route = null;
-		const defaultRoute = 'home';
-
-		if(!newURL){
-			route = defaultRoute;
-		} else {
-			const asked = new URL(location.origin+'/'+newURL).hash.replace('#!', '');
-			route = asked ? asked : defaultRoute;
-		}
-		
-		if(this.route === route){
-			return;
-		}
+		const route = Elara.Routing.hashChange(event);
 
 		this.content.innerHTML = '';
 		await this.load(route);

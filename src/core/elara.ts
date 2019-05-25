@@ -189,6 +189,8 @@ const Elara = {
         }
     },
     Mailing: {
+        error: 'An error occured, please retry later. 😔',
+        success: 'Thanks for your message ! I will try to reply as soon as possible 😀',
         contact: async (fields: {
                 submit: HTMLButtonElement;
                 name: Elara.InputElement;

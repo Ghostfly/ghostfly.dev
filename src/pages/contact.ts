@@ -140,8 +140,8 @@ class Contact extends LitElement implements Elara.Page {
                 <paper-textarea id="message" char-counter label="Message" min-length="4" required></paper-textarea>
                 <paper-button class="send" @click=${this._doSend}>Send</paper-button>
             </form>
-            ${this.isSuccess ? html`Thanks for your message ! I will try to reply as soon as possible 😀 ` : html``}
-            ${this.inError ? html`An error occured, please retry later. 😔` : html``}
+            ${this.isSuccess ? html`${Elara.Mailing.success}` : html``}
+            ${this.inError ? html`${Elara.Mailing.error}` : html``}
             <div class="clearfix"></div>
             <a class="prev" @click=${() => Elara.Routing.navigate('projects')}>< Projects</a>
             <div class="grid networks">

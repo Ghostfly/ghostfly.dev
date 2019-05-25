@@ -19,7 +19,7 @@ export class ElaraApp extends LitElement implements Elara.Root {
 	public route: string;
 
 	@property({reflect: true, type: String})
-	public mode: Elara.Modes = Elara.UI.mode.default;
+	public mode: Elara.Modes = Elara.Constants.modes.default;
 
 	private _menuFade: Animation;
 
@@ -54,7 +54,7 @@ export class ElaraApp extends LitElement implements Elara.Root {
 	}
 
 	private _nightMode(){
-		const selectedMode = localStorage.getItem(Elara.UI.mode.localStorageKey) as 'day' | 'night' | null;
+		const selectedMode = localStorage.getItem(Elara.UI.modes.localStorageKey) as 'day' | 'night' | null;
 		if(selectedMode !== null){
 			this._switch(selectedMode);
 			return;

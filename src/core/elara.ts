@@ -4,7 +4,7 @@ import { LitElement } from 'lit-element';
 const Elara = {
     Constants: {
         modes: {
-            default: 'day'
+            default: 'day' as Elara.Modes;
         }
     },
     Routing: {
@@ -24,8 +24,7 @@ const Elara = {
     
             return window.matchMedia(Elara.UI.queries.DARK).matches;
         },
-        mode: {
-            default: 'day' as Elara.Modes,
+        modes: {
             localStorageKey: 'night-mode'
         }
     },

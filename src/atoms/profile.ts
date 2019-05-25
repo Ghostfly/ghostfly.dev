@@ -169,11 +169,11 @@ class Profile extends LitElement implements Elara.LoadableElement {
     }
 
     private get _localKey(){
-        return localStorage.getItem(Elara.UI.mode.localStorageKey);
+        return localStorage.getItem(Elara.UI.modes.localStorageKey);
     }
 
     private get _hasSwitched(){
-        return localStorage.getItem(Elara.UI.mode.localStorageKey) !== null;
+        return localStorage.getItem(Elara.UI.modes.localStorageKey) !== null;
     }
 
     private get _isSunny(){
@@ -201,7 +201,7 @@ class Profile extends LitElement implements Elara.LoadableElement {
                 click.stopPropagation();
                 const hasNightMode = !this._isSunny;
                 const future = !hasNightMode ? 'night' : 'day';
-                localStorage.setItem(Elara.UI.mode.localStorageKey, future);
+                localStorage.setItem(Elara.UI.modes.localStorageKey, future);
                 await this.requestUpdate();
                 this.root.askModeChange(future);
             }}>${this._nightToggle()}</div>

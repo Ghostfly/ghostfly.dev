@@ -10,6 +10,9 @@ import './atoms/not-found';
 // lazy import for polymer components
 import('./polymer');
 
+const DARK = '(prefers-color-scheme: dark)';
+
+
 export class ElaraApp extends LitElement implements Elara.Element {
 	public static readonly is: string = 'elara-app';
 
@@ -17,6 +20,10 @@ export class ElaraApp extends LitElement implements Elara.Element {
 
 	@property({reflect: true, type: String})
 	public route: string;
+
+	@property({reflect: true, type: String})
+	public mode: string = 'light';
+
 	private _menuFade: Animation;
 
 	/**
@@ -29,8 +36,29 @@ export class ElaraApp extends LitElement implements Elara.Element {
 		return this.attachShadow({mode: 'open'});
 	}
 
+	private _nightMode(){
+		if(!window.matchMedia){
+			console.warn('Elara:: Night mode not supported at the moment');
+			return;
+		}
+
+		const darkMediaQuery = window.matchMedia(DARK).matches;
+		if(darkMediaQuery){
+			this.mode = 'dark';
+			const root = document.documentElement;
+			root.style.setProperty('--elara-background-color', '#1b1b1b');
+			root.style.setProperty('--elara-font-color', '#f0f0f0');
+			root.style.setProperty('--elara-font-hover', '#9e9e9e');
+
+		} else { 
+			this.mode = 'light';
+		}
+	}
+
 	public connectedCallback(){
 		super.connectedCallback();
+
+		this._nightMode();
 		  
 		this._onHashChangeListener = this._onHashChange.bind(this);
 		window.addEventListener('hashchange', this._onHashChangeListener, { passive: true });
@@ -133,8 +161,8 @@ export class ElaraApp extends LitElement implements Elara.Element {
 	public static get styles(): CSSResult {
 		return css`
 		.content, .menu-content {
-			background: var(--elara-lightgray);
-			color: var(--elara-darkgray);
+			background: var(--elara-background-color);
+			color: var(--elara-font-color);
 			display: inline-block;
 
 			font-family: var(--elara-font-primary);
@@ -155,6 +183,7 @@ export class ElaraApp extends LitElement implements Elara.Element {
 			right: 0;
 			height: 45px;
 			width: 45px;
+			color: var(--elara-font-color);
 			counter-reset: menuitem;
 			z-index: 0;
 		}

@@ -107,8 +107,8 @@ class GithubWork extends LitElement implements Elara.Element {
             padding: 2.5vh 5%;
             display: inline-block;
             border-radius: 5px;
-            color: var(--text-color);
-            border: 1px solid rgb(0, 0, 0, 0.08);
+            color: var(--elara-font-color);
+            border: 1px solid var(--elara-font-color);
             box-shadow: 0px 0px 0px rgb(0, 0, 0, 0);
             transition: 0.4s ease-in-out;
             margin: 2vh 0px;
@@ -118,7 +118,7 @@ class GithubWork extends LitElement implements Elara.Element {
         }
 
         .github-card:hover {
-            border: 1px solid rgb(0, 0, 0, 0.3);
+            border: 1px solid var(--elara-font-hover);
         }
 
         .title {

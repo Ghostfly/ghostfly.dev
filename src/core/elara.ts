@@ -8,10 +8,11 @@ const Elara = {
         }
     },
     Routing: {
-        navigate: (route: string) => {
+        navigate: (route: string): boolean => {
             location.hash = `#!${route}`;
+            return true;
         },
-        hashChange: (event: HashChangeEvent, currentRoute: string) => {
+        hashChange: (event: HashChangeEvent, currentRoute: string): string | null => {
             const split = event.newURL.replace(location.origin + '/', '').split('/');
 
             const newURL = split[0];
@@ -48,7 +49,7 @@ const Elara = {
         mode: (): Elara.Modes => {
             return localStorage.getItem(Elara.UI.modes.localStorageKey) as Elara.Modes;
         },
-        applyVariablesFor: (mode: Elara.Modes) => {
+        applyVariablesFor: (mode: Elara.Modes): boolean => {
             const root = document.documentElement;
 
             if(mode === 'night'){
@@ -60,11 +61,13 @@ const Elara = {
                 root.style.removeProperty('--elara-font-color');
                 root.style.removeProperty('--elara-font-hover');
             }
+
+            return true;
         },
-        hasSwitched: () => {
+        hasSwitched: (): boolean => {
             return Elara.UI.mode() !== null;
         },
-        isSunny: () => {
+        isSunny: (): boolean => {
             return Elara.UI.mode() === 'day';
         },
         dayOrNight: (): Elara.Modes => {
@@ -82,7 +85,7 @@ const Elara = {
                 }
             }
         },
-        isDarkOS(){
+        isDarkOS(): boolean {
             if(!window.matchMedia){
                 console.warn('Elara:: Night mode not supported at the moment');
 

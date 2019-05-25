@@ -40,6 +40,11 @@ class Contact extends LitElement implements Elara.Page {
                 svg: html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"/><g><path d="M20.962 7.257l-5.457 8.867-3.923-6.375 3.126-5.08c.112-.183.32-.287.527-.287.05 0 .1.008.15.02.038.01.077.023.113.04l5.43 2.716.006.002.01.008c.027.02.036.057.018.087zM9.86 8.592v5.783l5.14 2.57-5.14-8.353zm5.912 8.74l4.23 2.114c.552.275.998.083.998-.43V8.836l-5.228 8.495zM8.968 7.177l-5.303-2.65c-.096-.05-.187-.072-.27-.072-.232 0-.395.18-.395.482v11.45c0 .306.224.67.498.806l4.67 2.335c.12.06.235.087.338.087.29 0 .494-.225.494-.602V7.23c0-.022-.012-.042-.032-.052z"/></g></svg>`
             },
             {
+                label: 'LinkedIn',
+                link: 'https://fr.linkedin.com/in/leonardcherouvrier/en',
+                svg: html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"/><g><path d="M19.7 3H4.3C3.582 3 3 3.582 3 4.3v15.4c0 .718.582 1.3 1.3 1.3h15.4c.718 0 1.3-.582 1.3-1.3V4.3c0-.718-.582-1.3-1.3-1.3zM8.34 18.338H5.666v-8.59H8.34v8.59zM7.003 8.574c-.857 0-1.55-.694-1.55-1.548 0-.855.692-1.548 1.55-1.548.854 0 1.547.694 1.547 1.548 0 .855-.692 1.548-1.546 1.548zm11.335 9.764h-2.67V14.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.6 1.086-1.6 2.206v4.248h-2.668v-8.59h2.56v1.174h.036c.357-.675 1.228-1.387 2.527-1.387 2.703 0 3.203 1.78 3.203 4.092v4.71z"/></g></svg>`
+            },
+            {
                 label: 'Facebook',
                 link: 'https://www.facebook.com/gh0std3v',
                 svg: html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"/><g><path d="M20.007 3H3.993C3.445 3 3 3.445 3 3.993v16.013c0 .55.445.994.993.994h8.62v-6.97H10.27V11.31h2.346V9.31c0-2.325 1.42-3.59 3.494-3.59.993 0 1.847.073 2.096.106v2.43h-1.438c-1.128 0-1.346.537-1.346 1.324v1.734h2.69l-.35 2.717h-2.34V21h4.587c.548 0 .993-.445.993-.993V3.993c0-.548-.445-.993-.993-.993z"/></g></svg>`
@@ -115,6 +120,7 @@ class Contact extends LitElement implements Elara.Page {
         .github svg { fill: #24292e }
         .twitter svg { fill: #1da1f2 }
         .youtube svg { fill: #ff0000 }
+        .linkedin svg { fill: #0073b0 }
         .facebook svg { fill: #3b5998 }
         .instagram svg { fill: #333 }
         .medium svg { fill: #3CB371 }
@@ -138,8 +144,8 @@ class Contact extends LitElement implements Elara.Page {
             ${this.inError ? html`An error occured, please retry later. 😔` : html``}
             <div class="clearfix"></div>
             <a class="prev" @click=${() => {
-                location.hash = '#!about';
-            }}>< About</a>
+                location.hash = '#!projects';
+            }}>< Projects</a>
             <div class="grid networks">
                 ${repeat(this._links, (link) => this._makeLink(link.label, link.link, link.svg))}
             </div>

@@ -1,3 +1,5 @@
+// @ts-check
+// @ts-ignore
 window.polymerSkipLoadingFontRoboto = true;
 
 function dismiss(){
@@ -9,11 +11,11 @@ function reload(){
   location.reload();
 }
 
-function makeHandler(error = null){
-  const fragment = document.createElement('div');
-  fragment.id = fragment.class = "handler";
-  fragment.innerHTML = `
-  <div class="handler" id="handler">
+function makeGenericHandler(error = null){
+  const handler = document.createElement('div');
+  handler.id = handler.className = "handler";
+  handler.innerHTML = `
+  <div class="content">
     ${error !== null ? `
       <h4>
         ${error.continue == true ? `
@@ -28,52 +30,86 @@ function makeHandler(error = null){
         <paper-button class="reload" onclick="reload()" raised toggles>Reload</paper-button>
       </div>
     ` : `
-      <div id="spinner" class="spinner large">
-        <div class="spinner-wrapper">
-          <div class="rotator">
-            <div class="inner-spin"></div>
-            <div class="inner-spin"></div>
-          </div>
-        </div>
-      </div>
+      <div id="spinner" class="spinner large"></div>
     `}
   </div>
   `;
-  return fragment;
+  return handler;
+}
+
+function _onDomLoaded(){
+  let willRemove = false;
+  let handler = null;
+
+  if(location.hash.indexOf('redirect') !== -1){
+    handler = document.querySelector('#handler');
+    if(handler){
+      willRemove = true;
+    }
+  } else {
+    willRemove = false;
+    document.body.appendChild(makeGenericHandler());
+  }
+
+  if(willRemove && handler){
+    // Remove load handler immediatly on redirect
+    handler.parentElement.removeChild(handler);
+  }
+
+  const loadingPromises = [];
+  const neededElements = [
+    'paper-icon-button', 
+    'paper-button', 
+    'paper-input', 
+    'paper-textarea', 
+    'paper-spinner', 
+    'iron-icon', 
+    'iron-image'
+  ];
+
+  const elara = document.querySelector('elara-app');
+  // @ts-ignore
+  loadingPromises.push(elara.bootstrap);
+
+  for(const elementName of neededElements){
+    loadingPromises.push(customElements.whenDefined(elementName));
+  }
+
+  return Promise.all(loadingPromises).then(() => {
+    if(!handler){
+      handler = document.querySelector('#handler');
+    }
+    
+    window.requestAnimationFrame(() => {
+      const spinner = document.querySelector('#spinner');
+      if(spinner){
+        spinner.parentElement.removeChild(spinner);
+      }
+      if(handler){
+        handler.classList.add('hidden');
+        handler.parentElement.removeChild(handler);
+      }
+    });
+  });
+}
+
+function _onGenericError(event) {
+  if(event.error && event.error.elara === true){ 
+    console.warn('Elara error ::', event.error);
+    event.preventDefault();
+    event.stopPropagation();
+    return; 
+  }
+
+  document.body.appendChild(makeGenericHandler(event.error));
+}
+
+function _onUnload(){
+  window.removeEventListener('error', _onGenericError);
 }
 
 (() => {
-  document.addEventListener("DOMContentLoaded", function(event) {
-    if(location.hash.indexOf('redirect') !== -1){
-      const loader = document.querySelector('#handler');
-      if(loader){
-        loader.parentElement.removeChild(loader);
-      }
-    } else {
-      document.body.appendChild(makeHandler());
-    }
-  });
-
-  window.addEventListener('error', (event) => {
-    if(event.error && event.error.elara === true){ 
-      console.warn('Elara error ::', event.error);
-      event.preventDefault();
-      event.stopPropagation();
-      return; 
-    }
-    document.body.appendChild(makeHandler(event.error));
-  });
-
-  return customElements.whenDefined('iron-image').then(() => {
-      const loader = document.querySelector('#handler');
-      if(!loader) return;
-      window.requestAnimationFrame(() => {
-        const spinner = document.querySelector('#spinner');
-        if(spinner){
-          spinner.parentElement.removeChild(spinner);
-        }
-        loader.classList.add('hidden');
-        loader.parentElement.removeChild(loader);
-      });
-  });
+  document.addEventListener('DOMContentLoaded', _onDomLoaded);
+  document.addEventListener('unload', _onUnload);
+  window.addEventListener('error', _onGenericError);
 })();

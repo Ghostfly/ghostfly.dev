@@ -27,7 +27,7 @@ class Home extends LitElement implements Elara.Page {
         }
         h1::first-letter { font-size: 1.3em; }
         </style>
-        <div class="work-blog-about">
+        <div class="home">
             <h1>Work</h1>
             <ui-github-work></ui-github-work>
         </div>

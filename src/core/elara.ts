@@ -27,7 +27,10 @@ namespace Elara {
     export interface Element extends LitElement {
         
     }
-    export interface Page extends LitElement {
+    export interface LoadableElement extends Elara.Element {
+        loaded: boolean;
+    }
+    export interface Page extends Elara.Element {
         head: {
             title: string;
             description: string;

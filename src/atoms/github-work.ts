@@ -2,20 +2,24 @@ import { html, TemplateResult } from 'lit-html';
 import { LitElement, property } from 'lit-element';
 
 import Elara from '../core/elara';
+import { pulseWith } from '../core/animations';
 import { repeat } from 'lit-html/directives/repeat';
 import { PaperSpinnerElement } from '@polymer/paper-spinner/paper-spinner';
 
-import GithubConfig from '../core/github';
-
 interface GithubRepository {
-    name: string;
-    description: string;
-    stargazers_count: number;
-    fork: boolean;
-    forks: number;
-    html_url: string;
-    language: string;
-    created_at: string;
+    node: {
+        description: string;
+        forkCount: number;
+        name: string;
+        stargazers: {
+            totalCount: number;
+        };
+        createdAt: string;
+        url: string;
+        primaryLanguage: {
+            name: string;
+        };
+    };
 }
 
 class GithubWork extends LitElement implements Elara.Element {
@@ -25,13 +29,13 @@ class GithubWork extends LitElement implements Elara.Element {
     public repositories: GithubRepository[][] = [];
 
     @property({type: Array})
-    public currentPage: GithubRepository[] = [];
+    public currentPage: GithubRepository[] = null;
 
     @property({type: Number, reflect: true})
     public page: number = 0;
 
     @property({type: Boolean, reflect: true})
-    public inError: boolean = false
+    public inError: boolean = false;
 
     public chunksLength = 6;
 
@@ -40,16 +44,22 @@ class GithubWork extends LitElement implements Elara.Element {
 
         const request = new XMLHttpRequest();
 
-        request.open('GET', 'https://cors-anywhere.herokuapp.com/https://api.github.com/users/ghostfly/repos', true);
+        const queryObj = {query: '{ search(query: "user:ghostfly is:public", type: REPOSITORY, first: 100) { repositoryCount edges { node { ... on Repository { name stargazers { totalCount } description forkCount createdAt url primaryLanguage {name} }}}}}'};
+        request.open('POST', 'https://api.github.com/graphql', true);
+        request.setRequestHeader('Authorization', 'bearer ' + atob('ZDQ0Y2JmYjVlOGRiOTRjMjJkNThlYjg4ZjFlNjIyODM4YzQ1N2Q3Mg=='));
+        request.send(JSON.stringify(queryObj));
 
-        request.setRequestHeader('type', GithubConfig.type);
-        request.setRequestHeader('key', GithubConfig.key);
-        request.setRequestHeader('secret', GithubConfig.secret);
-        request.send();
+        const hideSpinner = () => {
+            if(!this._spinner) return;
+
+            this._spinner.active = false;
+            const container = this._spinner.parentElement;
+            container.removeChild(this._spinner);
+            this.shadowRoot.removeChild(container);
+        };
 
         const onError = () => {
-            this._spinner.active = false;
-            this.shadowRoot.removeChild(this._spinner);
+            hideSpinner();
             this.inError = true;
         };
 
@@ -58,15 +68,15 @@ class GithubWork extends LitElement implements Elara.Element {
         request.onreadystatechange = async () => {
             if (request.readyState == 4 && request.status == 200) {
                 const repos = JSON.parse(request.responseText);
-                this.repositories = this._chunk(repos.filter((repo:  GithubRepository) => !repo.fork)
-                                        .sort((a: GithubRepository, b: GithubRepository) => { 
-                                            // @ts-ignore
-                                            return new Date(b.created_at) - new Date(a.created_at);
-                                        })/*.sort((a, b) => b.stargazers_count - a.stargazers_count)*/, this.chunksLength);
+                const filtered = repos.data.search.edges.sort((a: GithubRepository, b: GithubRepository) => { 
+                    // @ts-ignore
+                    return new Date(b.node.createdAt) - new Date(a.node.createdAt);
+                });
+
+                this.repositories = this._chunk(filtered, this.chunksLength);
 
                 this.currentPage = this.repositories[this.page];
-                this._spinner.active = false;
-                this.shadowRoot.removeChild(this._spinner);
+                hideSpinner();
                 await this.updateComplete;
                 this._pulse();
             }
@@ -148,7 +158,9 @@ class GithubWork extends LitElement implements Elara.Element {
         }
 
         .next {
+            display: flex;
             cursor: pointer;
+            justify-content: flex-end;
             font-weight: bold;
             transition: color .3s;
         }
@@ -156,53 +168,75 @@ class GithubWork extends LitElement implements Elara.Element {
         .next:hover {
             color: var(--elara-primary);
         }
+
+        .loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 50vh;
+        }
+
+        .link {
+            color: var(--elara-secondary);
+            text-decoration: none;
+            transition: color .3s;
+        }
+        .link:hover {
+            color: var(--elara-primary);
+        }
+        a[disabled='true'] {
+            pointer-events: none;
+            opacity: .7;
+        }
         </style>
-        <paper-spinner></paper-spinner>
+        <div class="loader">
+            <paper-spinner></paper-spinner>
+        </div>
+        ${this.inError ? html`<p>Can't load GitHub repositories.. 😢 <br />You can check on <a class="link" href="https://github.com/ghostfly/">GitHub</a> directly !</p>` : html``}
+        ${this.currentPage ? html`
         <div class="two-cols">
-            ${this.inError ? html`Can't load GitHub repositories.. 😢` : html``}
             ${repeat(this.currentPage, (repository: GithubRepository) => {
                 return html`
-                <section class="github-card" @click=${() => { window.open(repository.html_url);}}>
-                    <div class="title">${repository.name}</div>
-                    <div class="description">${repository.description}</div>
+                <section class="github-card" @click=${() => { window.open(repository.node.url);}}>
+                    <div class="title">${repository.node.name}</div>
+                    <div class="description">${repository.node.description}</div>
                     <div class="bottom">
-                        <span>${repository.language}</span>
-                        <span><iron-icon icon="stars"></iron-icon> ${repository.stargazers_count}</span>
-                        <span><iron-icon icon="subdirectory-arrow-right"></iron-icon> ${repository.forks}</span>
+                        <span>${repository.node.primaryLanguage ? repository.node.primaryLanguage.name : ''}</span>
+                        <span><iron-icon icon="stars"></iron-icon> ${repository.node.stargazers.totalCount}</span>
+                        <span><iron-icon icon="subdirectory-arrow-right"></iron-icon> ${repository.node.forkCount}</span>
                     </div>
                 </section>
                 `;
             })}
         </div>
-        <div class="pagination">
-            ${this.page+1} / ${this.repositories.length}
-            ${this.page < this.repositories.length && this.page !== 0 ? html`${this._back} 
-            ${this.page !== this.repositories.length -1 ? html`${this._next}` : html``}` : html`${this._next}`}
-            <a class="next" @click=${() => {
-                location.hash = '#!about';
-            }}>> About</a>
-        </div>
+        ${this._pagination}
+        ` : html``}
+        <a class="next" @click=${() => {
+            location.hash = '#!about';
+        }}>> About</a>
         `;
     }
 
     private _pulse(){
         const sections = this.shadowRoot.querySelectorAll('.two-cols section');
+        const animation = pulseWith(600);
         sections.forEach((section) => {
-            section.animate(
-                {
-                    opacity: [.5, 1],
-                    transform: ['scale(.95)', 'scale(1)'],
-                }, 
-                { 
-                    duration: 600 
-                }
-            );
+            section.animate(animation.effect, animation.options);
         });
+    }
+
+    private get _pagination(){
+        return html`
+        <div class="pagination">
+            ${this.page+1} / ${this.repositories.length}
+            ${this._back} 
+            ${this._next}
+        </div>`;
     }
 
     private get _back(){
         return html`
-        <a role="button" @click=${async () => {
+        <a role="button" disabled=${this.page === 0} @click=${async () => {
             this.page--;
             this.currentPage = this.repositories[this.page];
             await this.updateComplete;
@@ -215,7 +249,7 @@ class GithubWork extends LitElement implements Elara.Element {
 
     private get _next(){
         return html`
-        <a role="button" @click=${async () => {
+        <a role="button" disabled=${this.page+1 === this.repositories.length} @click=${async () => {
             this.page++;
             this.currentPage = this.repositories[this.page];
             await this.updateComplete;

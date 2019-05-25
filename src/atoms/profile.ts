@@ -1,18 +1,99 @@
 import { html, TemplateResult } from 'lit-html';
-import { LitElement } from 'lit-element';
+import { LitElement, property } from 'lit-element';
 
 import Elara from '../core/elara';
+import { fadeWith } from '../core/animations';
 
-class Profile extends LitElement implements Elara.Element {
+import { IronImageElement } from '@polymer/iron-image';
+
+class Profile extends LitElement implements Elara.LoadableElement {
     public static readonly is: string = 'ui-profile';
+
+    @property({type: String, reflect: true})
+    public route: string;
+
+    @property({type: Boolean, reflect: true})
+    public loaded: boolean = false;
+
+    private _hashChangeListener: () => void;
+
+    public connectedCallback(): void {
+        super.connectedCallback();
+        this.route = location.hash;
+
+        this._hashChangeListener = this._onHashChange.bind(this);
+        window.addEventListener('hashchange', this._hashChangeListener);
+    }
+
+    private _onProfilePictureLoaded(event: CustomEvent){
+        if(!event.detail){
+            return;
+        }
+
+        const ironImage = event.target as IronImageElement;
+        const loaded = event.detail.value;
+        if(loaded){
+            const animation = fadeWith(500, true);
+            ironImage.animate(animation.effect, animation.options);
+            ironImage.classList.add('shown');
+            ironImage.removeEventListener('loaded-changed', this._onProfilePictureLoaded);
+        }
+    }
+
+    public async firstUpdated(){
+        const backgroundURL = await this._toDataURL('https://source.unsplash.com/collection/1727869/1366x768');
+        this.container.style.backgroundImage =`url('${backgroundURL}')`;
+        if(this.picture.loaded){
+            this._onProfilePictureLoaded(
+                {
+                    target: this.picture, 
+                    detail: {
+                        value: true
+                    }
+                } as unknown as CustomEvent
+            );
+            return;
+        }
+        this.picture.addEventListener('loaded-changed', this._onProfilePictureLoaded);
+    }
+
+    public disconnectedCallback(): void {
+        super.disconnectedCallback();
+
+        window.removeEventListener('hashchange', this._hashChangeListener);
+    }
+
+    private _toDataURL(src: string): Promise<string> {
+        return new Promise((resolve) => {
+            const image = new Image();
+            image.crossOrigin = 'Anonymous';
+         
+            image.onload = () => {
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = image.naturalHeight;
+                canvas.width = image.naturalWidth;
+                context.drawImage(image, 0, 0);
+                this.loaded = true;
+                resolve(canvas.toDataURL('image/jpeg'));
+            };
+        
+            image.src = src;
+        });
+    }
+
+    private _onHashChange(event: HashChangeEvent): void {
+        if(!event.newURL){
+            this.route = null;
+            return;
+        }
+
+        this.route = new URL(event.newURL).hash;
+    }
 
     public render(): void | TemplateResult {
         return html`
         <style>
-        :host {
-            cursor: pointer;
-        }
-
         .profile {
             width: 24vw;
             padding: 4vh 3vw;
@@ -22,11 +103,17 @@ class Profile extends LitElement implements Elara.Element {
             flex-direction: column;
             justify-content: center;
             text-align: left;
-            background: var(--background-image) center center;
+            background: var(--elara-darkgray) center center;
             background-size: cover;
             background-repeat: no-repeat;
             position: fixed;
             color: #fff;
+            user-select: none;
+            z-index: 999;
+        }
+
+        .profile.is-link {
+            cursor: pointer;
         }
 
         .profile .bio > div {
@@ -48,15 +135,23 @@ class Profile extends LitElement implements Elara.Element {
         iron-image, .bio {
             z-index: 1;
         }
+
+        iron-image {
+            visibility: hidden;
+        }
+
+        iron-image.shown {
+            visibility: visible;
+        }
         
         .profile > .pic {
-            width: 13vw;
-            height: 13vw;
+            width: 20vw;
+            height: 20vw;
             border-radius: 3px;
         }
         </style>
-        <div role="link" class="profile" @click=${() => { location.hash = '#!home'; }}>
-            <iron-image class="pic" sizing="cover" fade src="https://avatars0.githubusercontent.com/u/5880133?s=400&u=050272e628f9c73881592ef1107b8935f5ec4467&v=4"></iron-image>
+        <div role="link" id="container" class="profile ${this.route === '#!home' || !this.route ? '' : 'is-link'}" @click=${() => { location.hash = '#!home'; }}>
+            <iron-image id="pic" class="pic" sizing="contain" src="/assets/me.svg"></iron-image>
             <div class="bio">
                 <div class="username">
                     <span>Léonard C. > @ghostfly</span>
@@ -70,6 +165,14 @@ class Profile extends LitElement implements Elara.Element {
             </div>
         </div>
         `;
+    }
+
+    private get picture(): IronImageElement {
+        return this.shadowRoot.querySelector('#pic');
+    }
+
+    private get container(): HTMLDivElement {
+        return this.shadowRoot.querySelector('#container');
     }
 }
 customElements.define(Profile.is, Profile);

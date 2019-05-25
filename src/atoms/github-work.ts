@@ -190,6 +190,20 @@ class GithubWork extends LitElement implements Elara.Element {
         `;
     }
 
+    private _card(repository: GithubRepository): TemplateResult {
+        return html`
+        <section class="github-card" @click=${() => { window.open(repository.node.url);}}>
+            <div class="title">${repository.node.name}</div>
+            ${repository.node.description ? html`<div class="description">${repository.node.description}</div>` : html``}
+            <div class="bottom">
+                <span>${repository.node.primaryLanguage ? repository.node.primaryLanguage.name : ''}</span>
+                <span><iron-icon icon="stars"></iron-icon> ${repository.node.stargazers.totalCount}</span>
+                <span><iron-icon icon="subdirectory-arrow-right"></iron-icon> ${repository.node.forkCount}</span>
+            </div>
+        </section>
+        `;
+    }
+
 	public render(): void | TemplateResult {
         return html`
         <div class="loader">
@@ -198,19 +212,7 @@ class GithubWork extends LitElement implements Elara.Element {
         ${this.inError ? html`<p>Can't load GitHub repositories.. 😢 <br />You can check on <a class="link" href="https://github.com/ghostfly/">GitHub</a> directly !</p>` : html``}
         ${this.currentPage ? html`
         <div class="two-cols">
-            ${repeat(this.currentPage, (repository: GithubRepository) => {
-                return html`
-                <section class="github-card" @click=${() => { window.open(repository.node.url);}}>
-                    <div class="title">${repository.node.name}</div>
-                    <div class="description">${repository.node.description}</div>
-                    <div class="bottom">
-                        <span>${repository.node.primaryLanguage ? repository.node.primaryLanguage.name : ''}</span>
-                        <span><iron-icon icon="stars"></iron-icon> ${repository.node.stargazers.totalCount}</span>
-                        <span><iron-icon icon="subdirectory-arrow-right"></iron-icon> ${repository.node.forkCount}</span>
-                    </div>
-                </section>
-                `;
-            })}
+            ${repeat(this.currentPage, this._card)}
         </div>
         ${this._pagination}
         ` : html``}

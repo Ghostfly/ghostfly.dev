@@ -24,8 +24,10 @@ const Elara = {
 };
 
 namespace Elara {
-    export interface Element extends LitElement {
-        
+    export type Modes = 'day' | 'night';
+    export interface Element extends LitElement {}
+    export interface Root extends Elara.Element {
+        askModeChange(mode: Elara.Modes): boolean;
     }
     export interface LoadableElement extends Elara.Element {
         loaded: boolean;

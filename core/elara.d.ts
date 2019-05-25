@@ -96,6 +96,8 @@ declare namespace Elara {
             name: string;
             route: string;
         }>;
+        menu(isHide: boolean): Promise<void>;
+        show(route: string): Promise<void>;
         askModeChange(mode: Elara.Modes): boolean;
     }
     interface LoadableElement extends Elara.Element {

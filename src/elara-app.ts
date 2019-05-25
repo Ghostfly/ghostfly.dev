@@ -1,6 +1,4 @@
 import { LitElement, html, property, css, CSSResult } from 'lit-element';
-import {Debouncer} from '@polymer/polymer/lib/utils/debounce';
-import {animationFrame} from '@polymer/polymer/lib/utils/async';
 
 import Elara from './core/elara';
 import { pulseWith, fadeWith } from './core/animations';
@@ -15,7 +13,6 @@ export class ElaraApp extends LitElement implements Elara.Element {
 	public static readonly is: string = 'elara-app';
 
 	private _onHashChangeListener: () => void;
-	private _locationDebouncer: Debouncer;
 
 	@property({reflect: true, type: String})
 	public route: string;
@@ -62,9 +59,7 @@ export class ElaraApp extends LitElement implements Elara.Element {
 		}
 
 		this.content.innerHTML = '';
-		this._locationDebouncer = Debouncer.debounce(this._locationDebouncer, animationFrame, () => {
-			this.load(route);
-		});
+		this.load(route);
 	}
 
 	public load(route: string){
@@ -243,10 +238,10 @@ export class ElaraApp extends LitElement implements Elara.Element {
 			<div id="content" class="content"></div>
 			<div id="menu" class="menu-content">
 				<paper-icon-button class="menu" icon="close" aria-label="Close menu" @click=${this._hideMenu}></paper-icon-button>
-				<a class="item ${this.route === 'home' ? 'active' : ''}" @click=${() => this._showLink('home')}>Work</a>
-				<a class="item ${this.route === 'about' ? 'active' : ''}" @click=${() => this._showLink('about')}>About</a>
-				<a class="item ${this.route === 'projects' ? 'active' : ''}" @click=${() => this._showLink('projects')}>Projects</a>
-				<a class="item ${this.route === 'contact' ? 'active' : ''}" @click=${() => this._showLink('contact')}>Contact</a>
+				<a class="item ${this.route === 'home' ? 'active' : ''}" @click=${({target}) => this._showLink(target, 'home')}>Work</a>
+				<a class="item ${this.route === 'about' ? 'active' : ''}" @click=${({target}) => this._showLink(target, 'about')}>About</a>
+				<a class="item ${this.route === 'projects' ? 'active' : ''}" @click=${({target}) => this._showLink(target, 'projects')}>Projects</a>
+				<a class="item ${this.route === 'contact' ? 'active' : ''}" @click=${({target}) => this._showLink(target, 'contact')}>Contact</a>
 			</div>
 		`;
 	}
@@ -276,10 +271,11 @@ export class ElaraApp extends LitElement implements Elara.Element {
 		return Promise.all(loadPromises);
 	}
 
-	private _showLink(route: string): void {
-		this._locationDebouncer = Debouncer.debounce(this._locationDebouncer, animationFrame, () => {
-			this._hideMenu();
-			location.hash = '#!'+route;
+	private _showLink(target: HTMLLinkElement, route: string): void {
+		target.disabled = true;
+		location.hash = '#!'+route;
+		window.requestAnimationFrame(() => {
+			target.disabled = false;
 		});
 	}
 

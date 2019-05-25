@@ -175,11 +175,14 @@ class Contact extends LitElement implements Elara.Page {
         try {
             const sended = await Elara.Mailing.contact(fields, 'https://script.google.com/macros/s/AKfycbzdhNONz-1pGAlOktko4o5riYGErccxRfk8LsqTxq0ws31wKZ0/exec');
             if(!sended){
-                this.inError = true;
+                this.isSuccess = false;
+                this.inError = false;
             } else {
+                this.inError = false;
                 this.isSuccess = true;
             }
-        } catch {
+        } catch (err) {
+            console.warn(err);
             this.inError = true;
         }
     }

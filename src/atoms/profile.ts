@@ -3,11 +3,14 @@ import { LitElement, property } from 'lit-element';
 
 import Elara from '../core/elara';
 
-class Profile extends LitElement implements Elara.Element {
+class Profile extends LitElement implements Elara.LoadableElement {
     public static readonly is: string = 'ui-profile';
 
     @property({type: String, reflect: true})
     public route: string;
+
+    @property({type: Boolean, reflect: true})
+    public loaded: boolean = false;
 
     private _hashChangeListener: () => void;
 
@@ -41,6 +44,7 @@ class Profile extends LitElement implements Elara.Element {
                 canvas.height = image.naturalHeight;
                 canvas.width = image.naturalWidth;
                 context.drawImage(image, 0, 0);
+                this.loaded = true;
                 resolve(canvas.toDataURL('image/jpeg'));
             };
         

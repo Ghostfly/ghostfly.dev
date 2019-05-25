@@ -7,7 +7,7 @@ import './atoms/not-found';
 // lazy import for polymer components
 import('./polymer');
 
-class ElaraApp extends LitElement implements Elara.Element {
+export class ElaraApp extends LitElement implements Elara.Element {
 	public static readonly is: string = 'elara-app';
 
 	private _onHashChangeListener: () => void;
@@ -246,6 +246,31 @@ class ElaraApp extends LitElement implements Elara.Element {
 				<a class="item ${this.route === 'contact' ? 'active' : ''}" @click=${() => this._showLink('contact')}>Contact</a>
 			</div>
 		`;
+	}
+
+	private get loadableElements(){
+		return ['ui-profile'];
+	}
+
+	public get bootstrap(){
+		const loadPromises = [];
+		for(const element of this.loadableElements){
+			const load = new Promise((resolve) => {
+				const elem = this.shadowRoot.querySelector(element) as Elara.LoadableElement;
+				const config = { attributes: true };
+				const observer = new MutationObserver((mutation) => {
+					if(!mutation.length){ return; }
+					if (mutation[0].type == 'attributes' && mutation[0].attributeName === 'loaded') {
+						observer.disconnect();
+						resolve();
+					}
+				});
+				observer.observe(elem, config);
+			});
+			loadPromises.push(load);
+		}
+		
+		return Promise.all(loadPromises);
 	}
 
 	private _showLink(route: string): void {

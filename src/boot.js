@@ -65,6 +65,9 @@ function _onDomLoaded(){
     'iron-image'
   ];
 
+  const elara = document.querySelector('elara-app');
+  loadingPromises.push(elara.bootstrap);
+
   for(const elementName of neededElements){
     loadingPromises.push(customElements.whenDefined(elementName));
   }

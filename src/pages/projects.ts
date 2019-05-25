@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit-html';
 import { LitElement } from 'lit-element';
 
 import Elara from '../core/elara';
-import Animations from '../core/animations';
+import { fadeWith } from '../core/animations';
 
 import { repeat } from 'lit-html/directives/repeat';
 import { IronImageElement } from '@polymer/iron-image';
@@ -106,7 +106,7 @@ class Projects extends LitElement implements Elara.Page {
         const ironImage = event.target as IronImageElement;
         const loaded = event.detail.value;
         if(loaded){
-            const animationConfig = Animations.fadeWith(500, true);
+            const animationConfig = fadeWith(500, true);
             ironImage.classList.add('shown');
             const animation = ironImage.animate(animationConfig.effect, animationConfig.options);
             await animation.finished;

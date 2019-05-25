@@ -1,6 +1,7 @@
 import { LitElement, html, property } from 'lit-element';
+
 import Elara from './core/elara';
-import Animations from './core/animations';
+import { pulseWith, fadeWith } from './core/animations';
 
 import './pages/index';
 import './atoms/not-found';
@@ -110,7 +111,7 @@ export class ElaraApp extends LitElement implements Elara.Element {
 				return;
 			}
 
-			const animation = Animations.pulseWith(600);			
+			const animation = pulseWith(600);			
 			pageContent.animate(animation.effect, animation.options);
 		});
 	}
@@ -281,12 +282,12 @@ export class ElaraApp extends LitElement implements Elara.Element {
 			this.menu.classList.add('shown');
 		}
 
-		const animation = Animations.fadeWith(300, true);
+		const animation = fadeWith(300, true);
 		this.menu.animate(animation.effect, animation.options);
 	}
 
 	private async _hideMenu(): Promise<void> {
-		const animation = Animations.fadeWith(300, false);
+		const animation = fadeWith(300, false);
 		const dismiss = this.menu.animate(animation.effect, animation.options);
 
 		await dismiss.finished;

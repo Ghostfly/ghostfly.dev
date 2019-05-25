@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit-html';
 import { LitElement, property } from 'lit-element';
 
 import Elara from '../core/elara';
-import Animations from '../core/animations';
+import { fadeWith } from '../core/animations';
 
 import { IronImageElement } from '@polymer/iron-image';
 
@@ -33,7 +33,7 @@ class Profile extends LitElement implements Elara.LoadableElement {
         const ironImage = event.target as IronImageElement;
         const loaded = event.detail.value;
         if(loaded){
-            const animation = Animations.fadeWith(500, true);
+            const animation = fadeWith(500, true);
             ironImage.animate(animation.effect, animation.options);
             ironImage.classList.add('shown');
             ironImage.removeEventListener('loaded-changed', this._onProfilePictureLoaded);

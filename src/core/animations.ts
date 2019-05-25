@@ -3,7 +3,7 @@ interface ElaraAnimation {
     options: KeyframeAnimationOptions;
 }
 
-const pulseWith = (duration: number): ElaraAnimation => {
+export function pulseWith(duration: number): ElaraAnimation {
     return {
         effect: {
             opacity: [.5, 1],
@@ -15,7 +15,7 @@ const pulseWith = (duration: number): ElaraAnimation => {
     };
 };
 
-const fadeWith = (duration: number, enter: boolean): ElaraAnimation => {
+export function fadeWith(duration: number, enter: boolean): ElaraAnimation {
     return {
         effect: {
             opacity: enter ? [0, 1] : [1, 0]

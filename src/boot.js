@@ -1,3 +1,5 @@
+// @ts-check
+// @ts-ignore
 window.polymerSkipLoadingFontRoboto = true;
 
 function dismiss(){
@@ -10,10 +12,10 @@ function reload(){
 }
 
 function makeGenericHandler(error = null){
-  const fragment = document.createElement('div');
-  fragment.id = fragment.class = "handler";
-  fragment.innerHTML = `
-  <div class="handler" id="handler">
+  const handler = document.createElement('div');
+  handler.id = handler.className = "handler";
+  handler.innerHTML = `
+  <div class="content">
     ${error !== null ? `
       <h4>
         ${error.continue == true ? `
@@ -32,7 +34,7 @@ function makeGenericHandler(error = null){
     `}
   </div>
   `;
-  return fragment;
+  return handler;
 }
 
 function _onDomLoaded(){
@@ -66,6 +68,7 @@ function _onDomLoaded(){
   ];
 
   const elara = document.querySelector('elara-app');
+  // @ts-ignore
   loadingPromises.push(elara.bootstrap);
 
   for(const elementName of neededElements){

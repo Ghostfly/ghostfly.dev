@@ -1,4 +1,5 @@
 import { LitElement } from 'lit-element';
+import { PaperInputElement } from '@polymer/paper-input/paper-input';
 
 // Elara
 const Elara = {
@@ -115,6 +116,63 @@ const Elara = {
             }
     
             return window.matchMedia(Elara.UI.queries.DARK).matches;
+        }
+    },
+    Mailing: {
+        contact: async (fields: {
+                submit: HTMLButtonElement;
+                name: PaperInputElement;
+                email: PaperInputElement;
+                message: PaperInputElement;
+                form: HTMLElement;
+            }, url: string): Promise<boolean> => {
+            let isValid = true;
+
+            const check = (input: PaperInputElement) => {
+                return input.validate();
+            };
+
+            // Check each
+            const inputs = [fields.name, fields.email, fields.message];
+            inputs.forEach((input: PaperInputElement) => check(input) ? input.invalid = false : input.invalid = true);
+            inputs.forEach((input) => {
+                if(input.invalid && isValid){
+                    isValid = false;
+                }
+            });
+
+            if(!isValid){
+                return isValid;
+            }
+            
+            // disable everyone
+            fields.submit.disabled = true;
+            inputs.forEach((input) => input.disabled = true);
+
+            const formData = new FormData();
+            formData.append('name', fields.name.value);
+            formData.append('email', fields.email.value);
+            formData.append('message', fields.message.value);
+
+            // @tool: uncomment to disable mail sending
+            // if(location.hostname.indexOf('localhost') !== -1) { form.classList.add('sended'); return; }
+
+            // Send through Gmail
+
+            return new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', url);
+                xhr.onreadystatechange = () => {
+                    if (xhr.status === 200) {
+                        fields.form.classList.add('sended');
+                        resolve(true);
+                    }
+                };
+                xhr.onerror = () => {
+                    reject(false);
+                };
+                xhr.send(formData);
+            });
         }
     },
     Errors: {

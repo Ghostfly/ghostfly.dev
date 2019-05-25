@@ -3,9 +3,7 @@ import { LitElement, property, css, CSSResult } from 'lit-element';
 
 import Elara from '../core/elara';
 
-import { PaperButtonElement } from '@polymer/paper-button';
 import { PaperInputElement } from '@polymer/paper-input/paper-input';
-import { PaperTextareaElement } from '@polymer/paper-input/paper-textarea';
 import { repeat } from 'lit-html/directives/repeat';
 
 class Contact extends LitElement implements Elara.Page {
@@ -165,54 +163,25 @@ class Contact extends LitElement implements Elara.Page {
         `;
     }
 
-    private _doSend(event: Event){
-		const form = this.shadowRoot.querySelector('#form') as HTMLDivElement;
-		const button = event.target as PaperButtonElement;
-		const name = this.shadowRoot.querySelector('#name') as PaperInputElement;
-		const email = this.shadowRoot.querySelector('#email') as PaperInputElement;
-		const message = this.shadowRoot.querySelector('#message') as PaperTextareaElement;
-		
-		let isValid = true;
+    private async _doSend(event: Event){
+        const fields = {
+            form: this.shadowRoot.querySelector('#form') as HTMLElement,
+            submit: event.target as HTMLButtonElement,
+            name: this.shadowRoot.querySelector('#name') as PaperInputElement,
+            email: this.shadowRoot.querySelector('#email') as PaperInputElement,
+            message: this.shadowRoot.querySelector('#message') as PaperInputElement,
+        };
 
-		const check = (input: PaperInputElement) => {
-			return input.validate();
-		};
-		// Check each
-		const inputs = [name, email, message];
-		inputs.forEach((input: PaperInputElement) => check(input) ? input.invalid = false : input.invalid = true);
-		inputs.forEach((input) => {
-			if(input.invalid && isValid){
-				isValid = false;
-			}
-		});
-		
-		if(isValid){
-			// disable everyone
-			button.disabled = true;
-			inputs.forEach((input) => input.disabled = true);
-
-			const formData = new FormData();
-			formData.append('name', name.value);
-			formData.append('email', email.value);
-			formData.append('message', message.value);
-
-			// @tool: uncomment to disable mail sending
-			// if(location.hostname.indexOf('localhost') !== -1) { form.classList.add('sended'); return; }
-
-			// Send through Gmail
-			const xhr = new XMLHttpRequest();
-			xhr.open('POST', 'https://script.google.com/macros/s/AKfycbzdhNONz-1pGAlOktko4o5riYGErccxRfk8LsqTxq0ws31wKZ0/exec');
-			xhr.onreadystatechange = () => {
-				if (xhr.status === 200) {
-                    this.isSuccess = true;
-					form.classList.add('sended');
-				}
-            };
-            xhr.onerror = () => {
+        try {
+            const sended = await Elara.Mailing.contact(fields, 'https://script.google.com/macros/s/AKfycbzdhNONz-1pGAlOktko4o5riYGErccxRfk8LsqTxq0ws31wKZ0/exec');
+            if(!sended){
                 this.inError = true;
-            };
-			xhr.send(formData);
-		}
+            } else {
+                this.isSuccess = true;
+            }
+        } catch {
+            this.inError = true;
+        }
     }
 }
 customElements.define(Contact.is, Contact);

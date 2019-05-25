@@ -108,7 +108,7 @@ export class ElaraApp extends LitElement implements Elara.Root {
 		}
 		window.scrollTo(0,0);
 
-		if(this._menu.classList.contains('shown') && this._menuFade === null){
+		if(this._menu.shown && this._menuFade === null){
 			await this._hideMenu();
 		}
 
@@ -198,7 +198,7 @@ export class ElaraApp extends LitElement implements Elara.Root {
 	}
 
 	private async _showMenu(): Promise<void> {
-		if(this._menu.classList.contains('shown')){
+		if(this._menu.shown){
 			await this._hideMenu();
 			return;
 		}

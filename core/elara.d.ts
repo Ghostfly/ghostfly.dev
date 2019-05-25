@@ -49,7 +49,10 @@ declare const Elara: {
 declare namespace Elara {
     interface Element extends LitElement {
     }
-    interface Page extends LitElement {
+    interface LoadableElement extends Elara.Element {
+        loaded: boolean;
+    }
+    interface Page extends Elara.Element {
         head: {
             title: string;
             description: string;

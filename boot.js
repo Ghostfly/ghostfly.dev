@@ -9,7 +9,7 @@ function reload(){
   location.reload();
 }
 
-function makeHandler(error = null){
+function makeGenericHandler(error = null){
   const fragment = document.createElement('div');
   fragment.id = fragment.class = "handler";
   fragment.innerHTML = `
@@ -28,52 +28,85 @@ function makeHandler(error = null){
         <paper-button class="reload" onclick="reload()" raised toggles>Reload</paper-button>
       </div>
     ` : `
-      <div id="spinner" class="spinner large">
-        <div class="spinner-wrapper">
-          <div class="rotator">
-            <div class="inner-spin"></div>
-            <div class="inner-spin"></div>
-          </div>
-        </div>
-      </div>
+      <div id="spinner" class="spinner large"></div>
     `}
   </div>
   `;
   return fragment;
 }
 
-(() => {
-  document.addEventListener("DOMContentLoaded", function(event) {
-    if(location.hash.indexOf('redirect') !== -1){
-      const loader = document.querySelector('#handler');
-      if(loader){
-        loader.parentElement.removeChild(loader);
+function _onDomLoaded(){
+  let willRemove = false;
+  let handler = null;
+
+  if(location.hash.indexOf('redirect') !== -1){
+    handler = document.querySelector('#handler');
+    if(handler){
+      willRemove = true;
+    }
+  } else {
+    willRemove = false;
+    document.body.appendChild(makeGenericHandler());
+  }
+
+  if(willRemove && handler){
+    // Remove load handler immediatly on redirect
+    handler.parentElement.removeChild(handler);
+  }
+
+  const loadingPromises = [];
+  const neededElements = [
+    'paper-icon-button', 
+    'paper-button', 
+    'paper-input', 
+    'paper-textarea', 
+    'paper-spinner', 
+    'iron-icon', 
+    'iron-image'
+  ];
+
+  const elara = document.querySelector('elara-app');
+  loadingPromises.push(elara.bootstrap);
+
+  for(const elementName of neededElements){
+    loadingPromises.push(customElements.whenDefined(elementName));
+  }
+
+  return Promise.all(loadingPromises).then(() => {
+    if(!handler){
+      handler = document.querySelector('#handler');
+    }
+    
+    window.requestAnimationFrame(() => {
+      const spinner = document.querySelector('#spinner');
+      if(spinner){
+        spinner.parentElement.removeChild(spinner);
       }
-    } else {
-      document.body.appendChild(makeHandler());
-    }
+      if(handler){
+        handler.classList.add('hidden');
+        handler.parentElement.removeChild(handler);
+      }
+    });
   });
+}
 
-  window.addEventListener('error', (event) => {
-    if(event.error && event.error.elara === true){ 
-      console.warn('Elara error ::', event.error);
-      event.preventDefault();
-      event.stopPropagation();
-      return; 
-    }
-    document.body.appendChild(makeHandler(event.error));
-  });
+function _onGenericError(event) {
+  if(event.error && event.error.elara === true){ 
+    console.warn('Elara error ::', event.error);
+    event.preventDefault();
+    event.stopPropagation();
+    return; 
+  }
 
-  return customElements.whenDefined('iron-image').then(() => {
-      const loader = document.querySelector('#handler');
-      if(!loader) return;
-      window.requestAnimationFrame(() => {
-        const spinner = document.querySelector('#spinner');
-        if(spinner){
-          spinner.parentElement.removeChild(spinner);
-        }
-        loader.classList.add('hidden');
-        loader.parentElement.removeChild(loader);
-      });
-  });
+  document.body.appendChild(makeGenericHandler(event.error));
+}
+
+function _onUnload(){
+  window.removeEventListener('error', _onGenericError);
+}
+
+(() => {
+  document.addEventListener('DOMContentLoaded', _onDomLoaded);
+  document.addEventListener('unload', _onUnload);
+  window.addEventListener('error', _onGenericError);
 })();

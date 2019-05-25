@@ -5,7 +5,6 @@ import Elara from '../core/elara';
 import { fadeWith } from '../core/animations';
 
 import { IronImageElement } from '@polymer/iron-image';
-import { DARK } from '../core/styling';
 
 const nightModeKey = 'night-mode';
 
@@ -174,14 +173,6 @@ class Profile extends LitElement implements Elara.LoadableElement {
         return localStorage.getItem(nightModeKey);
     }
 
-    private get _isDarkOS(){
-        if(!window.matchMedia){
-            return false;
-        }
-
-        return window.matchMedia(DARK).matches;
-    }
-
     private get _hasSwitched(){
         return localStorage.getItem(nightModeKey) !== null;
     }
@@ -225,7 +216,7 @@ class Profile extends LitElement implements Elara.LoadableElement {
 
     private _nightToggle(){
         if(!this._hasSwitched){
-            if(this._isDarkOS){
+            if(Elara.UI.isDarkOS()){
                 return this._day;
             } else {
                 return this._night;

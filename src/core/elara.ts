@@ -2,12 +2,28 @@ import { LitElement } from 'lit-element';
 
 // Elara
 const Elara = {
+    Constants: {
+        modes: {
+            default: 'day'
+        }
+    },
     Routing: {
         navigate: (route: string) => {
             location.hash = `#!${route}`;
         }
     },
     UI: {
+        queries: {
+          DARK: '(prefers-color-scheme: dark)',
+          LIGHT: '(prefers-color-scheme: light)',
+        },
+        isDarkOS(){
+            if(!window.matchMedia){
+                return false;
+            }
+    
+            return window.matchMedia(Elara.UI.queries.DARK).matches;
+        },
         mode: {
             default: 'day' as Elara.Modes
         }

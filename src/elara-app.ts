@@ -6,7 +6,6 @@ import { fadeWith, pulseWith } from './core/animations';
 
 import './pages/index';
 import './atoms/not-found';
-import { DARK } from './core/styling';
 
 // lazy import for polymer components
 import('./polymer');
@@ -66,7 +65,7 @@ export class ElaraApp extends LitElement implements Elara.Root {
 			return;
 		}
 
-		const darkMediaQuery = window.matchMedia(DARK).matches;
+		const darkMediaQuery = window.matchMedia(Elara.UI.queries.DARK).matches;
 		if(darkMediaQuery){
 			this._switch('night');
 		} else { 

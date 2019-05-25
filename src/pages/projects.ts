@@ -35,6 +35,15 @@ class Projects extends LitElement implements Elara.Page {
     private get projects(): ReadonlyArray<Project> {
         return [
             {
+                name: 'Listen With Me',
+                slug: 'lwm',
+                image: null,
+                repository: null,
+                status: 'Work in progress',
+                url: 'https://lwm.io',
+                tags: ['YouTube', 'Collaborative', 'Listening']
+            },
+            {
                 name: 'Dandy Costard',
                 slug: 'dandy',
                 image: '/assets/projects/dandy.svg',

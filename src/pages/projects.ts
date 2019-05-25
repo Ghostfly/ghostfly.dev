@@ -258,7 +258,9 @@ class Projects extends LitElement implements Elara.Page {
                     </div>
                 </div>
                 <div class="right">
+                    ${project.image ? html`
                     <iron-image sizing="contain" src="${project.image}"></iron-image>
+                    ` : html``}
                 </div>
             </div>
         </section>`;

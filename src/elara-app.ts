@@ -1,7 +1,7 @@
 import { LitElement, html, property, css, CSSResult } from 'lit-element';
 
 import Elara from './core/elara';
-import { fadeWith, pulseWith } from './core/animations';
+import { fadeWith } from './core/animations';
 
 import './pages/index';
 import './atoms/not-found';
@@ -73,60 +73,7 @@ export class ElaraApp extends LitElement implements Elara.Root {
 	}
 
 	public async load(route: string){
-		const defaultTitle = 'Léonard C.';
-		const titleTemplate = '%s | ' + defaultTitle;
-
-		const Component = customElements.get('ui-' + route);
-
-		this.route = route;
-		this._content.classList.remove('full-width');
-
-		const NotFound = customElements.get('ui-not-found');
-
-		// @tool : disable shadow-root on pages
-		/* Component.prototype.createRenderRoot = function() {
-			return this;
-		};*/
-
-		const loaded = Component ? new Component() : new NotFound(route);
-
-		if(loaded.head && loaded.head.title){
-			document.title = titleTemplate.replace('%s', loaded.head.title);
-		} else {
-			document.title = defaultTitle;
-		}
-
-		if(loaded.isFullWidth === true && !this._content.classList.contains('full-width')){
-			this._content.classList.add('full-width');
-		} else if(!loaded.isFullWidth) {
-			this._content.classList.remove('full-width');
-		}
-		this._content.appendChild(loaded);
-		
-		if(loaded instanceof NotFound){
-			throw new Elara.Errors.NotFound(route);
-		}
-		window.scrollTo(0,0);
-
-		if(this._menu.shown && this._menuFade === null){
-			await this._hideMenu();
-		}
-
-		const handle = window.requestAnimationFrame(() => {
-			if(!loaded.shadowRoot){
-				cancelAnimationFrame(handle);
-				return;
-			}
-
-			const pageContent = loaded.shadowRoot.querySelector('div');
-			if(!pageContent){
-				cancelAnimationFrame(handle);
-				return;
-			}
-
-			const animation = pulseWith(300);			
-			pageContent.animate(animation.effect, animation.options);
-		});
+		return Elara.Bootstrap.load(route, this._content, this._menu, this._menuFade);
 	}
 
 	public firstUpdated(){		
@@ -243,7 +190,7 @@ export class ElaraApp extends LitElement implements Elara.Root {
 		await this.load(route);
 	}
 
-	private get _content(){
+	private get _content(): HTMLDivElement {
 		return this.shadowRoot.querySelector('#content');
 	}
 

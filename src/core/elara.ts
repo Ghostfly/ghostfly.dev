@@ -1,5 +1,7 @@
 import { LitElement } from 'lit-element';
 import { PaperInputElement } from '@polymer/paper-input/paper-input';
+import { pulseWith } from './animations';
+import { MenuElement } from '../atoms/menu';
 
 // Elara
 const Elara = {
@@ -23,6 +25,60 @@ const Elara = {
             }
             
             return Promise.all(loadPromises);
+        },
+        load: async (route: string, content: HTMLElement, menu: MenuElement, menuFade: Animation | null) => {
+            const defaultTitle = 'Léonard C.';
+            const titleTemplate = '%s | ' + defaultTitle;
+    
+            const Component = customElements.get('ui-' + route);
+            content.classList.remove('full-width');
+    
+            const NotFound = customElements.get('ui-not-found');
+    
+            // @tool : disable shadow-root on pages
+            /* Component.prototype.createRenderRoot = function() {
+                return this;
+            };*/
+    
+            const loaded = Component ? new Component() : new NotFound(route);
+    
+            if(loaded.head && loaded.head.title){
+                document.title = titleTemplate.replace('%s', loaded.head.title);
+            } else {
+                document.title = defaultTitle;
+            }
+    
+            if(loaded.isFullWidth === true && !content.classList.contains('full-width')){
+                content.classList.add('full-width');
+            } else if(!loaded.isFullWidth) {
+                content.classList.remove('full-width');
+            }
+            content.appendChild(loaded);
+            
+            if(loaded instanceof NotFound){
+                throw new Elara.Errors.NotFound(route);
+            }
+            window.scrollTo(0,0);
+    
+            if(menu.shown && menuFade === null){
+                await Elara.UI.elara().menu(true);
+            }
+    
+            const handle = window.requestAnimationFrame(() => {
+                if(!loaded.shadowRoot){
+                    cancelAnimationFrame(handle);
+                    return;
+                }
+    
+                const pageContent = loaded.shadowRoot.querySelector('div');
+                if(!pageContent){
+                    cancelAnimationFrame(handle);
+                    return;
+                }
+    
+                const animation = pulseWith(300);			
+                pageContent.animate(animation.effect, animation.options);
+            });
         }
     },
     Constants: {

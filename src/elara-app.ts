@@ -241,7 +241,7 @@ export class ElaraApp extends LitElement implements Elara.Root {
 		`;
 	  } 
 
-	private get _links(){
+	public get links(){
 		return [
 			{route: 'home', name: 'Work'},
 			{route: 'about', name: 'About'},
@@ -257,7 +257,7 @@ export class ElaraApp extends LitElement implements Elara.Root {
 			<div id="content" class="content"></div>
 			<div id="menu" class="menu-content">
 				<paper-icon-button class="menu" icon="close" aria-label="Close menu" @click=${this._hideMenu}></paper-icon-button>
-				${repeat(this._links, (link) => this._link(link))}
+				${repeat(this.links, (link) => this._link(link))}
 			</div>
 		`;
 	}

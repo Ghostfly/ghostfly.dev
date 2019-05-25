@@ -125,6 +125,7 @@ namespace Elara {
     export interface Element extends LitElement {}
     // Elara-app public-api
     export interface Root extends Elara.Element {
+        links: ReadonlyArray<{name: string; route: string}>;
         askModeChange(mode: Elara.Modes): boolean;
     }
 

@@ -182,7 +182,6 @@ class Contact extends LitElement implements Elara.Page {
                 this.isSuccess = true;
             }
         } catch (err) {
-            console.warn(err);
             this.inError = true;
         }
     }

@@ -53,30 +53,10 @@ export class ElaraApp extends LitElement implements Elara.Root {
 		}
 	}
 
-	private _nightMode(){
-		const selectedMode = localStorage.getItem(Elara.UI.modes.localStorageKey) as 'day' | 'night' | null;
-		if(selectedMode !== null){
-			this._switch(selectedMode);
-			return;
-		}
-
-		if(!window.matchMedia){
-			console.warn('Elara:: Night mode not supported at the moment');
-			return;
-		}
-
-		const darkMediaQuery = window.matchMedia(Elara.UI.queries.DARK).matches;
-		if(darkMediaQuery){
-			this._switch('night');
-		} else { 
-			this._switch('day');
-		}
-	}
-
 	public connectedCallback(){
 		super.connectedCallback();
 
-		this._nightMode();
+		this._switch(Elara.UI.dayOrNight());
 		  
 		this._onHashChangeListener = this._onHashChange.bind(this);
 		window.addEventListener('hashchange', this._onHashChangeListener, { passive: true });

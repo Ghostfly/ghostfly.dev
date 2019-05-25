@@ -38,14 +38,14 @@ const Elara = {
           DARK: '(prefers-color-scheme: dark)',
           LIGHT: '(prefers-color-scheme: light)',
         },
-        
+
         modes: {
             localStorageKey: 'night-mode'
         },
 
         // Day-night handling
-        mode: () => {
-            return localStorage.getItem(Elara.UI.modes.localStorageKey);
+        mode: (): Elara.Modes => {
+            return localStorage.getItem(Elara.UI.modes.localStorageKey) as Elara.Modes;
         },
         hasSwitched: () => {
             return Elara.UI.mode() !== null;
@@ -70,6 +70,8 @@ const Elara = {
         },
         isDarkOS(){
             if(!window.matchMedia){
+                console.warn('Elara:: Night mode not supported at the moment');
+
                 return false;
             }
     
@@ -100,7 +102,7 @@ const Elara = {
 
 namespace Elara {
     // UI modes
-    export type Modes = 'day' | 'night';
+    export type Modes = 'day' | 'night' | null;
 
     // Element interfaces
     export interface Element extends LitElement {}

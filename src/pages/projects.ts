@@ -157,13 +157,13 @@ class Projects extends LitElement implements Elara.Page {
         }
 
         .with-link {
-            color: var(--elara-link);
+            color: var(--elara-font-color);
             cursor: pointer;
             transition: color .3s;
         }
 
         .with-link:hover {
-            color: var(--elara-primary);
+            color: var(--elara-font-hover);
         }
 
         .project .hidden-content {

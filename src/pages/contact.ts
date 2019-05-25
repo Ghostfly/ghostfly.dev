@@ -80,6 +80,7 @@ class Contact extends LitElement implements Elara.Page {
         .contact { height: 100%; }
 
         paper-input, paper-textarea {
+            --paper-input-container-input-color: var(--elara-font-color);
             --paper-input-container-focus-color: var(--elara-primary);
         }
 

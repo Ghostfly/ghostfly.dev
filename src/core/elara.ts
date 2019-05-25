@@ -25,7 +25,8 @@ const Elara = {
             return window.matchMedia(Elara.UI.queries.DARK).matches;
         },
         mode: {
-            default: 'day' as Elara.Modes
+            default: 'day' as Elara.Modes,
+            localStorageKey: 'night-mode'
         }
     },
     Errors: {

@@ -6,7 +6,6 @@ import { fadeWith } from '../core/animations';
 
 import { IronImageElement } from '@polymer/iron-image';
 
-const nightModeKey = 'night-mode';
 
 class Profile extends LitElement implements Elara.LoadableElement {
     public static readonly is: string = 'ui-profile';
@@ -170,11 +169,11 @@ class Profile extends LitElement implements Elara.LoadableElement {
     }
 
     private get _localKey(){
-        return localStorage.getItem(nightModeKey);
+        return localStorage.getItem(Elara.UI.mode.localStorageKey);
     }
 
     private get _hasSwitched(){
-        return localStorage.getItem(nightModeKey) !== null;
+        return localStorage.getItem(Elara.UI.mode.localStorageKey) !== null;
     }
 
     private get _isSunny(){
@@ -202,7 +201,7 @@ class Profile extends LitElement implements Elara.LoadableElement {
                 click.stopPropagation();
                 const hasNightMode = !this._isSunny;
                 const future = !hasNightMode ? 'night' : 'day';
-                localStorage.setItem(nightModeKey, future);
+                localStorage.setItem(Elara.UI.mode.localStorageKey, future);
                 await this.requestUpdate();
                 this.root.askModeChange(future);
             }}>${this._nightToggle()}</div>

@@ -54,7 +54,7 @@ export class ElaraApp extends LitElement implements Elara.Root {
 	}
 
 	private _nightMode(){
-		const selectedMode = localStorage.getItem('night-mode') as 'day' | 'night' | null;
+		const selectedMode = localStorage.getItem(Elara.UI.mode.localStorageKey) as 'day' | 'night' | null;
 		if(selectedMode !== null){
 			this._switch(selectedMode);
 			return;

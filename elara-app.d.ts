@@ -2,16 +2,18 @@ import { LitElement, CSSResult, TemplateResult } from 'lit-element';
 import Elara from './core/elara';
 import './pages/index';
 import './atoms/not-found';
-export declare class ElaraApp extends LitElement implements Elara.Element {
+export declare class ElaraApp extends LitElement implements Elara.Root {
     static readonly is: string;
     private _onHashChangeListener;
     route: string;
-    mode: string;
+    mode: Elara.Modes;
     private _menuFade;
+    askModeChange(mode: Elara.Modes): boolean;
     /**
      * Create the render root
      */
     protected createRenderRoot(): ShadowRoot;
+    private _switch;
     private _nightMode;
     connectedCallback(): void;
     disconnectedCallback(): void;

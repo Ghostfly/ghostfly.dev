@@ -1,10 +1,11 @@
 import { LitElement, html, TemplateResult, property, css, CSSResult } from 'lit-element';
+import Elara from '../core/elara';
 
 /**
  * @class Tree
  * @extends {LitElement}
  */
-export class Tree extends LitElement {
+export class Tree extends LitElement implements Elara.Element {
     public static readonly is: string = 'ui-tree';
 
     @property({type: Number, reflect: true})
@@ -51,10 +52,9 @@ export class Tree extends LitElement {
         ctx.lineTo(endX,endY);
         
         if (depth <= 2) {
-            ctx.strokeStyle = '#1095a9';
-        }
-        else {
-            ctx.strokeStyle = '#333';
+            ctx.strokeStyle = '#1b1b1b';
+        } else {
+            ctx.strokeStyle = Elara.UI.dayOrNight() === 'night' ? '#f0f0f0' : '#333';
         }
         ctx.stroke();
         

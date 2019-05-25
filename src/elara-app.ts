@@ -1,10 +1,11 @@
-import { LitElement, html, property, css, CSSResult } from 'lit-element';
+import { LitElement, html, property, css, CSSResult, TemplateResult } from 'lit-element';
 
 import Elara from './core/elara';
 import { pulseWith, fadeWith } from './core/animations';
 
 import './pages/index';
 import './atoms/not-found';
+import { repeat } from 'lit-html/directives/repeat';
 
 // lazy import for polymer components
 import('./polymer');
@@ -230,6 +231,15 @@ export class ElaraApp extends LitElement implements Elara.Element {
 		@media (min-width: 1033px){}
 		`;
 	  } 
+
+	private get _links(){
+		return [
+			{route: 'home', name: 'Work'},
+			{route: 'about', name: 'About'},
+			{route: 'projects', name: 'Projects'},
+			{route: 'contact', name: 'Contact'}
+		];
+	}
 	
 	public render() {
 		return html`
@@ -238,11 +248,14 @@ export class ElaraApp extends LitElement implements Elara.Element {
 			<div id="content" class="content"></div>
 			<div id="menu" class="menu-content">
 				<paper-icon-button class="menu" icon="close" aria-label="Close menu" @click=${this._hideMenu}></paper-icon-button>
-				<a class="item ${this.route === 'home' ? 'active' : ''}" @click=${({target}) => this._showLink(target, 'home')}>Work</a>
-				<a class="item ${this.route === 'about' ? 'active' : ''}" @click=${({target}) => this._showLink(target, 'about')}>About</a>
-				<a class="item ${this.route === 'projects' ? 'active' : ''}" @click=${({target}) => this._showLink(target, 'projects')}>Projects</a>
-				<a class="item ${this.route === 'contact' ? 'active' : ''}" @click=${({target}) => this._showLink(target, 'contact')}>Contact</a>
+				${repeat(this._links, (link) => this._link(link))}
 			</div>
+		`;
+	}
+
+	private _link({route, name}): TemplateResult {
+		return html`
+		<a class="item ${this.route === route ? 'active' : ''}" @click=${({target}) => this._showLink(target, route)}>${name}</a>
 		`;
 	}
 

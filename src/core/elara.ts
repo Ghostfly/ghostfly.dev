@@ -4,7 +4,7 @@ import { LitElement } from 'lit-element';
 const Elara = {
     Constants: {
         modes: {
-            default: 'day' as Elara.Modes;
+            default: 'day' as Elara.Modes
         }
     },
     Routing: {

@@ -419,7 +419,7 @@ var Fe,qe=function(e,t){var n=e.startNode.parentNode,r=void 0===t?e.endNode:t.st
                 </div>
             </div>
 
-            <div class="night-switch" @click=${()=>rt(this,void 0,void 0,function*(){const e=!this._isSunny?"day":"night";localStorage.setItem(it,e),yield this.requestUpdate(),this.root.askModeChange(e)})}>${this._nightToggle()}</div>
+            <div class="night-switch" @click=${e=>rt(this,void 0,void 0,function*(){e.preventDefault(),e.stopPropagation();const t=!this._isSunny?"day":"night";localStorage.setItem(it,t),yield this.requestUpdate(),this.root.askModeChange(t)})}>${this._nightToggle()}</div>
         </div>
         `}get root(){return document.querySelector("elara-app")}_nightToggle(){return this._hasSwitched?this._isSunny?this._night:this._day:this._isDarkOS?this._day:this._night}get _day(){return Q`
         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000">
@@ -806,4 +806,4 @@ var Fe,qe=function(e,t){var n=e.startNode.parentNode,r=void 0===t?e.endNode:t.st
 		`}_link({route:e,name:t}){return Q`
 		<a class="item ${this.route===e?"active":""}" @click=${()=>this._showLink(e)}>${t}</a>
 		`}get loadableElements(){return["ui-profile"]}get bootstrap(){const e=[];for(const t of this.loadableElements){const n=new Promise(e=>{const n=this.shadowRoot.querySelector(t),r=new MutationObserver(t=>{t.length&&"attributes"==t[0].type&&"loaded"===t[0].attributeName&&(r.disconnect(),e())});r.observe(n,{attributes:!0})});e.push(n)}return Promise.all(e)}_showLink(e){return gt(this,void 0,void 0,function*(){location.hash="#!"+e,yield this._hideMenu()})}_showMenu(){return gt(this,void 0,void 0,function*(){if(this.menu.classList.contains("shown"))return void(yield this._hideMenu());if(this._menuFade)return;this.content.classList.contains("hidden")||this.content.classList.add("hidden"),this.menu.classList.contains("hidden")||this.menu.classList.add("shown");const e=Qe(300,!0);this._menuFade=this.menu.animate(e.effect,e.options),yield this._menuFade.finished,this._menuFade=null})}_hideMenu(){return gt(this,void 0,void 0,function*(){if(this._menuFade)return;const e=Qe(300,!1);this._menuFade=this.menu.animate(e.effect,e.options),yield this._menuFade.finished,this.content.classList.remove("hidden"),this.menu.classList.remove("shown"),this._menuFade=null})}get content(){return this.shadowRoot.querySelector("#content")}get menu(){return this.shadowRoot.querySelector("#menu")}}mt.is="elara-app",yt([Ce({reflect:!0,type:String})],mt.prototype,"route",void 0),yt([Ce({reflect:!0,type:String})],mt.prototype,"mode",void 0),customElements.define(mt.is,mt)}]);
-//# sourceMappingURL=main.a9bf47a7.js.map
+//# sourceMappingURL=main.9c640b0c.js.map

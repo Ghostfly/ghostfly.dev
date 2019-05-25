@@ -11,8 +11,6 @@ import { DARK } from './core/styling';
 // lazy import for polymer components
 import('./polymer');
 
-
-
 export class ElaraApp extends LitElement implements Elara.Root {
 	public static readonly is: string = 'elara-app';
 
@@ -22,7 +20,7 @@ export class ElaraApp extends LitElement implements Elara.Root {
 	public route: string;
 
 	@property({reflect: true, type: String})
-	public mode: Elara.Modes = 'day';
+	public mode: Elara.Modes = Elara.UI.mode.default;
 
 	private _menuFade: Animation;
 

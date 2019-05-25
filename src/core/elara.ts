@@ -38,6 +38,12 @@ const Elara = {
           DARK: '(prefers-color-scheme: dark)',
           LIGHT: '(prefers-color-scheme: light)',
         },
+        
+        modes: {
+            localStorageKey: 'night-mode'
+        },
+
+        // Day-night handling
         mode: () => {
             return localStorage.getItem(Elara.UI.modes.localStorageKey);
         },
@@ -68,9 +74,6 @@ const Elara = {
             }
     
             return window.matchMedia(Elara.UI.queries.DARK).matches;
-        },
-        modes: {
-            localStorageKey: 'night-mode'
         }
     },
     Errors: {

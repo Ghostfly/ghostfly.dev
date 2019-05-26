@@ -18,16 +18,19 @@ class About extends Page implements Elara.Page {
         };
     }
 
-    public get styles(): CSSResult[] {
+    public static get styles(): CSSResult[] {
         return [
             ... Page.styles,
             css`
             .cv { color: var(--elara-secondary); cursor: pointer; }
             .about { margin-bottom: 2em }
             .prev, .next { cursor: pointer; font-weight: bold; transition: color .3s;}
-            .next { float: right }
             .prev:hover, .next:hover {
                 color: var(--elara-primary);
+            }
+            .pagination {
+                display: flex;
+                justify-content: space-between;
             }
         `];
     }
@@ -51,8 +54,10 @@ class About extends Page implements Elara.Page {
                     <a role="link" class="cv" @click=${() => Elara.Routing.redirect('/assets/resume.pdf')}>CV</a>.</p>
                 </div>
             </div>
-            <a class="prev" @click=${() => Elara.Routing.navigate('home')}>< Work</a>
-            <a class="next" @click=${() => Elara.Routing.navigate('projects')}>> Projects</a>
+            <div class="pagination">
+                <a class="prev" @click=${() => Elara.Routing.navigate('home')}>< Work</a>
+                <a class="next" @click=${() => Elara.Routing.navigate('projects')}>> Projects</a>
+            </div>
         </div>
         `;
     }

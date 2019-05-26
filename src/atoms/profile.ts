@@ -66,12 +66,8 @@ class Profile extends Page implements Elara.LoadableElement {
     }
 
     private _onHashChange(event: HashChangeEvent): void {
-        if(!event.newURL){
-            this.route = null;
-            return;
-        }
-
-        this.route = new URL(event.newURL).hash;
+        const route = Elara.Routing.hashChange(event, this.route);
+        this.route = route;
     }
 
     public static get styles(): CSSResult[] {
@@ -153,7 +149,7 @@ class Profile extends Page implements Elara.LoadableElement {
 
     public render(): void | TemplateResult {
         return html`
-        <div role="link" id="container" class="profile ${this.route === '#!home' || !this.route ? '' : 'is-link'}" @click=${() => Elara.Routing.navigate('home')}>
+        <div role="link" id="container" class="profile ${this.route === 'home' || !this.route ? '' : 'is-link'}" @click=${() => Elara.Routing.navigate('home')}>
             <iron-image id="pic" class="pic" sizing="contain" src="/assets/me.svg"></iron-image>
             <div class="bio">
                 <div class="username">

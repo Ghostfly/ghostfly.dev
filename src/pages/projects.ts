@@ -17,7 +17,7 @@ interface Project {
     tags: string[];
 };
 
-class Projects extends Page implements Elara.Page {
+class Projects extends Page {
     public static readonly is: string = 'ui-projects';
 
     public get head(){

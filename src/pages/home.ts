@@ -1,10 +1,10 @@
 import { html, TemplateResult } from 'lit-html';
-import Elara, { Page } from '../core/elara';
+import { Page } from '../core/elara';
 
 import '../atoms/github-work';
 import '../atoms/profile';
 
-class Home extends Page implements Elara.Page {
+class Home extends Page {
     public static readonly is: string = 'ui-home';
 
     public get head(){

@@ -4,7 +4,7 @@ import { property, css, CSSResult, unsafeCSS } from 'lit-element';
 import Elara, { Page } from '../core/elara';
 import { repeat } from 'lit-html/directives/repeat';
 
-class Contact extends Page implements Elara.Page {
+class Contact extends Page {
     public static readonly is: string = 'ui-contact';
 
     @property({type: Boolean, reflect: true})

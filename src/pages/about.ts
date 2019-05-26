@@ -5,7 +5,7 @@ import Elara, { Page } from '../core/elara';
 
 import './contact';
 
-class About extends Page implements Elara.Page {
+class About extends Page {
     public static readonly is: string = 'ui-about';
 
     public get head(){

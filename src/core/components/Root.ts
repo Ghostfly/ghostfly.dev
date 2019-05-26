@@ -5,14 +5,14 @@ import { MenuElement } from '../../atoms/menu';
 import { property } from 'lit-element';
 
 export default class Root extends Page {
-    protected _menuFade: Animation;
+	protected _menuFade: Animation;
 
-    @property({reflect: true, type: String})
+	@property({reflect: true, type: String})
 	public route: string;
 
-    private _onHashChangeListener: () => void;
+	private _onHashChangeListener: () => void;
 
-    public connectedCallback(){
+	public connectedCallback(){
 		super.connectedCallback();
 
 		Elara.UI.applyVariablesFor(Elara.UI.dayOrNight());
@@ -24,9 +24,9 @@ export default class Root extends Page {
 	public disconnectedCallback(){
 		super.disconnectedCallback();
 		window.removeEventListener('hashchange', this._onHashChangeListener);
-    }
-    
-    /**
+	}
+		
+		/**
 	 * Create the render root
 	 */
 	protected createRenderRoot(){
@@ -36,23 +36,23 @@ export default class Root extends Page {
 		return this.attachShadow({mode: 'open'});
 	}
 
-    protected async _onHashChange(event: HashChangeEvent){
+	protected async _onHashChange(event: HashChangeEvent){
 		const route = Elara.Routing.hashChange(event, this.route);
 		this.route = route;
 
 		this._content.innerHTML = '';
 		await this.load(route);
-    }
-    
-    public async load(route: string){
+	}
+		
+	public async load(route: string){
 		return Elara.Bootstrap.load(route, this._content, this._menu, this._menuFade);
-    }
-    
-    public askModeChange(mode: Elara.Modes): boolean {
+		}
+		
+	public askModeChange(mode: Elara.Modes): boolean {
 		return Elara.UI.applyVariablesFor(mode);
-    }
-    
-    protected get _content(): HTMLDivElement {
+	}
+		
+	protected get _content(): HTMLDivElement {
 		return this.shadowRoot.querySelector('#content');
 	}
 

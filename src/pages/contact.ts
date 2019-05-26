@@ -1,7 +1,9 @@
 import { html, TemplateResult } from 'lit-html';
 import { property, css, CSSResult, unsafeCSS } from 'lit-element';
 
-import Elara, { Page } from '../core/elara';
+import Elara from '../core/elara';
+import Page from '../core/components/Page';
+
 import { repeat } from 'lit-html/directives/repeat';
 
 class Contact extends Page {

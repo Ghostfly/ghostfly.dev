@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit-html';
-import { Page } from '../core/elara';
+import Page from '../core/components/Page';
 
 import '../atoms/github-work';
 import '../atoms/profile';

@@ -1,11 +1,11 @@
 import { html, TemplateResult } from 'lit-html';
 import { property, css, CSSResult } from 'lit-element';
 
-import Elara, { Page } from '../core/elara';
+import Elara from '../core/elara';
 import { fadeWith } from '../core/animations';
 
 import { IronImageElement } from '@polymer/iron-image';
-
+import Page from '../core/components/Page';
 
 class Profile extends Page implements Elara.LoadableElement {
     public static readonly is: string = 'ui-profile';

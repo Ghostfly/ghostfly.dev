@@ -1,7 +1,8 @@
 import { html, TemplateResult } from 'lit-html';
 import { css, CSSResult } from 'lit-element';
 
-import Elara, { Page } from '../core/elara';
+import Elara from '../core/elara';
+import Page from '../core/components/Page';
 import { fadeWith } from '../core/animations';
 
 import { repeat } from 'lit-html/directives/repeat';
@@ -16,6 +17,7 @@ interface Project {
     url: string | null;
     tags: string[];
 };
+
 
 class Projects extends Page {
     public static readonly is: string = 'ui-projects';

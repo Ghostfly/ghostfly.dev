@@ -20,7 +20,6 @@ class Profile extends Page implements Elara.LoadableElement {
 
     public connectedCallback(): void {
         super.connectedCallback();
-        this.route = location.hash;
 
         this._hashChangeListener = this._onHashChange.bind(this);
         window.addEventListener('hashchange', this._hashChangeListener);

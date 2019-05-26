@@ -1,11 +1,10 @@
 import { html, TemplateResult } from 'lit-html';
-import { LitElement, CSSResult } from 'lit-element';
-import Elara from '../core/elara';
+import Elara, { Page } from '../core/elara';
 
 import '../atoms/github-work';
 import '../atoms/profile';
 
-class Home extends LitElement implements Elara.Page {
+class Home extends Page implements Elara.Page {
     public static readonly is: string = 'ui-home';
 
     public get head(){
@@ -16,10 +15,6 @@ class Home extends LitElement implements Elara.Page {
             image: '',
             slug: '#!home'
         };
-    }
-
-    public static get styles(): CSSResult {
-        return Elara.UI.typography.heading;
     }
 
     public render(): void | TemplateResult {

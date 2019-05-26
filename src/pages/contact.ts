@@ -1,10 +1,10 @@
 import { html, TemplateResult } from 'lit-html';
-import { LitElement, property, css, CSSResult, unsafeCSS } from 'lit-element';
+import { property, css, CSSResult, unsafeCSS } from 'lit-element';
 
-import Elara from '../core/elara';
+import Elara, { Page } from '../core/elara';
 import { repeat } from 'lit-html/directives/repeat';
 
-class Contact extends LitElement implements Elara.Page {
+class Contact extends Page implements Elara.Page {
     public static readonly is: string = 'ui-contact';
 
     @property({type: Boolean, reflect: true})
@@ -70,7 +70,7 @@ class Contact extends LitElement implements Elara.Page {
 
     public static get styles(): CSSResult[] {
         return [
-            Elara.UI.typography.heading,
+            ... Page.styles,
             css`
                 h1 { user-select: none; font-family: var(--elara-font-display); }
                 h1::first-letter { font-size: 1.3em; }

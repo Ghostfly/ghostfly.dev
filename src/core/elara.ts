@@ -1,6 +1,6 @@
 import { pulseWith } from './animations';
 import { MenuElement } from '../atoms/menu';
-import { css } from 'lit-element';
+import { css, LitElement } from 'lit-element';
 
 // Elara
 const Elara = {
@@ -309,10 +309,25 @@ const Elara = {
     }
 };
 
+export class Page extends LitElement implements Elara.Page {
+    public get head(){
+        return {
+            title: null,
+            description: null,
+            type: null,
+            image: null,
+            slug: null
+        };
+    }
+
+    public static get styles(){
+        return [Elara.UI.typography.heading];
+    }
+}
+
 namespace Elara {
     // UI modes
     export type Modes = 'day' | 'night' | null;
-
     // Element interfaces
     export interface Element extends HTMLElement {}
     // Elara-app public-api

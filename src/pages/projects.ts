@@ -1,7 +1,7 @@
 import { html, TemplateResult } from 'lit-html';
-import { LitElement, css, CSSResult } from 'lit-element';
+import { css, CSSResult } from 'lit-element';
 
-import Elara from '../core/elara';
+import Elara, { Page } from '../core/elara';
 import { fadeWith } from '../core/animations';
 
 import { repeat } from 'lit-html/directives/repeat';
@@ -17,7 +17,7 @@ interface Project {
     tags: string[];
 };
 
-class Projects extends LitElement implements Elara.Page {
+class Projects extends Page implements Elara.Page {
     public static readonly is: string = 'ui-projects';
 
     public get head(){
@@ -149,7 +149,7 @@ class Projects extends LitElement implements Elara.Page {
 
     public static get styles(): CSSResult[] {
         return [
-            Elara.UI.typography.heading,
+            ... Page.styles,
             css`
                 .prev, .next { cursor: pointer; font-weight: bold; transition: color .3s;}
                 .next { float: right }

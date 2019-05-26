@@ -1,13 +1,13 @@
 import { html, TemplateResult } from 'lit-html';
-import { LitElement, property, css, CSSResult } from 'lit-element';
+import { property, css, CSSResult } from 'lit-element';
 
-import Elara from '../core/elara';
+import Elara, { Page } from '../core/elara';
 import { fadeWith } from '../core/animations';
 
 import { IronImageElement } from '@polymer/iron-image';
 
 
-class Profile extends LitElement implements Elara.LoadableElement {
+class Profile extends Page implements Elara.LoadableElement {
     public static readonly is: string = 'ui-profile';
 
     @property({type: String, reflect: true})
@@ -74,8 +74,10 @@ class Profile extends LitElement implements Elara.LoadableElement {
         this.route = new URL(event.newURL).hash;
     }
 
-    public static get styles(): CSSResult {
-        return css`
+    public static get styles(): CSSResult[] {
+        return [
+        ... Page.styles,
+        css`
         .profile {
             width: 24vw;
             padding: 4vh 3vw;
@@ -146,8 +148,7 @@ class Profile extends LitElement implements Elara.LoadableElement {
 
         .day-night{
             cursor: pointer;
-        }
-        `;
+        }`];
     }
 
     public render(): void | TemplateResult {

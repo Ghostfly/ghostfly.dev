@@ -1,11 +1,11 @@
 import { html, TemplateResult } from 'lit-html';
-import { LitElement, css, CSSResult } from 'lit-element';
+import { css, CSSResult } from 'lit-element';
 
-import Elara from '../core/elara';
+import Elara, { Page } from '../core/elara';
 
 import './contact';
 
-class About extends LitElement implements Elara.Page {
+class About extends Page implements Elara.Page {
     public static readonly is: string = 'ui-about';
 
     public get head(){
@@ -18,9 +18,9 @@ class About extends LitElement implements Elara.Page {
         };
     }
 
-    public static get styles(): CSSResult[] {
+    public get styles(): CSSResult[] {
         return [
-            Elara.UI.typography.heading,
+            ... Page.styles,
             css`
             .cv { color: var(--elara-secondary); cursor: pointer; }
             .about { margin-bottom: 2em }

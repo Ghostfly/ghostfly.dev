@@ -1,5 +1,6 @@
 /// <reference types="node" />
 import { MenuElement } from '../atoms/menu';
+import { LitElement } from 'lit-element';
 declare const Elara: {
     Bootstrap: {
         promise: (loadables: string[], host: ShadowRoot) => Promise<any[]>;
@@ -30,6 +31,9 @@ declare const Elara: {
         };
         modes: {
             localStorageKey: string;
+        };
+        typography: {
+            heading: import("lit-element").CSSResult;
         };
         elara: () => Elara.Root;
         mode: () => Elara.Modes;
@@ -107,6 +111,16 @@ declare const Elara: {
         };
     };
 };
+export declare class Page extends LitElement implements Elara.Page {
+    readonly head: {
+        title: any;
+        description: any;
+        type: any;
+        image: any;
+        slug: any;
+    };
+    static readonly styles: import("lit-element").CSSResult[];
+}
 declare namespace Elara {
     type Modes = 'day' | 'night' | null;
     interface Element extends HTMLElement {

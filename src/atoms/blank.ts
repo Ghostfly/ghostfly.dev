@@ -1,8 +1,7 @@
 import { html, TemplateResult } from 'lit-html';
 import { css, CSSResult } from 'lit-element';
 
-import Elara from '../core/elara';
-import PureElement from '../core/components/Element';
+import PureElement from '../core/strategies/Element';
 
 class Blank extends PureElement {
     public static readonly is: string = 'ui-blank';

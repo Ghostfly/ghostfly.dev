@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit-html';
 import { css, CSSResult } from 'lit-element';
 
 import Elara from '../core/elara';
-import Page from '../core/components/Page';
+import Page from '../core/strategies/Page';
 
 import './contact';
 

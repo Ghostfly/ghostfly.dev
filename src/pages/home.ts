@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit-html';
-import Page from '../core/components/Page';
+import Page from '../core/strategies/Page';
 
 import '../atoms/github-work';
 import '../atoms/profile';

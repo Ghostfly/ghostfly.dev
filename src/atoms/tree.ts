@@ -1,6 +1,6 @@
 import { html, TemplateResult, property, css, CSSResult } from 'lit-element';
 import Elara from '../core/elara';
-import PureElement from '../core/components/Element';
+import PureElement from '../core/strategies/Element';
 
 /**
  * @class Tree

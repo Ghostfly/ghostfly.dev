@@ -3,7 +3,7 @@ import { css, CSSResult, property } from 'lit-element';
 
 import Elara from '../core/elara';
 import { repeat } from 'lit-html/directives/repeat';
-import PureElement from '../core/components/Element';
+import PureElement from '../core/strategies/Element';
 
 export class MenuElement extends PureElement {
     public static readonly is: string = 'ui-menu';

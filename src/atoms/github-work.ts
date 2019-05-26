@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit-html';
 import { property, css, CSSResult } from 'lit-element';
 
 import Elara from '../core/elara';
-import PureElement from '../core/components/Element';
+import PureElement from '../core/strategies/Element';
 import { pulseWith } from '../core/animations';
 import { repeat } from 'lit-html/directives/repeat';
 import { PaperSpinnerElement } from '@polymer/paper-spinner/paper-spinner';

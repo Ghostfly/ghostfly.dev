@@ -1,7 +1,7 @@
 import { html, css, CSSResult } from 'lit-element';
 
 import Elara from './core/elara';
-import Root from './core/components/Root';
+import Root from './core/strategies/Root';
 import { fadeWith } from './core/animations';
 
 import './pages/index';

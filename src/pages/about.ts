@@ -18,19 +18,18 @@ class About extends LitElement implements Elara.Page {
         };
     }
 
-    public static get styles(): CSSResult {
-        return css`
-        h1, h2 { user-select: none; font-family: var(--elara-font-display); }
-        h1::first-letter { font-size: 1.3em; }
-        h2::first-letter { font-size: 1.2em }
-        .cv { color: var(--elara-secondary); cursor: pointer; }
-        .about { margin-bottom: 2em }
-        .prev, .next { cursor: pointer; font-weight: bold; transition: color .3s;}
-        .next { float: right }
-        .prev:hover, .next:hover {
-            color: var(--elara-primary);
-        }
-        `;
+    public static get styles(): CSSResult[] {
+        return [
+            Elara.UI.typography.heading,
+            css`
+            .cv { color: var(--elara-secondary); cursor: pointer; }
+            .about { margin-bottom: 2em }
+            .prev, .next { cursor: pointer; font-weight: bold; transition: color .3s;}
+            .next { float: right }
+            .prev:hover, .next:hover {
+                color: var(--elara-primary);
+            }
+        `];
     }
 
 	public render(): void | TemplateResult {

@@ -68,66 +68,68 @@ class Contact extends LitElement implements Elara.Page {
         ];
     }
 
-    public static get styles(): CSSResult {
-        return css`
-        h1 { user-select: none; font-family: var(--elara-font-display); }
-        h1::first-letter { font-size: 1.3em; }
+    public static get styles(): CSSResult[] {
+        return [
+            Elara.UI.typography.heading,
+            css`
+                h1 { user-select: none; font-family: var(--elara-font-display); }
+                h1::first-letter { font-size: 1.3em; }
 
-        .contact { height: 100%; }
+                .contact { height: 100%; }
 
-        paper-input, paper-textarea {
-            --paper-input-container-input-color: var(--elara-font-color);
-            --paper-input-container-focus-color: var(--elara-primary);
-        }
+                paper-input, paper-textarea {
+                    --paper-input-container-input-color: var(--elara-font-color);
+                    --paper-input-container-focus-color: var(--elara-primary);
+                }
 
-        paper-button {
-            background-color: var(--elara-primary);
-            color: white;
-            margin: 1em 0;
-        }
+                paper-button {
+                    background-color: var(--elara-primary);
+                    color: white;
+                    margin: 1em 0;
+                }
 
-        .send {
-            float: right;
-            clear: both;
-        }
-        
-        .grid {
-            display: flex;
-            flex-wrap: wrap;
-        }
+                .send {
+                    float: right;
+                    clear: both;
+                }
+                
+                .grid {
+                    display: flex;
+                    flex-wrap: wrap;
+                }
 
-        .grid > .item {
-            display: flex;
-            flex: 1 0 5em;
-            margin: 0.5em;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .clearfix { clear: both }
+                .grid > .item {
+                    display: flex;
+                    flex: 1 0 5em;
+                    margin: 0.5em;
+                    justify-content: center;
+                    align-items: center;
+                }
+                
+                .clearfix { clear: both }
 
-        .networks { height: 50%; }
+                .networks { height: 50%; }
 
-        .networks svg, .networks iron-icon {
-            cursor: pointer;
-            min-width: 50px;
-        }
+                .networks svg, .networks iron-icon {
+                    cursor: pointer;
+                    min-width: 50px;
+                }
 
-        .github svg { ${unsafeCSS(`fill: ${Elara.Colors.social.github}`)}}
-        .twitter svg { ${unsafeCSS(`fill: ${Elara.Colors.social.twitter}`)}}
-        .youtube svg { ${unsafeCSS(`fill: ${Elara.Colors.social.youtube}`)}}
-        .linkedin svg { ${unsafeCSS(`fill: ${Elara.Colors.social.linkedin}`)}}
-        .facebook svg { ${unsafeCSS(`fill: ${Elara.Colors.social.facebook}`)}}
-        .instagram svg { ${unsafeCSS(`fill: ${Elara.Colors.social.instagram}`)}}
-        .medium svg { ${unsafeCSS(`fill: ${Elara.Colors.social.medium}`)}}
+                .github svg { ${unsafeCSS(`fill: ${Elara.Colors.social.github}`)}}
+                .twitter svg { ${unsafeCSS(`fill: ${Elara.Colors.social.twitter}`)}}
+                .youtube svg { ${unsafeCSS(`fill: ${Elara.Colors.social.youtube}`)}}
+                .linkedin svg { ${unsafeCSS(`fill: ${Elara.Colors.social.linkedin}`)}}
+                .facebook svg { ${unsafeCSS(`fill: ${Elara.Colors.social.facebook}`)}}
+                .instagram svg { ${unsafeCSS(`fill: ${Elara.Colors.social.instagram}`)}}
+                .medium svg { ${unsafeCSS(`fill: ${Elara.Colors.social.medium}`)}}
 
-        .prev { cursor: pointer; font-weight: bold; transition: color .3s; }
-        .prev:hover { color: var(--elara-primary); }
+                .prev { cursor: pointer; font-weight: bold; transition: color .3s; }
+                .prev:hover { color: var(--elara-primary); }
 
-        form paper-button[disabled] {
-            opacity: .7;
-        }
-        `;
+                form paper-button[disabled] {
+                    opacity: .7;
+                }
+        `];
     }
 
 	public render(): void | TemplateResult {

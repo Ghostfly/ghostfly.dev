@@ -147,95 +147,93 @@ class Projects extends LitElement implements Elara.Page {
         super.disconnectedCallback();
     }
 
-    public static get styles(): CSSResult {
-        return css`
-        h1, h2 { user-select: none; font-family: var(--elara-font-display); }
-        h1::first-letter { font-size: 1.3em; }
-        h2::first-letter { font-size: 1.2em }
+    public static get styles(): CSSResult[] {
+        return [
+            Elara.UI.typography.heading,
+            css`
+                .prev, .next { cursor: pointer; font-weight: bold; transition: color .3s;}
+                .next { float: right }
+                .prev:hover, .next:hover {
+                    color: var(--elara-primary);
+                }
 
-        .prev, .next { cursor: pointer; font-weight: bold; transition: color .3s;}
-        .next { float: right }
-        .prev:hover, .next:hover {
-            color: var(--elara-primary);
-        }
+                .projects { margin-bottom: 2em; }
+                .project h3 {
+                    font-family: var(--elara-font-display); 
+                    font-weight: bold;
+                }
 
-        .projects { margin-bottom: 2em; }
-        .project h3 {
-            font-family: var(--elara-font-display); 
-            font-weight: bold;
-        }
+                .project {
+                    display: flex;
+                    flex-direction: column;
+                    min-height: 50px;
+                    margin: 1em;
+                    padding: .5em;
+                    cursor: default;
+                    user-select: none;
+                    border-bottom: 1px solid var(--elara-darkgray)
+                }
 
-        .project {
-            display: flex;
-            flex-direction: column;
-            min-height: 50px;
-            margin: 1em;
-            padding: .5em;
-            cursor: default;
-            user-select: none;
-            border-bottom: 1px solid var(--elara-darkgray)
-        }
+                .with-link {
+                    color: var(--elara-font-color);
+                    cursor: pointer;
+                    transition: color .3s;
+                }
 
-        .with-link {
-            color: var(--elara-font-color);
-            cursor: pointer;
-            transition: color .3s;
-        }
+                .with-link:hover {
+                    color: var(--elara-font-hover);
+                }
 
-        .with-link:hover {
-            color: var(--elara-font-hover);
-        }
+                .project .hidden-content {
+                    position: relative;
+                    min-height: 100px;
+                }
 
-        .project .hidden-content {
-            position: relative;
-            min-height: 100px;
-        }
+                .grid {
+                    display: flex;
+                    flex-wrap: wrap;
+                    margin: -0.5em;
+                }
 
-        .grid {
-            display: flex;
-            flex-wrap: wrap;
-            margin: -0.5em;
-        }
+                .grid > div {
+                    flex: 1 0 5em;
+                    margin: 0.5em;
+                }
 
-        .grid > div {
-            flex: 1 0 5em;
-            margin: 0.5em;
-        }
+                .hidden-content .right {
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: flex-end;
+                }
 
-        .hidden-content .right {
-            display: flex;
-            justify-content: flex-end;
-            align-items: flex-end;
-        }
+                .hidden-content iron-image {
+                    height: 150px;
+                    width: 150px;
+                    visibility: hidden;
+                }
 
-        .hidden-content iron-image {
-            height: 150px;
-            width: 150px;
-            visibility: hidden;
-        }
+                iron-image.shown {
+                    visibility: visible;
+                }
 
-        iron-image.shown {
-            visibility: visible;
-        }
+                .hidden-content svg {
+                    height: 1em;
+                    width: 1em;
+                }
 
-        .hidden-content svg {
-            height: 1em;
-            width: 1em;
-        }
+                .hidden-content .left > .tags, .hidden-content .left > .status {
+                    opacity: 0;
+                    transition: opacity .4s;
+                }
 
-        .hidden-content .left > .tags, .hidden-content .left > .status {
-            opacity: 0;
-            transition: opacity .4s;
-        }
+                .hidden-content:hover .left > .tags, .hidden-content:hover .left > .status  {
+                    opacity: 1;
+                }
 
-        .hidden-content:hover .left > .tags, .hidden-content:hover .left > .status  {
-            opacity: 1;
-        }
-
-        .project.who {
-            border-bottom: none;
-        }
-        `;
+                .project.who {
+                    border-bottom: none;
+                }
+        `];
     }
 
     private _card(project: Project): TemplateResult {

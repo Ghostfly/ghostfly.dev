@@ -1,5 +1,6 @@
 import { pulseWith } from './animations';
 import { MenuElement } from '../atoms/menu';
+import { css } from 'lit-element';
 
 // Elara
 const Elara = {
@@ -146,6 +147,10 @@ const Elara = {
 
         modes: {
             localStorageKey: 'night-mode'
+        },
+
+        typography: {
+            heading: css`h1, h2 { user-select: none; font-family: var(--elara-font-display); } h1::first-letter { font-size: 1.3em; } h2::first-letter { font-size: 1.2em }`
         },
 
         // Day-night handling

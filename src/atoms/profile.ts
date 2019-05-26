@@ -2,12 +2,13 @@ import { html, TemplateResult } from 'lit-html';
 import { property, css, CSSResult } from 'lit-element';
 
 import Elara from '../core/elara';
+import PureElement from '../core/components/Element';
 import { fadeWith } from '../core/animations';
 
 import { IronImageElement } from '@polymer/iron-image';
 import Page from '../core/components/Page';
 
-class Profile extends Page implements Elara.LoadableElement {
+class Profile extends PureElement implements Elara.LoadableElement {
     public static readonly is: string = 'ui-profile';
 
     @property({type: String, reflect: true})

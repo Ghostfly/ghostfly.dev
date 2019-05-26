@@ -1,10 +1,11 @@
 import { html, TemplateResult } from 'lit-html';
-import { LitElement, css, CSSResult, property } from 'lit-element';
+import { css, CSSResult, property } from 'lit-element';
 
 import Elara from '../core/elara';
 import { repeat } from 'lit-html/directives/repeat';
+import PureElement from '../core/components/Element';
 
-export class MenuElement extends LitElement implements Elara.Element {
+export class MenuElement extends PureElement {
     public static readonly is: string = 'ui-menu';
 
     @property({type: Array, reflect: false})

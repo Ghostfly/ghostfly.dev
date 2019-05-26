@@ -1,11 +1,12 @@
-import { LitElement, html, TemplateResult, property, css, CSSResult } from 'lit-element';
+import { html, TemplateResult, property, css, CSSResult } from 'lit-element';
 import Elara from '../core/elara';
+import PureElement from '../core/components/Element';
 
 /**
  * @class Tree
- * @extends {LitElement}
+ * @extends {PureElement}
  */
-export class Tree extends LitElement implements Elara.Element {
+export class Tree extends PureElement {
     public static readonly is: string = 'ui-tree';
 
     @property({type: Number, reflect: true})

@@ -1,9 +1,10 @@
 import { html, TemplateResult } from 'lit-html';
-import { LitElement, css, CSSResult } from 'lit-element';
+import { css, CSSResult } from 'lit-element';
 
 import Elara from '../core/elara';
+import PureElement from '../core/components/Element';
 
-class Blank extends LitElement implements Elara.Element {
+class Blank extends PureElement {
     public static readonly is: string = 'ui-blank';
 
     public connectedCallback(): void {

@@ -1,11 +1,12 @@
 import { html, TemplateResult } from 'lit-html';
-import { LitElement, property, css, CSSResult } from 'lit-element';
+import { property, css, CSSResult } from 'lit-element';
 
 import Elara from '../core/elara';
+import PureElement from '../core/components/Element';
 
 import './tree';
 
-class NotFound extends LitElement implements Elara.Element {
+class NotFound extends PureElement {
     public static readonly is: string = 'ui-not-found';
 
     @property({type: String, reflect: true})

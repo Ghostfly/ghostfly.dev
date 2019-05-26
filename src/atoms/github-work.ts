@@ -1,7 +1,8 @@
 import { html, TemplateResult } from 'lit-html';
-import { LitElement, property, css, CSSResult } from 'lit-element';
+import { property, css, CSSResult } from 'lit-element';
 
 import Elara from '../core/elara';
+import PureElement from '../core/components/Element';
 import { pulseWith } from '../core/animations';
 import { repeat } from 'lit-html/directives/repeat';
 import { PaperSpinnerElement } from '@polymer/paper-spinner/paper-spinner';
@@ -22,7 +23,7 @@ interface GithubRepository {
     };
 }
 
-class GithubWork extends LitElement implements Elara.Element {
+class GithubWork extends PureElement {
     public static readonly is: string = 'ui-github-work';
 
     @property({type: Array})

@@ -126,6 +126,16 @@ const Elara = {
                 return new Promise((resolve, reject) => {
                     const image = new Image();
                     image.crossOrigin = 'Anonymous';
+                    image.src = src;
+
+                    setTimeout(() => {
+                        if(image.complete === false){
+                            // abort image loading if exceeds 500ms : https://stackoverflow.com/questions/5278304/how-to-cancel-an-image-from-loading
+                            console.warn('Elara ::: Image loading was too slow, rejecting');
+                            image.src = '';
+                            reject();
+                        }
+                    }, 500);
                     
                     image.onload = () => {
                         const canvas = document.createElement('canvas');
@@ -139,8 +149,6 @@ const Elara = {
                     image.onerror = () => {
                         reject();
                     };
-                
-                    image.src = src;
                 });
             }
         },

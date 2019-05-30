@@ -17,7 +17,28 @@ if (workbox) {
         new workbox.strategies.CacheFirst({
           cacheName: 'elara-fonts-styles',
         })
-    );      
+    );    
+    
+    workbox.routing.registerRoute(
+        /.*\.png/,
+        new workbox.strategies.CacheFirst({
+          cacheName: 'elara-png-cache',
+        })
+    ); 
+
+    workbox.routing.registerRoute(
+        /.*\.jpe?g/,
+        new workbox.strategies.CacheFirst({
+          cacheName: 'elara-jpeg-cache',
+        })
+    );
+
+    workbox.routing.registerRoute(
+        /.*\.svg/,
+        new workbox.strategies.CacheFirst({
+          cacheName: 'elara-svg-cache',
+        })
+    );
 
     workbox.routing.registerRoute(
         new RegExp(/.*\#!/),

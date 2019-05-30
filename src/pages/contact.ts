@@ -26,7 +26,6 @@ class Contact extends Page {
         super.connectedCallback();
 
         this._onlineStatusListener = this._onStatusChange.bind(this);
-        console.warn(this.isOnline);
 
         window.addEventListener('online', this._onlineStatusListener);
         window.addEventListener('offline', this._onlineStatusListener);

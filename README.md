@@ -4,7 +4,7 @@
 
 ## Meta
 
-* **State:** wip
+* **State:** Published | maintenance
 * **Production:** [https://ghostfly.dev/](https://ghostfly.dev/)
 * **GitHub:** [https://github.com/ghostfly/ghostfly.dev](https://github.com/ghostfly/ghostfly.dev)
 * **Point People:** [@ghostfly](https://github.com/ghostfly)

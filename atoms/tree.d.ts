@@ -1,10 +1,10 @@
-import { LitElement, TemplateResult, CSSResult } from 'lit-element';
-import Elara from '../core/elara';
+import { TemplateResult, CSSResult } from 'lit-element';
+import PureElement from '../core/strategies/Element';
 /**
  * @class Tree
- * @extends {LitElement}
+ * @extends {PureElement}
  */
-export declare class Tree extends LitElement implements Elara.Element {
+export declare class Tree extends PureElement {
     static readonly is: string;
     height: number;
     width: number;

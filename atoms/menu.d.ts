@@ -1,7 +1,7 @@
 import { TemplateResult } from 'lit-html';
-import { LitElement, CSSResult } from 'lit-element';
-import Elara from '../core/elara';
-export declare class MenuElement extends LitElement implements Elara.Element {
+import { CSSResult } from 'lit-element';
+import PureElement from '../core/strategies/Element';
+export declare class MenuElement extends PureElement {
     static readonly is: string;
     items: any[];
     route: any;

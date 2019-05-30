@@ -13,6 +13,13 @@ if (workbox) {
     );
 
     workbox.routing.registerRoute(
+        /.*\.woff2?/,
+        new workbox.strategies.CacheFirst({
+          cacheName: 'elara-fonts-styles',
+        })
+    );      
+
+    workbox.routing.registerRoute(
         new RegExp(/.*\#!/),
         new workbox.strategies.CacheFirst()
     );

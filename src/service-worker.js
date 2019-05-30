@@ -1,10 +1,14 @@
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
 
-if (workbox) {
-    console.log(`Elara ::: Workbox is loaded 🎉`);
+function registerWorkbox(){
     workbox.routing.registerRoute(
         new RegExp(/.*\.js/),
-        new workbox.strategies.NetworkFirst()
+        new workbox.strategies.CacheFirst()
+    );
+
+    workbox.routing.registerRoute(
+        new RegExp(/(main).*\.js/),
+        new workbox.strategies.CacheFirst()
     );
 
     workbox.routing.registerRoute(
@@ -61,7 +65,15 @@ if (workbox) {
             })
           ],
         })
-      );
+    );
+}
+if (workbox) {
+    console.log(`Elara ::: Workbox is loaded 🎉`);
+    if(location.host.indexOf('localhost') !== -1) {
+        console.warn('Elara ::: disabling worker caching, we are in dev');
+    } else {
+        registerWorkbox();
+    }
 } else {
     console.log(`Elara ::: Workbox didn't load 😬`);
 }

@@ -6,6 +6,8 @@ import Page from '../core/strategies/Page';
 
 import { repeat } from 'lit-html/directives/repeat';
 
+type OnlineStatus = 'offline' | 'online';
+
 class Contact extends Page {
     public static readonly is: string = 'ui-contact';
 
@@ -14,6 +16,37 @@ class Contact extends Page {
 
     @property({type: Boolean, reflect: true})
     public isSuccess: boolean = false;
+
+    @property({type: Boolean, reflect: true})
+    public isOnline: boolean = window.navigator.onLine;
+
+    private _onlineStatusListener: () => void;
+
+    public connectedCallback(): void {
+        super.connectedCallback();
+
+        this._onlineStatusListener = this._onStatusChange.bind(this);
+        console.warn(this.isOnline);
+
+        window.addEventListener('online', this._onlineStatusListener);
+        window.addEventListener('offline', this._onlineStatusListener);
+    }
+
+    public disconnectedCallback(): void {
+        super.disconnectedCallback();
+
+        window.removeEventListener('online', this._onlineStatusListener);
+        window.removeEventListener('offline', this._onlineStatusListener);
+    }
+
+    private _onStatusChange(event: Event): void {
+        const type = event.type as OnlineStatus;
+        if(type === 'offline'){
+            this.isOnline = false;
+        } else {
+            this.isOnline = true;
+        }
+    }
 
     public get head(){
         return {
@@ -131,6 +164,10 @@ class Contact extends Page {
                 form paper-button[disabled] {
                     opacity: .7;
                 }
+
+                .disconnected {
+                    margin: 1.5em;
+                }
         `];
     }
 
@@ -138,12 +175,19 @@ class Contact extends Page {
         return html`
         <div class="contact">
             <h1>${this.head.title}</h1>
+            ${this.isOnline === true ? html`
             <form id="form">
                 <paper-input id="name" label="Full name" min-length="4" required></paper-input>
                 <paper-input id="email" label="Email" min-length="4" required></paper-input>
                 <paper-textarea id="message" char-counter label="Message" min-length="4" required></paper-textarea>
                 <paper-button class="send" @click=${this._doSend}>Send</paper-button>
             </form>
+            ` : html`
+            <div class="disconnected">
+                <p>No internet, no mailing !</p>
+                <p>Use links below to reach me on another computer 😌</p>
+            </div>
+            `}
             ${this.isSuccess ? html`${Elara.Mailing.success}` : html``}
             ${this.inError ? html`${Elara.Mailing.error}` : html``}
             <div class="clearfix"></div>

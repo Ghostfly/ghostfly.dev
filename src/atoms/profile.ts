@@ -42,21 +42,29 @@ class Profile extends PureElement implements Elara.LoadableElement {
     }
 
     public async firstUpdated(){
-        const backgroundURL = await Elara.UI.processing.toDataURL('https://source.unsplash.com/collection/1727869/1366x768');
-        this.loaded = true;
-        this.container.style.backgroundImage =`url('${backgroundURL}')`;
-        if(this.picture.loaded){
-            this._onProfilePictureLoaded(
-                {
-                    target: this.picture, 
-                    detail: {
-                        value: true
-                    }
-                } as unknown as CustomEvent
-            );
-            return;
+        try {
+            this.picture.addEventListener('loaded-changed', this._onProfilePictureLoaded);
+            const backgroundURL = await Elara.UI.processing.toDataURL('https://source.unsplash.com/collection/1727869/1366x768');
+            this.loaded = true;
+            this.container.style.backgroundImage =`url('${backgroundURL}')`;
+            if(this.picture.loaded){
+                this._onProfilePictureLoaded(
+                    {
+                        target: this.picture, 
+                        detail: {
+                            value: true
+                        }
+                    } as unknown as CustomEvent
+                );
+                return;
+            }
+        } catch(err){
+            const fallbackURL = await Elara.UI.processing.toDataURL('/assets/fallback.jpeg');
+
+            this.container.style.backgroundImage =`url('${fallbackURL}')`;
+            this.loaded = true;
         }
-        this.picture.addEventListener('loaded-changed', this._onProfilePictureLoaded);
+
     }
 
     public disconnectedCallback(): void {

@@ -123,7 +123,7 @@ const Elara = {
              * @param src remote url
              */
             toDataURL(src: string): Promise<string> {
-                return new Promise((resolve) => {
+                return new Promise((resolve, reject) => {
                     const image = new Image();
                     image.crossOrigin = 'Anonymous';
                     
@@ -134,6 +134,10 @@ const Elara = {
                         canvas.width = image.naturalWidth;
                         context.drawImage(image, 0, 0);
                         resolve(canvas.toDataURL('image/jpeg'));
+                    };
+
+                    image.onerror = () => {
+                        reject();
                     };
                 
                     image.src = src;
@@ -269,7 +273,7 @@ const Elara = {
                         resolve(true);
                     }
                 };
-                xhr.onerror = () => {
+                xhr.onerror = xhr.onabort = () => {
                     reject(false);
                 };
                 xhr.send(formData);

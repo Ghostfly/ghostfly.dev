@@ -14,7 +14,7 @@ if (workbox) {
 
     workbox.routing.registerRoute(
         /.*\.woff2?/,
-        new workbox.strategies.StaleWhileRevalidate({
+        new workbox.strategies.CacheFirst({
           cacheName: 'elara-fonts-styles',
         })
     );      

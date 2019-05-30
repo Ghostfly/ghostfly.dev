@@ -40,11 +40,7 @@ class Contact extends Page {
 
     private _onStatusChange(event: Event): void {
         const type = event.type as OnlineStatus;
-        if(type === 'offline'){
-            this.isOnline = false;
-        } else {
-            this.isOnline = true;
-        }
+        this.isOnline = type === 'online';
     }
 
     public get head(){

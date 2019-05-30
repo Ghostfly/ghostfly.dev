@@ -8,6 +8,16 @@ if (workbox) {
     );
 
     workbox.routing.registerRoute(
+       '/',
+        new workbox.strategies.CacheFirst()
+    );
+
+    workbox.routing.registerRoute(
+        new RegExp(/.*\#!/),
+        new workbox.strategies.CacheFirst()
+    );
+
+    workbox.routing.registerRoute(
         // Cache image files.
         /\.(?:png|jpg|jpeg|svg|gif)$/,
         // Use the cache if it's available.

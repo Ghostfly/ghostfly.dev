@@ -35,7 +35,7 @@ export class ElaraApp extends Root {
 		}
 	}
 
-	public firstUpdated(){		
+	public firstUpdated(){
 		const hashEvent = new HashChangeEvent('hashchange', {
 			newURL: location.hash,
 			oldURL: null

@@ -74,7 +74,7 @@ class Profile extends PureElement implements Elara.LoadableElement {
     }
 
     private _onHashChange(event: HashChangeEvent): void {
-        const route = Elara.Routing.hashChange(event, this.route);
+        const route = Elara.Routing.hashChange(event);
         this.route = route;
     }
 

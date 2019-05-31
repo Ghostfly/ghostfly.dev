@@ -37,7 +37,7 @@ export default class Root extends Page {
 	}
 
 	protected async _onHashChange(event: HashChangeEvent){
-		const route = Elara.Routing.hashChange(event, this.route);
+		const route = Elara.Routing.hashChange(event);
 		this.route = route;
 
 		this._content.innerHTML = '';

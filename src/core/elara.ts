@@ -93,27 +93,30 @@ const Elara = {
             location.hash = `#!${route}`;
             return true;
         },
-        hashChange: (event: HashChangeEvent, currentRoute: string): string | null => {
-            const split = event.newURL.replace(location.origin + '/', '').split('/');
-
-            const newURL = split[0];
-    
-            let route = null;
+        hashChange(event: HashChangeEvent): string | null {
+            const routeWithPrefix = event.newURL.replace(location.origin + location.pathname, '');
+            const route = routeWithPrefix.split('#!').filter(Boolean).shift();
+        
             const defaultRoute = 'home';
-    
-            if(!newURL){
-                route = defaultRoute;
-            } else {
-                const asked = new URL(location.origin+'/'+newURL).hash.replace('#!', '');
-                route = asked ? asked : defaultRoute;
-            }
-            
-            if(currentRoute === route){
+        
+             // if same has current, no.
+            if(event.oldURL === event.newURL){
                 return null;
             }
-
+        
+            // If loaded component has routing, let him decide
+            const current = customElements.get('ui-'+route);
+            if(current && current.hasRouting === true){
+                return route;
+            }
+        
+            // if index asked, go to default or if nothing asked, go to default
+            if(event.newURL === location.origin + location.pathname || !route){
+                return defaultRoute;
+            }
+        
             return route;
-        }
+         }
     },
     UI: {
         processing: {

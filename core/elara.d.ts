@@ -13,7 +13,7 @@ declare const Elara: {
     Routing: {
         redirect: (url: string, target?: string) => boolean;
         navigate: (route: string) => boolean;
-        hashChange: (event: HashChangeEvent, currentRoute: string) => string;
+        hashChange(event: HashChangeEvent): string;
     };
     UI: {
         processing: {

@@ -4,7 +4,7 @@ const { resolve, join } = require('path');
 const merge = require('webpack-merge');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CreateFilePlugin = require('create-file-webpack')
 
 const {exec} = require('child_process');
@@ -119,8 +119,9 @@ const commonConfig = merge([
           options: {
             emitWarning: ENV === 'development',
             failOnWarning: ENV === 'development',
-            failOnError: false
-          }
+            failOnError: false,
+            formatter: require('eslint/lib/cli-engine/formatters/stylish')
+          },
         },
         {
           test: /\.tsx?$/,

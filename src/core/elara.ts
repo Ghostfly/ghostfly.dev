@@ -95,8 +95,15 @@ const Elara = {
         },
         hashChange(event: HashChangeEvent): string | null {
             const routeWithPrefix = event.newURL.replace(location.origin + location.pathname, '');
-            const route = routeWithPrefix.split('#!').filter(Boolean).shift();
-        
+
+            let routingParams = routeWithPrefix.split('#!').filter(Boolean);
+            let route = null;
+            if(routingParams.length === 0){
+                route = routingParams.shift();
+            } else {
+                route = routingParams.pop();
+            }
+
             const defaultRoute = 'home';
         
              // if same has current, no.

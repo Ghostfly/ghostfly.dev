@@ -37,6 +37,15 @@ class Projects extends Page {
     private get projects(): ReadonlyArray<Project> {
         return [
             {
+                name: 'LMC.Today',
+                slug: 'lmc',
+                image: '/assets/projects/lmctoday.png',
+                repository: 'https://github.com/ghostfly/lmc-today',
+                status: 'published',
+                url: 'https://lmc.today',
+                tags: ['Elara', 'Futuristic', 'media']
+            },
+            {
                 name: 'Listen With Me',
                 slug: 'lwm',
                 image: null,

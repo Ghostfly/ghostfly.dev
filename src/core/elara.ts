@@ -145,7 +145,7 @@ const Elara = {
                             image.src = '';
                             reject();
                         }
-                    }, 500);
+                    }, 1200);
                     
                     image.onload = () => {
                         const canvas = document.createElement('canvas');

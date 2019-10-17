@@ -37,13 +37,22 @@ class Projects extends Page {
     private get projects(): ReadonlyArray<Project> {
         return [
             {
+                name: 'Dobrunia Design',
+                slug: 'dobrunia',
+                image: '/assets/projects/dobrunia.png',
+                status: 'published',
+                repository: null,
+                url: 'https://www.dobruniadesign.com',
+                tags: ['Élara', 'WordPress', 'Design']
+            },
+            {
                 name: 'LMC.Today',
                 slug: 'lmc',
                 image: '/assets/projects/lmctoday.png',
                 repository: 'https://github.com/ghostfly/lmc-today',
                 status: 'published',
                 url: 'https://lmc.today',
-                tags: ['Elara', 'Futuristic', 'media']
+                tags: ['Élara', 'Futuristic', 'media']
             },
             {
                 name: 'Listen With Me',
@@ -80,15 +89,6 @@ class Projects extends Page {
                 repository: 'https://github.com/Ghostfly/persin-conseil',
                 url: 'https://www.persin.fr',
                 tags: ['Lit-Element', 'Elara', 'Workbox']
-            },
-            {
-                name: 'Dobrunia Design',
-                slug: 'react',
-                image: '/assets/projects/dobrunia.png',
-                status: 'published',
-                repository: null,
-                url: 'https://www.dobruniadesign.com',
-                tags: ['React', 'HapiJS', 'Material-UI']
             },
             {
                 name: 'Cheno',

@@ -1,10 +1,9 @@
 import Elara from '../elara';
 
-import Page from './Page';
 import { MenuElement } from '../../atoms/menu';
-import { property } from 'lit-element';
+import { property, LitElement } from 'lit-element';
 
-export default class Root extends Page {
+export default class Root extends LitElement {
 	protected _menuFade: Animation;
 
 	@property({reflect: true, type: String})
@@ -33,7 +32,7 @@ export default class Root extends Page {
 		// @tool: make elara-app in light-dom
 		// return this;
 
-		return this.attachShadow({mode: 'open'});
+		return this;
 	}
 
 	protected async _onHashChange(event: HashChangeEvent){
@@ -53,10 +52,10 @@ export default class Root extends Page {
 	}
 		
 	protected get _content(): HTMLDivElement {
-		return this.shadowRoot.querySelector('#content');
+		return this.querySelector('#content');
 	}
 
 	protected get _menu(): MenuElement {
-		return this.shadowRoot.querySelector('#menu');
+		return this.querySelector('#menu');
 	}
 }

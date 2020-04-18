@@ -1,8 +1,8 @@
-import { html, TemplateResult } from 'lit-html';
 import Page from '../core/strategies/Page';
 
 import '../atoms/github-work';
 import '../atoms/profile';
+import { html } from 'lit-element';
 
 class Home extends Page {
     public static readonly is: string = 'ui-home';
@@ -17,7 +17,7 @@ class Home extends Page {
         };
     }
 
-    public render(): void | TemplateResult {
+    public render() {
         return html`
         <div class="home">
             <h1>Work</h1>

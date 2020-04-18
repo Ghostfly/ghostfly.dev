@@ -1,14 +1,12 @@
-import { html, TemplateResult } from 'lit-html';
-import { property, css, CSSResult } from 'lit-element';
+import { property, css, CSSResult, customElement, html } from 'lit-element';
 
 import Elara from '../core/elara';
 import PureElement from '../core/strategies/Element';
 
 import './tree';
 
-class NotFound extends PureElement {
-    public static readonly is: string = 'ui-not-found';
-
+@customElement('ui-not-found')
+export class NotFound extends PureElement {
     @property({type: String, reflect: true})
     public asked: string;
 
@@ -32,15 +30,14 @@ class NotFound extends PureElement {
         `;
     }
 
-	public render(): void | TemplateResult {
+	public render() {
         return html`
         <div>
             <h1>You are lost !</h1>
             <p>You asked for : ${this.asked}.</p>
-            <a @click=${() => Elara.Routing.navigate('home')}><iron-icon icon="home"></iron-icon> Homepage</a>
+            <a @click=${() => Elara.Routing.navigate('home')}><mwc-icon icon="home"></mwc-icon> Homepage</a>
             <ui-tree .width=${1366} .height=${768}></ui-tree>
         </div>
         `;
     }
 }
-customElements.define(NotFound.is, NotFound);

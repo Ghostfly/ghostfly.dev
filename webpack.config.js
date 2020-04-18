@@ -73,11 +73,6 @@ const polyfills = [
     from: resolve(`./src/boot.js`),
     to: OUTPUT_PATH,
     flatten: true
-  },
-  {
-    from: resolve(`./src/service-worker.js`),
-    to: OUTPUT_PATH,
-    flatten: true
   }
 ];
 

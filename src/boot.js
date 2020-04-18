@@ -1,19 +1,12 @@
 // @ts-check
-// @ts-ignore
-window.polymerSkipLoadingFontRoboto = true;
 
-function dismiss(){
-  const handler = document.querySelector('#handler');
-  handler.parentElement.removeChild(handler);
-}
-
-function reload(){
-  location.reload();
-}
-
+/**
+ * 
+ * @param {{continue: boolean; message: string;}} error 
+ */
 function makeGenericHandler(error = null){
   const handler = document.createElement('div');
-  handler.id = handler.className = "handler";
+  handler.id = handler.className = 'handler';
   handler.innerHTML = `
   <div class="content">
     ${error !== null ? `
@@ -26,8 +19,8 @@ function makeGenericHandler(error = null){
       </h4>
       <p>${error.message}</p>
       <div class="actions">
-        ${error.continue == true ? `<paper-button class="continue" onclick="dismiss()">Dismiss</paper-button>` : ``}
-        <paper-button class="reload" onclick="reload()" raised toggles>Reload</paper-button>
+        ${error.continue == true ? '<mwc-button label="Continue" class="continue" onclick="dismiss()"></mwc-button>' : ''}
+        <mwc-button class="reload" label="Reload" onclick="reload()" raised toggles></mwc-button>
       </div>
     ` : `
       <div id="spinner" class="spinner large"></div>
@@ -57,15 +50,7 @@ function _onDomLoaded(){
   }
 
   const loadingPromises = [];
-  const neededElements = [
-    'paper-icon-button', 
-    'paper-button', 
-    'paper-input', 
-    'paper-textarea', 
-    'paper-spinner', 
-    'iron-icon', 
-    'iron-image'
-  ];
+  const neededElements = [];
 
   const elara = document.querySelector('elara-app');
   // @ts-ignore

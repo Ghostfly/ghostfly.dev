@@ -1,12 +1,8 @@
-import { html, TemplateResult } from 'lit-html';
-import { css, CSSResult } from 'lit-element';
+import { html } from 'lit-element';
 
 import Elara from '../core/elara';
 import Page from '../core/strategies/Page';
 import { fadeWith } from '../core/animations';
-
-import { repeat } from 'lit-html/directives/repeat';
-import { IronImageElement } from '@polymer/iron-image';
 
 interface Project {
     name: string;
@@ -32,46 +28,10 @@ class Projects extends Page {
         };
     }
 
-    private images: NodeListOf<IronImageElement>;
+    private images: NodeListOf<HTMLImageElement>;
 
     private get projects(): ReadonlyArray<Project> {
         return [
-            {
-                name: 'Dobrunia Design',
-                slug: 'dobrunia',
-                image: '/assets/projects/dobrunia.png',
-                status: 'published',
-                repository: null,
-                url: 'https://www.dobruniadesign.com',
-                tags: ['Élara', 'WordPress', 'Design']
-            },
-            {
-                name: 'LMC.Today',
-                slug: 'lmc',
-                image: '/assets/projects/lmctoday.png',
-                repository: 'https://github.com/ghostfly/lmc-today',
-                status: 'published',
-                url: 'https://lmc.today',
-                tags: ['Élara', 'Futuristic', 'media']
-            },
-            {
-                name: 'Listen With Me',
-                slug: 'lwm',
-                image: null,
-                repository: null,
-                status: 'Work in progress',
-                url: 'https://lwm.io',
-                tags: ['YouTube', 'Collaborative', 'Listening']
-            },
-            {
-                name: 'Dandy Costard',
-                slug: 'dandy',
-                image: '/assets/projects/dandy.svg',
-                repository: null,
-                status: 'Work in progress',
-                url: null,
-                tags: ['E-Commerce', 'Elara', 'Custom menswear', 'ThreeJS']
-            },
             {
                 name: 'Ghostfly.dev',
                 slug: 'ghostfly',
@@ -80,6 +40,33 @@ class Projects extends Page {
                 status: 'Work in progress',
                 url: null,
                 tags: ['Elara', 'LitElement', 'Github Pages']
+            },
+            {
+                name: 'Dandy Costard',
+                slug: 'dandy',
+                image: '/assets/projects/dandy.svg',
+                repository: null,
+                status: 'Work in progress',
+                url: null,
+                tags: ['E-Commerce', 'Elara', 'Custom menswear']
+            },
+            {
+                name: 'Cheno',
+                slug: 'cheno',
+                image: '/assets/projects/cheno.svg',
+                status: 'published',
+                repository: null,
+                url: 'https://www.cheno.fr',
+                tags: ['Elara', 'HTML5', 'CSS3', 'TypeScript']
+            },
+            {
+                name: 'Dobrunia Design',
+                slug: 'dobrunia',
+                image: '/assets/projects/dobrunia.png',
+                status: 'published',
+                repository: null,
+                url: 'https://www.dobruniadesign.com',
+                tags: ['Élara', 'WordPress', 'Design']
             },
             {
                 name: 'Persin Conseil',
@@ -91,24 +78,6 @@ class Projects extends Page {
                 tags: ['Lit-Element', 'Elara', 'Workbox']
             },
             {
-                name: 'Cheno',
-                slug: 'cheno',
-                image: '/assets/projects/cheno.svg',
-                status: 'published',
-                repository: null,
-                url: 'https://www.cheno.fr',
-                tags: ['Slim Framework', 'HTML5', 'CSS3']
-            },
-            {
-                name: 'Renouveau Sociétal',
-                slug: 'rs',
-                image: '/assets/projects/rs.png',
-                status: 'published',
-                repository: null,
-                url: 'https://www.renouveausocietal.fr',
-                tags: ['WordPress', 'Handmade template']
-            },
-            {
                 name: 'G-Addiction',
                 slug: 'g-addiction',
                 image: '/assets/projects/g-addiction.png',
@@ -116,41 +85,27 @@ class Projects extends Page {
                 repository: null,
                 url: 'https://www.g-addiction.com',
                 tags: ['WordPress', 'chosen template']
-            },
-            {
-                name: 'Who?',
-                slug: 'who',
-                status: '...',
-                repository: null,
-                url: null,
-                image: '/assets/projects/who.svg',
-                tags: ['?']
-            },
+            }
         ];
     }
 
-    private async _onIronImageLoaded(event: CustomEvent){
-        if(!event.detail){
-            return;
-        }
-
-        const ironImage = event.target as IronImageElement;
-        const loaded = event.detail.value;
-        if(loaded){
+    private async _onImageLoaded(event: CustomEvent){
+        const img = event.target as HTMLImageElement;
+        if(img){
             const animationConfig = fadeWith(500, true);
-            ironImage.classList.add('shown');
-            const animation = ironImage.animate(animationConfig.effect, animationConfig.options);
+            img.classList.add('shown');
+            const animation = img.animate(animationConfig.effect, animationConfig.options);
             await animation.finished;
-            ironImage.removeEventListener('loaded-changed', this._onIronImageLoaded);
+            img.removeEventListener('load', this._onImageLoaded);
         }
     }
 
     public async connectedCallback(): Promise<void> {
         super.connectedCallback();
         await this.updateComplete;
-        this.images = this.shadowRoot.querySelectorAll('iron-image');
+        this.images = this.querySelectorAll('img');
         this.images.forEach((image) => {
-            image.addEventListener('loaded-changed', this._onIronImageLoaded);
+            image.addEventListener('load', this._onImageLoaded);
         });
     }
 
@@ -158,10 +113,9 @@ class Projects extends Page {
         super.disconnectedCallback();
     }
 
-    public static get styles(): CSSResult[] {
-        return [
-            ... Page.styles,
-            css`
+    private _card(project: Project) {
+        return html`
+        <style>
                 .prev, .next { cursor: pointer; font-weight: bold; transition: color .3s;}
                 .next { float: right }
                 .prev:hover, .next:hover {
@@ -217,13 +171,17 @@ class Projects extends Page {
                     align-items: flex-end;
                 }
 
-                .hidden-content iron-image {
+                .hidden-content img {
                     height: 150px;
                     width: 150px;
                     visibility: hidden;
                 }
 
-                iron-image.shown {
+                img {
+                    object-fit: contain;
+                } 
+
+                img.shown {
                     visibility: visible;
                 }
 
@@ -244,11 +202,7 @@ class Projects extends Page {
                 .project.who {
                     border-bottom: none;
                 }
-        `];
-    }
-
-    private _card(project: Project): TemplateResult {
-        return html`
+        </style>
         <section class="project">
             <div class="hidden-content grid">
                 <div class="left">
@@ -268,18 +222,19 @@ class Projects extends Page {
                 </div>
                 <div class="right">
                     ${project.image ? html`
-                    <iron-image sizing="contain" src="${project.image}"></iron-image>
+                    <img sizing="contain" src="${project.image}"></img>
                     ` : html``}
                 </div>
             </div>
         </section>`;
     }
 
-	public render(): void | TemplateResult {
+	public render() {
         return html`
         <div class="projects">
             <h1>${this.head.title}</h1>
-            ${repeat(this.projects, this._card)}
+            ${this.projects.map(project => this._card(project))}
+
             <a class="prev" @click=${() => Elara.Routing.navigate('about')}>< About</a>
             <a class="next" @click=${() => Elara.Routing.navigate('contact')}>> Contact</a>
         </div>

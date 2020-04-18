@@ -1,48 +1,10 @@
-import { html, TemplateResult } from 'lit-html';
-import { property, css, CSSResult, unsafeCSS } from 'lit-element';
+import { html, unsafeCSS, SVGTemplateResult, customElement } from 'lit-element';
 
 import Elara from '../core/elara';
 import Page from '../core/strategies/Page';
 
-import { repeat } from 'lit-html/directives/repeat';
-
-type OnlineStatus = 'offline' | 'online';
-
-class Contact extends Page {
-    public static readonly is: string = 'ui-contact';
-
-    @property({type: Boolean, reflect: true})
-    public inError: boolean = false;
-
-    @property({type: Boolean, reflect: true})
-    public isSuccess: boolean = false;
-
-    @property({type: Boolean, reflect: true})
-    public isOnline: boolean = window.navigator.onLine;
-
-    private _onlineStatusListener: () => void;
-
-    public connectedCallback(): void {
-        super.connectedCallback();
-
-        this._onlineStatusListener = this._onStatusChange.bind(this);
-
-        window.addEventListener('online', this._onlineStatusListener);
-        window.addEventListener('offline', this._onlineStatusListener);
-    }
-
-    public disconnectedCallback(): void {
-        super.disconnectedCallback();
-
-        window.removeEventListener('online', this._onlineStatusListener);
-        window.removeEventListener('offline', this._onlineStatusListener);
-    }
-
-    private _onStatusChange(event: Event): void {
-        const type = event.type as OnlineStatus;
-        this.isOnline = type === 'online';
-    }
-
+@customElement('ui-contact')
+export class Contact extends Page {
     public get head(){
         return {
             title: 'Contact',
@@ -93,108 +55,84 @@ class Contact extends Page {
             {
                 label: 'Phone',
                 link: 'tel:+33668717002',
-                svg: html`<iron-icon icon="communication:call"></iron-icon>`
+                svg: html`<mwc-icon>phone</mwc-icon>`
+            },
+            {
+                label: 'E-mail',
+                link: 'mailto:leonard@ghostfly.dev',
+                svg: html`<mwc-icon>mail</mwc-icon>`
             }
         ];
     }
 
-    public static get styles(): CSSResult[] {
-        return [
-            ... Page.styles,
-            css`
-                h1 { user-select: none; font-family: var(--elara-font-display); }
-                h1::first-letter { font-size: 1.3em; }
-
-                .contact { height: 100%; }
-
-                paper-input, paper-textarea {
-                    --paper-input-container-input-color: var(--elara-font-color);
-                    --paper-input-container-focus-color: var(--elara-primary);
-                }
-
-                paper-button {
-                    background-color: var(--elara-primary);
-                    color: white;
-                    margin: 1em 0;
-                }
-
-                .send {
-                    float: right;
-                    clear: both;
-                }
-                
-                .grid {
-                    display: flex;
-                    flex-wrap: wrap;
-                }
-
-                .grid > .item {
-                    display: flex;
-                    flex: 1 0 5em;
-                    margin: 0.5em;
-                    justify-content: center;
-                    align-items: center;
-                }
-                
-                .clearfix { clear: both }
-
-                .networks { height: 50%; }
-
-                .networks svg, .networks iron-icon {
-                    cursor: pointer;
-                    min-width: 50px;
-                }
-
-                .github svg { ${unsafeCSS(`fill: ${Elara.Colors.social.github}`)}}
-                .twitter svg { ${unsafeCSS(`fill: ${Elara.Colors.social.twitter}`)}}
-                .youtube svg { ${unsafeCSS(`fill: ${Elara.Colors.social.youtube}`)}}
-                .linkedin svg { ${unsafeCSS(`fill: ${Elara.Colors.social.linkedin}`)}}
-                .facebook svg { ${unsafeCSS(`fill: ${Elara.Colors.social.facebook}`)}}
-                .instagram svg { ${unsafeCSS(`fill: ${Elara.Colors.social.instagram}`)}}
-                .medium svg { ${unsafeCSS(`fill: ${Elara.Colors.social.medium}`)}}
-
-                .prev { cursor: pointer; font-weight: bold; transition: color .3s; }
-                .prev:hover { color: var(--elara-primary); }
-
-                form paper-button[disabled] {
-                    opacity: .7;
-                }
-
-                .disconnected {
-                    margin: 1.5em;
-                }
-        `];
-    }
-
-	public render(): void | TemplateResult {
+	public render() {
         return html`
+        <style>
+        h1 { user-select: none; font-family: var(--elara-font-display); }
+        h1::first-letter { font-size: 1.3em; }
+
+        .contact { height: 100%; }
+
+        mwc-button {
+            background-color: var(--elara-primary);
+            color: white;
+            margin: 1em 0;
+        }
+
+        .send {
+            float: right;
+            clear: both;
+        }
+        
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .grid > .item {
+            display: flex;
+            flex: 1 0 5em;
+            margin: 0.5em;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .clearfix { clear: both }
+
+        .networks { height: 50%; }
+
+        .networks svg, .networks mwc-icon {
+            cursor: pointer;
+            min-width: 50px;
+        }
+
+        .github svg { ${unsafeCSS(`fill: ${Elara.Colors.social.github}`)}}
+        .twitter svg { ${unsafeCSS(`fill: ${Elara.Colors.social.twitter}`)}}
+        .youtube svg { ${unsafeCSS(`fill: ${Elara.Colors.social.youtube}`)}}
+        .linkedin svg { ${unsafeCSS(`fill: ${Elara.Colors.social.linkedin}`)}}
+        .facebook svg { ${unsafeCSS(`fill: ${Elara.Colors.social.facebook}`)}}
+        .instagram svg { ${unsafeCSS(`fill: ${Elara.Colors.social.instagram}`)}}
+        .medium svg { ${unsafeCSS(`fill: ${Elara.Colors.social.medium}`)}}
+
+        .disconnected {
+            margin: 1.5em;
+        }
+        </style>
         <div class="contact">
             <h1>${this.head.title}</h1>
-            ${this.isOnline === true ? html`
-            <form id="form">
-                <paper-input id="name" label="Full name" min-length="4" required></paper-input>
-                <paper-input id="email" label="Email" min-length="4" required></paper-input>
-                <paper-textarea id="message" char-counter label="Message" min-length="4" required></paper-textarea>
-                <paper-button class="send" @click=${this._doSend}>Send</paper-button>
-            </form>
-            ` : html`
             <div class="disconnected">
-                <p>No internet, no mailing !</p>
-                <p>Use links below to reach me on another computer 😌</p>
+                <p>Use links below to reach me on another computer :)</p>
             </div>
-            `}
-            ${this.isSuccess ? html`${Elara.Mailing.success}` : html``}
-            ${this.inError ? html`${Elara.Mailing.error}` : html``}
-            <div class="clearfix"></div>
-            <a class="prev" @click=${() => Elara.Routing.navigate('projects')}>< Projects</a>
+
             <div class="grid networks">
-                ${repeat(this._links, (link) => this._makeLink(link.label, link.link, link.svg))}
+                ${this._links.map(link => this._makeLink(link.label, link.link, link.svg))}
             </div>
+            <a class="prev" @click=${() => Elara.Routing.navigate('projects')}>< Projects</a>
         </div>
         `;
     }
 
-    private _makeLink(label: string, link: string, svg: TemplateResult){
+    private _makeLink(label: string, link: string, svg: SVGTemplateResult){
         return html`
             <div aria-label=${label} class="item ${label.toLowerCase()}" @click=${() => {
                 Elara.Routing.redirect(link);
@@ -203,28 +141,4 @@ class Contact extends Page {
             </div>
         `;
     }
-
-    private async _doSend(event: Event){
-        const fields = {
-            form: this.shadowRoot.querySelector('#form') as HTMLElement,
-            submit: event.target as HTMLButtonElement,
-            name: this.shadowRoot.querySelector('#name') as Elara.InputElement,
-            email: this.shadowRoot.querySelector('#email') as Elara.InputElement,
-            message: this.shadowRoot.querySelector('#message') as Elara.InputElement,
-        };
-
-        try {
-            const sended = await Elara.Mailing.contact(fields, 'https://script.google.com/macros/s/AKfycbzdhNONz-1pGAlOktko4o5riYGErccxRfk8LsqTxq0ws31wKZ0/exec');
-            if(!sended){
-                this.isSuccess = false;
-                this.inError = false;
-            } else {
-                this.inError = false;
-                this.isSuccess = true;
-            }
-        } catch (err) {
-            this.inError = true;
-        }
-    }
 }
-customElements.define(Contact.is, Contact);

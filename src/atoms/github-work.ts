@@ -1,11 +1,9 @@
-import { html, TemplateResult } from 'lit-html';
-import { property, css, CSSResult } from 'lit-element';
+import { property, css, CSSResult, html } from 'lit-element';
 
 import Elara from '../core/elara';
 import PureElement from '../core/strategies/Element';
 import { pulseWith } from '../core/animations';
-import { repeat } from 'lit-html/directives/repeat';
-import { PaperSpinnerElement } from '@polymer/paper-spinner/paper-spinner';
+import { ElaraSpinner } from './spinner';
 
 interface GithubRepository {
     node: {
@@ -33,10 +31,10 @@ class GithubWork extends PureElement {
     public currentPage: GithubRepository[] = null;
 
     @property({type: Number, reflect: true})
-    public page: number = 0;
+    public page = 0;
 
     @property({type: Boolean, reflect: true})
-    public inError: boolean = false;
+    public inError = false;
 
     public chunksLength = 6;
 
@@ -70,8 +68,7 @@ class GithubWork extends PureElement {
             if (request.readyState == 4 && request.status == 200) {
                 const repos = JSON.parse(request.responseText);
                 const filtered = repos.data.search.edges.sort((a: GithubRepository, b: GithubRepository) => { 
-                    // @ts-ignore
-                    return new Date(b.node.createdAt) - new Date(a.node.createdAt);
+                    return new Date(b.node.createdAt).getTime() - new Date(a.node.createdAt).getTime();
                 });
 
                 this.repositories = this._chunk(filtered, this.chunksLength);
@@ -191,29 +188,29 @@ class GithubWork extends PureElement {
         `;
     }
 
-    private _card(repository: GithubRepository): TemplateResult {
+    private _card(repository: GithubRepository) {
         return html`
         <section class="github-card" @click=${() => Elara.Routing.redirect(repository.node.url)}}>
             <div class="title">${repository.node.name}</div>
             ${repository.node.description ? html`<div class="description">${repository.node.description}</div>` : html``}
             <div class="bottom">
                 <span>${repository.node.primaryLanguage ? repository.node.primaryLanguage.name : ''}</span>
-                <span><iron-icon icon="stars"></iron-icon> ${repository.node.stargazers.totalCount}</span>
-                <span><iron-icon icon="subdirectory-arrow-right"></iron-icon> ${repository.node.forkCount}</span>
+                <span><mwc-icon>star</mwc-icon> ${repository.node.stargazers.totalCount}</span>
+                <span><mwc-icon>keyboard_arrow_right</mwc-icon> ${repository.node.forkCount}</span>
             </div>
         </section>
         `;
     }
 
-	public render(): void | TemplateResult {
+	public render() {
         return html`
         <div class="loader">
-            <paper-spinner></paper-spinner>
+            <elara-spinner active></elara-spinner>
         </div>
         ${this.inError ? html`<p>Can't load GitHub repositories.. 😢 <br />You can check on <a class="link" href="https://github.com/ghostfly/">GitHub</a> directly !</p>` : html``}
         ${this.currentPage ? html`
         <div class="two-cols">
-            ${repeat(this.currentPage, this._card)}
+            ${this.currentPage.map(page => this._card(page))}
         </div>
         ${this._pagination}
         ` : html``}
@@ -246,7 +243,7 @@ class GithubWork extends PureElement {
             await this.updateComplete;
             this._pulse();
         }}>
-            <paper-icon-button aria-label="Previous page" icon="arrow-back"></paper-icon-button>
+            <mwc-icon-button aria-label="Previous page" icon="keyboard_arrow_left"></mwc-icon-button>
         </a>
         `;
     }
@@ -259,13 +256,13 @@ class GithubWork extends PureElement {
             await this.updateComplete;
             this._pulse();
         }}>
-            <paper-icon-button aria-label="Next page" icon="arrow-forward"></paper-icon-button>
+            <mwc-icon-button aria-label="Next page" icon="keyboard_arrow_right"></mwc-icon-button>
         </a>
         `;
     }
 
-    private get _spinner(): PaperSpinnerElement {
-        return this.shadowRoot.querySelector('paper-spinner');
+    private get _spinner(): ElaraSpinner {
+        return this.shadowRoot.querySelector('elara-spinner');
     }
 }
 customElements.define(GithubWork.is, GithubWork);

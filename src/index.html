@@ -21,6 +21,7 @@
     <link rel="mask-icon" href="./assets/icons/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#0b7282">
     <meta name="theme-color" content="#f2f2f2">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" rel="stylesheet">
 
     <style>
       :root {
@@ -42,9 +43,6 @@
         --elara-font-primary: 'Hind', sans-serif;
         --elara-font-secondary: 'Lora', sans-serif; 
         --elara-font-display: 'Questrial', serif;
-        --paper-font-common-base: {
-            font-family: var(--elara-font-primary);
-        };
       }
 
       * {
@@ -158,11 +156,11 @@
         top: 0;
       }
 
-      paper-button.continue {
+      mwc-button.continue {
           background-color: var(--elara-secondary);
           color: white;
       }
-      paper-button.reload {
+      mwc-button.reload {
           background-color: var(--elara-primary);
           color: white;
       }
@@ -176,15 +174,6 @@
   <body>
     <elara-app></elara-app>
   </body>
-  <script>
-    // Check that service workers are registered
-    if ('serviceWorker' in navigator) {
-      // Use the window load event to keep the page load performant
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js');
-      });
-    }
-  </script>
   <style>
     @font-face {
       font-family: 'Hind';

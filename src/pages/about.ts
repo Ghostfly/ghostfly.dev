@@ -1,5 +1,4 @@
-import { html, TemplateResult } from 'lit-html';
-import { css, CSSResult } from 'lit-element';
+import { css, CSSResult, html } from 'lit-element';
 
 import Elara from '../core/elara';
 import Page from '../core/strategies/Page';
@@ -36,7 +35,7 @@ class About extends Page {
         `];
     }
 
-	public render(): void | TemplateResult {
+	public render() {
         return html`
         <div class="about">
             <h1>${this.head.title}</h1>

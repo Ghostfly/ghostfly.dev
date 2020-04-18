@@ -4,22 +4,23 @@ import Elara from './core/elara';
 import Root from './core/strategies/Root';
 import { fadeWith } from './core/animations';
 
+import './atoms/spinner';
 import './pages/index';
 import './atoms/not-found';
 import './atoms/menu';
 
-// lazy import for polymer components
-import('./polymer');
+// lazy import for other components
+import('./vendors');
 
 export class ElaraApp extends Root {
 	public static readonly is: string = 'elara-app';
 
 	public get loadables(){
-		return ['ui-profile'];
+		return [];
 	}
 
 	public get bootstrap(){
-		return Elara.Bootstrap.promise(this.loadables, this.shadowRoot);
+		return Elara.Bootstrap.promise(this.loadables, this);
 	}
 
 	public async show(route: string): Promise<void> {
@@ -96,8 +97,15 @@ export class ElaraApp extends Root {
 	
 	public render() {
 		return html`
+			<style>
+			.content {
+				position: absolute;
+				width: calc(100% - 25vw - 4vh - 5vw);
+				right: 10px;
+			}
+			</style>
 			<ui-profile></ui-profile>
-			<paper-icon-button id="handle" class="menu" icon="menu" aria-label="Menu" @click=${this._showMenu}></paper-icon-button>
+			<mwc-icon-button id="handle" class="menu" offIcon="menu" onIcon="clear" aria-label="Menu" @click=${this._showMenu}></mwc-icon-button>
 			<div id="content" class="content"></div>
 			<ui-menu id="menu" .items=${this.links} .route=${this.route}></ui-menu>
 		`;

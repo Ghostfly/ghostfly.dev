@@ -1,8 +1,6 @@
-import { html, TemplateResult } from 'lit-html';
-import { css, CSSResult, property } from 'lit-element';
+import { css, CSSResult, property, html } from 'lit-element';
 
 import Elara from '../core/elara';
-import { repeat } from 'lit-html/directives/repeat';
 import PureElement from '../core/strategies/Element';
 
 export class MenuElement extends PureElement {
@@ -112,16 +110,16 @@ export class MenuElement extends PureElement {
         `;
     }
 
-	public render(): void | TemplateResult {
+	public render() {
         return html`
         <div id="menu" class="menu-content ${this.shown === true ? 'shown' : ''}">
-            <paper-icon-button class="menu" icon="close" aria-label="Close menu" @click=${() => Elara.UI.elara().menu(true)}></paper-icon-button>
-            ${repeat(this.items, (link) => this._link(link))}
+			<mwc-icon-button class="menu" icon="clear" aria-label="Close menu" @click=${() => Elara.UI.elara().menu(true)}></mwc-icon-button>
+			${this.items.map(link => this._link(link))}
 		</div>
         `;
     }
 
-    private _link({route, name}): TemplateResult {
+    private _link({route, name}) {
 		return html`
 		<a class="item ${this.route === route ? 'active' : ''}" @click=${() => Elara.UI.elara().show(route)}>${name}</a>
 		`;

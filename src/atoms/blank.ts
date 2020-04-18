@@ -1,5 +1,4 @@
-import { html, TemplateResult } from 'lit-html';
-import { css, CSSResult } from 'lit-element';
+import { html, css, CSSResult } from 'lit-element';
 
 import PureElement from '../core/strategies/Element';
 
@@ -18,7 +17,7 @@ class Blank extends PureElement {
         return css``;
     }
 
-	public render(): void | TemplateResult {
+	public render() {
         return html`
         <div></div>
         `;

@@ -603,17 +603,9 @@ var l=function(){function t(e,n,r){!function(t,e){if(!(t instanceof e))throw new
         .facebook svg { ${Object(r.g)("fill: "+c.Colors.social.facebook)}}
         .instagram svg { ${Object(r.g)("fill: "+c.Colors.social.instagram)}}
         .medium svg { ${Object(r.g)("fill: "+c.Colors.social.medium)}}
-
-        .disconnected {
-            margin: 1.5em;
-        }
         </style>
         <div class="contact">
             <h1>${this.head.title}</h1>
-            <div class="disconnected">
-                <p>Use links below to reach me on another computer :)</p>
-            </div>
-
             <div class="grid networks">
                 ${this._links.map(t=>this._makeLink(t.label,t.link,t.svg))}
             </div>
@@ -935,4 +927,4 @@ var l=function(){function t(e,n,r){!function(t,e){if(!(t instanceof e))throw new
 			<div id="content" class="content"></div>
 			<ui-menu id="menu" .items=${this.links} .route=${this.route}></ui-menu>
 		`}_showMenu(){return N(this,void 0,void 0,(function*(){if(this._menu.shown)return void(yield this._hideMenu());if(this._menuFade)return;this._content.classList.contains("hidden")||this._content.classList.add("hidden"),!1===this._menu.shown&&(this._menu.shown=!0);const t=i(300,!0);this._menuFade=this._menu.animate(t.effect,t.options),yield this._menuFade.finished,this._menuFade=null}))}_hideMenu(){return N(this,void 0,void 0,(function*(){if(this._menuFade)return;const t=i(300,!1);this._menuFade=this._menu.animate(t.effect,t.options),yield this._menuFade.finished,this._content.classList.remove("hidden"),this._menu.shown=!1,this._menuFade=null}))}}M.is="elara-app",customElements.define(M.is,M)}]);
-//# sourceMappingURL=main.ec2827ae.js.map
+//# sourceMappingURL=main.2bd5aaf5.js.map

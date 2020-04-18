@@ -113,17 +113,9 @@ export class Contact extends Page {
         .facebook svg { ${unsafeCSS(`fill: ${Elara.Colors.social.facebook}`)}}
         .instagram svg { ${unsafeCSS(`fill: ${Elara.Colors.social.instagram}`)}}
         .medium svg { ${unsafeCSS(`fill: ${Elara.Colors.social.medium}`)}}
-
-        .disconnected {
-            margin: 1.5em;
-        }
         </style>
         <div class="contact">
             <h1>${this.head.title}</h1>
-            <div class="disconnected">
-                <p>Use links below to reach me on another computer :)</p>
-            </div>
-
             <div class="grid networks">
                 ${this._links.map(link => this._makeLink(link.label, link.link, link.svg))}
             </div>

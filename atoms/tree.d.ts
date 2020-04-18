@@ -9,8 +9,8 @@ export declare class Tree extends PureElement {
     height: number;
     width: number;
     firstUpdated(): void;
-    static readonly styles: CSSResult;
+    static get styles(): CSSResult;
     render(): void | TemplateResult;
     private _tree;
-    private readonly _canvas;
+    private get _canvas();
 }

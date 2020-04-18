@@ -1,17 +1,18 @@
 import { CSSResult } from 'lit-element';
 import Root from './core/strategies/Root';
+import './atoms/spinner';
 import './pages/index';
 import './atoms/not-found';
 import './atoms/menu';
 export declare class ElaraApp extends Root {
     static readonly is: string;
-    readonly loadables: string[];
-    readonly bootstrap: Promise<any[]>;
+    get loadables(): any[];
+    get bootstrap(): Promise<any[]>;
     show(route: string): Promise<void>;
     menu(isHide: boolean): Promise<void>;
     firstUpdated(): void;
-    static readonly styles: CSSResult[];
-    readonly links: {
+    static get styles(): CSSResult[];
+    get links(): {
         route: string;
         name: string;
     }[];

@@ -1,4 +1,3 @@
-import { TemplateResult } from 'lit-html';
 import { CSSResult } from 'lit-element';
 import PureElement from '../core/strategies/Element';
 export declare class MenuElement extends PureElement {
@@ -8,7 +7,7 @@ export declare class MenuElement extends PureElement {
     shown: boolean;
     connectedCallback(): void;
     disconnectedCallback(): void;
-    static readonly styles: CSSResult;
-    render(): void | TemplateResult;
+    static get styles(): CSSResult;
+    render(): import("lit-element").TemplateResult;
     private _link;
 }

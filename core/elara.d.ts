@@ -2,7 +2,7 @@
 import { MenuElement } from '../atoms/menu';
 declare const Elara: {
     Bootstrap: {
-        promise: (loadables: string[], host: ShadowRoot) => Promise<any[]>;
+        promise: (loadables: string[], host: HTMLElement) => Promise<any[]>;
         load: (route: string, content: HTMLElement, menu: MenuElement, menuFade: Animation) => Promise<void>;
     };
     Constants: {
@@ -43,17 +43,6 @@ declare const Elara: {
         dayOrNight: () => Elara.Modes;
         isDarkOS(): boolean;
     };
-    Mailing: {
-        error: string;
-        success: string;
-        contact: (fields: {
-            submit: HTMLButtonElement;
-            name: Elara.InputElement;
-            email: Elara.InputElement;
-            message: Elara.InputElement;
-            form: HTMLElement;
-        }, url: string) => Promise<boolean>;
-    };
     Errors: {
         GenericError: {
             new (message?: string): {
@@ -65,7 +54,7 @@ declare const Elara: {
                 message: string;
                 stack?: string;
             };
-            captureStackTrace(targetObject: Object, constructorOpt?: Function): void;
+            captureStackTrace(targetObject: object, constructorOpt?: Function): void;
             prepareStackTrace?: (err: Error, stackTraces: NodeJS.CallSite[]) => any;
             stackTraceLimit: number;
         };
@@ -79,7 +68,7 @@ declare const Elara: {
                 message: string;
                 stack?: string;
             };
-            captureStackTrace(targetObject: Object, constructorOpt?: Function): void;
+            captureStackTrace(targetObject: object, constructorOpt?: Function): void;
             prepareStackTrace?: (err: Error, stackTraces: NodeJS.CallSite[]) => any;
             stackTraceLimit: number;
         };
@@ -93,7 +82,7 @@ declare const Elara: {
                 message: string;
                 stack?: string;
             };
-            captureStackTrace(targetObject: Object, constructorOpt?: Function): void;
+            captureStackTrace(targetObject: object, constructorOpt?: Function): void;
             prepareStackTrace?: (err: Error, stackTraces: NodeJS.CallSite[]) => any;
             stackTraceLimit: number;
         };

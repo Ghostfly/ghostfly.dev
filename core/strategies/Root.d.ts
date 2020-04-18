@@ -1,7 +1,7 @@
 import Elara from '../elara';
-import Page from './Page';
 import { MenuElement } from '../../atoms/menu';
-export default class Root extends Page {
+import { LitElement } from 'lit-element';
+export default class Root extends LitElement {
     protected _menuFade: Animation;
     route: string;
     private _onHashChangeListener;
@@ -10,10 +10,10 @@ export default class Root extends Page {
     /**
  * Create the render root
  */
-    protected createRenderRoot(): ShadowRoot;
+    protected createRenderRoot(): this;
     protected _onHashChange(event: HashChangeEvent): Promise<void>;
     load(route: string): Promise<void>;
     askModeChange(mode: Elara.Modes): boolean;
-    protected readonly _content: HTMLDivElement;
-    protected readonly _menu: MenuElement;
+    protected get _content(): HTMLDivElement;
+    protected get _menu(): MenuElement;
 }

@@ -106,8 +106,8 @@ export class GithubWork extends LitElement {
 
             cursor: pointer;
             width: 85%;
-            padding: 2.5vh 5%;
-            
+            padding: 5%;
+
             border-radius: 5px;
             color: var(--elara-font-color);
             border: 1px solid var(--elara-font-color);
@@ -124,24 +124,29 @@ export class GithubWork extends LitElement {
         }
 
         .title {
-            font-size: 24px;
+            font-size: 18px;
             font-weight: bold;
             margin: 1vh 0px;
         }
 
         .description {
-            font-size: 18px;
+            font-size: 14px;
             margin: 2vh 0px;
             font-weight: bold;
         }
 
         .bottom {
             margin: 1vh 0px;
-            font-size: 14px;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .bottom > span {
-            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
             font-weight: bold;
         }
 

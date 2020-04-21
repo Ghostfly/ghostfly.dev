@@ -110,7 +110,6 @@ const commonConfig = merge([
 
 const developmentConfig = merge([
   {
-    devtool: 'cheap-module-source-map',
     plugins: [
       new CopyWebpackPlugin(polyfills),
       new HtmlWebpackPlugin({

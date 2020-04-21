@@ -110,17 +110,17 @@ export class GithubWork extends LitElement {
 
             border-radius: 5px;
             color: var(--elara-font-color);
-            border: 1px solid var(--elara-font-color);
-            box-shadow: 0px 0px 0px rgb(0, 0, 0, 0);
             transition: 0.4s ease-in-out;
             margin: 2vh 0px;
             transform: scale(1);
             font-family: var(--elara-font-display);
-            transition: transform, border .3s;
+            border: 1px solid rgba(134, 134, 134, 0.3);
+            transition: transform, background-color .3s;
+            background-color: rgba(134, 134, 134, 0.2):
         }
 
         .github-card:hover {
-            border: 1px solid var(--elara-font-hover);
+            background-color: var(--elara-font-hover); 
         }
 
         .title {

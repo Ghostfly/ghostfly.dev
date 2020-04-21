@@ -21,7 +21,10 @@
     <link rel="mask-icon" href="./assets/icons/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#0b7282">
     <meta name="theme-color" content="#f2f2f2">
+
+    <!-- Wanted in block, LightHouse, please, don't warn for that ! -->
     <link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" rel="stylesheet">
+    <!-- Speedup++ unsplash random image load -->
     <link href="https://source.unsplash.com" rel="preconnect" crossorigin>
     <link href="https://images.unsplash.com" rel="preconnect" crossorigin>
 
@@ -516,9 +519,9 @@
     </style>
     <noscript>JavaScript is needed to use this website.</noscript>
     <script src="./boot.js"></script>
-    <script src="./vendor/webcomponents-loader.js"></script>
-    <script src="./vendor/web-animations-next-lite.min.js"></script>
-    <script src="./vendor/custom-elements-es5-adapter.js"></script>
+    <script src="./vendor/webcomponents-loader.js" defer></script>
+    <script src="./vendor/web-animations-next-lite.min.js" defer></script>
+    <script src="./vendor/custom-elements-es5-adapter.js" defer></script>
   </head>
   <body>
     <elara-app></elara-app>

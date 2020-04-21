@@ -1,4 +1,4 @@
-import { property, css, CSSResult, html, customElement, LitElement } from 'lit-element';
+import { property, css, CSSResult, html, customElement, LitElement, query } from 'lit-element';
 
 import Elara from '../core/elara';
 import { pulseWith } from '../core/animations';
@@ -35,6 +35,9 @@ export class GithubWork extends LitElement {
 
     @property({type: Boolean, reflect: true})
     public inError = false;
+
+    @query('elara-spinner')
+    public _spinner: ElaraSpinner;
 
     public chunksLength = 6;
 
@@ -202,7 +205,7 @@ export class GithubWork extends LitElement {
         `;
     }
 
-    private _card(repository: GithubRepository) {
+    private _cardT(repository: GithubRepository) {
         return html`
         <section class="github-card" @click=${() => Elara.Routing.redirect(repository.node.url)}}>
             <div class="title">${repository.node.name}</div>
@@ -224,11 +227,44 @@ export class GithubWork extends LitElement {
         ${this.inError ? html`<p>Can't load GitHub repositories.. 😢 <br />You can check on <a class="link" href="https://github.com/ghostfly/">GitHub</a> directly !</p>` : html``}
         ${this.currentPage ? html`
         <div class="two-cols">
-            ${this.currentPage.map(page => this._card(page))}
+            ${this.currentPage.map(page => this._cardT(page))}
         </div>
-        ${this._pagination}
+        ${this._paginationT}
         ` : html``}
         <a class="next" @click=${() => Elara.Routing.navigate('about')}>> About</a>
+        `;
+    }
+
+    private get _paginationT(){
+        return html`
+        <div class="pagination">
+            ${this.page+1} / ${this.repositories.length}
+            ${this._backT} 
+            ${this._nextT}
+        </div>`;
+    }
+
+    private get _backT(){
+        return html`
+        <a role="button" disabled=${this.page === 0} @click=${async () => {
+            this.page--;
+            this.currentPage = this.repositories[this.page];
+            await this.updateComplete;
+        }}>
+            <mwc-icon-button aria-label="Previous page" icon="keyboard_arrow_left"></mwc-icon-button>
+        </a>
+        `;
+    }
+
+    private get _nextT(){
+        return html`
+        <a role="button" disabled=${this.page+1 === this.repositories.length} @click=${async () => {
+            this.page++;
+            this.currentPage = this.repositories[this.page];
+            await this.updateComplete;
+        }}>
+            <mwc-icon-button aria-label="Next page" icon="keyboard_arrow_right"></mwc-icon-button>
+        </a>
         `;
     }
 
@@ -241,42 +277,5 @@ export class GithubWork extends LitElement {
             const handle = section.animate(animation.effect, animation.options);
             await handle.finished;
         }
-    }
-
-    private get _pagination(){
-        return html`
-        <div class="pagination">
-            ${this.page+1} / ${this.repositories.length}
-            ${this._back} 
-            ${this._next}
-        </div>`;
-    }
-
-    private get _back(){
-        return html`
-        <a role="button" disabled=${this.page === 0} @click=${async () => {
-            this.page--;
-            this.currentPage = this.repositories[this.page];
-            await this.updateComplete;
-        }}>
-            <mwc-icon-button aria-label="Previous page" icon="keyboard_arrow_left"></mwc-icon-button>
-        </a>
-        `;
-    }
-
-    private get _next(){
-        return html`
-        <a role="button" disabled=${this.page+1 === this.repositories.length} @click=${async () => {
-            this.page++;
-            this.currentPage = this.repositories[this.page];
-            await this.updateComplete;
-        }}>
-            <mwc-icon-button aria-label="Next page" icon="keyboard_arrow_right"></mwc-icon-button>
-        </a>
-        `;
-    }
-
-    private get _spinner(): ElaraSpinner {
-        return this.shadowRoot.querySelector('elara-spinner');
     }
 }

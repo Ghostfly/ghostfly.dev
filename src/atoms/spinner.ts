@@ -40,7 +40,7 @@ export class ElaraSpinner extends LitElement {
         }
 
         .dot {
-          background: #1f1300;
+          background: var(--elara-font-color);
           display: block;
           width: 6px;
           height: 6px;

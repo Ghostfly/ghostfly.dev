@@ -1,4 +1,3 @@
-import { CSSResult } from 'lit-element';
 import Root from './core/strategies/Root';
 import './atoms/spinner';
 import './pages/index';
@@ -11,7 +10,6 @@ export declare class ElaraApp extends Root {
     show(route: string): Promise<void>;
     menu(isHide: boolean): Promise<void>;
     firstUpdated(): void;
-    static get styles(): CSSResult[];
     get links(): {
         route: string;
         name: string;

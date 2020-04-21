@@ -35,13 +35,8 @@ declare const Elara: {
             heading: import("lit-element").CSSResult;
         };
         elara: () => Elara.Root;
-        mode: () => Elara.Modes;
-        nightSwitchClick: (click: Event, host: Elara.UpdatableElement) => Promise<boolean>;
-        applyVariablesFor: (mode: Elara.Modes) => boolean;
-        hasSwitched: () => boolean;
-        isSunny: () => boolean;
-        dayOrNight: () => Elara.Modes;
-        isDarkOS(): boolean;
+        nightSwitchClick: (click: Event, host: Elara.UpdatableElement) => Promise<void>;
+        toggleMode: () => boolean;
     };
     Errors: {
         GenericError: {
@@ -100,7 +95,7 @@ declare namespace Elara {
         }>;
         menu(isHide: boolean): Promise<void>;
         show(route: string): Promise<void>;
-        askModeChange(mode: Elara.Modes): boolean;
+        askModeChange(): void;
     }
     interface LoadableElement extends Elara.Element {
         loaded: boolean;

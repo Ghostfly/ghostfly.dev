@@ -9,7 +9,6 @@
     "url": "https://github.com/ghostfly/elara-folio"
   },
   "dependencies": {
-    "@babel/runtime": "^7.9.2",
     "@material/mwc-icon": "^0.14.1",
     "@material/mwc-icon-button": "^0.14.1",
     "@webcomponents/webcomponentsjs": "^2.4.3",

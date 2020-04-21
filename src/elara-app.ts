@@ -97,13 +97,6 @@ export class ElaraApp extends Root {
 	
 	public render() {
 		return html`
-			<style>
-			.content {
-				position: absolute;
-				width: calc(100% - 25vw - 4vh - 5vw);
-				right: 10px;
-			}
-			</style>
 			<ui-profile></ui-profile>
 			<mwc-icon-button id="handle" class="menu" offIcon="menu" onIcon="clear" aria-label="Menu" @click=${this._showMenu}></mwc-icon-button>
 			<div id="content" class="content"></div>

@@ -68,79 +68,6 @@ export class Profile extends LitElement implements Elara.LoadableElement {
     }
     public render() {
         return html`
-        <style>
-        .profile {
-            width: 24vw;
-            padding: 4vh 3vw;
-            height: 92vh;
-            z-index: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            text-align: left;
-            background: var(--elara-darkgray) center center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            position: fixed;
-            color: #fff;
-            user-select: none;
-            z-index: 999;
-        }
-
-        .profile.is-link {
-            cursor: pointer;
-        }
-
-        .profile .bio > div {
-            font-weight: bold;
-            font-size: 1.2em;
-            margin: 1.5vh 0px;
-        }
-
-        .profile::after {
-            content: '';
-            background-color: rgba(0,0,0, .3);
-            position: absolute;
-            top: 0;
-            right: 0;
-            left: 0;
-            bottom: 0;
-        }
-
-        img, .bio {
-            z-index: 1;
-        }
-
-        img {
-            visibility: hidden;
-        }
-
-        img.shown {
-            visibility: visible;
-        }
-        
-        .profile > .pic {
-            width: 20vw;
-            height: 20vw;
-            border-radius: 3px;
-        }
-        svg {
-            height: 30px;
-            width: 30px;
-            fill: white;
-        }
-
-        .night-switch {
-            position: absolute;
-            left: 20px;
-            bottom: 20px;
-            z-index: 3;
-        }
-
-        .day-night{
-            cursor: pointer;
-        }
-        </style>
         <div role="link" id="container" class="profile ${this.route === 'home' || !this.route ? '' : 'is-link'}" @click=${() => Elara.Routing.navigate('home')}>
             <img id="pic" class="pic" sizing="contain" src="/assets/me.svg"></img>
             <div class="bio">
@@ -158,6 +85,10 @@ export class Profile extends LitElement implements Elara.LoadableElement {
             <div class="night-switch" @click=${async (click: Event) => Elara.UI.nightSwitchClick(click, this)}>${this._nightToggle()}</div>
         </div>
         `;
+    }
+
+    public createRenderRoot(){
+        return this;
     }
 
     private _nightToggle(){
@@ -182,10 +113,10 @@ export class Profile extends LitElement implements Elara.LoadableElement {
     }
 
     private get picture(): HTMLImageElement {
-        return this.shadowRoot.querySelector('#pic');
+        return this.querySelector('#pic');
     }
 
     private get container(): HTMLDivElement {
-        return this.shadowRoot.querySelector('#container');
+        return this.querySelector('#container');
     }
 }

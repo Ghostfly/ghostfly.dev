@@ -51,6 +51,228 @@
       -ms-user-select: text; 
       }
 
+      .content {
+				position: absolute;
+				width: calc(100% - 25vw - 4vh - 5vw);
+				right: 10px;
+			}
+
+      /* Profile */
+      .profile {
+            width: 24vw;
+            padding: 4vh 3vw;
+            height: 92vh;
+            z-index: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+            background: var(--elara-darkgray) center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            position: fixed;
+            color: #fff;
+            user-select: none;
+            z-index: 999;
+        }
+
+        .profile.is-link {
+            cursor: pointer;
+        }
+
+        .profile .bio > div {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin: 1.5vh 0px;
+        }
+
+        .profile::after {
+            content: '';
+            background-color: rgba(0,0,0, .3);
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+        }
+
+        img, .bio {
+            z-index: 1;
+        }
+
+        img {
+            visibility: hidden;
+        }
+
+        img.shown {
+            visibility: visible;
+        }
+        
+        .profile > .pic {
+            width: 20vw;
+            height: 20vw;
+            border-radius: 3px;
+        }
+        svg {
+            height: 30px;
+            width: 30px;
+            fill: white;
+        }
+
+        .night-switch {
+            position: absolute;
+            left: 20px;
+            bottom: 20px;
+            z-index: 3;
+        }
+
+        .day-night{
+            cursor: pointer;
+        }
+
+        /* About */
+        .cv { color: var(--elara-secondary); cursor: pointer; }
+        .about { margin-bottom: 2em }
+        .prev, .next { cursor: pointer; font-weight: bold; transition: color .3s;}
+        .prev:hover, .next:hover {
+            color: var(--elara-primary);
+        }
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            user-select: none;
+        }
+
+        /* Projects */
+        .prev, .next { cursor: pointer; font-weight: bold; transition: color .3s;}
+        .next { float: right }
+        .prev:hover, .next:hover {
+            color: var(--elara-primary);
+        }
+
+        .projects { margin-bottom: 2em; }
+        .project h3 {
+            font-family: var(--elara-font-display); 
+            font-weight: bold;
+        }
+
+        .project {
+            display: flex;
+            flex-direction: column;
+            min-height: 50px;
+            margin: 1em;
+            padding: .5em;
+            cursor: default;
+            user-select: none;
+            border-bottom: 1px solid var(--elara-darkgray)
+        }
+
+        .with-link {
+            color: var(--elara-font-color);
+            cursor: pointer;
+            transition: color .3s;
+        }
+
+        .with-link:hover {
+            color: var(--elara-font-hover);
+        }
+
+        .project .hidden-content {
+            position: relative;
+            min-height: 100px;
+        }
+
+        .grid > div {
+            flex: 1 0 5em;
+            margin: 0.5em;
+        }
+
+        .hidden-content .right {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
+
+        .hidden-content img {
+            height: 150px;
+            width: 150px;
+            visibility: hidden;
+        }
+
+        img {
+            object-fit: contain;
+        } 
+
+        img.shown {
+            visibility: visible;
+        }
+
+        .hidden-content svg {
+            height: 1em;
+            width: 1em;
+        }
+
+        .hidden-content .left > .tags, .hidden-content .left > .status {
+            opacity: 0;
+            transition: opacity .4s;
+        }
+
+        .hidden-content:hover .left > .tags, .hidden-content:hover .left > .status  {
+            opacity: 1;
+        }
+
+        .project.who {
+            border-bottom: none;
+        }
+
+        /* Contact */
+        h1 { user-select: none; font-family: var(--elara-font-display); }
+        h1::first-letter { font-size: 1.3em; }
+
+        .contact { height: 100%; }
+
+        mwc-button {
+            background-color: var(--elara-primary);
+            color: white;
+            margin: 1em 0;
+        }
+
+        .send {
+            float: right;
+            clear: both;
+        }
+
+        .grid {
+          display: flex;
+          flex-wrap: wrap;
+        }
+
+        .grid > .item {
+            display: flex;
+            flex: 1 0 5em;
+            margin: 0.5em;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .clearfix { clear: both }
+
+        .networks { height: 50%; }
+
+        .networks svg, .networks mwc-icon {
+            cursor: pointer;
+            min-width: 50px;
+        }
+
+        .github svg { fill: #24292e }
+        .twitter svg { fill: #1da1f2 }
+        .youtube svg { fill: #ff0000 }
+        .linkedin svg { fill: #0073b0 }
+        .facebook svg { fill: #3b5998 }
+        .instagram svg { fill: #333  }
+        .medium svg { fill: #3CB371  }
+
       ::selection {
         background: #FFEB3B; /* WebKit/Blink Browsers */
       }
@@ -148,21 +370,6 @@
           transform: scale(3);
           opacity: 0;
         }
-      }
-
-      .error-tree {
-        position: absolute;
-        right: 0;
-        top: 0;
-      }
-
-      mwc-button.continue {
-          background-color: var(--elara-secondary);
-          color: white;
-      }
-      mwc-button.reload {
-          background-color: var(--elara-primary);
-          color: white;
       }
     </style>
     <noscript>JavaScript is needed to use this website.</noscript>

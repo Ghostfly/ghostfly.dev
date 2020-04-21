@@ -1,4 +1,4 @@
-import { html, unsafeCSS, SVGTemplateResult, customElement } from 'lit-element';
+import { html, SVGTemplateResult, customElement } from 'lit-element';
 
 import Elara from '../core/elara';
 import Page from '../core/strategies/Page';
@@ -67,53 +67,6 @@ export class Contact extends Page {
 
 	public render() {
         return html`
-        <style>
-        h1 { user-select: none; font-family: var(--elara-font-display); }
-        h1::first-letter { font-size: 1.3em; }
-
-        .contact { height: 100%; }
-
-        mwc-button {
-            background-color: var(--elara-primary);
-            color: white;
-            margin: 1em 0;
-        }
-
-        .send {
-            float: right;
-            clear: both;
-        }
-        
-        .grid {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .grid > .item {
-            display: flex;
-            flex: 1 0 5em;
-            margin: 0.5em;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .clearfix { clear: both }
-
-        .networks { height: 50%; }
-
-        .networks svg, .networks mwc-icon {
-            cursor: pointer;
-            min-width: 50px;
-        }
-
-        .github svg { ${unsafeCSS(`fill: ${Elara.Colors.social.github}`)}}
-        .twitter svg { ${unsafeCSS(`fill: ${Elara.Colors.social.twitter}`)}}
-        .youtube svg { ${unsafeCSS(`fill: ${Elara.Colors.social.youtube}`)}}
-        .linkedin svg { ${unsafeCSS(`fill: ${Elara.Colors.social.linkedin}`)}}
-        .facebook svg { ${unsafeCSS(`fill: ${Elara.Colors.social.facebook}`)}}
-        .instagram svg { ${unsafeCSS(`fill: ${Elara.Colors.social.instagram}`)}}
-        .medium svg { ${unsafeCSS(`fill: ${Elara.Colors.social.medium}`)}}
-        </style>
         <div class="contact">
             <h1>${this.head.title}</h1>
             <div class="grid networks">

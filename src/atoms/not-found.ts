@@ -2,8 +2,6 @@ import { property, css, CSSResult, customElement, html, LitElement } from 'lit-e
 
 import Elara from '../core/elara';
 
-import './tree';
-
 @customElement('ui-not-found')
 export class NotFound extends LitElement {
     @property({type: String, reflect: true})
@@ -35,7 +33,6 @@ export class NotFound extends LitElement {
             <h1>You are lost !</h1>
             <p>You asked for : ${this.asked}.</p>
             <a @click=${() => Elara.Routing.navigate('home')}><mwc-icon icon="home"></mwc-icon> Homepage</a>
-            <ui-tree .width=${1366} .height=${768}></ui-tree>
         </div>
         `;
     }

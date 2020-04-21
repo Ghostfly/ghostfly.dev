@@ -64,11 +64,6 @@ const Elara = {
             }
     
             const handle = window.requestAnimationFrame(() => {
-                if(!loaded.shadowRoot){
-                    cancelAnimationFrame(handle);
-                    return;
-                }
-    
                 const pageContent = loaded.querySelector('div');
                 if(!pageContent){
                     cancelAnimationFrame(handle);
@@ -257,17 +252,6 @@ const Elara = {
             public continue = true;
             public reload = false;
             public underlyingError: Error;
-        }
-    },
-    Colors: {
-        social: {
-            github: '#24292e',
-            twitter: '#1da1f2',
-            youtube: '#ff0000',
-            linkedin: '#0073b0',
-            facebook: '#3b5998',
-            instagram: '#333',
-            medium: '#3CB371'
         }
     }
 };

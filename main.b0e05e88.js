@@ -570,7 +570,6 @@ class r{constructor(e,t,n){this.__parts=[],this.template=e,this.processor=t,this
         </div>
         `}};E([Object(s.e)({type:String,reflect:!0})],R.prototype,"asked",void 0),R=E([Object(s.c)("ui-not-found")],R);var N=function(e,t,n,s){var i,r=arguments.length,o=r<3?t:null===s?s=Object.getOwnPropertyDescriptor(t,n):s;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)o=Reflect.decorate(e,t,n,s);else for(var a=e.length-1;a>=0;a--)(i=e[a])&&(o=(r<3?i(o):r>3?i(t,n,o):i(t,n))||o);return r>3&&o&&Object.defineProperty(t,n,o),o};let L=class extends s.a{constructor(){super(...arguments),this.items=[],this.route=null,this.shown=!1}createRenderRoot(){return this}render(){return s.d`
         <div id="menu" class="menu-content ${!0===this.shown?"shown":""}">
-			<mwc-icon-button class="menu" icon="clear" aria-label="Close menu" @click=${()=>c.UI.elara().menu(!0)}></mwc-icon-button>
 			${this.items.map(e=>this._link(e))}
 		</div>
         `}_link({route:e,name:t}){return s.d`
@@ -581,4 +580,4 @@ class r{constructor(e,t,n){this.__parts=[],this.template=e,this.processor=t,this
 			<div id="content" class="content"></div>
 			<ui-menu id="menu" .items=${this.links} .route=${this.route}></ui-menu>
 		`}_showMenu(){return M(this,void 0,void 0,(function*(){if(this._menu.shown)return void(yield this._hideMenu());if(this._menuFade)return;this._content.classList.contains("hidden")||this._content.classList.add("hidden"),!1===this._menu.shown&&(this._menu.shown=!0);const e=r(300,!0);this._menuFade=this._menu.animate(e.effect,e.options),yield this._menuFade.finished,this._menuFade=null}))}_hideMenu(){return M(this,void 0,void 0,(function*(){if(this._menuFade)return;const e=r(300,!1);this._menuFade=this._menu.animate(e.effect,e.options),yield this._menuFade.finished,this._content.classList.remove("hidden"),this._menu.shown=!1,this._menuFade=null}))}}T.is="elara-app",customElements.define(T.is,T)}]);
-//# sourceMappingURL=main.31bfefaf.js.map
+//# sourceMappingURL=main.b0e05e88.js.map

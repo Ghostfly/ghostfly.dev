@@ -49,6 +49,11 @@ const polyfills = [
     flatten: true
   },
   {
+    from: resolve('./CNAME'),
+    to: OUTPUT_PATH,
+    flatten: true
+  },
+  {
     from: resolve('./src/favicon.ico'),
     to: OUTPUT_PATH,
     flatten: true

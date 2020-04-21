@@ -1,4 +1,4 @@
-import { html, css, CSSResult } from 'lit-element';
+import { html } from 'lit-element';
 
 import Elara from './core/elara';
 import Root from './core/strategies/Root';
@@ -44,47 +44,6 @@ export class ElaraApp extends Root {
 
 		this._onHashChange(hashEvent);
 	}
-
-	public static get styles(): CSSResult[] {
-		return [css`
-		.content, .menu-content {
-			background: var(--elara-background-color);
-			color: var(--elara-font-color);
-			display: inline-block;
-
-			font-family: var(--elara-font-primary);
-			opacity: 1;
-			margin: 0;
-
-			height: 92vh;
-			width: 62vw;
-			max-width: 100vw;
-
-			padding: 4vh 3vw;
-			padding-left: 33vw;
-		}
-
-		.content.hidden {
-			opacity: 0;
-			z-index: 0;
-			visibility: hidden;
-		}
-
-		.menu {
-			position: absolute;
-			top: 0;
-			right: 0;
-			height: 45px;
-			width: 45px;
-			color: var(--elara-font-color);
-			z-index: 0;
-		}
-
-		.content.full-width { margin: 0; padding: 0 }
-
-		@media (min-width: 1033px){}
-		`];
-	  } 
 
 	public get links(){
 		return [

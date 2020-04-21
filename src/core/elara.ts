@@ -189,16 +189,12 @@ const Elara = {
             return Elara.UI.elara().askModeChange(future);
         },
         applyVariablesFor: (mode: Elara.Modes): boolean => {
-            const root = document.documentElement;
-
+            document.documentElement.classList.add(mode);
+            
             if(mode === 'night'){
-                root.style.setProperty('--elara-background-color', '#373737');
-                root.style.setProperty('--elara-font-color', '#f0f0f0');
-                root.style.setProperty('--elara-font-hover', '#9e9e9e');
+                document.documentElement.classList.remove('day');
             } else {
-                root.style.removeProperty('--elara-background-color');
-                root.style.removeProperty('--elara-font-color');
-                root.style.removeProperty('--elara-font-hover');
+                document.documentElement.classList.remove('night');
             }
 
             return true;

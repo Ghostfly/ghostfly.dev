@@ -33,6 +33,15 @@ class Projects extends Page {
     private get projects(): ReadonlyArray<Project> {
         return [
             {
+                name: 'Persin Conseil',
+                slug: 'persin',
+                image: '/assets/projects/persin.jpg',
+                status: 'published',
+                repository: 'https://github.com/Ghostfly/persin-conseil',
+                url: 'https://www.persin.fr',
+                tags: ['Lit-Element', 'Offline ready', 'structured data', 'PWA 100%']
+            },
+            {
                 name: 'Ghostfly.dev',
                 slug: 'ghostfly',
                 image: '/assets/me.svg',
@@ -67,24 +76,6 @@ class Projects extends Page {
                 repository: null,
                 url: 'https://www.dobruniadesign.com',
                 tags: ['Élara', 'WordPress', 'Design']
-            },
-            {
-                name: 'Persin Conseil',
-                slug: 'persin',
-                image: '/assets/projects/persin.jpg',
-                status: 'published',
-                repository: 'https://github.com/Ghostfly/persin-conseil',
-                url: 'https://www.persin.fr',
-                tags: ['Lit-Element', 'Elara', 'Workbox']
-            },
-            {
-                name: 'G-Addiction',
-                slug: 'g-addiction',
-                image: '/assets/projects/g-addiction.png',
-                status: 'published',
-                repository: null,
-                url: 'https://www.g-addiction.com',
-                tags: ['WordPress', 'chosen template']
             }
         ];
     }

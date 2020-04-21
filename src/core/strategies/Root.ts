@@ -14,7 +14,13 @@ export default class Root extends LitElement {
 	public connectedCallback(){
 		super.connectedCallback();
 
-		Elara.UI.applyVariablesFor(Elara.UI.dayOrNight());
+		if(window.matchMedia(Elara.UI.queries.DARK).matches){
+			document.documentElement.classList.add('night');
+		}
+
+		if(window.matchMedia(Elara.UI.queries.LIGHT).matches){
+			document.documentElement.classList.add('day');
+		}
 
 		this._onHashChangeListener = this._onHashChange.bind(this);
 		window.addEventListener('hashchange', this._onHashChangeListener, { passive: true });
@@ -39,10 +45,10 @@ export default class Root extends LitElement {
 		
 	public async load(route: string){
 		return Elara.Bootstrap.load(route, this._content, this._menu, this._menuFade);
-		}
+	}
 		
-	public askModeChange(mode: Elara.Modes): boolean {
-		return Elara.UI.applyVariablesFor(mode);
+	public askModeChange(): void {
+		Elara.UI.toggleMode();
 	}
 		
 	protected get _content(): HTMLDivElement {

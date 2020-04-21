@@ -174,60 +174,28 @@ const Elara = {
         elara: (): Elara.Root => {
             return document.querySelector('elara-app');
         },
-        mode: (): Elara.Modes => {
-            return localStorage.getItem(Elara.UI.modes.localStorageKey) as Elara.Modes;
-        },
-        nightSwitchClick: async (click: Event, host: Elara.UpdatableElement): Promise<boolean> => {
+        nightSwitchClick: async (click: Event, host: Elara.UpdatableElement): Promise<void> => {
             click.preventDefault();
             click.stopPropagation();
-            const hasNightMode = !Elara.UI.isSunny();
-            const future = !hasNightMode ? 'night' : 'day';
-            localStorage.setItem(Elara.UI.modes.localStorageKey, future);
-
             await host.requestUpdate();
             
-            return Elara.UI.elara().askModeChange(future);
+            Elara.UI.elara().askModeChange();
         },
-        applyVariablesFor: (mode: Elara.Modes): boolean => {
-            document.documentElement.classList.add(mode);
-            
-            if(mode === 'night'){
+        toggleMode: (): boolean => {
+            const isDay = document.documentElement.classList.contains('day');
+            const isNight = document.documentElement.classList.contains('night');
+
+            if(isDay){
                 document.documentElement.classList.remove('day');
-            } else {
+                document.documentElement.classList.add('night');
+            }
+
+            if(isNight){
                 document.documentElement.classList.remove('night');
+                document.documentElement.classList.add('day');
             }
 
             return true;
-        },
-        hasSwitched: (): boolean => {
-            return Elara.UI.mode() !== null;
-        },
-        isSunny: (): boolean => {
-            return Elara.UI.mode() === 'day';
-        },
-        dayOrNight: (): Elara.Modes => {
-            if(!Elara.UI.hasSwitched()){
-                if(Elara.UI.isDarkOS()){
-                    return 'day';
-                } else {
-                    return 'night';
-                }
-            } else {
-                if(Elara.UI.isSunny()){
-                    return 'day';
-                } else {
-                    return 'night';
-                }
-            }
-        },
-        isDarkOS(): boolean {
-            if(!window.matchMedia){
-                console.warn('Elara:: Night mode not supported at the moment');
-
-                return false;
-            }
-    
-            return window.matchMedia(Elara.UI.queries.DARK).matches;
         }
     },
     Errors: {
@@ -263,7 +231,7 @@ namespace Elara {
         links: ReadonlyArray<{name: string; route: string}>;
         menu(isHide: boolean): Promise<void>;
         show(route: string): Promise<void>;
-        askModeChange(mode: Elara.Modes): boolean;
+        askModeChange(): void;
     }
 
     // Loadable element

@@ -20,7 +20,6 @@ export class MenuElement extends LitElement {
 	public render() {
         return html`
         <div id="menu" class="menu-content ${this.shown === true ? 'shown' : ''}">
-			<mwc-icon-button class="menu" icon="clear" aria-label="Close menu" @click=${() => Elara.UI.elara().menu(true)}></mwc-icon-button>
 			${this.items.map(link => this._link(link))}
 		</div>
         `;

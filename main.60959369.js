@@ -348,17 +348,17 @@ class r{constructor(e,t,n){this.__parts=[],this.template=e,this.processor=t,this
 
             border-radius: 5px;
             color: var(--elara-font-color);
-            border: 1px solid var(--elara-font-color);
-            box-shadow: 0px 0px 0px rgb(0, 0, 0, 0);
             transition: 0.4s ease-in-out;
             margin: 2vh 0px;
             transform: scale(1);
             font-family: var(--elara-font-display);
-            transition: transform, border .3s;
+            border: 1px solid rgba(134, 134, 134, 0.3);
+            transition: transform, background-color .3s;
+            background-color: rgba(134, 134, 134, 0.2):
         }
 
         .github-card:hover {
-            border: 1px solid var(--elara-font-hover);
+            background-color: var(--elara-font-hover); 
         }
 
         .title {
@@ -590,4 +590,4 @@ class r{constructor(e,t,n){this.__parts=[],this.template=e,this.processor=t,this
 			<div id="content" class="content"></div>
 			<ui-menu id="menu" .items=${this.links} .route=${this.route}></ui-menu>
 		`}_showMenu(){return M(this,void 0,void 0,(function*(){if(this._menu.shown)return void(yield this._hideMenu());if(this._menuFade)return;this._content.classList.contains("hidden")||this._content.classList.add("hidden"),!1===this._menu.shown&&(this._menu.shown=!0);const e=r(300,!0);this._menuFade=this._menu.animate(e.effect,e.options),yield this._menuFade.finished,this._menuFade=null}))}_hideMenu(){return M(this,void 0,void 0,(function*(){if(this._menuFade)return;const e=r(300,!1);this._menuFade=this._menu.animate(e.effect,e.options),yield this._menuFade.finished,this._content.classList.remove("hidden"),this._menu.shown=!1,this._menuFade=null}))}}T.is="elara-app",customElements.define(T.is,T)}]);
-//# sourceMappingURL=main.7ada49d8.js.map
+//# sourceMappingURL=main.60959369.js.map

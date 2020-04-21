@@ -7,6 +7,9 @@ export class ElaraSpinner extends LitElement {
     @property({type: Boolean, reflect: false})
     public active = true;
 
+    @property({type: String, reflect: false})
+    public text = 'Loading';
+
     public static get styles(){
         return css`
         :host {
@@ -15,27 +18,30 @@ export class ElaraSpinner extends LitElement {
         }
 
         .container {
-          display: flex;
-          flex-direction: row;
+          padding-left: 4em;
+          display: grid;
           align-items: center;
-          justify-content: center;
+          text-align: center;
+          grid-template-columns: repeat(2, 1fr);
           width: 100%;
           position: relative;
         }
 
         .dots {
+          align-self: flex-end;
           width: 6px;
           display: grid;
           grid-auto-flow: column;
           grid-auto-columns: max-content;
           grid-column-gap: 5px;
+          margin: 10px;
+          margin-top: -5px;
           animation: ellipsis steps(3, end) 1.8s infinite;
           overflow: hidden;
         }
 
         .text {
-          position: absolute;
-          left: 9.5em;
+          justify-self: flex-end;
           font-size: 1.5em;
         }
 
@@ -58,7 +64,7 @@ export class ElaraSpinner extends LitElement {
     public render() {
         return this.active ? html`
         <div class="container">
-          <span class="text">Loading</span>
+          <span class="text">${this.text}</span>
           <span class="dots">
             <span class="dot"></span>
             <span class="dot"></span>

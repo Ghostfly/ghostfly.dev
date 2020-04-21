@@ -222,7 +222,7 @@ export class GithubWork extends LitElement {
 	public render() {
         return html`
         <div class="loader">
-            <elara-spinner active></elara-spinner>
+            <elara-spinner text="Loading repositories" active></elara-spinner>
         </div>
         ${this.inError ? html`<p>Can't load GitHub repositories.. 😢 <br />You can check on <a class="link" href="https://github.com/ghostfly/">GitHub</a> directly !</p>` : html``}
         ${this.currentPage ? html`

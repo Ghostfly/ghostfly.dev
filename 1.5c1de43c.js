@@ -228,4 +228,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */let o=class extends a.a{render(){return a.d`<slot></slot>`}};o.styles=r,o=Object(n.b)([Object(a.c)("mwc-icon")],o)}}]);
-//# sourceMappingURL=1.6d4e40a1.js.map
+//# sourceMappingURL=1.5c1de43c.js.map

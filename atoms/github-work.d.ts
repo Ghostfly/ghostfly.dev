@@ -7,7 +7,7 @@ interface GithubRepository {
         stargazers: {
             totalCount: number;
         };
-        createdAt: string;
+        updatedAt: string;
         url: string;
         primaryLanguage: {
             name: string;

@@ -338,10 +338,14 @@ class r{constructor(e,t,n){this.__parts=[],this.template=e,this.processor=t,this
             <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
         </svg>`:s.d``}};h([Object(s.e)({type:Boolean,reflect:!1})],p.prototype,"active",void 0),p=h([Object(s.c)("elara-spinner")],p);class f extends s.a{get head(){return{title:null,description:null,type:null,image:null,slug:null}}createRenderRoot(){return this}}var g=function(e,t,n,s){var i,r=arguments.length,o=r<3?t:null===s?s=Object.getOwnPropertyDescriptor(t,n):s;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)o=Reflect.decorate(e,t,n,s);else for(var a=e.length-1;a>=0;a--)(i=e[a])&&(o=(r<3?i(o):r>3?i(t,n,o):i(t,n))||o);return r>3&&o&&Object.defineProperty(t,n,o),o},m=function(e,t,n,s){return new(n||(n=Promise))((function(i,r){function o(e){try{c(s.next(e))}catch(e){r(e)}}function a(e){try{c(s.throw(e))}catch(e){r(e)}}function c(e){var t;e.done?i(e.value):(t=e.value,t instanceof n?t:new n((function(e){e(t)}))).then(o,a)}c((s=s.apply(e,t||[])).next())}))};let v=class extends s.a{constructor(){super(...arguments),this.repositories=[],this.currentPage=null,this.page=0,this.inError=!1,this.chunksLength=6}firstUpdated(){return m(this,void 0,void 0,(function*(){this._spinner.active=!0;const e=new XMLHttpRequest;e.open("POST","https://api.github.com/graphql",!0),e.setRequestHeader("Authorization","bearer "+atob("ZDQ0Y2JmYjVlOGRiOTRjMjJkNThlYjg4ZjFlNjIyODM4YzQ1N2Q3Mg==")),e.send(JSON.stringify({query:'{ search(query: "user:ghostfly is:public", type: REPOSITORY, first: 100) { repositoryCount edges { node { ... on Repository { name stargazers { totalCount } description forkCount updatedAt url primaryLanguage {name} }}}}}'}));const t=()=>{if(!this._spinner)return;this._spinner.active=!1;const e=this._spinner.parentElement;e.removeChild(this._spinner),this.shadowRoot.removeChild(e)},n=()=>{t(),this.inError=!0};e.onerror=n,e.onreadystatechange=()=>m(this,void 0,void 0,(function*(){if(4==e.readyState&&200==e.status){const n=JSON.parse(e.responseText).data.search.edges.sort((e,t)=>new Date(t.node.updatedAt).getTime()-new Date(e.node.updatedAt).getTime());this.repositories=this._chunk(n,this.chunksLength),this.currentPage=this.repositories[this.page],t(),yield this.updateComplete,this._pulse()}403===e.status&&n()}))}))}_chunk(e,t){const n=[],s=e.length;let i=0;for(;i<s;)n.push(e.slice(i,i+=t));return n}static get styles(){return s.b`
         .github-card {
+            justify-content: space-between;
+            display: flex;
+            flex-direction: column;
+
             cursor: pointer;
             width: 85%;
             padding: 2.5vh 5%;
-            display: inline-block;
+            
             border-radius: 5px;
             color: var(--elara-font-color);
             border: 1px solid var(--elara-font-color);
@@ -381,7 +385,8 @@ class r{constructor(e,t,n){this.__parts=[],this.template=e,this.processor=t,this
 
         @media (min-width: 500px){
             .two-cols {
-                columns: 2;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -580,4 +585,4 @@ class r{constructor(e,t,n){this.__parts=[],this.template=e,this.processor=t,this
 			<div id="content" class="content"></div>
 			<ui-menu id="menu" .items=${this.links} .route=${this.route}></ui-menu>
 		`}_showMenu(){return M(this,void 0,void 0,(function*(){if(this._menu.shown)return void(yield this._hideMenu());if(this._menuFade)return;this._content.classList.contains("hidden")||this._content.classList.add("hidden"),!1===this._menu.shown&&(this._menu.shown=!0);const e=r(300,!0);this._menuFade=this._menu.animate(e.effect,e.options),yield this._menuFade.finished,this._menuFade=null}))}_hideMenu(){return M(this,void 0,void 0,(function*(){if(this._menuFade)return;const e=r(300,!1);this._menuFade=this._menu.animate(e.effect,e.options),yield this._menuFade.finished,this._content.classList.remove("hidden"),this._menu.shown=!1,this._menuFade=null}))}}T.is="elara-app",customElements.define(T.is,T)}]);
-//# sourceMappingURL=main.f669b5cf.js.map
+//# sourceMappingURL=main.50cd3ba1.js.map

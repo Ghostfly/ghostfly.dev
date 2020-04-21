@@ -10,7 +10,7 @@ import './atoms/not-found';
 import './atoms/menu';
 
 // lazy import for other components
-import('./vendors');
+import(/* webpackChunkName: "mwc" */'./vendors');
 
 export class ElaraApp extends Root {
 	public static readonly is: string = 'elara-app';

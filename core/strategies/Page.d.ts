@@ -8,6 +8,5 @@ export default class Page extends LitElement implements Elara.Page {
         image: any;
         slug: any;
     };
-    static get styles(): import("lit-element").CSSResult[];
     createRenderRoot(): this;
 }

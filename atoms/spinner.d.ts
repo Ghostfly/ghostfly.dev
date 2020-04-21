@@ -1,5 +1,5 @@
-import PureElement from '../core/strategies/Element';
-export declare class ElaraSpinner extends PureElement {
+import { LitElement } from 'lit-element';
+export declare class ElaraSpinner extends LitElement {
     active: boolean;
     static get styles(): import("lit-element").CSSResult;
     render(): import("lit-element").TemplateResult;

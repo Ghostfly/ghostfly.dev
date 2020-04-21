@@ -7,9 +7,6 @@ export default class Root extends LitElement {
     private _onHashChangeListener;
     connectedCallback(): void;
     disconnectedCallback(): void;
-    /**
- * Create the render root
- */
     protected createRenderRoot(): this;
     protected _onHashChange(event: HashChangeEvent): Promise<void>;
     load(route: string): Promise<void>;

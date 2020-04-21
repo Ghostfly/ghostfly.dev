@@ -1,6 +1,5 @@
-import { CSSResult } from 'lit-element';
-import PureElement from '../core/strategies/Element';
-export declare class MenuElement extends PureElement {
+import { CSSResult, LitElement } from 'lit-element';
+export declare class MenuElement extends LitElement {
     static readonly is: string;
     items: any[];
     route: any;

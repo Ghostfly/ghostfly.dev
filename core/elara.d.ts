@@ -87,17 +87,6 @@ declare const Elara: {
             stackTraceLimit: number;
         };
     };
-    Colors: {
-        social: {
-            github: string;
-            twitter: string;
-            youtube: string;
-            linkedin: string;
-            facebook: string;
-            instagram: string;
-            medium: string;
-        };
-    };
 };
 declare namespace Elara {
     type Modes = 'day' | 'night' | null;
@@ -117,13 +106,6 @@ declare namespace Elara {
         loaded: boolean;
     }
     interface Page extends Elara.Element {
-        head: {
-            title: string;
-            description: string;
-            type: string;
-            image?: string;
-            slug: string;
-        };
     }
     interface UpdatableElement extends HTMLElement {
         requestUpdate(name?: PropertyKey, oldValue?: unknown): Promise<unknown>;

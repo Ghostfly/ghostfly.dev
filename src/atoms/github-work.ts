@@ -1,7 +1,6 @@
-import { property, css, CSSResult, html } from 'lit-element';
+import { property, css, CSSResult, html, customElement, LitElement } from 'lit-element';
 
 import Elara from '../core/elara';
-import PureElement from '../core/strategies/Element';
 import { pulseWith } from '../core/animations';
 import { ElaraSpinner } from './spinner';
 
@@ -21,7 +20,8 @@ interface GithubRepository {
     };
 }
 
-class GithubWork extends PureElement {
+@customElement('ui-github-work')
+export class GithubWork extends LitElement {
     public static readonly is: string = 'ui-github-work';
 
     @property({type: Array})
@@ -265,4 +265,3 @@ class GithubWork extends PureElement {
         return this.shadowRoot.querySelector('elara-spinner');
     }
 }
-customElements.define(GithubWork.is, GithubWork);

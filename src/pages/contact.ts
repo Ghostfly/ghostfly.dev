@@ -120,8 +120,7 @@ export class Contact extends Page {
                 ${this._links.map(link => this._makeLink(link.label, link.link, link.svg))}
             </div>
             <a class="prev" @click=${() => Elara.Routing.navigate('projects')}>< Projects</a>
-        </div>
-        `;
+        </div>`;
     }
 
     private _makeLink(label: string, link: string, svg: SVGTemplateResult){

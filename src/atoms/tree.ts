@@ -1,14 +1,12 @@
-import { html, TemplateResult, property, css, CSSResult } from 'lit-element';
+import { html, TemplateResult, property, css, CSSResult, LitElement, customElement } from 'lit-element';
 import Elara from '../core/elara';
-import PureElement from '../core/strategies/Element';
 
 /**
  * @class Tree
  * @extends {PureElement}
  */
-export class Tree extends PureElement {
-    public static readonly is: string = 'ui-tree';
-
+@customElement('ui-tree')
+export class Tree extends LitElement {
     @property({type: Number, reflect: true})
     public height = 300;
     @property({type: Number, reflect: true})
@@ -78,5 +76,3 @@ export class Tree extends PureElement {
         return this.shadowRoot.querySelector('#tree');
     }
 }
-
-customElements.define(Tree.is, Tree);

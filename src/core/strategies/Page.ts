@@ -12,10 +12,6 @@ export default class Page extends LitElement implements Elara.Page {
         };
     }
 
-    public static get styles(){
-        return [Elara.UI.typography.heading];
-    }
-
     createRenderRoot(){
         return this;
     }

@@ -1,14 +1,10 @@
-import { property, css, CSSResult, html } from 'lit-element';
+import { property, html, LitElement, customElement } from 'lit-element';
 
 import Elara from '../core/elara';
-import PureElement from '../core/strategies/Element';
 import { fadeWith } from '../core/animations';
 
-import Page from '../core/strategies/Page';
-
-class Profile extends PureElement implements Elara.LoadableElement {
-    public static readonly is: string = 'ui-profile';
-
+@customElement('ui-profile')
+export class Profile extends LitElement implements Elara.LoadableElement {
     @property({type: String, reflect: true})
     public route: string;
 
@@ -70,11 +66,9 @@ class Profile extends PureElement implements Elara.LoadableElement {
         const route = Elara.Routing.hashChange(event);
         this.route = route;
     }
-
-    public static get styles(): CSSResult[] {
-        return [
-        ... Page.styles,
-        css`
+    public render() {
+        return html`
+        <style>
         .profile {
             width: 24vw;
             padding: 4vh 3vw;
@@ -145,11 +139,8 @@ class Profile extends PureElement implements Elara.LoadableElement {
 
         .day-night{
             cursor: pointer;
-        }`];
-    }
-
-    public render() {
-        return html`
+        }
+        </style>
         <div role="link" id="container" class="profile ${this.route === 'home' || !this.route ? '' : 'is-link'}" @click=${() => Elara.Routing.navigate('home')}>
             <img id="pic" class="pic" sizing="contain" src="/assets/me.svg"></img>
             <div class="bio">
@@ -198,4 +189,3 @@ class Profile extends PureElement implements Elara.LoadableElement {
         return this.shadowRoot.querySelector('#container');
     }
 }
-customElements.define(Profile.is, Profile);

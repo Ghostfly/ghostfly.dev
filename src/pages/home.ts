@@ -2,11 +2,10 @@ import Page from '../core/strategies/Page';
 
 import '../atoms/github-work';
 import '../atoms/profile';
-import { html } from 'lit-element';
+import { html, customElement } from 'lit-element';
 
-class Home extends Page {
-    public static readonly is: string = 'ui-home';
-
+@customElement('ui-home')
+export class Home extends Page {
     public get head(){
         return {
             title: 'Work',
@@ -26,4 +25,3 @@ class Home extends Page {
         `;
     }
 }
-customElements.define(Home.is, Home);

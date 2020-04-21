@@ -1,12 +1,11 @@
-import { property, css, CSSResult, customElement, html } from 'lit-element';
+import { property, css, CSSResult, customElement, html, LitElement } from 'lit-element';
 
 import Elara from '../core/elara';
-import PureElement from '../core/strategies/Element';
 
 import './tree';
 
 @customElement('ui-not-found')
-export class NotFound extends PureElement {
+export class NotFound extends LitElement {
     @property({type: String, reflect: true})
     public asked: string;
 

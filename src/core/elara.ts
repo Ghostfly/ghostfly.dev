@@ -287,20 +287,10 @@ namespace Elara {
     }
 
     // Loadable element
-    export interface LoadableElement extends Elara.Element {
-        loaded: boolean;
-    }
+    export interface LoadableElement extends Elara.Element { loaded: boolean }
 
     // Page with helmet
-    export interface Page extends Elara.Element {
-        head: {
-            title: string;
-            description: string;
-            type: string;
-            image?: string;
-            slug: string;
-        };
-    }
+    export interface Page extends Elara.Element {}
 
     export interface UpdatableElement extends HTMLElement {
         requestUpdate(name?: PropertyKey, oldValue?: unknown): Promise<unknown>;

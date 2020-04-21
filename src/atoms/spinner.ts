@@ -1,11 +1,9 @@
-import PureElement from '../core/strategies/Element';
-
 import {
-    html, customElement, css, property
-  } from 'lit-element';
+    html, customElement, css, property, LitElement
+} from 'lit-element';
 
 @customElement('elara-spinner')
-export class ElaraSpinner extends PureElement {
+export class ElaraSpinner extends LitElement {
     @property({type: Boolean, reflect: false})
     public active = true;
 

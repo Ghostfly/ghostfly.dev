@@ -24,14 +24,8 @@ export default class Root extends LitElement {
 		super.disconnectedCallback();
 		window.removeEventListener('hashchange', this._onHashChangeListener);
 	}
-		
-		/**
-	 * Create the render root
-	 */
+	
 	protected createRenderRoot(){
-		// @tool: make elara-app in light-dom
-		// return this;
-
 		return this;
 	}
 

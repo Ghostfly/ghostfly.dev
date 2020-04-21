@@ -1,4 +1,4 @@
-import { html } from 'lit-element';
+import { html, customElement } from 'lit-element';
 
 import Elara from '../core/elara';
 import Page from '../core/strategies/Page';
@@ -14,10 +14,8 @@ interface Project {
     tags: string[];
 };
 
-
-class Projects extends Page {
-    public static readonly is: string = 'ui-projects';
-
+@customElement('ui-projects')
+export class Projects extends Page {
     public get head(){
         return {
             title: 'Projects',
@@ -232,4 +230,3 @@ class Projects extends Page {
         `;
     }
 }
-customElements.define(Projects.is, Projects);

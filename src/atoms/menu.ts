@@ -1,9 +1,8 @@
-import { css, CSSResult, property, html } from 'lit-element';
+import { css, CSSResult, property, html, LitElement } from 'lit-element';
 
 import Elara from '../core/elara';
-import PureElement from '../core/strategies/Element';
 
-export class MenuElement extends PureElement {
+export class MenuElement extends LitElement {
     public static readonly is: string = 'ui-menu';
 
     @property({type: Array, reflect: false})

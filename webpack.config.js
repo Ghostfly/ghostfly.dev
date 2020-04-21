@@ -5,17 +5,6 @@ const merge = require('webpack-merge');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const CreateFilePlugin = require('create-file-webpack')
-
-const {exec} = require('child_process');
-const {writeFileSync, readFileSync} = require('fs');
-
-exec('git rev-parse --short HEAD', (_err, stdout) => {
-  writeFileSync('src/config.json', JSON.stringify({
-    name: 'Elara',
-    revision: 'folio-' + stdout.replace('\n', '')
-  }, null, 2));
-});
 
 const ENV = process.argv.find(arg => arg.includes('production'))
   ? 'production'
@@ -114,11 +103,6 @@ const developmentConfig = merge([
       new CopyWebpackPlugin(polyfills),
       new HtmlWebpackPlugin({
         template: INDEX_TEMPLATE
-      }),
-      new CreateFilePlugin({
-        path: './dist',
-        fileName: 'config.json',
-        content: readFileSync('./src/config.json')
       })
     ],
 
@@ -147,11 +131,6 @@ const productionConfig = merge([
           minifyCSS: true,
           minifyJS: true
         }
-      }),
-      new CreateFilePlugin({
-        path: './dist',
-        fileName: 'config.json',
-        content: readFileSync('./src/config.json')
       })
     ]
   }

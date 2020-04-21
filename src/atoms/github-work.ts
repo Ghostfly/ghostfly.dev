@@ -12,7 +12,7 @@ interface GithubRepository {
         stargazers: {
             totalCount: number;
         };
-        createdAt: string;
+        updatedAt: string;
         url: string;
         primaryLanguage: {
             name: string;
@@ -43,7 +43,7 @@ export class GithubWork extends LitElement {
 
         const request = new XMLHttpRequest();
 
-        const queryObj = {query: '{ search(query: "user:ghostfly is:public", type: REPOSITORY, first: 100) { repositoryCount edges { node { ... on Repository { name stargazers { totalCount } description forkCount createdAt url primaryLanguage {name} }}}}}'};
+        const queryObj = {query: '{ search(query: "user:ghostfly is:public", type: REPOSITORY, first: 100) { repositoryCount edges { node { ... on Repository { name stargazers { totalCount } description forkCount updatedAt url primaryLanguage {name} }}}}}'};
         request.open('POST', 'https://api.github.com/graphql', true);
         request.setRequestHeader('Authorization', 'bearer ' + atob('ZDQ0Y2JmYjVlOGRiOTRjMjJkNThlYjg4ZjFlNjIyODM4YzQ1N2Q3Mg=='));
         request.send(JSON.stringify(queryObj));
@@ -67,8 +67,8 @@ export class GithubWork extends LitElement {
         request.onreadystatechange = async () => {
             if (request.readyState == 4 && request.status == 200) {
                 const repos = JSON.parse(request.responseText);
-                const filtered = repos.data.search.edges.sort((a: GithubRepository, b: GithubRepository) => { 
-                    return new Date(b.node.createdAt).getTime() - new Date(a.node.createdAt).getTime();
+                const filtered = repos.data.search.edges.sort((a: GithubRepository, b: GithubRepository) => {
+                    return new Date(b.node.updatedAt).getTime() - new Date(a.node.updatedAt).getTime();
                 });
 
                 this.repositories = this._chunk(filtered, this.chunksLength);

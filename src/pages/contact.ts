@@ -69,7 +69,7 @@ export class Contact extends Page {
         return html`
         <div class="contact">
             <h1>${this.head.title}</h1>
-            <div class="grid networks">
+            <div class="networks">
                 ${this._links.map(link => this._makeLink(link.label, link.link, link.svg))}
             </div>
             <a class="prev" @click=${() => Elara.Routing.navigate('projects')}>< Projects</a>

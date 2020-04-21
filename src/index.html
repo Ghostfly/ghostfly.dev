@@ -270,7 +270,19 @@
         
         .clearfix { clear: both }
 
-        .networks { height: 50%; background-color: rgba(86, 86, 86, 0.8); margin: 1em; }
+        .networks { 
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          align-items: center;
+          justify-content: center;
+          height: 50%; 
+          background-color: rgba(86, 86, 86, 0.8); 
+          margin: 1em; 
+        }
+
+        .networks .item {
+          text-align: center;
+        }
 
         .networks svg, .networks mwc-icon {
             cursor: pointer;

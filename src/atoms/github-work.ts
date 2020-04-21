@@ -228,12 +228,15 @@ export class GithubWork extends LitElement {
         `;
     }
 
-    private _pulse(){
-        const sections = this.shadowRoot.querySelectorAll('.two-cols section');
+    private async _pulse(){
+        const sections = Array.from(this.shadowRoot.querySelectorAll('.two-cols section'));
         const animation = pulseWith(600);
-        sections.forEach((section) => {
-            section.animate(animation.effect, animation.options);
-        });
+        const toAnimate = sections.sort(() => Math.random() - 0.5).slice(0, 2);
+
+        for(const section of toAnimate){
+            const handle = section.animate(animation.effect, animation.options);
+            await handle.finished;
+        }
     }
 
     private get _pagination(){

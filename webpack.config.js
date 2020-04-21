@@ -10,11 +10,11 @@ const CreateFilePlugin = require('create-file-webpack')
 const {exec} = require('child_process');
 const {writeFileSync, readFileSync} = require('fs');
 
-exec("git rev-parse --short HEAD", (_err, stdout) => {
+exec('git rev-parse --short HEAD', (_err, stdout) => {
   writeFileSync('src/config.json', JSON.stringify({
     name: 'Elara',
     revision: 'folio-' + stdout.replace('\n', '')
-  }, null, 2))
+  }, null, 2));
 });
 
 const ENV = process.argv.find(arg => arg.includes('production'))
@@ -55,22 +55,22 @@ const polyfills = [
     flatten: true
   },
   {
-    from: resolve(`./src/config.json`),
+    from: resolve('./src/config.json'),
     to: OUTPUT_PATH,
     flatten: true
   },
   {
-    from: resolve(`./src/robots.txt`),
+    from: resolve('./src/robots.txt'),
     to: OUTPUT_PATH,
     flatten: true
   },
   {
-    from: resolve(`./src/favicon.ico`),
+    from: resolve('./src/favicon.ico'),
     to: OUTPUT_PATH,
     flatten: true
   },
   {
-    from: resolve(`./src/boot.js`),
+    from: resolve('./src/boot.js'),
     to: OUTPUT_PATH,
     flatten: true
   }
@@ -93,30 +93,10 @@ const commonConfig = merge([
           use: ['css-loader'],
         },
         {
-          test: /\.js$/,
-          use: [
-            {
-              loader: 'babel-loader',
-              options: {
-                babelrc: true,
-                extends: join(__dirname, '/.babelrc'),
-                cacheDirectory: true,
-                envName: ENV
-              }
-            }
-          ]
-        },
-        {
           enforce: 'pre',
           test: /\.tsx?$/,
           loader: 'eslint-loader',
-          exclude: /node_modules/,
-          options: {
-            emitWarning: ENV === 'development',
-            failOnWarning: ENV === 'development',
-            failOnError: false,
-            formatter: require('eslint/lib/cli-engine/formatters/stylish')
-          },
+          exclude: /node_modules/
         },
         {
           test: /\.tsx?$/,

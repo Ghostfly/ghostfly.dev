@@ -1,4 +1,4 @@
-import { css, CSSResult, html } from 'lit-element';
+import { html } from 'lit-element';
 
 import Elara from '../core/elara';
 import Page from '../core/strategies/Page';
@@ -18,25 +18,22 @@ class About extends Page {
         };
     }
 
-    public static get styles(): CSSResult[] {
-        return [
-            ... Page.styles,
-            css`
-            .cv { color: var(--elara-secondary); cursor: pointer; }
-            .about { margin-bottom: 2em }
-            .prev, .next { cursor: pointer; font-weight: bold; transition: color .3s;}
-            .prev:hover, .next:hover {
-                color: var(--elara-primary);
-            }
-            .pagination {
-                display: flex;
-                justify-content: space-between;
-            }
-        `];
-    }
-
 	public render() {
         return html`
+        <style>
+        .cv { color: var(--elara-secondary); cursor: pointer; }
+        .about { margin-bottom: 2em }
+        .prev, .next { cursor: pointer; font-weight: bold; transition: color .3s;}
+        .prev:hover, .next:hover {
+            color: var(--elara-primary);
+        }
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            user-select: none;
+        }
+        </style>
         <div class="about">
             <h1>${this.head.title}</h1>
             <div class="row">

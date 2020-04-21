@@ -235,7 +235,7 @@ class r{constructor(e,t,n){this.__parts=[],this.template=e,this.processor=t,this
         }
 
         .dot {
-          background: #1f1300;
+          background: var(--elara-font-color);
           display: block;
           width: 6px;
           height: 6px;
@@ -509,4 +509,4 @@ class r{constructor(e,t,n){this.__parts=[],this.template=e,this.processor=t,this
 			<div id="content" class="content"></div>
 			<ui-menu id="menu" .items=${this.links} .route=${this.route}></ui-menu>
 		`}_showMenu(){return L(this,void 0,void 0,(function*(){if(this._menu.shown)return void(yield this._hideMenu());if(this._menuFade)return;this._content.classList.contains("hidden")||this._content.classList.add("hidden"),!1===this._menu.shown&&(this._menu.shown=!0);const e=r(300,!0);this._menuFade=this._menu.animate(e.effect,e.options),yield this._menuFade.finished,this._menuFade=null}))}_hideMenu(){return L(this,void 0,void 0,(function*(){if(this._menuFade)return;const e=r(300,!1);this._menuFade=this._menu.animate(e.effect,e.options),yield this._menuFade.finished,this._content.classList.remove("hidden"),this._menu.shown=!1,this._menuFade=null}))}}M.is="elara-app",customElements.define(M.is,M)}]);
-//# sourceMappingURL=main.dbd5f563.js.map
+//# sourceMappingURL=main.b4ae75ca.js.map

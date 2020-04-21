@@ -344,8 +344,8 @@ class r{constructor(e,t,n){this.__parts=[],this.template=e,this.processor=t,this
 
             cursor: pointer;
             width: 85%;
-            padding: 2.5vh 5%;
-            
+            padding: 5%;
+
             border-radius: 5px;
             color: var(--elara-font-color);
             border: 1px solid var(--elara-font-color);
@@ -362,24 +362,29 @@ class r{constructor(e,t,n){this.__parts=[],this.template=e,this.processor=t,this
         }
 
         .title {
-            font-size: 24px;
+            font-size: 18px;
             font-weight: bold;
             margin: 1vh 0px;
         }
 
         .description {
-            font-size: 18px;
+            font-size: 14px;
             margin: 2vh 0px;
             font-weight: bold;
         }
 
         .bottom {
             margin: 1vh 0px;
-            font-size: 14px;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .bottom > span {
-            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
             font-weight: bold;
         }
 
@@ -585,4 +590,4 @@ class r{constructor(e,t,n){this.__parts=[],this.template=e,this.processor=t,this
 			<div id="content" class="content"></div>
 			<ui-menu id="menu" .items=${this.links} .route=${this.route}></ui-menu>
 		`}_showMenu(){return M(this,void 0,void 0,(function*(){if(this._menu.shown)return void(yield this._hideMenu());if(this._menuFade)return;this._content.classList.contains("hidden")||this._content.classList.add("hidden"),!1===this._menu.shown&&(this._menu.shown=!0);const e=r(300,!0);this._menuFade=this._menu.animate(e.effect,e.options),yield this._menuFade.finished,this._menuFade=null}))}_hideMenu(){return M(this,void 0,void 0,(function*(){if(this._menuFade)return;const e=r(300,!1);this._menuFade=this._menu.animate(e.effect,e.options),yield this._menuFade.finished,this._content.classList.remove("hidden"),this._menu.shown=!1,this._menuFade=null}))}}T.is="elara-app",customElements.define(T.is,T)}]);
-//# sourceMappingURL=main.50cd3ba1.js.map
+//# sourceMappingURL=main.7ada49d8.js.map

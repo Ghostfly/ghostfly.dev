@@ -100,10 +100,14 @@ export class GithubWork extends LitElement {
     public static get styles(): CSSResult {
         return css`
         .github-card {
+            justify-content: space-between;
+            display: flex;
+            flex-direction: column;
+
             cursor: pointer;
             width: 85%;
             padding: 2.5vh 5%;
-            display: inline-block;
+            
             border-radius: 5px;
             color: var(--elara-font-color);
             border: 1px solid var(--elara-font-color);
@@ -143,7 +147,8 @@ export class GithubWork extends LitElement {
 
         @media (min-width: 500px){
             .two-cols {
-                columns: 2;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 

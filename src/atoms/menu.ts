@@ -19,7 +19,7 @@ export class MenuElement extends LitElement {
 
 	public render() {
         return html`
-        <div id="menu" class="menu-content ${this.shown === true ? 'shown' : ''}">
+        <div class="menu-content ${this.shown === true ? 'shown' : ''}">
 			${this.items.map(link => this._link(link))}
 		</div>
         `;

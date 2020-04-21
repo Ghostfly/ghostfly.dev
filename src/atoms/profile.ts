@@ -69,7 +69,7 @@ export class Profile extends LitElement implements Elara.LoadableElement {
     public render() {
         return html`
         <div role="link" id="container" class="profile ${this.route === 'home' || !this.route ? '' : 'is-link'}" @click=${() => Elara.Routing.navigate('home')}>
-            <img id="pic" class="pic" sizing="contain" src="/assets/me.svg"></img>
+            <img id="pic" alt="Me" class="pic" sizing="contain" src="/assets/me.svg"></img>
             <div class="bio">
                 <div class="username">
                     <span>Léonard C. > @ghostfly</span>

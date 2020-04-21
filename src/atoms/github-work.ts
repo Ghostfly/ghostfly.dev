@@ -38,54 +38,58 @@ export class GithubWork extends LitElement {
 
     public chunksLength = 6;
 
+    private _hideSpinner() {
+        if(!this._spinner) return;
+
+        this._spinner.active = false;
+        const container = this._spinner.parentElement;
+        container.removeChild(this._spinner);
+        this.shadowRoot.removeChild(container);
+    }
+
+    private _reposByUpdateDate(repos: GithubRepository[]){
+        return repos.sort((a: GithubRepository, b: GithubRepository) => {
+            return new Date(b.node.updatedAt).getTime() - new Date(a.node.updatedAt).getTime();
+        });
+    }
+
     public async firstUpdated(): Promise<void> {
         this._spinner.active = true;
 
-        const request = new XMLHttpRequest();
-
         const queryObj = {query: '{ search(query: "user:ghostfly is:public", type: REPOSITORY, first: 100) { repositoryCount edges { node { ... on Repository { name stargazers { totalCount } description forkCount updatedAt url primaryLanguage {name} }}}}}'};
-        request.open('POST', 'https://api.github.com/graphql', true);
-        request.setRequestHeader('Authorization', 'bearer ' + atob('ZDQ0Y2JmYjVlOGRiOTRjMjJkNThlYjg4ZjFlNjIyODM4YzQ1N2Q3Mg=='));
-        request.send(JSON.stringify(queryObj));
+        
+        const headers = new Headers();
+        headers.append('Authorization', 'bearer '+ atob('ZDQ0Y2JmYjVlOGRiOTRjMjJkNThlYjg4ZjFlNjIyODM4YzQ1N2Q3Mg=='));
 
-        const hideSpinner = () => {
-            if(!this._spinner) return;
+        try {
+            const req = await fetch('https://api.github.com/graphql', {
+                method: 'POST',
+                headers,
+                body: JSON.stringify(queryObj)
+            });
 
-            this._spinner.active = false;
-            const container = this._spinner.parentElement;
-            container.removeChild(this._spinner);
-            this.shadowRoot.removeChild(container);
-        };
+            this._hideSpinner();
 
-        const onError = () => {
-            hideSpinner();
-            this.inError = true;
-        };
-
-        request.onerror = onError;
-
-        request.onreadystatechange = async () => {
-            if (request.readyState == 4 && request.status == 200) {
-                const repos = JSON.parse(request.responseText);
-                const filtered = repos.data.search.edges.sort((a: GithubRepository, b: GithubRepository) => {
-                    return new Date(b.node.updatedAt).getTime() - new Date(a.node.updatedAt).getTime();
-                });
+            if(req.status === 200){
+                const text = await req.text();
+                const repos = JSON.parse(text);
+                const filtered = this._reposByUpdateDate(repos.data.search.edges);
 
                 this.repositories = this._chunk(filtered, this.chunksLength);
 
                 this.currentPage = this.repositories[this.page];
-                hideSpinner();
                 await this.updateComplete;
                 this._pulse();
+            } else if(req.status === 403){
+                this.inError = true;
             }
-
-            if(request.status === 403){
-                onError();
-            }
-        };
+        } catch(err){
+            this._hideSpinner();
+            this.inError = true;
+        }
     }
 
-    private _chunk(arr: Record<string, object>[], len: number) {
+    private _chunk(arr: GithubRepository[], len: number) {
         const chunks = [];
         const n = arr.length;
         let i = 0;
@@ -254,7 +258,6 @@ export class GithubWork extends LitElement {
             this.page--;
             this.currentPage = this.repositories[this.page];
             await this.updateComplete;
-            this._pulse();
         }}>
             <mwc-icon-button aria-label="Previous page" icon="keyboard_arrow_left"></mwc-icon-button>
         </a>
@@ -267,7 +270,6 @@ export class GithubWork extends LitElement {
             this.page++;
             this.currentPage = this.repositories[this.page];
             await this.updateComplete;
-            this._pulse();
         }}>
             <mwc-icon-button aria-label="Next page" icon="keyboard_arrow_right"></mwc-icon-button>
         </a>

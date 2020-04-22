@@ -37,7 +37,7 @@ export class Projects extends Page {
                 repository: null,
                 status: 'Work in progress',
                 url: null,
-                tags: ['E-Commerce', 'Elara', 'Custom menswear']
+                tags: ['E-Commerce', 'Wordpress', 'WooCommerce', 'Elara']
             },
             {
                 name: 'Persin Conseil',
@@ -46,7 +46,7 @@ export class Projects extends Page {
                 status: 'published',
                 repository: 'https://github.com/Ghostfly/persin-conseil',
                 url: 'https://www.persin.fr',
-                tags: ['Lit-Element', 'Offline ready', 'structured data', 'PWA 100%']
+                tags: ['Lit-Element', 'Offline ready', 'structured data', 'no-js capable']
             },
             {
                 name: 'Ghostfly.dev',
@@ -64,7 +64,7 @@ export class Projects extends Page {
                 status: 'published',
                 repository: 'https://github.com/ghostfly/cheno-website',
                 url: 'https://www.cheno.fr',
-                tags: ['Elara', 'HTML5', 'CSS3', 'TypeScript']
+                tags: ['Elara', 'Headless Wordpress']
             },
             {
                 name: 'Dobrunia Design',
@@ -73,7 +73,7 @@ export class Projects extends Page {
                 status: 'published',
                 repository: 'https://github.com/ghostfly/dobrunia-design',
                 url: 'https://www.dobruniadesign.com',
-                tags: ['Élara', 'WordPress', 'Design']
+                tags: ['Elara', 'Headless WordPress']
             }
         ];
     }

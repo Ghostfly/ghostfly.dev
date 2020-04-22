@@ -58,7 +58,7 @@ export class ElaraApp extends Root {
 		return html`
 			<ui-profile></ui-profile>
 			<mwc-icon-button id="handle" class="menu" icon="menu" aria-label="Menu" @click=${this._showMenu}></mwc-icon-button>
-			<div id="content" class="content"></div>
+			<main id="content" class="content"></main>
 			<ui-menu id="menu" .items=${this.links} .route=${this.route}></ui-menu>
 		`;
 	}

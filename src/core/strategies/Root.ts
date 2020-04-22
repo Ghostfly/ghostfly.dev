@@ -25,11 +25,11 @@ export default class Root extends LitElement {
 	public connectedCallback(){
 		super.connectedCallback();
 
-		if(window.matchMedia(this._queries.LIGHT).matches){
+		if(window.matchMedia(this._queries.DARK).matches){
 			document.body.classList.add('night');
 		}
 
-		if(window.matchMedia(this._queries.DARK).matches){
+		if(window.matchMedia(this._queries.LIGHT).matches){
 			document.body.classList.add('day');
 		}
 

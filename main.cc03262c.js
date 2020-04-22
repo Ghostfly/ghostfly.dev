@@ -452,7 +452,7 @@ class r{constructor(e,t,n){this.__parts=[],this.template=e,this.processor=t,this
                 <h2>Towards studies</h2>
                 <div>
                     <p>After a rather unusual path, I ended up in a post baccalauréat IT diploma called BTS SIO, successfully validated. Bringing me to Miage, combining my computer aspirations, and my attraction for entrepreneurship. I've always dreamed of building my own business, in Nice, Holland.. Giving me the opportunity to create my own job and keep my creativity as sharp as possible. Just stayin' motivated.</p><p>Besides if you want to read it, here is my current 
-                    <a role="link" class="cv" @click=${()=>c.Routing.redirect("/assets/resume.pdf")}>CV</a>.</p>
+                    <a role="link" class="cv" @click=${()=>c.Routing.redirect("/assets/resume.pdf")}>CV</a> (Update in progress).</p>
                 </div>
             </div>
             <div class="pagination">
@@ -517,4 +517,4 @@ class r{constructor(e,t,n){this.__parts=[],this.template=e,this.processor=t,this
 			<div id="content" class="content"></div>
 			<ui-menu id="menu" .items=${this.links} .route=${this.route}></ui-menu>
 		`}_showMenu(){return L(this,void 0,void 0,(function*(){if(this._menu.shown)return void(yield this._hideMenu());if(this._menuFade)return;this._content.classList.contains("hidden")||this._content.classList.add("hidden"),!1===this._menu.shown&&(this._menu.shown=!0);const e=r(300,!0);this._menuFade=this._menu.animate(e.effect,e.options),yield this._menuFade.finished,this._menuFade=null}))}_hideMenu(){return L(this,void 0,void 0,(function*(){if(this._menuFade)return;const e=r(300,!1);this._menuFade=this._menu.animate(e.effect,e.options),yield this._menuFade.finished,this._content.classList.remove("hidden"),this._menu.shown=!1,this._menuFade=null}))}}M.is="elara-app",customElements.define(M.is,M)}]);
-//# sourceMappingURL=main.536bdffd.js.map
+//# sourceMappingURL=main.cc03262c.js.map

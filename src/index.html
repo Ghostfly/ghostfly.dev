@@ -63,6 +63,8 @@
         --elara-highlight: #f2f2f2;
         --elara-font-primary: 'Hind', sans-serif;
         --elara-font-display: 'Questrial', serif;
+        --box-elevation-1: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+        --box-elevation-2: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
       }
 
       * {
@@ -243,6 +245,13 @@
             visibility: visible;
         }
 
+        .project:hover {
+          box-shadow: var(--box-elevation-1);
+        }
+
+        .hidden-content .enabled {
+          cursor: pointer;
+        }
         .hidden-content svg {
             height: 1em;
             width: 1em;
@@ -305,7 +314,7 @@
           align-items: center;
           justify-content: center;
           height: 50%; 
-          background-color: rgba(86, 86, 86, 0.2); 
+          background-color: rgba(86, 86, 86, 0.7);
           transition: background-color .3s;
           margin: 1em; 
         }
@@ -319,7 +328,7 @@
         }
 
         .networks .item:hover {
-          background-color: rgba(86, 86, 86, 1); 
+          box-shadow: var(--box-elevation-1);
         }
 
         .networks svg {

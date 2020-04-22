@@ -121,13 +121,13 @@ export class GithubWork extends LitElement {
             margin: 2vh 0px;
             transform: scale(1);
             font-family: var(--elara-font-display);
-            border: 1px solid rgba(134, 134, 134, 0.3);
-            transition: transform, background-color .3s;
+            box-shadow: var(--box-elevation-1);
+            transition: all .3s;
             background-color: rgba(134, 134, 134, 0.2):
         }
 
         .github-card:hover {
-            background-color: var(--elara-font-hover); 
+            box-shadow: var(--box-elevation-2);
         }
 
         .title {

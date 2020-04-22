@@ -11,3 +11,8 @@ export declare class Contact extends Page {
     render(): import("lit-element").TemplateResult;
     private _makeLink;
 }
+declare global {
+    interface HTMLElementTagNameMap {
+        'ui-contact': Contact;
+    }
+}

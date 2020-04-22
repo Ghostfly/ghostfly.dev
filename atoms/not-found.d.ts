@@ -5,3 +5,8 @@ export declare class NotFound extends LitElement {
     static get styles(): CSSResult;
     render(): import("lit-element").TemplateResult;
 }
+declare global {
+    interface HTMLElementTagNameMap {
+        'ui-not-found': NotFound;
+    }
+}

@@ -5,3 +5,8 @@ export declare class ElaraSpinner extends LitElement {
     static get styles(): import("lit-element").CSSResult;
     render(): import("lit-element").TemplateResult;
 }
+declare global {
+    interface HTMLElementTagNameMap {
+        'elara-spinner': ElaraSpinner;
+    }
+}

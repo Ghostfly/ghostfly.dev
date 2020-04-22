@@ -22,6 +22,7 @@ export declare class GithubWork extends LitElement {
     page: number;
     inError: boolean;
     _spinner: ElaraSpinner;
+    private _sections;
     chunksLength: number;
     private _hideSpinner;
     private _reposByUpdateDate;
@@ -36,5 +37,10 @@ export declare class GithubWork extends LitElement {
     private get _backT();
     private get _nextT();
     private _pulse;
+}
+declare global {
+    interface HTMLElementTagNameMap {
+        'github-work': GithubWork;
+    }
 }
 export {};

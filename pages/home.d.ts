@@ -11,3 +11,8 @@ export declare class Home extends Page {
     };
     render(): import("lit-element").TemplateResult;
 }
+declare global {
+    interface HTMLElementTagNameMap {
+        'ui-home': Home;
+    }
+}

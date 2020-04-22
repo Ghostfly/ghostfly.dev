@@ -14,3 +14,8 @@ export declare class Projects extends Page {
     private _card;
     render(): import("lit-element").TemplateResult;
 }
+declare global {
+    interface HTMLElementTagNameMap {
+        'ui-projects': Projects;
+    }
+}

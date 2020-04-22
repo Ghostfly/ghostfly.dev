@@ -1,8 +1,10 @@
 import { LitElement } from 'lit-element';
-import Elara from '../core/elara';
-export declare class Profile extends LitElement implements Elara.LoadableElement {
+import { LoadableElement } from '../core/elara';
+export declare class Profile extends LitElement implements LoadableElement {
     route: string;
     loaded: boolean;
+    private picture;
+    private container;
     private _hashChangeListener;
     connectedCallback(): void;
     private _onProfilePictureLoaded;
@@ -14,6 +16,9 @@ export declare class Profile extends LitElement implements Elara.LoadableElement
     private _nightToggle;
     private get _day();
     private get _night();
-    private get picture();
-    private get container();
+}
+declare global {
+    interface HTMLElementTagNameMap {
+        'ui-profile': Profile;
+    }
 }

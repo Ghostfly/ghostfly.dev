@@ -7,3 +7,8 @@ export declare class MenuElement extends LitElement {
     render(): import("lit-element").TemplateResult;
     private _link;
 }
+declare global {
+    interface HTMLElementTagNameMap {
+        'ui-menu': MenuElement;
+    }
+}

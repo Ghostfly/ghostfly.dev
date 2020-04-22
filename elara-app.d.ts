@@ -18,3 +18,8 @@ export declare class ElaraApp extends Root {
     private _showMenu;
     private _hideMenu;
 }
+declare global {
+    interface HTMLElementTagNameMap {
+        'elara-app': ElaraApp;
+    }
+}

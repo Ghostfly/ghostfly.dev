@@ -54,7 +54,7 @@ export class Projects extends Page {
                 image: '/assets/me.svg',
                 repository: 'https://github.com/Ghostfly/ghostfly.dev/tree/master',
                 status: 'published',
-                url: 'https://www.ghostfly.dev',
+                url: 'https://ghostfly.dev',
                 tags: ['Elara', 'LitElement', 'Github Pages']
             },
             {

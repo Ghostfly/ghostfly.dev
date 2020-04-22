@@ -73,7 +73,7 @@ export class Projects extends Page {
                 status: 'published',
                 repository: 'https://github.com/ghostfly/dobrunia-design',
                 url: 'https://www.dobruniadesign.com',
-                tags: ['Elara', 'Headless WordPress']
+                tags: ['Elara', 'Headless Wordpress']
             }
         ];
     }

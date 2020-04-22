@@ -1,8 +1,8 @@
-import { property, css, CSSResult, html, customElement, LitElement, query } from 'lit-element';
+import { property, css, CSSResult, html, customElement, LitElement, query, queryAll } from 'lit-element';
 
-import Elara from '../core/elara';
 import { pulseWith } from '../core/animations';
 import { ElaraSpinner } from './spinner';
+import { Elara } from '../core/elara';
 
 interface GithubRepository {
     node: {
@@ -20,9 +20,9 @@ interface GithubRepository {
     };
 }
 
-@customElement('ui-github-work')
+@customElement('github-work')
 export class GithubWork extends LitElement {
-    public static readonly is: string = 'ui-github-work';
+    public static readonly is: string = 'github-work';
 
     @property({type: Array})
     public repositories: GithubRepository[][] = [];
@@ -38,6 +38,9 @@ export class GithubWork extends LitElement {
 
     @query('elara-spinner')
     public _spinner: ElaraSpinner;
+
+    @queryAll('.two-cols section')
+    private _sections: NodeListOf<HTMLElement>;
 
     public chunksLength = 6;
 
@@ -207,7 +210,7 @@ export class GithubWork extends LitElement {
 
     private _cardT(repository: GithubRepository) {
         return html`
-        <section class="github-card" @click=${() => Elara.Routing.redirect(repository.node.url)}}>
+        <section class="github-card" @click=${() => Elara().router.redirect(repository.node.url)}}>
             <div class="title">${repository.node.name}</div>
             ${repository.node.description ? html`<div class="description">${repository.node.description}</div>` : html``}
             <div class="bottom">
@@ -231,7 +234,7 @@ export class GithubWork extends LitElement {
         </div>
         ${this._paginationT}
         ` : html``}
-        <a class="next" @click=${() => Elara.Routing.navigate('about')}>> About</a>
+        <a class="next" @click=${() => Elara().router.navigate('about')}>> About</a>
         `;
     }
 
@@ -279,7 +282,7 @@ export class GithubWork extends LitElement {
     }
 
     private async _pulse(){
-        const sections = Array.from(this.shadowRoot.querySelectorAll('.two-cols section'));
+        const sections = Array.from(this._sections);
         const animation = pulseWith(600);
         const toAnimate = sections.sort(() => Math.random() - 0.5).slice(0, 3);
 
@@ -288,4 +291,10 @@ export class GithubWork extends LitElement {
             await handle.finished;
         }
     }
+}
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'github-work': GithubWork;
+	}
 }

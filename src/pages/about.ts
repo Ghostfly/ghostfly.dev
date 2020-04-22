@@ -1,13 +1,12 @@
-import { html } from 'lit-element';
+import { html, customElement } from 'lit-element';
 
-import Elara from '../core/elara';
 import Page from '../core/strategies/Page';
 
 import './contact';
+import { Elara } from '../core/elara';
 
-class About extends Page {
-    public static readonly is: string = 'ui-about';
-
+@customElement('ui-about')
+export class About extends Page {
     public get head(){
         return {
             title: 'About',
@@ -34,15 +33,20 @@ class About extends Page {
                 <h2>Towards studies</h2>
                 <div>
                     <p>After a rather unusual path, I ended up in a post baccalauréat IT diploma called BTS SIO, successfully validated. Bringing me to Miage, combining my computer aspirations, and my attraction for entrepreneurship. I've always dreamed of building my own business, in Nice, Holland.. Giving me the opportunity to create my own job and keep my creativity as sharp as possible. Just stayin' motivated.</p><p>Besides if you want to read it, here is my current 
-                    <a role="link" class="cv" @click=${() => Elara.Routing.redirect('/assets/resume.pdf')}>CV</a> (Update in progress).</p>
+                    <a role="link" class="cv" @click=${() => Elara().router.redirect('/assets/resume.pdf')}>CV</a> (Update in progress).</p>
                 </div>
             </div>
             <div class="pagination">
-                <a class="prev" @click=${() => Elara.Routing.navigate('home')}>< Work</a>
-                <a class="next" @click=${() => Elara.Routing.navigate('projects')}>> Projects</a>
+                <a class="prev" @click=${() => Elara().router.navigate('home')}>< Work</a>
+                <a class="next" @click=${() => Elara().router.navigate('projects')}>> Projects</a>
             </div>
         </div>
         `;
     }
 }
-customElements.define(About.is, About);
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ui-about': About;
+	}
+}

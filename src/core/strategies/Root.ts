@@ -1,24 +1,35 @@
-import Elara from '../elara';
-
 import { MenuElement } from '../../atoms/menu';
-import { property, LitElement } from 'lit-element';
+import { property, LitElement, query } from 'lit-element';
+import { load, Router } from '../elara';
 
 export default class Root extends LitElement {
-	protected _menuFade: Animation;
+	public router = Router();
 
 	@property({reflect: true, type: String})
 	public route: string;
+
+	@query('#content')
+	protected _content: HTMLDivElement;
+
+	@query('#menu')
+	protected _menu: MenuElement;
+	protected _menuFade: Animation;
+
+	private _queries = {
+		DARK: '(prefers-color-scheme: dark)',
+		LIGHT: '(prefers-color-scheme: light)',
+	};
 
 	private _onHashChangeListener: () => void;
 
 	public connectedCallback(){
 		super.connectedCallback();
 
-		if(window.matchMedia(Elara.UI.queries.DARK).matches){
+		if(window.matchMedia(this._queries.LIGHT).matches){
 			document.body.classList.add('night');
 		}
 
-		if(window.matchMedia(Elara.UI.queries.LIGHT).matches){
+		if(window.matchMedia(this._queries.DARK).matches){
 			document.body.classList.add('day');
 		}
 
@@ -35,27 +46,30 @@ export default class Root extends LitElement {
 		return this;
 	}
 
-	protected async _onHashChange(event: HashChangeEvent){
-		const route = Elara.Routing.hashChange(event);
+	public switchColors(){
+		const isDay = document.body.classList.contains('day');
+		const isNight = document.body.classList.contains('night');
+
+		if(isDay){
+			document.body.classList.remove('day');
+			document.body.classList.add('night');
+		}
+
+		if(isNight){
+			document.body.classList.remove('night');
+			document.body.classList.add('day');
+		}
+	}
+
+	protected async _onHashChange(event: HashChangeEvent): Promise<void> {
+		const route = this.router.hashChange(event);
 		this.route = route;
 
 		this._content.innerHTML = '';
 		await this.load(route);
 	}
 		
-	public async load(route: string){
-		return Elara.Bootstrap.load(route, this._content, this._menu, this._menuFade);
-	}
-		
-	public askModeChange(): void {
-		Elara.UI.toggleMode();
-	}
-		
-	protected get _content(): HTMLDivElement {
-		return this.querySelector('#content');
-	}
-
-	protected get _menu(): MenuElement {
-		return this.querySelector('#menu');
+	public async load(route: string): Promise<void> {
+		return load(route, this._content, this._menu, this._menuFade);
 	}
 }

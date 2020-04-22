@@ -1,15 +1,20 @@
-import { property, html, LitElement, customElement } from 'lit-element';
+import { property, html, LitElement, customElement, query } from 'lit-element';
 
-import Elara from '../core/elara';
 import { fadeWith } from '../core/animations';
+import { Elara, toDataURL, LoadableElement } from '../core/elara';
 
 @customElement('ui-profile')
-export class Profile extends LitElement implements Elara.LoadableElement {
+export class Profile extends LitElement implements LoadableElement {
     @property({type: String, reflect: true})
     public route: string;
 
     @property({type: Boolean, reflect: true})
     public loaded = false;
+
+    @query('#pic')
+    private picture: HTMLImageElement;
+    @query('#container')
+    private container: HTMLDivElement;
 
     private _hashChangeListener: () => void;
 
@@ -33,7 +38,7 @@ export class Profile extends LitElement implements Elara.LoadableElement {
     public async firstUpdated(){
         try {
             this.picture.addEventListener('load', this._onProfilePictureLoaded);
-            const backgroundURL = await Elara.UI.processing.toDataURL('https://source.unsplash.com/collection/1727869/1366x768');
+            const backgroundURL = await toDataURL('https://source.unsplash.com/collection/1727869/1366x768');
             this.loaded = true;
             this.container.style.backgroundImage =`url('${backgroundURL}')`;
             if(this.picture.complete){
@@ -48,7 +53,7 @@ export class Profile extends LitElement implements Elara.LoadableElement {
                 return;
             }
         } catch(err){
-            const fallbackURL = await Elara.UI.processing.toDataURL('/assets/fallback.jpeg');
+            const fallbackURL = await toDataURL('/assets/fallback.jpeg');
 
             this.container.style.backgroundImage =`url('${fallbackURL}')`;
             this.loaded = true;
@@ -63,12 +68,12 @@ export class Profile extends LitElement implements Elara.LoadableElement {
     }
 
     private _onHashChange(event: HashChangeEvent): void {
-        const route = Elara.Routing.hashChange(event);
-        this.route = route;
+        this.route = Elara().router.hashChange(event);
     }
+
     public render() {
         return html`
-        <div role="link" id="container" class="profile ${this.route === 'home' || !this.route ? '' : 'is-link'}" @click=${() => Elara.Routing.navigate('home')}>
+        <div role="link" id="container" class="profile ${this.route === 'home' || !this.route ? '' : 'is-link'}" @click=${() => Elara().router.navigate('home')}>
             <img id="pic" alt="Me" class="pic" sizing="contain" src="/assets/me.svg"></img>
             <div class="bio">
                 <div class="username">
@@ -82,7 +87,13 @@ export class Profile extends LitElement implements Elara.LoadableElement {
                 </div>
             </div>
 
-            <div class="night-switch" @click=${async (click: Event) => Elara.UI.nightSwitchClick(click, this)}>${this._nightToggle()}</div>
+            <div class="night-switch" @click=${async (click: Event) => {
+                click.preventDefault();
+                click.stopPropagation();
+                await this.requestUpdate();
+                
+                Elara().switchColors();
+            }}>${this._nightToggle()}</div>
         </div>
         `;
     }
@@ -111,12 +122,10 @@ export class Profile extends LitElement implements Elara.LoadableElement {
         </svg>
         `;
     }
+}
 
-    private get picture(): HTMLImageElement {
-        return this.querySelector('#pic');
-    }
-
-    private get container(): HTMLDivElement {
-        return this.querySelector('#container');
-    }
+declare global {
+	interface HTMLElementTagNameMap {
+		'ui-profile': Profile;
+	}
 }

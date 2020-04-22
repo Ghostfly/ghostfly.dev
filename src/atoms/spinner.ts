@@ -73,3 +73,10 @@ export class ElaraSpinner extends LitElement {
         </div>` : html``;
     }
 }
+
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'elara-spinner': ElaraSpinner;
+	}
+}

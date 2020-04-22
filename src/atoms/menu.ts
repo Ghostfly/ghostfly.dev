@@ -1,6 +1,6 @@
 import { property, html, LitElement, customElement } from 'lit-element';
 
-import Elara from '../core/elara';
+import { Elara } from '../core/elara';
 
 @customElement('ui-menu')
 export class MenuElement extends LitElement {
@@ -27,7 +27,14 @@ export class MenuElement extends LitElement {
 
     private _link({route, name}) {
 		return html`
-		<a class="item ${this.route === route ? 'active' : ''}" @click=${() => Elara.UI.elara().show(route)}>${name}</a>
+		<a class="item ${this.route === route ? 'active' : ''}" @click=${() => Elara().show(route)}>${name}</a>
 		`;
+	}
+}
+
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ui-menu': MenuElement;
 	}
 }

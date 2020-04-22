@@ -1,8 +1,8 @@
 import { html } from 'lit-element';
 
-import Elara from './core/elara';
 import Root from './core/strategies/Root';
 import { fadeWith } from './core/animations';
+import { bootstrap } from './core/elara';
 
 import './atoms/spinner';
 import './pages/index';
@@ -20,11 +20,12 @@ export class ElaraApp extends Root {
 	}
 
 	public get bootstrap(){
-		return Elara.Bootstrap.promise(this.loadables, this);
+		return bootstrap(this.loadables, this);
 	}
 
 	public async show(route: string): Promise<void> {
-		Elara.Routing.navigate(route);
+		this.router.navigate(route);
+
 		await this._hideMenu();
 	}
 
@@ -104,3 +105,9 @@ export class ElaraApp extends Root {
 }
 
 customElements.define(ElaraApp.is, ElaraApp);
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'elara-app': ElaraApp;
+	}
+}

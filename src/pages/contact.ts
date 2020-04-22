@@ -1,7 +1,7 @@
 import { html, SVGTemplateResult, customElement } from 'lit-element';
 
-import Elara from '../core/elara';
 import Page from '../core/strategies/Page';
+import { Elara } from '../core/elara';
 
 @customElement('ui-contact')
 export class Contact extends Page {
@@ -72,17 +72,23 @@ export class Contact extends Page {
             <div class="networks">
                 ${this._links.map(link => this._makeLink(link.label, link.link, link.svg))}
             </div>
-            <a class="prev" @click=${() => Elara.Routing.navigate('projects')}>< Projects</a>
+            <a class="prev" @click=${() => Elara().router.navigate('projects')}>< Projects</a>
         </div>`;
     }
 
     private _makeLink(label: string, link: string, svg: SVGTemplateResult){
         return html`
             <div aria-label=${label} class="item ${label.toLowerCase()}" @click=${() => {
-                Elara.Routing.redirect(link);
+                Elara().router.redirect(link);
             }} role="link">
                 ${svg}
             </div>
         `;
     }
+}
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ui-contact': Contact;
+	}
 }

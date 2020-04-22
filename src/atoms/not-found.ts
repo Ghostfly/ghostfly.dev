@@ -1,6 +1,5 @@
 import { property, css, CSSResult, customElement, html, LitElement } from 'lit-element';
-
-import Elara from '../core/elara';
+import { Elara } from '../core/elara';
 
 @customElement('ui-not-found')
 export class NotFound extends LitElement {
@@ -32,8 +31,14 @@ export class NotFound extends LitElement {
         <div>
             <h1>You are lost !</h1>
             <p>You asked for : ${this.asked}.</p>
-            <a @click=${() => Elara.Routing.navigate('home')}><mwc-icon icon="home"></mwc-icon> Homepage</a>
+            <a @click=${() => Elara().router.navigate('home')}><mwc-icon icon="home"></mwc-icon> Homepage</a>
         </div>
         `;
     }
+}
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ui-not-found': NotFound;
+	}
 }

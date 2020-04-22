@@ -1,7 +1,6 @@
 import { LitElement } from 'lit-element';
-import Elara from '../elara';
 
-export default class Page extends LitElement implements Elara.Page {
+export default class Page extends LitElement {
     public get head(){
         return {
             title: null,

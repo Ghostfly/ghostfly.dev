@@ -25,8 +25,14 @@ export class Home extends Page {
             </svg> Open-source
             </a>
 
-            <ui-github-work></ui-github-work>
+            <github-work></github-work>
         </div>
         `;
     }
+}
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ui-home': Home;
+	}
 }

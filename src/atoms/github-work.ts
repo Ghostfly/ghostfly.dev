@@ -244,13 +244,27 @@ export class GithubWork extends LitElement {
         </div>`;
     }
 
+    private async _onPrev(){
+        // NOTE: Keyboard but button disabled!
+        if(this.page === 0){return;}
+
+        this.page--;
+        this.currentPage = this.repositories[this.page];
+        await this.updateComplete;
+    }
+
+    private async _onNext(){
+        // NOTE: Keyboard but button disabled!
+        if(this.page+1 === this.repositories.length){ return; }
+
+        this.page++;
+        this.currentPage = this.repositories[this.page];
+        await this.updateComplete;
+    }
+
     private get _backT(){
         return html`
-        <a role="button" disabled=${this.page === 0} @click=${async () => {
-            this.page--;
-            this.currentPage = this.repositories[this.page];
-            await this.updateComplete;
-        }}>
+        <a role="button" disabled=${this.page === 0} @click=${async() => await this._onPrev()}>
             <mwc-icon-button aria-label="Previous page" icon="keyboard_arrow_left"></mwc-icon-button>
         </a>
         `;
@@ -258,11 +272,7 @@ export class GithubWork extends LitElement {
 
     private get _nextT(){
         return html`
-        <a role="button" disabled=${this.page+1 === this.repositories.length} @click=${async () => {
-            this.page++;
-            this.currentPage = this.repositories[this.page];
-            await this.updateComplete;
-        }}>
+        <a role="button" disabled=${this.page+1 === this.repositories.length} @click=${async () => await this._onNext()}>
             <mwc-icon-button aria-label="Next page" icon="keyboard_arrow_right"></mwc-icon-button>
         </a>
         `;

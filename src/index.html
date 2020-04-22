@@ -237,6 +237,11 @@
             border-bottom: none;
         }
 
+        .home > a {
+          font-size: 1.5em;
+          color: var(--elara-font-color);
+        }
+
         /* Contact */
         h1 { user-select: none; font-family: var(--elara-font-display); }
         h1::first-letter { font-size: 1.3em; }
@@ -439,13 +444,13 @@
 
       .content.full-width { margin: 0; padding: 0 }
 
-      :root.night {
+      body.night {
         --elara-background-color: #373737;
         --elara-font-color: #f0f0f0;
         --elara-font-hover: rgb(255, 255, 255, 0.3);
       }
 
-      :root.day {
+      body.day {
         --elara-background-color: #f2f2f2;
         --elara-font-color: #2f2f2f;
         --elara-font-hover: rgb(0, 0, 0, 0.3);

@@ -182,17 +182,17 @@ const Elara = {
             Elara.UI.elara().askModeChange();
         },
         toggleMode: (): boolean => {
-            const isDay = document.documentElement.classList.contains('day');
-            const isNight = document.documentElement.classList.contains('night');
+            const isDay = document.body.classList.contains('day');
+            const isNight = document.body.classList.contains('night');
 
             if(isDay){
-                document.documentElement.classList.remove('day');
-                document.documentElement.classList.add('night');
+                document.body.classList.remove('day');
+                document.body.classList.add('night');
             }
 
             if(isNight){
-                document.documentElement.classList.remove('night');
-                document.documentElement.classList.add('day');
+                document.body.classList.remove('night');
+                document.body.classList.add('day');
             }
 
             return true;

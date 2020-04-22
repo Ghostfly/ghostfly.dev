@@ -15,11 +15,11 @@ export default class Root extends LitElement {
 		super.connectedCallback();
 
 		if(window.matchMedia(Elara.UI.queries.DARK).matches){
-			document.documentElement.classList.add('night');
+			document.body.classList.add('night');
 		}
 
 		if(window.matchMedia(Elara.UI.queries.LIGHT).matches){
-			document.documentElement.classList.add('day');
+			document.body.classList.add('day');
 		}
 
 		this._onHashChangeListener = this._onHashChange.bind(this);

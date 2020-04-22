@@ -92,7 +92,7 @@ export class Profile extends LitElement implements Elara.LoadableElement {
     }
 
     private _nightToggle(){
-        return document.documentElement.classList.contains('day') ? this._day : this._night;
+        return document.body.classList.contains('day') ? this._day : this._night;
     }
 
     private get _day(){

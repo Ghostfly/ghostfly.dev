@@ -281,7 +281,7 @@ export class GithubWork extends LitElement {
     private async _pulse(){
         const sections = Array.from(this.shadowRoot.querySelectorAll('.two-cols section'));
         const animation = pulseWith(600);
-        const toAnimate = sections.sort(() => Math.random() - 0.5).slice(0, 2);
+        const toAnimate = sections.sort(() => Math.random() - 0.5).slice(0, 3);
 
         for(const section of toAnimate){
             const handle = section.animate(animation.effect, animation.options);

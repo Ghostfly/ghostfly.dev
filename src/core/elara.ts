@@ -26,7 +26,7 @@ const Elara = {
             return Promise.all(loadPromises);
         },
         load: async (route: string, content: HTMLElement, menu: MenuElement, menuFade: Animation | null) => {
-            const defaultTitle = 'Léonard C.';
+            const defaultTitle = 'Léonard Cherouvrier';
             const titleTemplate = '%s | ' + defaultTitle;
     
             const Component = customElements.get('ui-' + route);

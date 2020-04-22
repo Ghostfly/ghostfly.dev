@@ -25,6 +25,8 @@
     <!-- Speedup++ unsplash random image load, preload main font -->
     <link rel="preconnect" href="https://source.unsplash.com" crossorigin>
     <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="preload" href="./assets/fonts/questrial.woff2" crossorigin>
+    <link rel="preload" href="./assets/fonts/material.woff2" crossorigin>
 
     <style>
       .material-icons {
@@ -60,7 +62,6 @@
         --elara-light-background: rgba(255, 255, 255, 0.9);
         --elara-highlight: #f2f2f2;
         --elara-font-primary: 'Hind', sans-serif;
-        --elara-font-secondary: 'Lora', sans-serif; 
         --elara-font-display: 'Questrial', serif;
       }
 
@@ -586,16 +587,6 @@
       src: local('Hind Regular'), local('Hind-Regular'),
           url('/assets/fonts/hind.woff2') format('woff2'),
           url('/assets/fonts/hind.woff') format('woff');
-    }
-
-    @font-face {
-      font-family: 'Lora';
-      font-display: fallback;
-      font-style: normal;
-      font-weight: 400;
-      src: local('Lora Regular'), local('Lora-Regular'),
-          url('/assets/fonts/lora.woff2') format('woff2'),
-          url('/assets/fonts/lora.woff') format('woff');
     }
 
     @font-face {

@@ -31,6 +31,8 @@ export declare class GithubWork extends LitElement {
     private _cardT;
     render(): import("lit-element").TemplateResult;
     private get _paginationT();
+    private _onPrev;
+    private _onNext;
     private get _backT();
     private get _nextT();
     private _pulse;

@@ -202,27 +202,35 @@
             min-height: 100px;
         }
 
-        .grid > div {
+        .project-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 690px){
+          .project-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        .project-grid > div {
             flex: 1 0 5em;
             margin: 0.5em;
         }
 
         .hidden-content .right {
-            display: flex;
-            justify-content: flex-end;
-            align-items: flex-end;
-        }
-
-        .right img {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: 0;
+          padding: 5px;
           background-color: white;
-          padding: .3em;
-          border-radius: 2px;
-          box-shadow: 2px 1px 3px 0px rgba(0,0,0,0.75);
+          border-radius: 10%;
         }
 
         .hidden-content img {
-            height: 150px;
-            width: 150px;
+            height: 165px;
+            width: 165px;
             visibility: hidden;
         }
 
@@ -275,12 +283,12 @@
             clear: both;
         }
 
-        .grid {
+        .contact-grid {
           display: flex;
           flex-wrap: wrap;
         }
 
-        .grid > .item {
+        .contactgrid > .item {
             display: flex;
             flex: 1 0 5em;
             margin: 0.5em;

@@ -105,7 +105,7 @@ export class Projects extends Page {
     private _card(project: Project) {
         return html`
         <section class="project">
-            <div class="hidden-content grid">
+            <div class="hidden-content project-grid">
                 <div class="left">
                     <h3 class="${project.slug} ${project.url ? 'with-link' : 'normal'}" role="${project.url ? 'link' : 'title'}"  @click=${() => {
                         if(project.url){

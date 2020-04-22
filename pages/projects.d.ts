@@ -11,7 +11,6 @@ export declare class Projects extends Page {
     private get projects();
     private _onImageLoaded;
     connectedCallback(): Promise<void>;
-    disconnectedCallback(): void;
     private _card;
     render(): import("lit-element").TemplateResult;
 }

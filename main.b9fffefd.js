@@ -391,20 +391,20 @@ class r{constructor(e,t,n){this.__parts=[],this.template=e,this.processor=t,this
             <mwc-icon-button aria-label="Next page" icon="keyboard_arrow_right"></mwc-icon-button>
         </a>
         `}_pulse(){return m(this,void 0,void 0,(function*(){const e=Array.from(this._sections),t=s(600),n=e.sort(()=>Math.random()-.5).slice(0,3);for(const e of n){const n=e.animate(t.effect,t.options);yield n.finished}}))}};v.is="github-work",g([Object(i.e)({type:Array})],v.prototype,"repositories",void 0),g([Object(i.e)({type:Array})],v.prototype,"currentPage",void 0),g([Object(i.e)({type:Number,reflect:!0})],v.prototype,"page",void 0),g([Object(i.e)({type:Boolean,reflect:!0})],v.prototype,"inError",void 0),g([Object(i.f)("elara-spinner")],v.prototype,"_spinner",void 0),g([Object(i.g)(".two-cols section")],v.prototype,"_sections",void 0),v=g([Object(i.c)("github-work")],v);var y=function(e,t,n,i){var s,r=arguments.length,o=r<3?t:null===i?i=Object.getOwnPropertyDescriptor(t,n):i;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)o=Reflect.decorate(e,t,n,i);else for(var a=e.length-1;a>=0;a--)(s=e[a])&&(o=(r<3?s(o):r>3?s(t,n,o):s(t,n))||o);return r>3&&o&&Object.defineProperty(t,n,o),o},b=function(e,t,n,i){return new(n||(n=Promise))((function(s,r){function o(e){try{c(i.next(e))}catch(e){r(e)}}function a(e){try{c(i.throw(e))}catch(e){r(e)}}function c(e){var t;e.done?s(e.value):(t=e.value,t instanceof n?t:new n((function(e){e(t)}))).then(o,a)}c((i=i.apply(e,t||[])).next())}))};let w=class extends i.a{constructor(){super(...arguments),this.loaded=!1,this._toggle=this._day}connectedCallback(){super.connectedCallback(),document.body.classList.contains("night")&&(this._toggle=this._night),this._hashChangeListener=this._onHashChange.bind(this),window.addEventListener("hashchange",this._hashChangeListener)}_onProfilePictureLoaded(e){const t=e.target;if(t){const e=r(500,!0);t.animate(e.effect,e.options),t.classList.add("shown"),t.removeEventListener("load",this._onProfilePictureLoaded)}}firstUpdated(){return b(this,void 0,void 0,(function*(){try{this.picture.addEventListener("load",this._onProfilePictureLoaded);const e=yield c("https://source.unsplash.com/collection/1727869/1366x768");if(this.loaded=!0,this.container.style.backgroundImage=`url('${e}')`,this.picture.complete)return void this._onProfilePictureLoaded({target:this.picture,detail:{value:!0}})}catch(e){const t=yield c("/assets/fallback.jpeg");this.container.style.backgroundImage=`url('${t}')`,this.loaded=!0}}))}disconnectedCallback(){super.disconnectedCallback(),window.removeEventListener("hashchange",this._hashChangeListener)}_onHashChange(e){this.route=a().router.hashChange(e)}render(){return i.d`
-        <div role="link" id="container" class="profile ${"home"!==this.route&&this.route?"is-link":""}" @click=${()=>a().router.navigate("home")}>
+        <div role="link" id="container" class="profile ${"home"===this.route||void 0===this.route?"":"is-link"}" @click=${()=>a().router.navigate("home")}>
             <img id="pic" alt="Me" class="pic" sizing="contain" src="/assets/me.svg"></img>
             <div class="bio">
                 <div class="username">
                     <span>Léonard C. > @ghostfly</span>
                 </div>
                 <div class="current-job">Full-stack Developer</div>
-                <div class="about">
+                <div class="where">
                     <span>Nice, France</span>
                     <br />
                     <span>Focusing 🎯</span>
                 </div>
             </div>
-
+            <div id="overlay"></div>
             <div class="night-switch" @click=${e=>b(this,void 0,void 0,(function*(){e.preventDefault(),e.stopPropagation(),a().switchColors().day?this._toggle=this._night:this._toggle=this._day,yield this.requestUpdate()}))}>${this._toggle}</div>
         </div>
         `}createRenderRoot(){return this}get _day(){return i.d`
@@ -519,4 +519,4 @@ class r{constructor(e,t,n){this.__parts=[],this.template=e,this.processor=t,this
 			<main id="content" class="content"></main>
 			<ui-menu id="menu" .items=${this.links} .route=${this.route}></ui-menu>
 		`}_showMenu(){return A(this,void 0,void 0,(function*(){if(this._menu.shown)return void(yield this._hideMenu());if(this._menuFade)return;this._content.classList.contains("hidden")||this._content.classList.add("hidden"),!1===this._menu.shown&&(this._menu.shown=!0);const e=r(300,!0);this._menuFade=this._menu.animate(e.effect,e.options),yield this._menuFade.finished,this._menuFade=null}))}_hideMenu(){return A(this,void 0,void 0,(function*(){if(this._menuFade)return;const e=r(300,!1);this._menuFade=this._menu.animate(e.effect,e.options),yield this._menuFade.finished,this._content.classList.remove("hidden"),this._menu.shown=!1,this._menuFade=null}))}};$.is="elara-app",$=M([Object(i.c)("elara-app")],$)}]);
-//# sourceMappingURL=main.f90ed014.js.map
+//# sourceMappingURL=main.b9fffefd.js.map

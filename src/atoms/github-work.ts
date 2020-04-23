@@ -116,8 +116,7 @@ export class GithubWork extends LitElement {
             user-select: none;
 
             cursor: pointer;
-            width: 85%;
-            padding: 5%;
+            padding: 10px;
 
             border-radius: 5px;
             color: var(--elara-font-color);
@@ -161,9 +160,10 @@ export class GithubWork extends LitElement {
             font-weight: bold;
         }
 
-        @media (min-width: 500px){
+        @media (min-width: 575px){
             .two-cols {
                 display: grid;
+                grid-gap: 20px;
                 grid-template-columns: repeat(2, 1fr);
             }
         }

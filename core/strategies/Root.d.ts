@@ -1,6 +1,6 @@
 import { MenuElement } from '../../atoms/menu';
 import { LitElement } from 'lit-element';
-export default class Root extends LitElement {
+export default abstract class Root extends LitElement {
     router: {
         redirect: (url: string, target?: string) => boolean;
         navigate: (route: string) => boolean;
@@ -12,10 +12,20 @@ export default class Root extends LitElement {
     protected _menuFade: Animation;
     private _queries;
     private _onHashChangeListener;
+    abstract get loadables(): string[];
+    protected abstract _hideMenu(): void;
+    protected abstract _showMenu(): void;
+    get bootstrap(): Promise<any[]>;
+    show(route: string): Promise<void>;
+    menu(isHide: boolean): Promise<void>;
     connectedCallback(): void;
     disconnectedCallback(): void;
     protected createRenderRoot(): this;
-    switchColors(): void;
+    switchColors(): {
+        day: boolean;
+        night: boolean;
+    };
+    firstUpdated(): void;
     protected _onHashChange(event: HashChangeEvent): Promise<void>;
     load(route: string): Promise<void>;
 }

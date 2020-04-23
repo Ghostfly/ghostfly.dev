@@ -165,7 +165,6 @@
 
       /* About */
       .cv { color: var(--elara-secondary); cursor: pointer; }
-      .projects, .about { padding-bottom: 3em; }
       .project h3 {
         font-family: var(--elara-font-display); 
         font-weight: bold;
@@ -267,10 +266,16 @@
         border-bottom: none;
       }
 
+      .home, .projects, .about, .contact {
+        padding-top: 3em;
+        padding-bottom: 3em;
+      }
+
       .home > a {
         user-select: none;
         font-size: 1.5em;
         color: var(--elara-font-color);
+        margin-top: 2em;
       }
 
       /* Contact */
@@ -451,10 +456,7 @@
         align-items: center;
         justify-content: space-between;
         user-select: none;
-      }
-
-      .projects .pagination {
-        width: 95%;
+        width: 97%;
       }
       
       .pagination a {
@@ -560,10 +562,9 @@
         position: fixed;
         left: var(--aside-size);
         right: 15px;
-        top: 35px;
-        height: 100%;
         overflow: scroll;
         color: var(--elara-font-color);
+        height: 100%;
       }
 
       @media (max-width: 460px){

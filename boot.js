@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
 // @ts-check
 
 function makeGenericHandler(){
@@ -15,7 +16,8 @@ function _onDomLoaded(){
   const neededElements = [];
 
   const elara = document.querySelector('elara-app');
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // @ts-ignore
+  loadingPromises.push(document.fonts.ready);
   // @ts-ignore
   loadingPromises.push(elara.bootstrap);
 

@@ -2,6 +2,14 @@ import { MenuElement } from '../../atoms/menu';
 import { property, LitElement, query } from 'lit-element';
 import { load, Router, bootstrap } from '../elara';
 
+/**
+ * Abtract <*-app> component strategy
+ *
+ * @export
+ * @abstract
+ * @class Root
+ * @extends {LitElement}
+ */
 export default abstract class Root extends LitElement {
 	public router = Router();
 

@@ -31,25 +31,23 @@ export default abstract class Root extends LitElement {
 	private _onHashChangeListener: () => void;
 
 	public abstract get loadables(): string[];
-	protected abstract _hideMenu(): void;
+	public abstract hideMenu(): void;
 	protected abstract _showMenu(): void;
 
 	public get bootstrap(){
 		return bootstrap(this.loadables, this);
 	}
 
+	/**
+	 * Show a page and hide menu
+	 *
+	 * @param {string} route
+	 * @returns {Promise<void>}
+	 * @memberof Root
+	 */
 	public async show(route: string): Promise<void> {
 		this.router.navigate(route);
-
-		await this._hideMenu();
-	}
-
-	public async menu(isHide: boolean): Promise<void> {
-		if(isHide){
-			return this._hideMenu();
-		} else {
-			return this._showMenu();
-		}
+		this.hideMenu();
 	}
 
 	public connectedCallback(){
@@ -76,23 +74,29 @@ export default abstract class Root extends LitElement {
 		return this;
 	}
 
+	/**
+	 * Togglee dark|light (lightswitch)
+	 *
+	 * @returns
+	 * @memberof Root
+	 */
 	public switchColors(){
-		const isDay = document.body.classList.contains('day');
-		const isNight = document.body.classList.contains('night');
+		const day = document.body.classList.contains('day');
+		const night = document.body.classList.contains('night');
 
-		if(isDay){
+		if(day){
 			document.body.classList.remove('day');
 			document.body.classList.add('night');
 		}
 
-		if(isNight){
+		if(night){
 			document.body.classList.remove('night');
 			document.body.classList.add('day');
 		}
 
 		return {
-			day: isDay,
-			night: isNight
+			day,
+			night
 		};
 	}
 

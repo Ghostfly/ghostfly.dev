@@ -44,7 +44,7 @@ export class ElaraApp extends Root {
 
 	protected async _showMenu(): Promise<void> {
 		if(this._menu.shown){
-			await this._hideMenu();
+			await this.hideMenu();
 			return;
 		}
 
@@ -66,7 +66,7 @@ export class ElaraApp extends Root {
 		this._menuFade = null;
 	}
 
-	protected async _hideMenu(): Promise<void> {
+	public async hideMenu(): Promise<void> {
 		if(this._menuFade){
 			return;
 		}

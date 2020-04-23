@@ -65,7 +65,7 @@ export async function load(route: string, content: HTMLElement, menu: MenuElemen
     window.scrollTo(0,0);
 
     if(menu.shown && menuFade === null){
-        await Elara().menu(true);
+        await Elara().hideMenu();
     }
 
     const handle = window.requestAnimationFrame(() => {

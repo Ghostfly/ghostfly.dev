@@ -171,16 +171,16 @@ export class GithubWork extends LitElement {
 
         .pagination {
             display: flex;
+            flex-direction: row;
+            justify-content: space-between;
             align-items: center;
             user-select: none;
         }
 
-        .pagination.global {
-            justify-content: flex-end;
-        }
-
-        .pagination.repos {
-            justify-content: flex-start;
+        .repos, .global  {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .next {
@@ -238,17 +238,19 @@ export class GithubWork extends LitElement {
         <div class="two-cols">
             ${this.currentPage.map(page => this._cardT(page))}
         </div>
-        ${this._paginationT}
         ` : html``}
-        <div class="pagination global">
-            <a class="next" @click=${() => Elara().router.navigate('about')}>> About</a>
+        <div class="pagination">
+            ${this.currentPage ? this._paginationT : html``}
+            <div class="global">
+                <a class="next" @click=${() => Elara().router.navigate('about')}>> About</a>
+            </div>
         </div>
         `;
     }
 
     private get _paginationT(){
         return html`
-        <div class="pagination repos">
+        <div class="repos">
             ${this.page+1} / ${this.repositories.length}
             ${this._backT} 
             ${this._nextT}

@@ -1,5 +1,13 @@
 import { MenuElement } from '../../atoms/menu';
 import { LitElement } from 'lit-element';
+/**
+ * Abtract <*-app> component strategy
+ *
+ * @export
+ * @abstract
+ * @class Root
+ * @extends {LitElement}
+ */
 export default abstract class Root extends LitElement {
     router: {
         redirect: (url: string, target?: string) => boolean;
@@ -13,14 +21,26 @@ export default abstract class Root extends LitElement {
     private _queries;
     private _onHashChangeListener;
     abstract get loadables(): string[];
-    protected abstract _hideMenu(): void;
+    abstract hideMenu(): void;
     protected abstract _showMenu(): void;
     get bootstrap(): Promise<any[]>;
+    /**
+     * Show a page and hide menu
+     *
+     * @param {string} route
+     * @returns {Promise<void>}
+     * @memberof Root
+     */
     show(route: string): Promise<void>;
-    menu(isHide: boolean): Promise<void>;
     connectedCallback(): void;
     disconnectedCallback(): void;
     protected createRenderRoot(): this;
+    /**
+     * Togglee dark|light (lightswitch)
+     *
+     * @returns
+     * @memberof Root
+     */
     switchColors(): {
         day: boolean;
         night: boolean;

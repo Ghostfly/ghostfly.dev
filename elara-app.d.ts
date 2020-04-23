@@ -12,7 +12,7 @@ export declare class ElaraApp extends Root {
     }[];
     render(): import("lit-element").TemplateResult;
     protected _showMenu(): Promise<void>;
-    protected _hideMenu(): Promise<void>;
+    hideMenu(): Promise<void>;
 }
 declare global {
     interface HTMLElementTagNameMap {

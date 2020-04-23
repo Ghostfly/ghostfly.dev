@@ -106,6 +106,8 @@ export default abstract class Root extends LitElement {
 	}
 		
 	public async load(route: string): Promise<void> {
+		this._content.scrollTop = 0;
+		
 		return load(route, this._content, this._menu, this._menuFade);
 	}
 }

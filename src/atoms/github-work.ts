@@ -176,10 +176,7 @@ export class GithubWork extends LitElement {
         }
 
         .next {
-            display: flex;
             cursor: pointer;
-            justify-content: flex-end;
-            font-weight: bold;
             transition: color .3s;
         }
 
@@ -235,7 +232,9 @@ export class GithubWork extends LitElement {
         </div>
         ${this._paginationT}
         ` : html``}
-        <a class="next" @click=${() => Elara().router.navigate('about')}>> About</a>
+        <div class="pagination">
+            <a class="next" @click=${() => Elara().router.navigate('about')}>> About</a>
+        </div>
         `;
     }
 

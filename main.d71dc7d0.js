@@ -266,8 +266,7 @@ class r{constructor(e,t,n){this.__parts=[],this.template=e,this.processor=t,this
             user-select: none;
 
             cursor: pointer;
-            width: 85%;
-            padding: 5%;
+            padding: 10px;
 
             border-radius: 5px;
             color: var(--elara-font-color);
@@ -311,9 +310,10 @@ class r{constructor(e,t,n){this.__parts=[],this.template=e,this.processor=t,this
             font-weight: bold;
         }
 
-        @media (min-width: 500px){
+        @media (min-width: 575px){
             .two-cols {
                 display: grid;
+                grid-gap: 20px;
                 grid-template-columns: repeat(2, 1fr);
             }
         }
@@ -520,4 +520,4 @@ class r{constructor(e,t,n){this.__parts=[],this.template=e,this.processor=t,this
 			<main id="content" class="content"></main>
 			<ui-menu id="menu" .items=${this.links} .route=${this.route}></ui-menu>
 		`}_showMenu(){return A(this,void 0,void 0,(function*(){if(this._menu.shown)return void(yield this._hideMenu());if(this._menuFade)return;this._content.classList.contains("hidden")||this._content.classList.add("hidden"),!1===this._menu.shown&&(this._menu.shown=!0);const e=r(300,!0);this._menuFade=this._menu.animate(e.effect,e.options),yield this._menuFade.finished,this._menuFade=null}))}_hideMenu(){return A(this,void 0,void 0,(function*(){if(this._menuFade)return;const e=r(300,!1);this._menuFade=this._menu.animate(e.effect,e.options),yield this._menuFade.finished,this._content.classList.remove("hidden"),this._menu.shown=!1,this._menuFade=null}))}};$.is="elara-app",$=M([Object(i.c)("elara-app")],$)}]);
-//# sourceMappingURL=main.1237572f.js.map
+//# sourceMappingURL=main.d71dc7d0.js.map

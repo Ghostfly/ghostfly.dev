@@ -1,8 +1,8 @@
 import { MenuElement } from '../../atoms/menu';
 import { property, LitElement, query } from 'lit-element';
-import { load, Router } from '../elara';
+import { load, Router, bootstrap } from '../elara';
 
-export default class Root extends LitElement {
+export default abstract class Root extends LitElement {
 	public router = Router();
 
 	@property({reflect: true, type: String})
@@ -21,6 +21,28 @@ export default class Root extends LitElement {
 	};
 
 	private _onHashChangeListener: () => void;
+
+	public abstract get loadables(): string[];
+	protected abstract _hideMenu(): void;
+	protected abstract _showMenu(): void;
+
+	public get bootstrap(){
+		return bootstrap(this.loadables, this);
+	}
+
+	public async show(route: string): Promise<void> {
+		this.router.navigate(route);
+
+		await this._hideMenu();
+	}
+
+	public async menu(isHide: boolean): Promise<void> {
+		if(isHide){
+			return this._hideMenu();
+		} else {
+			return this._showMenu();
+		}
+	}
 
 	public connectedCallback(){
 		super.connectedCallback();
@@ -59,6 +81,20 @@ export default class Root extends LitElement {
 			document.body.classList.remove('night');
 			document.body.classList.add('day');
 		}
+
+		return {
+			day: isDay,
+			night: isNight
+		};
+	}
+
+	public firstUpdated(){
+		const hashEvent = new HashChangeEvent('hashchange', {
+			newURL: location.hash,
+			oldURL: null
+		});
+
+		this._onHashChange(hashEvent);
 	}
 
 	protected async _onHashChange(event: HashChangeEvent): Promise<void> {

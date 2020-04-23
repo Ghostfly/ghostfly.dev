@@ -1,4 +1,4 @@
-import { property, html, LitElement, customElement, query } from 'lit-element';
+import { property, html, LitElement, customElement, query, TemplateResult } from 'lit-element';
 
 import { fadeWith } from '../core/animations';
 import { Elara, toDataURL, LoadableElement } from '../core/elara';
@@ -16,10 +16,17 @@ export class Profile extends LitElement implements LoadableElement {
     @query('#container')
     private container: HTMLDivElement;
 
+    @property({type: Object, reflect: false, noAccessor: true})
+    private _toggle: TemplateResult = this._day;
+
     private _hashChangeListener: () => void;
 
     public connectedCallback(): void {
         super.connectedCallback();
+
+        if(document.body.classList.contains('night')){
+            this._toggle = this._night;
+        }
 
         this._hashChangeListener = this._onHashChange.bind(this);
         window.addEventListener('hashchange', this._hashChangeListener);
@@ -41,6 +48,7 @@ export class Profile extends LitElement implements LoadableElement {
             const backgroundURL = await toDataURL('https://source.unsplash.com/collection/1727869/1366x768');
             this.loaded = true;
             this.container.style.backgroundImage =`url('${backgroundURL}')`;
+
             if(this.picture.complete){
                 this._onProfilePictureLoaded(
                     {
@@ -90,20 +98,22 @@ export class Profile extends LitElement implements LoadableElement {
             <div class="night-switch" @click=${async (click: Event) => {
                 click.preventDefault();
                 click.stopPropagation();
-                await this.requestUpdate();
                 
-                Elara().switchColors();
-            }}>${this._nightToggle()}</div>
+                const current = Elara().switchColors();
+                if(current.day){
+                    this._toggle = this._night;
+                } else {
+                    this._toggle = this._day;
+                }
+
+                await this.requestUpdate();
+            }}>${this._toggle}</div>
         </div>
         `;
     }
 
     public createRenderRoot(){
         return this;
-    }
-
-    private _nightToggle(){
-        return document.body.classList.contains('day') ? this._day : this._night;
     }
 
     private get _day(){

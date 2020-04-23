@@ -1,32 +1,9 @@
 // @ts-check
 
-/**
- * 
- * @param {{continue: boolean; message: string;}} error 
- */
-function makeGenericHandler(error = null){
+function makeGenericHandler(){
   const handler = document.createElement('div');
   handler.id = handler.className = 'handler';
-  handler.innerHTML = `
-  <div class="content">
-    ${error !== null ? `
-      <h4>
-        ${error.continue == true ? `
-          Oops.
-          ` : `
-          Error detected, please reload.
-          `}
-      </h4>
-      <p>${error.message}</p>
-      <div class="actions">
-        ${error.continue == true ? '<mwc-button label="Continue" class="continue" onclick="dismiss()"></mwc-button>' : ''}
-        <mwc-button class="reload" label="Reload" onclick="reload()" raised toggles></mwc-button>
-      </div>
-    ` : `
-      <div id="spinner" class="spinner large"></div>
-    `}
-  </div>
-  `;
+  handler.innerHTML = '<div class="handler-content">Error detected, please reload.</div>';
   return handler;
 }
 
@@ -53,6 +30,7 @@ function _onDomLoaded(){
   const neededElements = [];
 
   const elara = document.querySelector('elara-app');
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
   loadingPromises.push(elara.bootstrap);
 
@@ -78,15 +56,21 @@ function _onDomLoaded(){
   });
 }
 
+/**
+ * On error, catch in a nice handler
+ *
+ * @param {ErrorEvent} event
+ * @returns
+ */
 function _onGenericError(event) {
-  if(event.error && event.error.elara === true){ 
+  if(event.error){ 
     console.warn('Elara error ::', event.error);
     event.preventDefault();
     event.stopPropagation();
     return; 
   }
 
-  document.body.appendChild(makeGenericHandler(event.error));
+  document.body.appendChild(makeGenericHandler());
 }
 
 function _onUnload(){

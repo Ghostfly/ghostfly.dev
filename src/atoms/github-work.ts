@@ -113,6 +113,7 @@ export class GithubWork extends LitElement {
             justify-content: space-between;
             display: flex;
             flex-direction: column;
+            user-select: none;
 
             cursor: pointer;
             width: 85%;

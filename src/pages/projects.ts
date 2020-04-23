@@ -138,8 +138,10 @@ export class Projects extends Page {
             <h1>${this.head.title}</h1>
             ${this.projects.map(project => this._card(project))}
 
-            <a class="prev" @click=${() => Elara().router.navigate('about')}>< About</a>
-            <a class="next" @click=${() => Elara().router.navigate('contact')}>> Contact</a>
+            <div class="pagination">
+                <a class="prev" @click=${() => Elara().router.navigate('about')}>< About</a>
+                <a class="next" @click=${() => Elara().router.navigate('contact')}>> Contact</a>
+            </div>
         </div>
         `;
     }

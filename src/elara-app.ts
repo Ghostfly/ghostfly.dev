@@ -1,8 +1,7 @@
-import { html } from 'lit-element';
+import { html, customElement } from 'lit-element';
 
 import Root from './core/strategies/Root';
 import { fadeWith } from './core/animations';
-import { bootstrap } from './core/elara';
 
 import './atoms/spinner';
 import './pages/index';
@@ -12,38 +11,15 @@ import './atoms/menu';
 // lazy import for other components
 import(/* webpackChunkName: "mwc" */'./vendors');
 
+@customElement('elara-app')
 export class ElaraApp extends Root {
 	public static readonly is: string = 'elara-app';
 
 	public get loadables(){
-		return [];
-	}
-
-	public get bootstrap(){
-		return bootstrap(this.loadables, this);
-	}
-
-	public async show(route: string): Promise<void> {
-		this.router.navigate(route);
-
-		await this._hideMenu();
-	}
-
-	public async menu(isHide: boolean): Promise<void> {
-		if(isHide){
-			return this._hideMenu();
-		} else {
-			return this._showMenu();
-		}
-	}
-
-	public firstUpdated(){
-		const hashEvent = new HashChangeEvent('hashchange', {
-			newURL: location.hash,
-			oldURL: null
-		});
-
-		this._onHashChange(hashEvent);
+		return [
+			// note: on every app part thus the only loadable
+			'ui-profile'
+		];
 	}
 
 	public get links(){
@@ -64,7 +40,7 @@ export class ElaraApp extends Root {
 		`;
 	}
 
-	private async _showMenu(): Promise<void> {
+	protected async _showMenu(): Promise<void> {
 		if(this._menu.shown){
 			await this._hideMenu();
 			return;
@@ -88,7 +64,7 @@ export class ElaraApp extends Root {
 		this._menuFade = null;
 	}
 
-	private async _hideMenu(): Promise<void> {
+	protected async _hideMenu(): Promise<void> {
 		if(this._menuFade){
 			return;
 		}
@@ -103,8 +79,6 @@ export class ElaraApp extends Root {
 		this._menuFade = null;
 	}
 }
-
-customElements.define(ElaraApp.is, ElaraApp);
 
 declare global {
 	interface HTMLElementTagNameMap {

@@ -165,6 +165,7 @@ export class GithubWork extends LitElement {
                 display: grid;
                 grid-gap: 20px;
                 grid-template-columns: repeat(2, 1fr);
+                min-height: 70vh;
             }
         }
 

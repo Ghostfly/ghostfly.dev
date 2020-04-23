@@ -81,20 +81,20 @@ export class Profile extends LitElement implements LoadableElement {
 
     public render() {
         return html`
-        <div role="link" id="container" class="profile ${this.route === 'home' || !this.route ? '' : 'is-link'}" @click=${() => Elara().router.navigate('home')}>
+        <div role="link" id="container" class="profile ${this.route === 'home' || this.route === undefined ? '' : 'is-link'}" @click=${() => Elara().router.navigate('home')}>
             <img id="pic" alt="Me" class="pic" sizing="contain" src="/assets/me.svg"></img>
             <div class="bio">
                 <div class="username">
                     <span>Léonard C. > @ghostfly</span>
                 </div>
                 <div class="current-job">Full-stack Developer</div>
-                <div class="about">
+                <div class="where">
                     <span>Nice, France</span>
                     <br />
                     <span>Focusing 🎯</span>
                 </div>
             </div>
-
+            <div id="overlay"></div>
             <div class="night-switch" @click=${async (click: Event) => {
                 click.preventDefault();
                 click.stopPropagation();

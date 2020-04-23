@@ -18,7 +18,9 @@ export class ElaraApp extends Root {
 	public get loadables(){
 		return [
 			// note: on every app part thus the only loadable
-			'ui-profile'
+			'ui-profile',
+			// @tool: enforce global load
+			// ''
 		];
 	}
 

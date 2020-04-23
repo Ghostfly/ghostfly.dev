@@ -171,8 +171,15 @@ export class GithubWork extends LitElement {
         .pagination {
             display: flex;
             align-items: center;
-            justify-content: space-between;
             user-select: none;
+        }
+
+        .pagination.global {
+            justify-content: flex-end;
+        }
+
+        .pagination.repos {
+            justify-content: flex-start;
         }
 
         .next {
@@ -232,7 +239,7 @@ export class GithubWork extends LitElement {
         </div>
         ${this._paginationT}
         ` : html``}
-        <div class="pagination">
+        <div class="pagination global">
             <a class="next" @click=${() => Elara().router.navigate('about')}>> About</a>
         </div>
         `;
@@ -240,7 +247,7 @@ export class GithubWork extends LitElement {
 
     private get _paginationT(){
         return html`
-        <div class="pagination">
+        <div class="pagination repos">
             ${this.page+1} / ${this.repositories.length}
             ${this._backT} 
             ${this._nextT}

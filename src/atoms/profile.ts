@@ -32,25 +32,27 @@ export class Profile extends LitElement implements LoadableElement {
         window.addEventListener('hashchange', this._hashChangeListener);
     }
 
-    private _onProfilePictureLoaded(event: CustomEvent){
+    private async _onProfilePictureLoaded(event: CustomEvent): Promise<void> {
         const img = event.target as HTMLImageElement;
         if(img){
-            const animation = fadeWith(500, true);
-            img.animate(animation.effect, animation.options);
-            img.classList.add('shown');
             img.removeEventListener('load', this._onProfilePictureLoaded);
+            img.classList.add('shown');
+
+            const animation = fadeWith(500, true);
+            const fade = img.animate(animation.effect, animation.options);
+            await fade.finished;
         }
     }
 
     public async firstUpdated(){
         try {
             this.picture.addEventListener('load', this._onProfilePictureLoaded);
+
             const backgroundURL = await toDataURL('https://source.unsplash.com/collection/1727869/1366x768');
-            this.loaded = true;
             this.container.style.backgroundImage =`url('${backgroundURL}')`;
 
             if(this.picture.complete){
-                this._onProfilePictureLoaded(
+                await this._onProfilePictureLoaded(
                     {
                         target: this.picture, 
                         detail: {
@@ -60,7 +62,10 @@ export class Profile extends LitElement implements LoadableElement {
                 );
                 return;
             }
+
+            this.loaded = true;
         } catch(err){
+            // Loading to slow, cancelled.
             const fallbackURL = await toDataURL('/assets/fallback.jpeg');
 
             this.container.style.backgroundImage =`url('${fallbackURL}')`;

@@ -60,7 +60,6 @@ export class Profile extends LitElement implements LoadableElement {
                         }
                     } as unknown as CustomEvent
                 );
-                return;
             }
 
             this.loaded = true;

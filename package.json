@@ -1,12 +1,12 @@
 {
-  "name": "elara-folio",
-  "version": "1.1.0",
+  "name": "ghostfly.dev",
+  "version": "1.2.0",
   "author": "Léonard Cherouvrier",
   "license": "MIT",
   "homepage": "https://ghostfly.dev",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ghostfly/elara-folio"
+    "url": "https://github.com/ghostfly/ghostfly.dev"
   },
   "dependencies": {
     "@material/mwc-icon": "^0.14.1",

@@ -37,7 +37,7 @@ export class Projects extends Page {
                 repository: null,
                 status: 'Work in progress',
                 url: null,
-                tags: ['E-Commerce', 'Wordpress', 'WooCommerce', 'Elara']
+                tags: ['E-Commerce', 'Elara']
             },
             {
                 name: 'Persin Conseil',

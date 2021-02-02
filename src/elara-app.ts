@@ -1,4 +1,4 @@
-import { html, customElement } from 'lit-element';
+import { html, customElement, TemplateResult } from 'lit-element';
 
 import Root from './core/strategies/Root';
 import { fadeWith } from './core/animations';
@@ -15,7 +15,7 @@ import(/* webpackChunkName: "mwc" */'./vendors');
 export class ElaraApp extends Root {
 	public static readonly is: string = 'elara-app';
 
-	public get loadables(){
+	public get loadables(): string[] {
 		return [
 			// note: on every app part thus the only loadable
 			'ui-profile',
@@ -24,7 +24,7 @@ export class ElaraApp extends Root {
 		];
 	}
 
-	public get links(){
+	public get links(): {route: string; name: string}[] {
 		return [
 			{route: 'home', name: 'Work'},
 			{route: 'about', name: 'About'},
@@ -33,7 +33,7 @@ export class ElaraApp extends Root {
 		];
 	}
 	
-	public render() {
+	public render(): TemplateResult {
 		return html`
 			<ui-profile></ui-profile>
 			<mwc-icon-button id="handle" class="menu" icon="menu" aria-label="Menu" @click=${this._showMenu}></mwc-icon-button>

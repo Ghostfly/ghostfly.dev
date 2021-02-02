@@ -1,7 +1,7 @@
 'use strict';
 
 const { resolve, join } = require('path');
-const merge = require('webpack-merge');
+const { merge }= require('webpack-merge');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
@@ -26,42 +26,34 @@ const polyfills = [
   {
     from: resolve(`${webcomponentsjs}/webcomponents-*.js`),
     to: join(OUTPUT_PATH, 'vendor'),
-    flatten: true
   },
   {
     from: resolve(`${webcomponentsjs}/bundles/*.js`),
     to: join(OUTPUT_PATH, 'vendor', 'bundles'),
-    flatten: true
   },
   {
     from: resolve(`${webcomponentsjs}/custom-elements-es5-adapter.js`),
     to: join(OUTPUT_PATH, 'vendor'),
-    flatten: true
   },
   {
     from: resolve(`${webanimationsjs}/web-animations-next-lite.min.js`),
     to: join(OUTPUT_PATH, 'vendor'),
-    flatten: true
   },
   {
     from: resolve('./src/robots.txt'),
     to: OUTPUT_PATH,
-    flatten: true
   },
   {
     from: resolve('./CNAME'),
     to: OUTPUT_PATH,
-    flatten: true
   },
   {
     from: resolve('./src/favicon.ico'),
     to: OUTPUT_PATH,
-    flatten: true
   },
   {
     from: resolve('./src/boot.js'),
     to: OUTPUT_PATH,
-    flatten: true
   }
 ];
 
@@ -100,7 +92,7 @@ const commonConfig = merge([
 const developmentConfig = merge([
   {
     plugins: [
-      new CopyWebpackPlugin(polyfills),
+      new CopyWebpackPlugin({patterns: polyfills}),
       new HtmlWebpackPlugin({
         template: INDEX_TEMPLATE
       })
@@ -122,7 +114,7 @@ const productionConfig = merge([
     devtool: 'nosources-source-map',
     plugins: [
       new CleanWebpackPlugin({ verbose: true }),
-      new CopyWebpackPlugin([...polyfills, ...assets]),
+      new CopyWebpackPlugin({patterns: [...polyfills, ...assets]}),
       new HtmlWebpackPlugin({
         template: INDEX_TEMPLATE,
         minify: {
@@ -137,7 +129,7 @@ const productionConfig = merge([
 ]);
 
 module.exports = mode => {
-  if (mode === 'production') {
+  if (mode.production) {
     return merge(commonConfig, productionConfig, { mode });
   }
 

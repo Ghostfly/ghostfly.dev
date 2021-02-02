@@ -1,4 +1,4 @@
-import { property, css, CSSResult, html, customElement, LitElement, query, queryAll } from 'lit-element';
+import { property, css, CSSResult, html, customElement, LitElement, query, queryAll, TemplateResult } from 'lit-element';
 
 import { pulseWith } from '../core/animations';
 import { ElaraSpinner } from './spinner';
@@ -228,7 +228,7 @@ export class GithubWork extends LitElement {
         `;
     }
 
-	public render() {
+	public render(): TemplateResult {
         return html`
         <div class="loader">
             <elara-spinner text="Loading repositories" active></elara-spinner>

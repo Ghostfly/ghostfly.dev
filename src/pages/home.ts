@@ -1,12 +1,12 @@
-import Page from '../core/strategies/Page';
+import Page, { ElaraHelmet } from '../core/strategies/Page';
 
 import '../atoms/github-work';
 import '../atoms/profile';
-import { html, customElement } from 'lit-element';
+import { html, customElement, TemplateResult } from 'lit-element';
 
 @customElement('ui-home')
 export class Home extends Page {
-    public get head(){
+    public get head(): ElaraHelmet {
         return {
             title: 'Work',
             description: '',
@@ -16,7 +16,7 @@ export class Home extends Page {
         };
     }
 
-    public render() {
+    public render(): TemplateResult {
         return html`
         <div class="home">
             <a rel="noopener" title="Open-source" target="_blank" href="https://github.com/Ghostfly">

@@ -1,11 +1,11 @@
-import { html, SVGTemplateResult, customElement } from 'lit-element';
+import { html, SVGTemplateResult, customElement, TemplateResult } from 'lit-element';
 
-import Page from '../core/strategies/Page';
+import Page, { ElaraHelmet } from '../core/strategies/Page';
 import { Elara } from '../core/elara';
 
 @customElement('ui-contact')
 export class Contact extends Page {
-    public get head(){
+    public get head(): ElaraHelmet {
         return {
             title: 'Contact',
             description: '',
@@ -65,7 +65,7 @@ export class Contact extends Page {
         ];
     }
 
-	public render() {
+	public render(): TemplateResult {
         return html`
         <div class="contact">
             <h1>${this.head.title}</h1>

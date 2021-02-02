@@ -1,13 +1,13 @@
-import { html, customElement } from 'lit-element';
+import { html, customElement, TemplateResult } from 'lit-element';
 
-import Page from '../core/strategies/Page';
+import Page, { ElaraHelmet } from '../core/strategies/Page';
 
 import './contact';
 import { Elara } from '../core/elara';
 
 @customElement('ui-about')
 export class About extends Page {
-    public get head(){
+    public get head(): ElaraHelmet {
         return {
             title: 'About',
             description: '',
@@ -17,7 +17,7 @@ export class About extends Page {
         };
     }
 
-	public render() {
+	public render(): TemplateResult {
         return html`
         <div class="about">
             <h1>${this.head.title}</h1>

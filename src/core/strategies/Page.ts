@@ -1,7 +1,15 @@
 import { LitElement } from 'lit-element';
 
+export interface ElaraHelmet {
+    title: string | null;
+    description: string | null;
+    type: string | null;
+    image: string | null;
+    slug: string | null;
+}
+
 export default class Page extends LitElement {
-    public get head(){
+    public get head(): ElaraHelmet {
         return {
             title: null,
             description: null,
@@ -11,7 +19,7 @@ export default class Page extends LitElement {
         };
     }
 
-    createRenderRoot(){
+    createRenderRoot(): this {
         return this;
     }
 }

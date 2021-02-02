@@ -1,4 +1,4 @@
-import { property, html, LitElement, customElement } from 'lit-element';
+import { property, html, LitElement, customElement, TemplateResult } from 'lit-element';
 
 import { Elara } from '../core/elara';
 
@@ -13,11 +13,11 @@ export class MenuElement extends LitElement {
     @property({type: Boolean, reflect: true})
     public shown = false;
 	
-	createRenderRoot(){
+	createRenderRoot(): this {
 		return this;
 	}
 
-	public render() {
+	public render(): TemplateResult {
         return html`
         <div class="menu-content ${this.shown === true ? 'shown' : ''}">
 			${this.items.map(link => this._link(link))}

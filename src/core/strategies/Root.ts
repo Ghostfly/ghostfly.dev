@@ -34,7 +34,7 @@ export default abstract class Root extends LitElement {
 	public abstract hideMenu(): void;
 	protected abstract _showMenu(): void;
 
-	public get bootstrap(){
+	public get bootstrap(): Promise<unknown[]> {
 		return bootstrap(this.loadables, this);
 	}
 
@@ -50,7 +50,7 @@ export default abstract class Root extends LitElement {
 		this.hideMenu();
 	}
 
-	public connectedCallback(){
+	public connectedCallback(): void {
 		super.connectedCallback();
 
 		if(window.matchMedia(this._queries.DARK).matches){
@@ -65,12 +65,12 @@ export default abstract class Root extends LitElement {
 		window.addEventListener('hashchange', this._onHashChangeListener, { passive: true });
 	}
 
-	public disconnectedCallback(){
+	public disconnectedCallback(): void {
 		super.disconnectedCallback();
 		window.removeEventListener('hashchange', this._onHashChangeListener);
 	}
 	
-	protected createRenderRoot(){
+	protected createRenderRoot(): this {
 		return this;
 	}
 
@@ -80,7 +80,10 @@ export default abstract class Root extends LitElement {
 	 * @returns
 	 * @memberof Root
 	 */
-	public switchColors(){
+	public switchColors(): {
+		day: boolean;
+		night: boolean;
+	}{
 		const day = document.body.classList.contains('day');
 		const night = document.body.classList.contains('night');
 
@@ -100,7 +103,7 @@ export default abstract class Root extends LitElement {
 		};
 	}
 
-	public firstUpdated(){
+	public firstUpdated(): void {
 		const hashEvent = new HashChangeEvent('hashchange', {
 			newURL: location.hash,
 			oldURL: null

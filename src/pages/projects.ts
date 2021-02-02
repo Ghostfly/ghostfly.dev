@@ -1,6 +1,6 @@
-import { html, customElement } from 'lit-element';
+import { html, customElement, TemplateResult } from 'lit-element';
 
-import Page from '../core/strategies/Page';
+import Page, { ElaraHelmet } from '../core/strategies/Page';
 import { fadeWith } from '../core/animations';
 import { Elara } from '../core/elara';
 
@@ -12,11 +12,11 @@ interface Project {
     status: 'Work in progress' | 'published' | '...';
     url: string | null;
     tags: string[];
-};
+}
 
 @customElement('ui-projects')
 export class Projects extends Page {
-    public get head(){
+    public get head(): ElaraHelmet {
         return {
             title: 'Projects',
             description: '',
@@ -31,13 +31,22 @@ export class Projects extends Page {
     private get projects(): ReadonlyArray<Project> {
         return [
             {
-                name: 'Dandy Costard',
-                slug: 'dandy',
-                image: '/assets/projects/dandy.svg',
-                repository: null,
-                status: 'Work in progress',
-                url: null,
-                tags: ['E-Commerce', 'Elara']
+                name: 'Cheno',
+                slug: 'cheno',
+                image: '/assets/projects/cheno.svg',
+                status: 'published',
+                repository: 'https://github.com/ghostfly/cheno-website',
+                url: 'https://www.cheno.fr',
+                tags: ['Elara', 'Headless Wordpress']
+            },
+            {
+                name: 'Dobrunia Design',
+                slug: 'dobrunia',
+                image: '/assets/projects/dobrunia.png',
+                status: 'published',
+                repository: 'https://github.com/ghostfly/dobrunia-design',
+                url: 'https://www.dobruniadesign.com',
+                tags: ['Elara', 'Headless Wordpress']
             },
             {
                 name: 'Persin Conseil',
@@ -56,24 +65,6 @@ export class Projects extends Page {
                 status: 'published',
                 url: 'https://ghostfly.dev',
                 tags: ['Elara', 'LitElement', 'Github Pages']
-            },
-            {
-                name: 'Cheno',
-                slug: 'cheno',
-                image: '/assets/projects/cheno.svg',
-                status: 'published',
-                repository: 'https://github.com/ghostfly/cheno-website',
-                url: 'https://www.cheno.fr',
-                tags: ['Elara', 'Headless Wordpress']
-            },
-            {
-                name: 'Dobrunia Design',
-                slug: 'dobrunia',
-                image: '/assets/projects/dobrunia.png',
-                status: 'published',
-                repository: 'https://github.com/ghostfly/dobrunia-design',
-                url: 'https://www.dobruniadesign.com',
-                tags: ['Elara', 'Headless Wordpress']
             }
         ];
     }
@@ -132,7 +123,7 @@ export class Projects extends Page {
         </section>`;
     }
 
-	public render() {
+	public render(): TemplateResult {
         return html`
         <div class="projects">
             <h1>${this.head.title}</h1>

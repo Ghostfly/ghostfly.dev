@@ -44,7 +44,7 @@ export class Profile extends LitElement implements LoadableElement {
         }
     }
 
-    public async firstUpdated(){
+    public async firstUpdated(): Promise<void> {
         try {
             this.picture.addEventListener('load', this._onProfilePictureLoaded);
 
@@ -83,7 +83,7 @@ export class Profile extends LitElement implements LoadableElement {
         this.route = Elara().router.hashChange(event);
     }
 
-    public render() {
+    public render(): TemplateResult {
         return html`
         <div role="link" id="container" class="profile ${this.route === 'home' || this.route === undefined ? '' : 'is-link'}" @click=${() => Elara().router.navigate('home')}>
             <img id="pic" alt="Me" class="pic" sizing="contain" src="/assets/me.svg"></img>
@@ -116,7 +116,7 @@ export class Profile extends LitElement implements LoadableElement {
         `;
     }
 
-    public createRenderRoot(){
+    public createRenderRoot(): this {
         return this;
     }
 

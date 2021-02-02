@@ -1,5 +1,6 @@
 import { pulseWith } from './animations';
 import { MenuElement } from '../atoms/menu';
+import { ElaraApp } from '../elara-app';
 
 export interface Root extends HTMLElement {
     loadables: ReadonlyArray<string>;
@@ -12,12 +13,12 @@ export interface UpdatableElement extends HTMLElement {
 }
 export interface LoadableElement extends UpdatableElement { loaded: boolean }
 
-export function Elara(){ return document.querySelector('elara-app'); }
+export function Elara(): ElaraApp { return document.querySelector('elara-app'); }
 
-export function bootstrap(loadables: string[], host: HTMLElement) {
+export function bootstrap(loadables: string[], host: HTMLElement): Promise<unknown[]> {
     const loadPromises = [];
     for(const element of loadables){
-        const load = new Promise((resolve) => {
+        const load = new Promise<void>((resolve) => {
             const elem = host.querySelector(element) as LoadableElement;
             const config = { attributes: true };
             const observer = new MutationObserver((mutation) => {
@@ -35,7 +36,7 @@ export function bootstrap(loadables: string[], host: HTMLElement) {
     return Promise.all(loadPromises);
 }
 
-export async function load(route: string, content: HTMLElement, menu: MenuElement, menuFade: Animation | null) {
+export async function load(route: string, content: HTMLElement, menu: MenuElement, menuFade: Animation | null): Promise<void> {
     const defaultTitle = 'Léonard Cherouvrier';
     const titleTemplate = '%s | ' + defaultTitle;
 
@@ -80,7 +81,11 @@ export async function load(route: string, content: HTMLElement, menu: MenuElemen
     });
 }
 
-export function Router(){
+export function Router(): {
+    redirect: (url: string, target?: string) => boolean;
+    navigate: (route: string) => boolean;
+    hashChange(event: HashChangeEvent): string | null;
+}{
     return {
         redirect: (url: string, target = '_blank'): boolean => {
             return !!window.open(url, target);

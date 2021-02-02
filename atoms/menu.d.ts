@@ -1,10 +1,10 @@
-import { LitElement } from 'lit-element';
+import { LitElement, TemplateResult } from 'lit-element';
 export declare class MenuElement extends LitElement {
     items: any[];
     route: any;
     shown: boolean;
     createRenderRoot(): this;
-    render(): import("lit-element").TemplateResult;
+    render(): TemplateResult;
     private _link;
 }
 declare global {

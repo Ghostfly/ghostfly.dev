@@ -1,14 +1,9 @@
-import Page from '../core/strategies/Page';
+import { TemplateResult } from 'lit-element';
+import Page, { ElaraHelmet } from '../core/strategies/Page';
 export declare class Contact extends Page {
-    get head(): {
-        title: string;
-        description: string;
-        type: string;
-        image: string;
-        slug: string;
-    };
+    get head(): ElaraHelmet;
     private get _links();
-    render(): import("lit-element").TemplateResult;
+    render(): TemplateResult;
     private _makeLink;
 }
 declare global {

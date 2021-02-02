@@ -1,3 +1,4 @@
+import { TemplateResult } from 'lit-element';
 import Root from './core/strategies/Root';
 import './atoms/spinner';
 import './pages/index';
@@ -10,7 +11,7 @@ export declare class ElaraApp extends Root {
         route: string;
         name: string;
     }[];
-    render(): import("lit-element").TemplateResult;
+    render(): TemplateResult;
     protected _showMenu(): Promise<void>;
     hideMenu(): Promise<void>;
 }

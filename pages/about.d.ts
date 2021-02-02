@@ -1,14 +1,9 @@
-import Page from '../core/strategies/Page';
+import { TemplateResult } from 'lit-element';
+import Page, { ElaraHelmet } from '../core/strategies/Page';
 import './contact';
 export declare class About extends Page {
-    get head(): {
-        title: string;
-        description: string;
-        type: string;
-        image: string;
-        slug: string;
-    };
-    render(): import("lit-element").TemplateResult;
+    get head(): ElaraHelmet;
+    render(): TemplateResult;
 }
 declare global {
     interface HTMLElementTagNameMap {

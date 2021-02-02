@@ -1,15 +1,10 @@
-import Page from '../core/strategies/Page';
+import Page, { ElaraHelmet } from '../core/strategies/Page';
 import '../atoms/github-work';
 import '../atoms/profile';
+import { TemplateResult } from 'lit-element';
 export declare class Home extends Page {
-    get head(): {
-        title: string;
-        description: string;
-        type: string;
-        image: string;
-        slug: string;
-    };
-    render(): import("lit-element").TemplateResult;
+    get head(): ElaraHelmet;
+    render(): TemplateResult;
 }
 declare global {
     interface HTMLElementTagNameMap {

@@ -1,9 +1,9 @@
-import { LitElement } from 'lit-element';
+import { LitElement, CSSResult, TemplateResult } from 'lit-element';
 export declare class ElaraSpinner extends LitElement {
     active: boolean;
     text: string;
-    static get styles(): import("lit-element").CSSResult;
-    render(): import("lit-element").TemplateResult;
+    static get styles(): CSSResult;
+    render(): TemplateResult;
 }
 declare global {
     interface HTMLElementTagNameMap {

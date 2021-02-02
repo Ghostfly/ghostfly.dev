@@ -1,18 +1,13 @@
-import Page from '../core/strategies/Page';
+import { TemplateResult } from 'lit-element';
+import Page, { ElaraHelmet } from '../core/strategies/Page';
 export declare class Projects extends Page {
-    get head(): {
-        title: string;
-        description: string;
-        type: string;
-        image: string;
-        slug: string;
-    };
+    get head(): ElaraHelmet;
     private images;
     private get projects();
     private _onImageLoaded;
     connectedCallback(): Promise<void>;
     private _card;
-    render(): import("lit-element").TemplateResult;
+    render(): TemplateResult;
 }
 declare global {
     interface HTMLElementTagNameMap {

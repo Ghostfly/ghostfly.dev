@@ -23,7 +23,7 @@ export default abstract class Root extends LitElement {
     abstract get loadables(): string[];
     abstract hideMenu(): void;
     protected abstract _showMenu(): void;
-    get bootstrap(): Promise<any[]>;
+    get bootstrap(): Promise<unknown[]>;
     /**
      * Show a page and hide menu
      *

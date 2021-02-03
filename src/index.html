@@ -87,7 +87,7 @@
         --elara-loader-background: rgba(255, 255, 255, 0.8);
         --elara-light-background: rgba(255, 255, 255, 0.9);
         --elara-highlight: #f2f2f2;
-        --aside-size: 250px;
+        --aside-size: 100px;
         --elara-font-primary: 'Hind', sans-serif;
         --elara-font-display: 'Questrial', serif;
         --box-elevation-1: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12); /* 1dp */
@@ -124,7 +124,7 @@
         justify-content: center;
         padding: 10px;
         height: 100%;
-        width: 200px;
+        width: var(--aside-size);
       }
 
       .profile.is-link {
@@ -278,6 +278,11 @@
       .home, .projects, .about, .contact {
         padding-top: 3em;
         padding-bottom: 3em;
+      }
+
+      .projects {
+        display: grid;
+        grid-template-columns: 1fr;
       }
 
       .home > a {
@@ -493,11 +498,10 @@
         position: fixed;
         top: 0;
         right: 0;
-        left: 0;
+        left: var(--aside-size);
         bottom: 0;
         
         background-color:#848383;
-        padding-left: var(--aside-size);
         color: var(--elara-lightgray);
         display: none;
 
@@ -570,6 +574,7 @@
       main.content {
         position: absolute;
         left: var(--aside-size);
+        padding-left: calc(var(--aside-size) - 50px);
         right: 15px;
         color: var(--elara-font-color);
         height: 100%;
@@ -585,15 +590,6 @@
         bottom: 0;
         background-color: rgba(0,0,0,0.5);
         z-index: 0;
-      }
-
-      @media (max-width: 460px){
-        :root {
-          --aside-size: 150px;
-        }
-        .profile {
-          width: 100px;
-        }
       }
     </style>
     <noscript>JavaScript is needed to use this website.</noscript>

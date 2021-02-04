@@ -11,118 +11,120 @@ import { load, Router, bootstrap } from '../elara';
  * @extends {LitElement}
  */
 export default abstract class Root extends LitElement {
-	public router = Router();
+  public router = Router();
 
-	@property({reflect: true, type: String})
-	public route: string;
+  @property({ reflect: true, type: String })
+  public route: string;
 
-	@query('#content')
-	protected _content: HTMLDivElement;
+  @query('#content')
+  protected _content: HTMLDivElement;
 
-	@query('#menu')
-	protected _menu: MenuElement;
-	protected _menuFade: Animation;
+  @query('#menu')
+  protected _menu: MenuElement;
+  protected _menuFade: Animation;
 
-	private _queries = {
-		DARK: '(prefers-color-scheme: dark)',
-		LIGHT: '(prefers-color-scheme: light)',
-	};
+  private _queries = {
+    DARK: '(prefers-color-scheme: dark)',
+    LIGHT: '(prefers-color-scheme: light)',
+  };
 
-	private _onHashChangeListener: () => void;
+  private _onHashChangeListener: () => void;
 
-	public abstract get loadables(): string[];
-	public abstract hideMenu(): void;
-	protected abstract _showMenu(): void;
+  public abstract get loadables(): string[];
+  public abstract hideMenu(): void;
+  protected abstract _showMenu(): void;
 
-	public get bootstrap(): Promise<unknown[]> {
-		return bootstrap(this.loadables, this);
-	}
+  public get bootstrap(): Promise<unknown[]> {
+    return bootstrap(this.loadables, this);
+  }
 
-	/**
-	 * Show a page and hide menu
-	 *
-	 * @param {string} route
-	 * @returns {Promise<void>}
-	 * @memberof Root
-	 */
-	public async show(route: string): Promise<void> {
-		this.router.navigate(route);
-		this.hideMenu();
-	}
+  /**
+   * Show a page and hide menu
+   *
+   * @param {string} route
+   * @returns {Promise<void>}
+   * @memberof Root
+   */
+  public async show(route: string): Promise<void> {
+    this.router.navigate(route);
+    this.hideMenu();
+  }
 
-	public connectedCallback(): void {
-		super.connectedCallback();
+  public connectedCallback(): void {
+    super.connectedCallback();
 
-		if(window.matchMedia(this._queries.DARK).matches){
-			document.body.classList.add('night');
-		}
+    if (window.matchMedia(this._queries.DARK).matches) {
+      document.body.classList.add('night');
+    }
 
-		if(window.matchMedia(this._queries.LIGHT).matches){
-			document.body.classList.add('day');
-		}
+    if (window.matchMedia(this._queries.LIGHT).matches) {
+      document.body.classList.add('day');
+    }
 
-		this._onHashChangeListener = this._onHashChange.bind(this);
-		window.addEventListener('hashchange', this._onHashChangeListener, { passive: true });
-	}
+    this._onHashChangeListener = this._onHashChange.bind(this);
+    window.addEventListener('hashchange', this._onHashChangeListener, {
+      passive: true,
+    });
+  }
 
-	public disconnectedCallback(): void {
-		super.disconnectedCallback();
-		window.removeEventListener('hashchange', this._onHashChangeListener);
-	}
-	
-	protected createRenderRoot(): this {
-		return this;
-	}
+  public disconnectedCallback(): void {
+    super.disconnectedCallback();
+    window.removeEventListener('hashchange', this._onHashChangeListener);
+  }
 
-	/**
-	 * Togglee dark|light (lightswitch)
-	 *
-	 * @returns
-	 * @memberof Root
-	 */
-	public switchColors(): {
-		day: boolean;
-		night: boolean;
-	}{
-		const day = document.body.classList.contains('day');
-		const night = document.body.classList.contains('night');
+  protected createRenderRoot(): this {
+    return this;
+  }
 
-		if(day){
-			document.body.classList.remove('day');
-			document.body.classList.add('night');
-		}
+  /**
+   * Togglee dark|light (lightswitch)
+   *
+   * @returns
+   * @memberof Root
+   */
+  public switchColors(): {
+    day: boolean;
+    night: boolean;
+  } {
+    const day = document.body.classList.contains('day');
+    const night = document.body.classList.contains('night');
 
-		if(night){
-			document.body.classList.remove('night');
-			document.body.classList.add('day');
-		}
+    if (day) {
+      document.body.classList.remove('day');
+      document.body.classList.add('night');
+    }
 
-		return {
-			day,
-			night
-		};
-	}
+    if (night) {
+      document.body.classList.remove('night');
+      document.body.classList.add('day');
+    }
 
-	public firstUpdated(): void {
-		const hashEvent = new HashChangeEvent('hashchange', {
-			newURL: location.hash,
-			oldURL: null
-		});
+    return {
+      day,
+      night,
+    };
+  }
 
-		this._onHashChange(hashEvent);
-	}
+  public firstUpdated(): void {
+    const hashEvent = new HashChangeEvent('hashchange', {
+      newURL: location.hash,
+      oldURL: null,
+    });
 
-	protected async _onHashChange(event: HashChangeEvent): Promise<void> {
-		const route = this.router.hashChange(event);
-		this.route = route;
+    this._onHashChange(hashEvent);
+  }
 
-		this._content.innerHTML = '';
-		await this.load(route);
-	}
-		
-	public async load(route: string): Promise<void> {
-		this._content.scrollTop = 0;
-		
-		return load(route, this._content, this._menu, this._menuFade);
-	}
+  protected async _onHashChange(event: HashChangeEvent): Promise<void> {
+    const route = this.router.hashChange(event);
+    this.route = route;
+
+    this._content.innerHTML = '';
+    await this.load(route);
+  }
+
+  public async load(route: string): Promise<void> {
+    this._content.scrollTop = 0;
+
+    return load(route, this._content, this._menu, this._menuFade);
+  }
 }

@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 // @ts-check
 
-function makeGenericHandler(){
+function makeGenericHandler() {
   const handler = document.createElement('div');
   handler.id = handler.className = 'handler';
-  handler.innerHTML = '<div class="handler-content"><div id="spinner" class="spinner large"></div></div>';
+  handler.innerHTML =
+    '<div class="handler-content"><div id="spinner" class="spinner large"></div></div>';
   return handler;
 }
 
-function _onDomLoaded(){
+function _onDomLoaded() {
   const handler = makeGenericHandler();
   document.body.appendChild(handler);
 
@@ -21,14 +22,14 @@ function _onDomLoaded(){
   // @ts-ignore
   loadingPromises.push(elara.bootstrap);
 
-  for(const elementName of neededElements){
+  for (const elementName of neededElements) {
     loadingPromises.push(customElements.whenDefined(elementName));
   }
 
-  return Promise.all(loadingPromises).then(() => {    
+  return Promise.all(loadingPromises).then(() => {
     window.requestAnimationFrame(() => {
       const spinner = document.querySelector('#spinner');
-      if(spinner){
+      if (spinner) {
         spinner.parentElement.removeChild(spinner);
       }
 

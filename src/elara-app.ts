@@ -9,81 +9,87 @@ import './atoms/not-found';
 import './atoms/menu';
 
 // lazy import for other components
-import(/* webpackChunkName: "mwc" */'./vendors');
+import(/* webpackChunkName: "mwc" */ './vendors');
 
 @customElement('elara-app')
 export class ElaraApp extends Root {
-	public static readonly is: string = 'elara-app';
+  public static readonly is: string = 'elara-app';
 
-	public get loadables(): string[] {
-		return [
-			// note: on every app part thus the only loadable
-			'ui-profile',
-			// @tool: enforce global load
-			// ''
-		];
-	}
+  public get loadables(): string[] {
+    return [
+      // note: on every app part thus the only loadable
+      'ui-profile',
+      // @tool: enforce global load
+      // ''
+    ];
+  }
 
-	public get links(): {route: string; name: string}[] {
-		return [
-			{route: 'home', name: 'Work'},
-			{route: 'about', name: 'About'},
-			{route: 'projects', name: 'Projects'},
-			{route: 'contact', name: 'Contact'}
-		];
-	}
-	
-	public render(): TemplateResult {
-		return html`
-			<ui-profile></ui-profile>
-			<mwc-icon-button id="handle" class="menu" icon="menu" aria-label="Menu" @click=${this._showMenu}></mwc-icon-button>
-			<main id="content" class="content"></main>
-			<ui-menu id="menu" .items=${this.links} .route=${this.route}></ui-menu>
-		`;
-	}
+  public get links(): { route: string; name: string }[] {
+    return [
+      { route: 'home', name: 'Work' },
+      { route: 'about', name: 'About' },
+      { route: 'projects', name: 'Projects' },
+      { route: 'contact', name: 'Contact' },
+    ];
+  }
 
-	protected async _showMenu(): Promise<void> {
-		if(this._menu.shown){
-			await this.hideMenu();
-			return;
-		}
+  public render(): TemplateResult {
+    return html`
+      <ui-profile></ui-profile>
+      <mwc-icon-button
+        id="handle"
+        class="menu"
+        icon="menu"
+        aria-label="Menu"
+        @click=${this._showMenu}
+      ></mwc-icon-button>
+      <main id="content" class="content"></main>
+      <ui-menu id="menu" .items=${this.links} .route=${this.route}></ui-menu>
+    `;
+  }
 
-		if(this._menuFade){
-			return;
-		}
+  protected async _showMenu(): Promise<void> {
+    if (this._menu.shown) {
+      await this.hideMenu();
+      return;
+    }
 
-		if(!this._content.classList.contains('hidden')){
-			this._content.classList.add('hidden');
-		}
+    if (this._menuFade) {
+      return;
+    }
 
-		if(this._menu.shown === false){
-			this._menu.shown = true;
-		}
+    if (!this._content.classList.contains('hidden')) {
+      this._content.classList.add('hidden');
+    }
 
-		const animation = fadeWith(300, true);
-		this._menuFade = this._menu.animate(animation.effect, animation.options);
-		await this._menuFade.finished;
-		this._menuFade = null;
-	}
+    if (this._menu.shown === false) {
+      this._menu.shown = true;
+    }
 
-	public async hideMenu(): Promise<void> {
-		if(this._menuFade){
-			return;
-		}
+    const animation = fadeWith(300, true);
+    this._menuFade = this._menu.animate(animation.effect, animation.options);
+    await this._menuFade.finished;
+    this._menuFade = null;
+  }
 
-		const animation = fadeWith(300, false);
-		this._menuFade = this._menu.animate(animation.effect, animation.options);
+  public async hideMenu(): Promise<void> {
+    if (this._menuFade) {
+      return;
+    }
 
-		await this._menuFade.finished;
+    const animation = fadeWith(300, false);
+    this._menuFade = this._menu.animate(animation.effect, animation.options);
 
-		this._content.classList.remove('hidden');
-		this._menu.shown = false;
-		this._menuFade = null;
-	}
+    await this._menuFade.finished;
+
+    this._content.classList.remove('hidden');
+    this._menu.shown = false;
+    this._menuFade = null;
+  }
 }
 
 declare global {
-	interface HTMLElementTagNameMap {
-		'elara-app': ElaraApp;
-	}
+  interface HTMLElementTagNameMap {
+    'elara-app': ElaraApp;
+  }
 }

@@ -141,7 +141,7 @@ export class GithubWork extends LitElement {
             border-radius: 5px;
             color: var(--elara-font-color);
             transition: 0.4s ease-in-out;
-            margin: 2vh 0px;
+            margin: .5em 0px
             transform: scale(1);
             font-family: var(--elara-font-display);
             box-shadow: var(--box-elevation-1);
@@ -184,8 +184,7 @@ export class GithubWork extends LitElement {
             .two-cols {
                 display: grid;
                 grid-gap: 20px;
-                grid-template-columns: repeat(2, 1fr);
-                min-height: 70vh;
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
@@ -195,20 +194,21 @@ export class GithubWork extends LitElement {
             justify-content: space-between;
             align-items: center;
             user-select: none;
+            font-size: 1.2em;
         }
 
-        .repos, .global  {
+        .repos  {
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .next {
+        .prev, .next {
             cursor: pointer;
             transition: color .3s;
         }
 
-        .next:hover {
+        .prev:hover, .next:hover {
             color: var(--elara-primary);
         }
 
@@ -284,11 +284,6 @@ export class GithubWork extends LitElement {
         : html``}
       <div class="pagination">
         ${this.currentPage ? this._paginationT : html``}
-        <div class="global">
-          <a class="next" @click=${() => Elara().router.navigate('about')}
-            >> About</a
-          >
-        </div>
       </div>
     `;
   }

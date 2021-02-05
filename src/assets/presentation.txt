@@ -1,0 +1,30 @@
+function bio(): Ghostfly {
+    return {
+        developer: [ 'full-stack', 'ios', 'web', 'node' ],
+
+        works: {
+            at: 'Archipad'
+        },
+
+        also: {
+            happy: true,
+            freelance: true
+        },
+
+        workflow: function(){
+            return {
+                ide: ['VisualStudio Code', 'XCode'],
+                env: 'NodeJS',
+                preprocessor: 'SASS',
+                framework: 'LitElement',
+                others: ['git', 'cli']
+            };
+        },
+
+        hobbies: {
+            sports: ['Skiing', 'Cycling', 'Slackline', 'Travel'],
+            musique: ['Guitar', 'Ukulele'],
+            others: ['Cryptocurrencies', 'Decentralization']
+        }
+    };
+}

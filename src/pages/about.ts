@@ -65,14 +65,6 @@ export class About extends Page {
             </p>
           </div>
         </div>
-        <div class="pagination">
-          <a class="prev" @click=${() => Elara().router.navigate('home')}
-            >< Work</a
-          >
-          <a class="next" @click=${() => Elara().router.navigate('projects')}
-            >> Projects</a
-          >
-        </div>
       </div>
     `;
   }

@@ -1,4 +1,5 @@
 import { html, customElement, TemplateResult } from 'lit-element';
+import { repeat } from 'lit-html/directives/repeat';
 
 import Page, { ElaraHelmet } from '../core/strategies/Page';
 import { fadeWith } from '../core/animations';
@@ -156,17 +157,10 @@ export class Projects extends Page {
 
   public render(): TemplateResult {
     return html`
-      <div class="projects">
+      <div class="projects-page">
         <h1>${this.head.title}</h1>
-        ${this.projects.map((project) => this._card(project))}
-
-        <div class="pagination">
-          <a class="prev" @click=${() => Elara().router.navigate('about')}
-            >< About</a
-          >
-          <a class="next" @click=${() => Elara().router.navigate('contact')}
-            >> Contact</a
-          >
+        <div class="projects">
+          ${repeat(this.projects, (project) => this._card(project))}
         </div>
       </div>
     `;

@@ -10,6 +10,11 @@
 
     <title>Léonard Cherouvrier - Web developer</title>
 
+    <link
+      rel="stylesheet"
+      href="./assets/highlight/github.css"
+    />
+
     <base href="/" />
 
     <meta property="og:title" content="Léonard Cherouvrier - Web Developer" />
@@ -94,6 +99,16 @@
         -webkit-font-smoothing: antialiased;
       }
 
+      html {
+          overflow: hidden;
+          height: 100%;
+      }
+
+      body {
+          height: 100%;
+          overflow: auto;
+      }
+
       :root {
         --elara-darkgray: #2f2f2f;
         --elara-lightgray: #f2f2f2;
@@ -110,93 +125,30 @@
         --elara-loader-background: rgba(255, 255, 255, 0.8);
         --elara-light-background: rgba(255, 255, 255, 0.9);
         --elara-highlight: #f2f2f2;
-        --aside-size: 100px;
         --elara-font-primary: 'Hind', sans-serif;
         --elara-font-display: 'Questrial', serif;
         --box-elevation-1: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
           0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12); /* 1dp */
         --box-elevation-2: 0 3px 3px -2px rgba(0, 0, 0, 0.2),
           0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12); /* 3dp */
+        --mdc-theme-primary: var(--elara-primary);
+        --mdc-theme-secondary: var(--elara-secondary);
+        --mdc-icon-size: 30px;
+        --wave-height: 90px;
+      }
+
+      .night {
+        --mdc-theme-text-primary-on-background: var(--elara-primary);
+      }
+
+      .day {
+        --mdc-theme-text-primary-on-background: var(--elara-font-color);
       }
 
       * {
         -webkit-user-select: text;
         -moz-user-select: text;
         -ms-user-select: text;
-      }
-
-      /* Profile */
-      ui-profile {
-        z-index: 999;
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .profile {
-        display: flex;
-        flex-direction: column;
-        text-align: left;
-        background: var(--elara-darkgray) center center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        color: #fff;
-        user-select: none;
-        justify-content: center;
-        padding: 10px;
-        height: 100%;
-        width: var(--aside-size);
-      }
-
-      .profile.is-link {
-        cursor: pointer;
-      }
-
-      .profile .bio > div {
-        font-weight: bold;
-        font-size: 1.2em;
-        margin: 1.5vh 0px;
-      }
-
-      .profile .pic {
-        max-width: 170px;
-      }
-
-      .night-switch {
-        display: flex;
-        align-items: flex-end;
-        justify-content: flex-end;
-        position: absolute;
-        bottom: 15px;
-        right: 15px;
-      }
-
-      img,
-      .bio,
-      .night-switch {
-        z-index: 1;
-      }
-
-      img {
-        visibility: hidden;
-      }
-
-      img.shown {
-        visibility: visible;
-      }
-
-      svg {
-        height: 30px;
-        width: 30px;
-        fill: white;
-      }
-
-      .day-night {
-        cursor: pointer;
       }
 
       /* About */
@@ -307,24 +259,16 @@
         border-bottom: none;
       }
 
-      .home,
-      .projects,
-      .about,
-      .contact {
-        padding-top: 3em;
-        padding-bottom: 3em;
-      }
-
-      .projects {
-        display: grid;
-        grid-template-columns: 1fr;
-      }
-
-      .home > a {
+      .source > a {
         user-select: none;
-        font-size: 1.5em;
         color: var(--elara-font-color);
         margin-top: 2em;
+      }
+
+      .logo {
+        margin-left: .5em;
+        margin-top: .5em;
+        color: var(--elara-secondary);
       }
 
       /* Contact */
@@ -332,6 +276,7 @@
         user-select: none;
         font-family: var(--elara-font-display);
       }
+
       h1::first-letter {
         font-size: 1.3em;
       }
@@ -362,7 +307,7 @@
 
       .networks svg {
         cursor: pointer;
-        min-width: 50px;
+        width: 50px;
       }
 
       .github svg {
@@ -396,7 +341,6 @@
 
       a {
         text-decoration: none;
-        color: var(--elara-primary);
         cursor: pointer;
       }
 
@@ -405,10 +349,7 @@
         padding: 0;
         background-color: var(--elara-background-color);
         font-family: var(--elara-font-primary);
-        font-size: 16px;
-        height: 100vh;
-        width: 100vw;
-        overflow-x: hidden;
+        font-size: 14px;
       }
 
       .handler {
@@ -495,17 +436,6 @@
         z-index: 0;
         visibility: hidden;
       }
-
-      .menu {
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 45px;
-        width: 45px;
-        color: var(--elara-font-color);
-        z-index: 0;
-      }
-
       .content.full-width {
         margin: 0;
         padding: 0;
@@ -518,40 +448,38 @@
       }
 
       body.day {
-        --elara-background-color: #f2f2f2;
+        --elara-background-color: #c1c1c1;
         --elara-font-color: #2f2f2f;
         --elara-font-hover: rgb(0, 0, 0, 0.3);
       }
 
-      .pagination {
+      .header {
+        height: 80px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        user-select: none;
-        width: 97%;
+        justify-content: flex-start;
+        margin-bottom: 3em;
       }
 
-      .pagination a {
-        cursor: pointer;
-        font-weight: bold;
-        transition: color 0.3s;
-        user-select: none;
+      .logotype {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+      }
+
+      .logotype span {
         color: var(--elara-font-color);
-      }
-
-      .pagination a:hover {
-        color: var(--elara-primary);
+        margin-left: -100px
       }
 
       /* Menu */
       .menu {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: 15px;
+        right: 15px;
         height: 45px;
         width: 45px;
         color: var(--elara-font-color);
-        counter-reset: menuitem;
         z-index: 999;
       }
 
@@ -559,10 +487,10 @@
         position: fixed;
         top: 0;
         right: 0;
-        left: var(--aside-size);
+        left: 0;
         bottom: 0;
 
-        background-color: #848383;
+        background-color: rgb(132 131 131 / 80%);
         color: var(--elara-lightgray);
         display: none;
 
@@ -593,8 +521,6 @@
       }
 
       .menu-content .item::before {
-        counter-increment: menuitem;
-        content: counters(menuitem, '');
         position: absolute;
         font-size: 0.85rem;
         top: 25%;
@@ -635,12 +561,55 @@
       }
 
       main.content {
-        position: absolute;
-        left: var(--aside-size);
-        padding-left: calc(var(--aside-size) - 50px);
-        right: 15px;
         color: var(--elara-font-color);
         height: 100%;
+        margin: 3em 2em;
+        position: relative;
+        min-height: 100%;
+      }
+
+      main.content h1 {
+        margin-bottom: 1em;
+      }
+
+      .content-wrap {
+        position: relative;
+        padding-bottom: 100px;    
+        min-height: 72vh;
+      }
+
+      .breadcrumbs {
+        color: var(--elara-font-color);
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .breadcrumb {
+        font-size: 16px;
+        color: var(--elara-font-color);
+      }
+
+      .breadcrumb:first-child {
+        margin-left: 1em;
+      }
+
+      .breadcrumb.active {
+        color: var(--elara-font-hover);
+      }
+
+      .breadcrumb:not(:first-of-type):before {
+        content: '\E5CC';
+        color: var(--elara-font-primary);
+        vertical-align: top;
+        display: inline-block;
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 25px;
+        margin: 0 10px 0 8px;
+        -webkit-font-smoothing: antialiased;
       }
 
       #overlay {
@@ -654,11 +623,100 @@
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 0;
       }
+
+      .font-color {
+        color: var(--elara-font-color);
+        user-select: none;
+      }
+
+      mwc-formfield {
+        user-select: none;
+      }
+
+      .footer {
+        padding-top: 1em;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        background-color: rgba(0,0,0,.3);
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 100px;
+        user-select: none;
+      }
+
+      .footer > * {
+        user-select: none;
+        margin-bottom: .5em;
+      }
+
+      .footer .night-switch {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        grid-gap: 15px;
+        margin-top: 10px;
+      }
+
+      .code-block {
+        background-color: rgba(0,0,0,.1);
+      }
+
+      .workbench {
+        padding: 2px 5px;
+        width: 100%;
+        border-radius: 2px;
+        display: grid;
+        grid-template-columns: repeat(3, 20px) 1fr;
+        background-color: rgba(0,0,0,.3);
+      }
+
+      .workbench .red {
+        background-color: #f44336;
+      }
+      .workbench .yellow {
+        background-color: #ffeb3b;
+      }
+      .workbench .green {
+        background-color: #4caf50;
+      }
+      .workbench .circle {
+        place-self: center center;
+        height: 15px;
+        width: 15px;
+        border-radius: 100%;
+      }
+      .workbench .file-name {
+        place-self: flex-end;
+        user-select: none;
+        color: var(--elara-font-color);
+        font-weight: 300;
+        padding: 0;
+      }
+
+      @media (min-width: 690px) {
+        .projects {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        main.content {
+          margin: 3em 5em;
+        }
+
+        .footer {
+          position: fixed;
+          padding-top: 0;
+          flex-direction: row;
+        }
+      }
     </style>
     <noscript>JavaScript is needed to use this website.</noscript>
     <script src="./boot.js"></script>
     <script src="./vendor/webcomponents-loader.js" defer></script>
-    <script src="./vendor/web-animations-next-lite.min.js" defer></script>
     <script src="./vendor/custom-elements-es5-adapter.js" defer></script>
   </head>
   <body>

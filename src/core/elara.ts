@@ -1,4 +1,4 @@
-import { pulseWith } from './animations';
+import { fadeWith } from './animations';
 import { MenuElement } from '../atoms/menu';
 import { ElaraApp } from '../elara-app';
 
@@ -96,7 +96,7 @@ export async function load(
       return;
     }
 
-    const animation = pulseWith(300);
+    const animation = fadeWith(300, true);
     pageContent.animate(animation.effect, animation.options);
   });
 }

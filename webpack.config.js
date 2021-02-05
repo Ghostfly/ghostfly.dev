@@ -13,31 +13,26 @@ const OUTPUT_PATH = ENV === 'production' ? resolve('dist') : resolve('src');
 const INDEX_TEMPLATE = resolve('./src/index.html');
 
 const webcomponentsjs = './node_modules/@webcomponents/webcomponentsjs';
-const webanimationsjs = './node_modules/web-animations-js';
 
 const assets = [
   {
     from: resolve('./src/assets'),
     to: resolve('dist/assets/'),
-  },
+  }
 ];
 
 const polyfills = [
   {
     from: resolve(`${webcomponentsjs}/webcomponents-*.js`),
-    to: join(OUTPUT_PATH, 'vendor'),
+    to: join(OUTPUT_PATH, 'vendor', '[name].[ext]'),
   },
   {
     from: resolve(`${webcomponentsjs}/bundles/*.js`),
-    to: join(OUTPUT_PATH, 'vendor', 'bundles'),
+    to: join(OUTPUT_PATH, 'vendor', 'bundles', '[name].[ext]'),
   },
   {
     from: resolve(`${webcomponentsjs}/custom-elements-es5-adapter.js`),
-    to: join(OUTPUT_PATH, 'vendor'),
-  },
-  {
-    from: resolve(`${webanimationsjs}/web-animations-next-lite.min.js`),
-    to: join(OUTPUT_PATH, 'vendor'),
+    to: join(OUTPUT_PATH, 'vendor', '[name].[ext]'),
   },
   {
     from: resolve('./src/robots.txt'),
@@ -54,7 +49,7 @@ const polyfills = [
   {
     from: resolve('./src/boot.js'),
     to: OUTPUT_PATH,
-  },
+  }
 ];
 
 const commonConfig = merge([
@@ -83,6 +78,10 @@ const commonConfig = merge([
           test: /\.tsx?$/,
           loader: 'ts-loader',
           exclude: /node_modules/,
+        },
+        {
+          test: /\.txt?$/,
+          loader: 'raw-loader'
         },
       ],
     },

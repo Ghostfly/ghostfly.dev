@@ -127,11 +127,6 @@ export class Contact extends Page {
           this._makeLink(link.label, link.link, link.svg)
         )}
       </div>
-      <div class="pagination">
-        <a class="prev" @click=${() => Elara().router.navigate('projects')}
-          >< Projects</a
-        >
-      </div>
     </div>`;
   }
 

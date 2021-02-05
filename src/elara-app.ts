@@ -38,9 +38,9 @@ export class ElaraApp extends Root {
   public connectedCallback(): void {
 	  super.connectedCallback();
 	  if (document.body.classList.contains('night')) {
-		this._mode = 'night';
-		this.requestUpdate();
-	}
+      this._mode = 'night';
+      this.requestUpdate();
+	  }
   }
 
   public render(): TemplateResult {

@@ -1,18 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 // @ts-check
 
-function makeGenericHandler() {
-  const handler = document.createElement('div');
-  handler.id = handler.className = 'handler';
-  handler.innerHTML =
-    '<div class="handler-content"><div id="spinner" class="spinner large"></div></div>';
-  return handler;
-}
-
 function _onDomLoaded() {
-  const handler = makeGenericHandler();
-  document.body.appendChild(handler);
-
   const loadingPromises = [];
   const neededElements = [];
 
@@ -32,6 +21,8 @@ function _onDomLoaded() {
       if (spinner) {
         spinner.parentElement.removeChild(spinner);
       }
+
+      const handler = document.querySelector('#handler');
 
       handler.classList.add('hidden');
       handler.parentElement.removeChild(handler);

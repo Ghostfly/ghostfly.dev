@@ -16,9 +16,11 @@
     "@webcomponents/webcomponentsjs": "^2.5.0",
     "highlight.js": "^10.5.0",
     "lit-element": "^2.4.0",
+    "rxjs": "^6.6.3",
     "web-animations-js": "^2.3.2"
   },
   "devDependencies": {
+    "@types/css-font-loading-module": "0.0.4",
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "@typescript-eslint/parser": "^4.14.2",
     "clean-webpack-plugin": "^3.0.0",

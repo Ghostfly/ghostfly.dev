@@ -13,7 +13,9 @@ import {
 import { pulseWith } from '../core/animations';
 import { ElaraSpinner } from './spinner';
 import { Elara } from '../core/elara';
-
+import { fromFetch } from 'rxjs/fetch';
+import { catchError, switchMap, tap } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
 interface GithubRepository {
   node: {
     description: string;
@@ -87,32 +89,36 @@ export class GithubWork extends LitElement {
         atob('ZDQ0Y2JmYjVlOGRiOTRjMjJkNThlYjg4ZjFlNjIyODM4YzQ1N2Q3Mg==')
     );
 
-    try {
-      const req = await fetch('https://api.github.com/graphql', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(queryObj),
-      });
-
-      this._hideSpinner();
-
-      if (req.status === 200) {
-        const text = await req.text();
-        const repos = JSON.parse(text);
-        const filtered = this._reposByUpdateDate(repos.data.search.edges);
+    const loading$ = fromFetch('https://api.github.com/graphql', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(queryObj),
+    }).pipe(
+      switchMap(response => response.json()),
+      switchMap(response => {
+        const filtered = this._reposByUpdateDate(response.data.search.edges);
 
         this.repositories = this._chunk(filtered, this.chunksLength);
-
         this.currentPage = this.repositories[this.page];
-        await this.updateComplete;
-        this._pulse();
-      } else if (req.status === 403) {
+
+        return this.updateComplete;
+      }),
+      tap(() => {
+        this.inError = false;
+        this._hideSpinner();
+      }),
+      switchMap(() => {
+        return this._pulse();
+      }),
+      catchError(_ => {
+        this._hideSpinner();
         this.inError = true;
-      }
-    } catch (err) {
-      this._hideSpinner();
-      this.inError = true;
-    }
+
+        return EMPTY;
+      })
+    );
+
+    await loading$.toPromise();
   }
 
   private _chunk(arr: GithubRepository[], len: number) {

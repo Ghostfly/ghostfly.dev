@@ -110,8 +110,8 @@ export class ElaraApp extends Root {
       return;
     }
 
-    if (!this.content.classList.contains('hidden')) {
-      this.content.classList.add('hidden');
+    if (!this._content.classList.contains('hidden')) {
+      this._content.classList.add('hidden');
     }
 
     if (this._menu.shown === false) {
@@ -134,7 +134,7 @@ export class ElaraApp extends Root {
 
     await this._menuFade.finished;
 
-    this.content.classList.remove('hidden');
+    this._content.classList.remove('hidden');
     this._menu.shown = false;
     this._menuFade = null;
   }

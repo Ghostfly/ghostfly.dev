@@ -29,8 +29,7 @@ export class MenuElement extends LitElement {
       <div class="menu-content ${this.shown === true ? 'shown' : ''}" @click=${(e: Event) => {
         const linkOrMenu = e.target as HTMLElement;
         if(linkOrMenu.classList.contains('menu-content')){
-          this.shown = false;
-          Elara().content.classList.remove('hidden');
+          Elara().hideMenu();
         }
       }}>
         ${repeat(this.items, link => this._link(link))}

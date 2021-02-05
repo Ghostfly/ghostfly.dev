@@ -17,7 +17,7 @@ export default abstract class Root extends LitElement {
   public route: string;
 
   @query('#content')
-  public content: HTMLDivElement;
+  protected _content: HTMLDivElement;
 
   @query('#menu')
   protected _menu: MenuElement;
@@ -137,13 +137,13 @@ export default abstract class Root extends LitElement {
     const route = this.router.hashChange(event);
     this.route = route;
 
-    this.content.innerHTML = '';
+    this._content.innerHTML = '';
     await this.load(route);
   }
 
   public async load(route: string): Promise<void> {
-    this.content.scrollTop = 0;
+    this._content.scrollTop = 0;
 
-    return load(route, this.content, this._menu, this._menuFade);
+    return load(route, this._content, this._menu, this._menuFade);
   }
 }

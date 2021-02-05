@@ -101,19 +101,20 @@ export class Projects extends Page {
   private _card(project: Project) {
     return html` <section class="project">
       <div class="project-grid">
-        <div class="left ${project.image ? 'enabled' : 'disabled'}" @click=${() => {
+        <div
+          class="left ${project.image ? 'enabled' : 'disabled'}"
+          @click=${() => {
             if (project.url) {
               Elara().router.redirect(project.url);
             }
-          }}>
+          }}
+        >
           ${project.image
             ? html`<img alt="${project.name}" src="${project.image}" />`
             : html``}
         </div>
-        <div
-          class="right"
-        >
-        <h3
+        <div class="right">
+          <h3
             class="${project.slug} ${project.url ? 'with-link' : 'normal'}"
             role="${project.url ? 'link' : 'title'}"
             @click=${() => {

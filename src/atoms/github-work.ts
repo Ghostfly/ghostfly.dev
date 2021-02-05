@@ -186,7 +186,7 @@ export class GithubWork extends LitElement {
             font-weight: bold;
         }
 
-        @media (min-width: 575px){
+        @media (min-width: 640px){
             .two-cols {
                 display: grid;
                 grid-gap: 20px;

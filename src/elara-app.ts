@@ -56,7 +56,7 @@ export class ElaraApp extends Root {
           @click=${this._showMenu}
         ></mwc-icon-button>
         <a href="#!home" class="logo">
-          <elara-spinner></elara-spinner>
+          // .
         </a>
         <wave-shape
           class="waves"

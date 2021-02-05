@@ -52,9 +52,7 @@ export class ElaraApp extends Root {
           aria-label="Menu"
           @click=${this._showMenu}
         ></mwc-icon-button>
-        <a href="#!home" class="logo">
-          // .
-        </a>
+        <a href="#!home" class="logo"> // . </a>
         <wave-shape
           class="waves"
           position="bottomWave"

@@ -140,7 +140,8 @@ body {
   position: relative;
   margin: 0 auto;
 
-  &::before, &::after {
+  &::before,
+  &::after {
     content: '';
     display: block;
     width: 100%;
@@ -190,7 +191,7 @@ h1::first-letter {
     color: var(--elara-font-color);
     cursor: pointer;
     transition: color 0.3s;
-  
+
     &:hover {
       color: var(--elara-font-hover);
     }
@@ -240,7 +241,7 @@ h1::first-letter {
   .enabled {
     cursor: pointer;
   }
-  
+
   @media (min-width: 690px) {
     .project-grid {
       grid-template-columns: repeat(2, 1fr);
@@ -280,7 +281,8 @@ h1::first-letter {
     color: var(--elara-font-color);
     box-shadow: var(--box-elevation-1);
 
-    &.instagram, &.github {
+    &.instagram,
+    &.github {
       svg {
         fill: var(--elara-font-color);
       }
@@ -294,34 +296,34 @@ h1::first-letter {
   .github svg {
     fill: #24292e;
   }
-  
+
   .twitter svg {
     fill: #1da1f2;
   }
-  
+
   .youtube svg {
     fill: #ff0000;
   }
-  
+
   .linkedin svg {
     fill: #0073b0;
   }
-  
+
   .facebook svg {
     fill: #3b5998;
   }
-  
+
   .instagram svg {
     fill: #333;
   }
-  
+
   .medium svg {
     fill: #3cb371;
   }
 }
 
 .content {
-  transition: opacity .1s;
+  transition: opacity 0.1s;
   &.hidden {
     opacity: 0.5;
     z-index: 0;
@@ -407,7 +409,8 @@ h1::first-letter {
       transform-origin: 100% 50%;
     }
 
-    &:hover, &.active {
+    &:hover,
+    &.active {
       color: #5a5a5a;
 
       &::after {
@@ -598,7 +601,7 @@ mwc-formfield {
 /* HLJS */
 .hljs-comment,
 .hljs-quote {
-    color: #969896
+  color: #969896;
 }
 
 .hljs-deletion,
@@ -609,7 +612,7 @@ mwc-formfield {
 .hljs-tag,
 .hljs-template-variable,
 .hljs-variable {
-    color: #c66
+  color: #c66;
 }
 
 .hljs-built_in,
@@ -620,54 +623,53 @@ mwc-formfield {
 .hljs-number,
 .hljs-params,
 .hljs-type {
-    color: #de935f
+  color: #de935f;
 }
 
 .hljs-attribute {
-    color: #f0c674
+  color: #f0c674;
 }
 
 .hljs-addition,
 .hljs-bullet,
 .hljs-string,
 .hljs-symbol {
-    color: #b5bd68
+  color: #b5bd68;
 }
 
 .hljs-section,
 .hljs-title {
-    color: #81a2be
+  color: #81a2be;
 }
 
 .hljs-keyword,
 .hljs-selector-tag {
-    color: #b294bb
+  color: #b294bb;
 }
 
 .hljs {
-    display: block;
-    overflow-x: auto;
-    background: #1d1f21;
-    color: #c5c8c6;
-    padding: 1em;
-    font-size: .7em;
-    transition: font-size .3s ease-in;
+  display: block;
+  overflow-x: auto;
+  background: #1d1f21;
+  color: #c5c8c6;
+  padding: 1em;
+  font-size: 0.7em;
+  transition: font-size 0.3s ease-in;
 }
 
-@media (min-width: 570px){
+@media (min-width: 570px) {
   .hljs {
     font-size: 0.8em;
   }
 }
 
 .hljs-emphasis {
-    font-style: italic
+  font-style: italic;
 }
 
 .hljs-strong {
-    font-weight: 700
+  font-weight: 700;
 }
-
 
 /**
  * Animations 

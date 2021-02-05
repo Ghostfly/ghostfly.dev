@@ -59,11 +59,15 @@ export default abstract class Root extends LitElement {
     const matchDark = window.matchMedia(this._queries.DARK);
     const matchLight = window.matchMedia(this._queries.LIGHT);
 
-    if(matchDark.matches){ document.body.classList.add('night'); }
-    if(matchLight.matches){ document.body.classList.add('day'); }
+    if (matchDark.matches) {
+      document.body.classList.add('night');
+    }
+    if (matchLight.matches) {
+      document.body.classList.add('day');
+    }
 
-    matchDark.addEventListener('change', e => {
-      if(e.matches){
+    matchDark.addEventListener('change', (e) => {
+      if (e.matches) {
         this._mode = 'night';
         document.body.classList.remove('day');
         document.body.classList.add(this._mode);
@@ -71,8 +75,8 @@ export default abstract class Root extends LitElement {
       }
     });
 
-    matchLight.addEventListener('change', e => {
-      if(e.matches){
+    matchLight.addEventListener('change', (e) => {
+      if (e.matches) {
         this._mode = 'day';
         document.body.classList.remove('night');
         document.body.classList.add(this._mode);

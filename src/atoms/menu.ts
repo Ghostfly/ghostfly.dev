@@ -26,13 +26,16 @@ export class MenuElement extends LitElement {
 
   public render(): TemplateResult {
     return html`
-      <div class="menu-content ${this.shown === true ? 'shown' : ''}" @click=${(e: Event) => {
-        const linkOrMenu = e.target as HTMLElement;
-        if(linkOrMenu.classList.contains('menu-content')){
-          Elara().hideMenu();
-        }
-      }}>
-        ${repeat(this.items, link => this._link(link))}
+      <div
+        class="menu-content ${this.shown === true ? 'shown' : ''}"
+        @click=${(e: Event) => {
+          const linkOrMenu = e.target as HTMLElement;
+          if (linkOrMenu.classList.contains('menu-content')) {
+            Elara().hideMenu();
+          }
+        }}
+      >
+        ${repeat(this.items, (link) => this._link(link))}
       </div>
     `;
   }

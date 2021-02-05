@@ -99,8 +99,9 @@ export class Projects extends Page {
   }
 
   private _card(project: Project) {
-    return html` <section class="project">
-      <div class="hidden-content project-grid">
+    return html`
+    <section class="project">
+      <div class="project-grid">
         <div class="left">
           <h3
             class="${project.slug} ${project.url ? 'with-link' : 'normal'}"
@@ -116,7 +117,7 @@ export class Projects extends Page {
           <div class="tags">${project.tags.join(', ')}</div>
           <br />
           <div
-            class="status ${project.repository ? 'enabled' : 'disabled'}"
+            class="status ${project.repository ? 'enabled with-link' : 'disabled'}"
             @click=${() => {
               if (project.repository) {
                 Elara().router.redirect(project.repository);
@@ -148,7 +149,7 @@ export class Projects extends Page {
           }}
         >
           ${project.image
-            ? html`<img sizing="contain" src="${project.image}"></img>`
+            ? html`<img alt="${project.name}" src="${project.image}" />`
             : html``}
         </div>
       </div>

@@ -111,10 +111,10 @@
         --elara-lightgray: #f2f2f2;
         --elara-background-color: #f2f2f2;
         --elara-font-color: #2f2f2f;
-        --elara-font-hover: rgb(0, 0, 0, 0.3);
+        --elara-font-hover: rgb(0, 0, 0, 0.8);
         --elara-link: #2f2f2f;
         --elara-primary: #525252;
-        --elara-secondary: #0b7282;
+        --elara-secondary: #50afbd;
         --elara-cta: #e8e8d4;
         --elara-color: #ffffff;
         --elara-input-container: #6b6b6b;
@@ -197,11 +197,6 @@
         color: var(--elara-font-hover);
       }
 
-      .project .hidden-content {
-        position: relative;
-        min-height: 100px;
-      }
-
       .project-grid {
         display: grid;
         grid-template-columns: 1fr;
@@ -218,7 +213,7 @@
         margin: 0.5em;
       }
 
-      .hidden-content .right {
+      .project .right {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -228,14 +223,13 @@
         border-radius: 2px;
       }
 
-      .night .hidden-content .right {
+      .night .project .right {
         background-color: white;
       }
 
-      .hidden-content img {
+      .project img {
         height: 165px;
         width: 165px;
-        visibility: hidden;
       }
 
       img {
@@ -246,23 +240,25 @@
         visibility: visible;
       }
 
-      .hidden-content .enabled {
+      .project .enabled {
         cursor: pointer;
       }
-      .hidden-content svg {
+      .project svg {
         height: 1em;
         width: 1em;
         fill: var(--elara-font-color);
       }
 
-      .hidden-content .left > .tags,
-      .hidden-content .left > .status {
-        opacity: 0;
+      .project .left > h3,
+      .project .left > .tags,
+      .project .left > .status {
+        opacity: .5;
         transition: opacity 0.4s;
       }
-
-      .hidden-content:hover .left > .tags,
-      .hidden-content:hover .left > .status {
+      
+      .project:hover .left > h3,
+      .project:hover .left > .tags,
+      .project:hover .left > .status {
         opacity: 1;
       }
 
@@ -452,7 +448,7 @@
       }
 
       body.day {
-        --elara-background-color: #c1c1c1;
+        --elara-background-color: #f2f2f2;
         --elara-font-color: #2f2f2f;
         --elara-font-hover: rgb(0, 0, 0, 0.3);
       }

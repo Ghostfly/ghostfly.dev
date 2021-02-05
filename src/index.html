@@ -124,7 +124,7 @@
         --elara-input-focus: #3f4a50;
         --elara-loader-background: rgba(255, 255, 255, 0.8);
         --elara-light-background: rgba(255, 255, 255, 0.9);
-        --elara-highlight: #f2f2f2;
+        --elara-highlight: #605b37;
         --elara-font-primary: 'Hind', sans-serif;
         --elara-font-display: 'Questrial', serif;
         --box-elevation-1: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
@@ -149,6 +149,21 @@
         -webkit-user-select: text;
         -moz-user-select: text;
         -ms-user-select: text;
+      }
+
+      
+      .night ::selection {
+        background: #324a4e;
+      }
+      .night ::-moz-selection {
+        background: #324a4e;
+      }
+
+      .day ::selection {
+        background: #f3f3f3;
+      }
+      .day ::-moz-selection {
+        background: #f3f3f3;
       }
 
       /* About */
@@ -330,13 +345,6 @@
       }
       .medium svg {
         fill: #3cb371;
-      }
-
-      ::selection {
-        background: #ffeb3b; /* WebKit/Blink Browsers */
-      }
-      ::-moz-selection {
-        background: #ffeb3b; /* Gecko Browsers */
       }
 
       a {

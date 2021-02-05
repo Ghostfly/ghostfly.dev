@@ -195,6 +195,7 @@ export class GithubWork extends LitElement {
             align-items: center;
             user-select: none;
             font-size: 1.2em;
+            margin-top: 1em;
         }
 
         .repos  {

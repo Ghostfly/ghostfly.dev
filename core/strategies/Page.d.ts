@@ -7,6 +7,7 @@ export interface ElaraHelmet {
     slug: string | null;
 }
 export default class Page extends LitElement {
+    isFullWidth: boolean;
     get head(): ElaraHelmet;
     createRenderRoot(): this;
 }

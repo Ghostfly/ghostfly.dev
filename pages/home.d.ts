@@ -1,6 +1,7 @@
 import Page, { ElaraHelmet } from '../core/strategies/Page';
 import { TemplateResult } from 'lit-element';
 export declare class Home extends Page {
+    isFullWidth: boolean;
     codeBlock: HTMLElement;
     get head(): ElaraHelmet;
     connectedCallback(): void;

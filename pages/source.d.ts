@@ -1,14 +1,12 @@
 import Page, { ElaraHelmet } from '../core/strategies/Page';
 import { TemplateResult } from 'lit-element';
-export declare class Home extends Page {
-    codeBlock: HTMLElement;
+import '../atoms/github-work';
+export declare class OpenSource extends Page {
     get head(): ElaraHelmet;
-    connectedCallback(): void;
-    firstUpdated(_changedProperties: Map<string | number | symbol, unknown>): void;
     render(): TemplateResult;
 }
 declare global {
     interface HTMLElementTagNameMap {
-        'ui-home': Home;
+        'ui-source': OpenSource;
     }
 }

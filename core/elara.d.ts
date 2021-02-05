@@ -24,8 +24,8 @@ export declare function Router(): {
     hashChange(event: HashChangeEvent): string | null;
 };
 /**
-* Convert a remote url to an image data-url
-*
-* @param src remote url
-*/
+ * Convert a remote url to an image data-url
+ *
+ * @param src remote url
+ */
 export declare function toDataURL(src: string): Promise<string>;

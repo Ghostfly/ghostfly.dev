@@ -4,13 +4,16 @@ import './atoms/spinner';
 import './pages/index';
 import './atoms/not-found';
 import './atoms/menu';
+import './atoms/waves';
 export declare class ElaraApp extends Root {
     static readonly is: string;
+    private _mode;
     get loadables(): string[];
     get links(): {
         route: string;
         name: string;
     }[];
+    connectedCallback(): void;
     render(): TemplateResult;
     protected _showMenu(): Promise<void>;
     hideMenu(): Promise<void>;

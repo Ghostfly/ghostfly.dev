@@ -9,6 +9,8 @@ import Code from '../assets/presentation.txt';
 
 @customElement('ui-home')
 export class Home extends Page {
+  public isFullWidth = false;
+
   @query('pre code')
   public codeBlock!: HTMLElement;
 

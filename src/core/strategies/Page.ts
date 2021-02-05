@@ -9,6 +9,8 @@ export interface ElaraHelmet {
 }
 
 export default class Page extends LitElement {
+  public isFullWidth = true;
+
   public get head(): ElaraHelmet {
     return {
       title: null,

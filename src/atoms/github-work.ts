@@ -110,7 +110,7 @@ export class GithubWork extends LitElement {
       switchMap(() => {
         return this._pulse();
       }),
-      catchError((_) => {
+      catchError(() => {
         this._hideSpinner();
         this.inError = true;
 

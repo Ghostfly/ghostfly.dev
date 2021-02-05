@@ -14,9 +14,6 @@
     "outDir": "./dist/",
     "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "typeRoots": [
-      "./node_modules/@types",
-      "./src/index.d.ts",
-    ]
+    "typeRoots": ["./node_modules/@types", "./src/index.d.ts"]
   }
 }

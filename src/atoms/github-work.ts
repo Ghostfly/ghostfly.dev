@@ -94,8 +94,8 @@ export class GithubWork extends LitElement {
       headers,
       body: JSON.stringify(queryObj),
     }).pipe(
-      switchMap(response => response.json()),
-      switchMap(response => {
+      switchMap((response) => response.json()),
+      switchMap((response) => {
         const filtered = this._reposByUpdateDate(response.data.search.edges);
 
         this.repositories = this._chunk(filtered, this.chunksLength);
@@ -110,7 +110,7 @@ export class GithubWork extends LitElement {
       switchMap(() => {
         return this._pulse();
       }),
-      catchError(_ => {
+      catchError((_) => {
         this._hideSpinner();
         this.inError = true;
 

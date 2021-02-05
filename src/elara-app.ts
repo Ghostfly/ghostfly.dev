@@ -17,7 +17,7 @@ import(/* webpackChunkName: "mwc" */ './vendors');
 @customElement('elara-app')
 export class ElaraApp extends Root {
   public static readonly is: string = 'elara-app';
-  
+
   @property({ type: String, reflect: false, noAccessor: true })
   private _mode: 'day' | 'night' = 'day';
 
@@ -27,7 +27,7 @@ export class ElaraApp extends Root {
 
   public get links(): { route: string; name: string }[] {
     return [
-	    { route: 'home', name: 'Home' },
+      { route: 'home', name: 'Home' },
       // { route: 'about', name: 'About' },
       { route: 'projects', name: 'Projects' },
       { route: 'source', name: 'Source' },
@@ -36,56 +36,71 @@ export class ElaraApp extends Root {
   }
 
   public connectedCallback(): void {
-	  super.connectedCallback();
-	  if (document.body.classList.contains('night')) {
+    super.connectedCallback();
+    if (document.body.classList.contains('night')) {
       this._mode = 'night';
       this.requestUpdate();
-	  }
+    }
   }
 
   public render(): TemplateResult {
-	return html`
-	  <div class="header">
-      <mwc-icon-button
+    return html`
+      <div class="header">
+        <mwc-icon-button
           id="handle"
           class="menu"
           icon="menu"
           aria-label="Menu"
           @click=${this._showMenu}
-      ></mwc-icon-button>
-      <a href="#!home">
-        <div class="logotype">
-          <h1 class="logo">Léonard C.</h1>
-          <span>Full-stack developer</span>
-        </div>
-      </a>
-      <wave-shape class="waves" position="bottomWave" target=".header"></wave-shape>
-    </div>
-    <div class="content-wrap">
-      <main id="content" class="content"></main>
-      <div class="footer">
-        <nav class="breadcrumbs">
-          <div class="breadcrumbs-wrapper">
-            ${repeat(this.links, (link) => {
-              return html`
-              <a href="#!${link.route}" class="breadcrumb ${this.route === link.route ? 'active' : ''}">${link.name}</a>
-              `;
-            })}
+        ></mwc-icon-button>
+        <a href="#!home">
+          <div class="logotype">
+            <h1 class="logo">Léonard C.</h1>
+            <span>Full-stack developer</span>
           </div>
-        </nav>
-        <div class="night-switch">
-          <mwc-formfield label="Mode">
-            <mwc-switch .checked=${this._mode === 'day'} @change=${async () => {
-              const current = this.switchColors();
-              this._mode = current.day ? 'day' : 'night';
-            }}></mwc-switch>
-          </mwc-formfield>
-          <span class="font-color">&copy; Léonard C. | ${new Date().getFullYear()}</span>
+        </a>
+        <wave-shape
+          class="waves"
+          position="bottomWave"
+          target=".header"
+        ></wave-shape>
+      </div>
+      <div class="content-wrap">
+        <main id="content" class="content"></main>
+        <div class="footer">
+          <nav class="breadcrumbs">
+            <div class="breadcrumbs-wrapper">
+              ${repeat(this.links, (link) => {
+                return html`
+                  <a
+                    href="#!${link.route}"
+                    class="breadcrumb ${this.route === link.route
+                      ? 'active'
+                      : ''}"
+                    >${link.name}</a
+                  >
+                `;
+              })}
+            </div>
+          </nav>
+          <div class="night-switch">
+            <mwc-formfield label="Mode">
+              <mwc-switch
+                .checked=${this._mode === 'day'}
+                @change=${async () => {
+                  const current = this.switchColors();
+                  this._mode = current.day ? 'day' : 'night';
+                }}
+              ></mwc-switch>
+            </mwc-formfield>
+            <span class="font-color"
+              >&copy; Léonard C. | ${new Date().getFullYear()}</span
+            >
+          </div>
         </div>
       </div>
-    </div>
 
-    <ui-menu id="menu" .items=${this.links} .route=${this.route}></ui-menu>
+      <ui-menu id="menu" .items=${this.links} .route=${this.route}></ui-menu>
     `;
   }
 

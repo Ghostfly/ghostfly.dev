@@ -10,10 +10,7 @@
 
     <title>Léonard Cherouvrier - Web developer</title>
 
-    <link
-      rel="stylesheet"
-      href="./assets/highlight/github.css"
-    />
+    <link rel="stylesheet" href="./assets/highlight/github.css" />
 
     <base href="/" />
 
@@ -100,13 +97,13 @@
       }
 
       html {
-          overflow: hidden;
-          height: 100%;
+        overflow: hidden;
+        height: 100%;
       }
 
       body {
-          height: 100%;
-          overflow: auto;
+        height: 100%;
+        overflow: auto;
       }
 
       :root {
@@ -151,7 +148,6 @@
         -ms-user-select: text;
       }
 
-      
       .night ::selection {
         background: #324a4e;
       }
@@ -281,8 +277,8 @@
       }
 
       .logo {
-        margin-left: .5em;
-        margin-top: .5em;
+        margin-left: 0.5em;
+        margin-top: 0.5em;
         color: var(--elara-secondary);
       }
 
@@ -477,7 +473,7 @@
 
       .logotype span {
         color: var(--elara-font-color);
-        margin-left: -100px
+        margin-left: -100px;
       }
 
       /* Menu */
@@ -582,7 +578,7 @@
 
       .content-wrap {
         position: relative;
-        padding-bottom: 100px;    
+        padding-bottom: 100px;
         min-height: 72vh;
       }
 
@@ -643,7 +639,7 @@
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
-        background-color: rgba(0,0,0,.3);
+        background-color: rgba(0, 0, 0, 0.3);
         position: absolute;
         bottom: 0;
         width: 100%;
@@ -653,7 +649,7 @@
 
       .footer > * {
         user-select: none;
-        margin-bottom: .5em;
+        margin-bottom: 0.5em;
       }
 
       .footer .night-switch {
@@ -666,7 +662,7 @@
       }
 
       .code-block {
-        background-color: rgba(0,0,0,.1);
+        background-color: rgba(0, 0, 0, 0.1);
       }
 
       .workbench {
@@ -675,7 +671,7 @@
         border-radius: 2px;
         display: grid;
         grid-template-columns: repeat(3, 20px) 1fr;
-        background-color: rgba(0,0,0,.3);
+        background-color: rgba(0, 0, 0, 0.3);
       }
 
       .workbench .red {
@@ -724,7 +720,9 @@
     <script src="./vendor/custom-elements-es5-adapter.js" defer></script>
   </head>
   <body>
-    <div id="handler" class="handler-content handler"><div id="spinner" class="spinner large"></div></div>
+    <div id="handler" class="handler-content handler">
+      <div id="spinner" class="spinner large"></div>
+    </div>
     <elara-app></elara-app>
   </body>
   <style>

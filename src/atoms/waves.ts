@@ -1,17 +1,17 @@
 function offsetTop(element: Element, parent = null) {
-    let top = (element as HTMLElement).offsetTop;
-    while ((element = (element as HTMLElement).offsetParent)) {
-      if (parent === element) {
-        return top;
-      }
-      top += (element as HTMLElement).offsetTop;
+  let top = (element as HTMLElement).offsetTop;
+  while ((element = (element as HTMLElement).offsetParent)) {
+    if (parent === element) {
+      return top;
     }
-    return top;
+    top += (element as HTMLElement).offsetTop;
   }
+  return top;
+}
 
 /**
  * Custom element pour générer les vagues sous le header
- * 
+ *
  * Creator grafikart
  *
  * @property {ShadowRoot} root
@@ -21,15 +21,15 @@ function offsetTop(element: Element, parent = null) {
  * @property {string} position
  */
 export class Waves extends HTMLElement {
-    public static readonly is: string = 'wave-shape';
+  public static readonly is: string = 'wave-shape';
 
-    target: HTMLElement;
-    root: ShadowRoot;
-    position: string;
-    container: HTMLElement;
-    waves: Element;
-  
-  constructor () {
+  target: HTMLElement;
+  root: ShadowRoot;
+  position: string;
+  container: HTMLElement;
+  waves: Element;
+
+  constructor() {
     super();
     this.root = this.attachShadow({ mode: 'open' });
     this.matchTarget = this.matchTarget.bind(this);
@@ -39,7 +39,9 @@ export class Waves extends HTMLElement {
     const target = document.querySelector(this.getAttribute('target'));
     const image = this.backgroundImage();
     document.querySelector('.header').classList.add('is-inversed');
-    this.target = target ? document.querySelector(this.getAttribute('target')) : null;
+    this.target = target
+      ? document.querySelector(this.getAttribute('target'))
+      : null;
     this.position = this.getAttribute('position') || 'center';
     this.root.innerHTML = `
       <style>
@@ -153,7 +155,9 @@ export class Waves extends HTMLElement {
     `;
     this.container = this.root.querySelector('.waves-container');
     this.waves = this.root.querySelector('.waves');
-    const background = this.root.querySelector('.waves-background') as HTMLDivElement;
+    const background = this.root.querySelector(
+      '.waves-background'
+    ) as HTMLDivElement;
     if (image) {
       this.root.querySelector('img').addEventListener('load', () => {
         background.style.opacity = '0.96';
@@ -192,10 +196,8 @@ export class Waves extends HTMLElement {
 }
 customElements.define(Waves.is, Waves);
 
-
 declare global {
-    interface HTMLElementTagNameMap {
-      'wave-shape': Waves;
-    }
+  interface HTMLElementTagNameMap {
+    'wave-shape': Waves;
   }
-  
+}

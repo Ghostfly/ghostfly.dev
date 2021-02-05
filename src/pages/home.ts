@@ -9,7 +9,6 @@ import Code from '../assets/presentation.txt';
 
 @customElement('ui-home')
 export class Home extends Page {
-
   @query('pre code')
   public codeBlock!: HTMLElement;
 
@@ -24,22 +23,24 @@ export class Home extends Page {
   }
 
   public connectedCallback(): void {
-      super.connectedCallback();
+    super.connectedCallback();
   }
 
-  public firstUpdated(_changedProperties: Map<string | number | symbol, unknown>): void {
-      super.firstUpdated(_changedProperties);
-      hljs.highlightBlock(this.codeBlock);
+  public firstUpdated(
+    _changedProperties: Map<string | number | symbol, unknown>
+  ): void {
+    super.firstUpdated(_changedProperties);
+    hljs.highlightBlock(this.codeBlock);
   }
 
   public render(): TemplateResult {
     return html`
       <div class="home code-block">
         <div class="workbench">
-            <div class="red circle"></div>
-            <div class="yellow circle"></div>
-            <div class="green circle"></div>
-            <p class="file-name">Home.ts</p>
+          <div class="red circle"></div>
+          <div class="yellow circle"></div>
+          <div class="green circle"></div>
+          <p class="file-name">Home.ts</p>
         </div>
         <pre><code class="typescript">${Code}</code></pre>
       </div>

@@ -18,7 +18,7 @@ const assets = [
   {
     from: resolve('./src/assets'),
     to: resolve('dist/assets/'),
-  }
+  },
 ];
 
 const polyfills = [
@@ -49,7 +49,7 @@ const polyfills = [
   {
     from: resolve('./src/boot.js'),
     to: OUTPUT_PATH,
-  }
+  },
 ];
 
 const commonConfig = merge([
@@ -81,7 +81,7 @@ const commonConfig = merge([
         },
         {
           test: /\.txt?$/,
-          loader: 'raw-loader'
+          loader: 'raw-loader',
         },
       ],
     },

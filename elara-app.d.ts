@@ -5,6 +5,7 @@ import './pages/index';
 import './atoms/not-found';
 import './atoms/menu';
 import './atoms/waves';
+import './index.scss';
 export declare class ElaraApp extends Root {
     static readonly is: string;
     private _mode;

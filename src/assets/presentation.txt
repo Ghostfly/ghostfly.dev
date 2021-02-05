@@ -15,7 +15,6 @@ function bio(): Ghostfly {
             return {
                 ide: ['VisualStudio Code', 'XCode'],
                 env: 'NodeJS',
-                preprocessor: 'SASS',
                 framework: 'LitElement',
                 others: ['git', 'cli']
             };
@@ -23,8 +22,8 @@ function bio(): Ghostfly {
 
         hobbies: {
             sports: ['Skiing', 'Cycling', 'Slackline', 'Travel'],
-            musique: ['Guitar', 'Ukulele'],
-            others: ['Cryptocurrencies', 'Decentralization']
+            others: ['Meditation', 'Cryptocurrencies', 'Decentralization'],
+            music: ['Guitar', 'Ukulele'],
         }
     };
 }

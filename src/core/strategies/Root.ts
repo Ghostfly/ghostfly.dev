@@ -28,6 +28,9 @@ export default abstract class Root extends LitElement {
     LIGHT: '(prefers-color-scheme: light)',
   };
 
+  @property({ type: String, reflect: false, noAccessor: true })
+  protected _mode: 'day' | 'night' = 'day';
+
   private _onHashChangeListener: () => void;
 
   public abstract get loadables(): string[];
@@ -53,13 +56,29 @@ export default abstract class Root extends LitElement {
   public connectedCallback(): void {
     super.connectedCallback();
 
-    if (window.matchMedia(this._queries.DARK).matches) {
-      document.body.classList.add('night');
-    }
+    const matchDark = window.matchMedia(this._queries.DARK);
+    const matchLight = window.matchMedia(this._queries.LIGHT);
 
-    if (window.matchMedia(this._queries.LIGHT).matches) {
-      document.body.classList.add('day');
-    }
+    if(matchDark.matches){ document.body.classList.add('night'); }
+    if(matchLight.matches){ document.body.classList.add('day'); }
+
+    matchDark.addEventListener('change', e => {
+      if(e.matches){
+        this._mode = 'night';
+        document.body.classList.remove('day');
+        document.body.classList.add(this._mode);
+        this.requestUpdate('_mode');
+      }
+    });
+
+    matchLight.addEventListener('change', e => {
+      if(e.matches){
+        this._mode = 'day';
+        document.body.classList.remove('night');
+        document.body.classList.add(this._mode);
+        this.requestUpdate('_mode');
+      }
+    });
 
     this._onHashChangeListener = this._onHashChange.bind(this);
     window.addEventListener('hashchange', this._onHashChangeListener, {

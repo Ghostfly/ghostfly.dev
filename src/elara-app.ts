@@ -1,4 +1,4 @@
-import { html, customElement, TemplateResult, property } from 'lit-element';
+import { html, customElement, TemplateResult } from 'lit-element';
 import { repeat } from 'lit-html/directives/repeat';
 
 import Root from './core/strategies/Root';
@@ -19,9 +19,6 @@ import './index.scss';
 @customElement('elara-app')
 export class ElaraApp extends Root {
   public static readonly is: string = 'elara-app';
-
-  @property({ type: String, reflect: false, noAccessor: true })
-  private _mode: 'day' | 'night' = 'day';
 
   public get loadables(): string[] {
     return [];

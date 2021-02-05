@@ -6,7 +6,6 @@ import {
 } from 'lit-element';
 
 import Page, { ElaraHelmet } from '../core/strategies/Page';
-import { Elara } from '../core/elara';
 
 @customElement('ui-contact')
 export class Contact extends Page {
@@ -132,16 +131,9 @@ export class Contact extends Page {
 
   private _makeLink(label: string, link: string, svg: SVGTemplateResult) {
     return html`
-      <div
-        aria-label=${label}
-        class="item ${label.toLowerCase()}"
-        @click=${() => {
-          Elara().router.redirect(link);
-        }}
-        role="link"
-      >
+      <a class="item ${label.toLowerCase()}" aria-label=${label} href=${link}>
         ${svg}
-      </div>
+      </a>
     `;
   }
 }

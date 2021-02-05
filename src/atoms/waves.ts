@@ -79,6 +79,7 @@ export class Waves extends HTMLElement {
         height: 0;
         box-sizing: content-box;
         padding-bottom: var(--wave-height, 235px);
+        margin-top: 70px;
       }
       .waves-container.no-animation * {
         animation: none!important;

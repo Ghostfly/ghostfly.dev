@@ -47,6 +47,7 @@ export class ElaraSpinner extends LitElement {
       }
 
       .text {
+        color: var(--elara-font-color);
         justify-self: flex-end;
         font-size: 1.5em;
       }

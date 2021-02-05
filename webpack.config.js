@@ -67,6 +67,7 @@ const commonConfig = merge([
         {
           test: /\.css$/,
           use: ['css-loader'],
+          exclude: /node_modules/, 
         },
         {
           enforce: 'pre',
@@ -82,6 +83,12 @@ const commonConfig = merge([
         {
           test: /\.txt?$/,
           loader: 'raw-loader',
+          exclude: /node_modules/, 
+        },
+        { 
+          test: /\.scss?$/,
+          use: ['style-loader', 'css-loader', 'sass-loader'],
+          exclude: /node_modules/,
         },
       ],
     },

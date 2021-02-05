@@ -14,6 +14,8 @@ import './atoms/waves';
 // lazy import for other components
 import(/* webpackChunkName: "mwc" */ './vendors');
 
+import './index.scss';
+
 @customElement('elara-app')
 export class ElaraApp extends Root {
   public static readonly is: string = 'elara-app';
@@ -53,11 +55,8 @@ export class ElaraApp extends Root {
           aria-label="Menu"
           @click=${this._showMenu}
         ></mwc-icon-button>
-        <a href="#!home">
-          <div class="logotype">
-            <h1 class="logo">Léonard C.</h1>
-            <span>Full-stack developer</span>
-          </div>
+        <a href="#!home" class="logo">
+          <elara-spinner></elara-spinner>
         </a>
         <wave-shape
           class="waves"

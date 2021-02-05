@@ -142,7 +142,7 @@ export class GithubWork extends LitElement {
             user-select: none;
 
             cursor: pointer;
-            padding: 10px;
+            padding: 25px;
 
             border-radius: 5px;
             color: var(--elara-font-color);

@@ -99,8 +99,7 @@ export class Projects extends Page {
   }
 
   private _card(project: Project) {
-    return html`
-    <section class="project">
+    return html` <section class="project">
       <div class="project-grid">
         <div class="left">
           <h3
@@ -117,7 +116,9 @@ export class Projects extends Page {
           <div class="tags">${project.tags.join(', ')}</div>
           <br />
           <div
-            class="status ${project.repository ? 'enabled with-link' : 'disabled'}"
+            class="status ${project.repository
+              ? 'enabled with-link'
+              : 'disabled'}"
             @click=${() => {
               if (project.repository) {
                 Elara().router.redirect(project.repository);

@@ -13,7 +13,7 @@ function offsetTop(element: Element, parent = null) {
  * Custom element pour générer les vagues sous le header
  *
  * Creator grafikart
-*/
+ */
 export class Waves extends HTMLElement {
   public static readonly is: string = 'wave-shape';
 

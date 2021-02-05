@@ -2,7 +2,7 @@
   display: block;
   overflow-x: auto;
   padding: 0.5em 1em 2em 1.5em;
-  font-size: .8em;
+  font-size: 0.8em;
   border-radius: 2px;
   color: var(--elara-font-color);
 }
@@ -21,7 +21,7 @@
 }
 
 .day .hljs-literal {
-  color: #5a005a
+  color: #5a005a;
 }
 
 .night .hljs-keyword {
@@ -44,7 +44,7 @@
 }
 
 .day .hljs-string {
-  color: #486921
+  color: #486921;
 }
 .night .hljs-string {
   color: #00bcd4;
@@ -61,14 +61,14 @@
 }
 
 .day .hljs-title {
-  color: #305627
+  color: #305627;
 }
 
 .hljs-variable,
 .hljs-template-variable,
 .hljs-selector-id,
 .hljs-class .hljs-title {
-   color: #ffcc66;
+  color: #ffcc66;
 }
 
 .hljs-section,
@@ -93,11 +93,13 @@
   background: #eee8d5;
 }
 
-.night .hljs-attr, .night .hljs-attribute {
+.night .hljs-attr,
+.night .hljs-attribute {
   color: #f0f0f0;
 }
 
-.day .hljs-attr, .day .hljs-attribute {
+.day .hljs-attr,
+.day .hljs-attribute {
   color: #000;
 }
 

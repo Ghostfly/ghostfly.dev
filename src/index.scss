@@ -312,10 +312,10 @@ h1::first-letter {
 }
 
 .content {
+  transition: opacity .3s;
   &.hidden {
-    opacity: 0;
+    opacity: 0.5;
     z-index: 0;
-    visibility: hidden;
   }
 
   &.full-width {
@@ -337,7 +337,6 @@ h1::first-letter {
   }
 }
 
-/* Menu */
 .menu {
   position: absolute;
   top: 22px;
@@ -390,7 +389,7 @@ h1::first-letter {
       width: 100%;
       top: 50%;
       height: 6px;
-      background: #3cb371;
+      background: var(--elara-secondary);
       position: absolute;
       left: 0;
       opacity: 0;

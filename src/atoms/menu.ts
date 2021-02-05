@@ -5,6 +5,7 @@ import {
   customElement,
   TemplateResult,
 } from 'lit-element';
+import { repeat } from 'lit-html/directives/repeat';
 
 import { Elara } from '../core/elara';
 
@@ -25,8 +26,14 @@ export class MenuElement extends LitElement {
 
   public render(): TemplateResult {
     return html`
-      <div class="menu-content ${this.shown === true ? 'shown' : ''}">
-        ${this.items.map((link) => this._link(link))}
+      <div class="menu-content ${this.shown === true ? 'shown' : ''}" @click=${(e: Event) => {
+        const linkOrMenu = e.target as HTMLElement;
+        if(linkOrMenu.classList.contains('menu-content')){
+          this.shown = false;
+          Elara().content.classList.remove('hidden');
+        }
+      }}>
+        ${repeat(this.items, link => this._link(link))}
       </div>
     `;
   }

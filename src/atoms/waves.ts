@@ -102,7 +102,6 @@ export class Waves extends HTMLElement {
         bottom: 0;
         width: 100vw;
         height: auto;
-        min-width: 1440px;
         transform: translateX(-50%);
         max-height: var(--wave-height, 235px);
       }

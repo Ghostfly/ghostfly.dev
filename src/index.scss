@@ -206,16 +206,6 @@ h1::first-letter {
     font-weight: bold;
   }
 
-  .right {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding: 5px;
-    transition: background-color 0.3s;
-    border-radius: 2px;
-  }
-
   img {
     height: 165px;
     width: 165px;
@@ -231,10 +221,18 @@ h1::first-letter {
     display: grid;
     grid-template-columns: 1fr;
 
+    .right {
+      padding: 5px;
+      border-radius: 2px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+    }  
+
     .left {
       display: flex;
-      justify-content: space-between;
       flex-direction: column;
+      align-items: center;
     }
   }
 

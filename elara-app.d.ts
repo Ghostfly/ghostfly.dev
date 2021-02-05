@@ -8,7 +8,6 @@ import './atoms/waves';
 import './index.scss';
 export declare class ElaraApp extends Root {
     static readonly is: string;
-    private _mode;
     get loadables(): string[];
     get links(): {
         route: string;

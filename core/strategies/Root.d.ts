@@ -19,6 +19,7 @@ export default abstract class Root extends LitElement {
     protected _menu: MenuElement;
     protected _menuFade: Animation;
     private _queries;
+    protected _mode: 'day' | 'night';
     private _onHashChangeListener;
     abstract get loadables(): string[];
     abstract hideMenu(): void;

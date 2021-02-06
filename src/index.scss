@@ -712,3 +712,20 @@ mwc-formfield {
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
 }
+
+.ninja {
+  display: block;
+  height: 60px;
+}
+
+.day {
+  .ninja-color {
+    fill: #3d3226;
+  }
+}
+
+.night {
+  .ninja-color {
+    fill: #e2e2e2;
+  }
+}

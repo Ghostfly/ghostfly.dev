@@ -23,9 +23,6 @@ elara-app {
 
   --elara-darkgray: #2f2f2f;
   --elara-lightgray: #f2f2f2;
-  --elara-background-color: rgba(86, 86, 86, 0.7);
-  --elara-font-color: #2f2f2f;
-  --elara-font-hover: rgb(0, 0, 0, 0.8);
   --elara-link: #2f2f2f;
   --elara-primary: #525252;
   --elara-secondary: #50afbd;
@@ -65,7 +62,7 @@ elara-app {
 .night {
   --elara-background-color: #373737;
   --elara-font-color: #f0f0f0;
-  --elara-font-hover: rgb(255, 255, 255, 0.3);
+  --elara-font-hover: rgb(255, 255, 255, 0.7);
 
   ::selection {
     background: #324a4e;
@@ -78,7 +75,7 @@ elara-app {
 .day {
   --elara-background-color: #f2f2f2;
   --elara-font-color: #2f2f2f;
-  --elara-font-hover: rgb(0, 0, 0, 0.3);
+  --elara-font-hover: rgb(0, 0, 0, 0.8);
 
   ::selection {
     background: #324a4e;

@@ -17,6 +17,7 @@ export declare class ElaraApp extends Root {
     render(): TemplateResult;
     protected _showMenu(): Promise<void>;
     hideMenu(): Promise<void>;
+    private get _ninja();
 }
 declare global {
     interface HTMLElementTagNameMap {

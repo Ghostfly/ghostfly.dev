@@ -1,7 +1,5 @@
 import {
   property,
-  css,
-  CSSResult,
   html,
   customElement,
   LitElement,
@@ -62,7 +60,7 @@ export class GithubWork extends LitElement {
     this._spinner.active = false;
     const container = this._spinner.parentElement;
     container.removeChild(this._spinner);
-    this.shadowRoot.removeChild(container);
+    this.removeChild(container);
   }
 
   private _reposByUpdateDate(repos: GithubRepository[]) {
@@ -72,6 +70,10 @@ export class GithubWork extends LitElement {
         new Date(a.node.updatedAt).getTime()
       );
     });
+  }
+
+  public createRenderRoot(): this {
+    return this;
   }
 
   public async firstUpdated(): Promise<void> {
@@ -133,118 +135,16 @@ export class GithubWork extends LitElement {
     return chunks;
   }
 
-  public static get styles(): CSSResult {
-    return css`
-        .github-card {
-            justify-content: space-between;
-            display: flex;
-            flex-direction: column;
-            user-select: none;
-
-            cursor: pointer;
-            padding: 25px;
-
-            border-radius: 5px;
-            color: var(--elara-font-color);
-            transition: 0.4s ease-in-out;
-            margin: .5em 0px
-            transform: scale(1);
-            font-family: var(--elara-font-display);
-            box-shadow: var(--box-elevation-1);
-            transition: all .3s;
-            background-color: rgba(134, 134, 134, 0.2):
-        }
-
-        .github-card:hover {
-            box-shadow: var(--box-elevation-2);
-        }
-
-        .title {
-            font-size: 18px;
-            font-weight: bold;
-            margin: 1vh 0px;
-        }
-
-        .description {
-            font-size: 14px;
-            margin: 2vh 0px;
-            font-weight: bold;
-        }
-
-        .bottom {
-            margin: 1vh 0px;
-            font-size: 13px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .bottom > span {
-            display: flex;
-            align-items: center;
-            flex-direction: row;
-            font-weight: bold;
-        }
-
-        @media (min-width: 640px){
-            .two-cols {
-                display: grid;
-                grid-gap: 20px;
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        .pagination {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            user-select: none;
-            font-size: 1.2em;
-            margin-top: 1em;
-        }
-
-        .repos  {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .prev, .next {
-            cursor: pointer;
-            transition: color .3s;
-        }
-
-        .prev:hover, .next:hover {
-            color: var(--elara-primary);
-        }
-
-        .loader {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 50vh;
-        }
-
-        .link {
-            color: var(--elara-secondary);
-            text-decoration: none;
-            transition: color .3s;
-        }
-        .link:hover {
-            color: var(--elara-primary);
-        }
-        a[disabled='true'] {
-            pointer-events: none;
-            opacity: .7;
-        }
-        `;
-  }
-
   private _cardT(repository: GithubRepository) {
     return html`
       <section
+        tabindex="0"
         class="github-card"
+        @keydown=${(e: KeyboardEvent) => {
+              if(e.key === 'Enter'){
+                Elara().router.redirect(repository.node.url);
+              }
+        }}
         @click="${() => Elara().router.redirect(repository.node.url)}}"
       >
         <div class="title">${repository.node.name}</div>

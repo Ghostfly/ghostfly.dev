@@ -99,10 +99,16 @@ export class Projects extends Page {
   }
 
   private _card(project: Project) {
-    return html` <section class="project">
+    return html` <section class="project" tabindex="0">
       <div class="project-grid">
         <div
           class="left ${project.image ? 'enabled' : 'disabled'}"
+          tabindex="0"
+          @keydown=${(e: KeyboardEvent) => {
+              if(e.key === 'Enter'){
+                Elara().router.redirect(project.url);
+              }
+          }}
           @click=${() => {
             if (project.url) {
               Elara().router.redirect(project.url);
@@ -115,8 +121,14 @@ export class Projects extends Page {
         </div>
         <div class="right">
           <h3
+            tabindex="0"
             class="${project.slug} ${project.url ? 'with-link' : 'normal'}"
             role="${project.url ? 'link' : 'title'}"
+            @keydown=${(e: KeyboardEvent) => {
+              if(e.key === 'Enter'){
+                Elara().router.redirect(project.url);
+              }
+            }}
             @click=${() => {
               if (project.url) {
                 Elara().router.redirect(project.url);
@@ -131,6 +143,12 @@ export class Projects extends Page {
             class="status ${project.repository
               ? 'enabled with-link'
               : 'disabled'}"
+            tabindex="0"
+            @keydown=${(e: KeyboardEvent) => {
+              if(e.key === 'Enter'){
+                Elara().router.redirect(project.repository);
+              }
+            }}
             @click=${() => {
               if (project.repository) {
                 Elara().router.redirect(project.repository);

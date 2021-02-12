@@ -1,4 +1,4 @@
-import { CSSResult, LitElement, TemplateResult } from 'lit-element';
+import { LitElement, TemplateResult } from 'lit-element';
 import { ElaraSpinner } from './spinner';
 interface GithubRepository {
     node: {
@@ -26,9 +26,9 @@ export declare class GithubWork extends LitElement {
     chunksLength: number;
     private _hideSpinner;
     private _reposByUpdateDate;
+    createRenderRoot(): this;
     firstUpdated(): Promise<void>;
     private _chunk;
-    static get styles(): CSSResult;
     private _cardT;
     render(): TemplateResult;
     private get _paginationT();

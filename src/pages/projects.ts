@@ -64,6 +64,15 @@ export class Projects extends Page {
         ],
       },
       {
+        name: 'Thiweb',
+        slug: 'thiweb',
+        image: '/assets/projects/thiweb.svg',
+        repository: null,
+        status: 'published',
+        url: 'https://forum.thiweb.com',
+        tags: ['Community', 'PhpBB'],
+      },
+      {
         name: 'Ghostfly.dev',
         slug: 'ghostfly',
         image: '/assets/me.svg',

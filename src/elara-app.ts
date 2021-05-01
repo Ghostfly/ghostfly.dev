@@ -90,8 +90,7 @@ export class ElaraApp extends Root {
               ></mwc-switch>
             </mwc-formfield>
             <span class="font-color"
-              >&copy; Léonard C. | ${new Date().getFullYear()}</span
-            >
+              >&copy; Léonard C. | ${new Date().getFullYear()}</span>
           </div>
         </div>
       </div>

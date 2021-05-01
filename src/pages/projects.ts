@@ -8,7 +8,7 @@ import { Elara } from '../core/elara';
 interface Project {
   name: string;
   slug: string;
-  image: string;
+  image: string | { dark: string; light: string; };
   repository: null | string;
   status: 'Work in progress' | 'published' | '...';
   url: string | null;
@@ -31,6 +31,15 @@ export class Projects extends Page {
 
   private get projects(): ReadonlyArray<Project> {
     return [
+      {
+        name: 'Luna Orbit',
+        slug: 'luna-orbit',
+        image: '/assets/projects/lunaorbit.svg',
+        status: 'Work in progress',
+        repository: 'https://github.com/ghostfly/lunaorbit.space',
+        url: 'https://lunaorbit.ghostfly.dev',
+        tags: ['Lit-Element', 'Supabase', 'Terra.js', 'Tailwind'],
+      },
       {
         name: 'Cheno',
         slug: 'cheno',
@@ -132,7 +141,7 @@ export class Projects extends Page {
           <h3
             tabindex="0"
             class="${project.slug} ${project.url ? 'with-link' : 'normal'}"
-            role="${project.url ? 'link' : 'title'}"
+            role="${project.url ? 'link' : 'menuitem'}"
             @keydown=${(e: KeyboardEvent) => {
               if(e.key === 'Enter'){
                 Elara().router.redirect(project.url);

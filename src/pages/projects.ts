@@ -35,9 +35,9 @@ export class Projects extends Page {
         name: 'Luna Orbit',
         slug: 'luna-orbit',
         image: '/assets/projects/lunaorbit.svg',
-        status: 'Work in progress',
+        status: 'published',
         repository: 'https://github.com/ghostfly/lunaorbit.space',
-        url: 'https://lunaorbit.ghostfly.dev',
+        url: 'https://lunaorbit.space',
         tags: ['Lit-Element', 'Supabase', 'Terra.js', 'Tailwind'],
       },
       {
